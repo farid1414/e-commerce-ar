@@ -12,8 +12,18 @@ class Category extends Model
 
     protected $guarded = [];
     protected $hidden = [
-        'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    const RULES = [
+        'name' => 'required',
+        'image' => 'nullable|mimes:jpg,jpeg,png|max:5240',
+        'm_categories' => 'required',
+        'created_by' => 'required'
+    ];
+
+    const MESSAGE = [
+        'required' => 'param :attribute required',
     ];
 }
