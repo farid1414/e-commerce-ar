@@ -8,14 +8,14 @@
   <title>Dashboard - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  
   @include('admin.include.style')
 </head>
 
 <body>
 
- @include('admin.komponenadmin.header')
-@include('admin.komponenadmin.sidebar')
+    @include('admin.komponenadmin.header')
+    @include('admin.komponenadmin.sidebar')
 
   <main id="main" class="main">
 
@@ -28,6 +28,7 @@
         </ol>
       </nav>
     </div>
+    
 
     <section class="section dashboard">
       <div class="row">
@@ -39,7 +40,7 @@
                   <h5 class="card-title">Pelanggan Keseluruhan</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
+                      <i class="bi bi-person"></i>                    
                     </div>
                     <div class="ps-3">
                       <h6>145</h6>
@@ -58,7 +59,7 @@
                   <h5 class="card-title">Total Terjual Keseluruhan</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="bi bi-bag"></i>
                     </div>
                     <div class="ps-3">
                       <h6>20</h6>
@@ -77,7 +78,7 @@
                   <h5 class="card-title">Transaksi Keseluruhan</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="bi bi-bar-chart"></i>
                     </div>
                     <div class="ps-3">
                       <h6>20</h6>
@@ -89,6 +90,7 @@
             </div>
 
       </div>
+
        {{-- Total Pendapatan dari aplikasi bukan midtrans --}}
        <div class="row">
         <div class="col">
@@ -100,8 +102,8 @@
               <i class="bi bi-people"></i>
             </div>
             <div class="ps-3">
-              <h6>1244</h6>
-              <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+              <h6>Rp. 50.000.000</h6>
+              <span class="text-success small pt-1 fw-bold">Total Pendapatan</span>
             </div>
           </div>
         </div>
@@ -113,11 +115,11 @@
           <h5 class="card-title">Invoice Keseluruhan</h5>
           <div class="d-flex align-items-center">
             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-              <i class="bi bi-people"></i>
+              <i class="bi bi-envelope-paper"></i>
             </div>
             <div class="ps-3">
-              <h6>1244</h6>
-              <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+              <h6>44</h6>
+              <span class="text-success small pt-1 fw-bold">Total Invoice</span>
             </div>
           </div>
         </div>
@@ -128,7 +130,7 @@
 <div class="col">
 <div>
 <div class="card info-card revenue-card">
-  <div class="card-body" style="margin-bottom: -15px;">
+  <div class="card-body" style="margin-bottom: 12px;" >
     <h5 class="card-title">
       Flash Sale Sedang Berjalan
     </h5>
@@ -298,14 +300,12 @@
             </thead>
             <tbody>
               <tr>
-                <td class="text-center"><img src="assets/assets/img/product-1.jpg" alt="Meja Gaming"></td>
+                <td class="text-center"><img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="alt="Meja Gaming"></td>
                 <td class="text-center">Meja Gaming<br><span>Varian : -</span></td>
                 <td class="text-center fw-bold">Meja<br><small>Dataran</small></td>
                 <td class="text-center">Rp 1.200.000</td>
                 <td class="text-center fw-bold">20x</td>
               </tr>
-              <!-- Repeat the above <tr> block for other products -->
-              <!-- Remember to update image source, product details, and other data accordingly -->
             </tbody>
           </table>
         </div>
@@ -320,8 +320,112 @@
     <div class="card top-selling overflow-auto">
         <div class="card-body pb-0">
             <h5 class="card-title">Furnitur Pada Dataran</h5>
-            <!-- Contentdataransegerahabis / ContentprodukdataransegerahabisPC -->
-            <!-- Silakan letakkan konten Anda di sini -->
+            <table class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                      <th>Produk</th>
+                      <th>Nama Produk</th>
+                      <th>Varian</th>
+                      <th>Stok</th>
+                      <th>Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Ut inventore</td>
+                      <td class="fw-bold">
+                          Biru<br />
+                          -
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Exercitationem</td>
+                      <td class="fw-bold">
+                          Biru<br />
+                          Kuning
+                      </td>
+                      <td class="fw-bold text-center">
+                          0<br />
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Doloribus</td>
+                      <td class="fw-bold">
+                          -
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Officiis</td>
+                      <td class="fw-bold">
+                          -
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Sit unde debitis</td>
+                      <td class="fw-bold">
+                          Merah
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
         </div>
     </div>
 </div>
@@ -329,9 +433,113 @@
 <div class="col-md-6">
     <div class="card top-selling overflow-auto">
         <div class="card-body pb-0">
-            <h5 class="card-title">Furnitur Pada Dinding</h5>
-            <!-- ContentprodukdindingsegerahabisPC -->
-            <!-- Silakan letakkan konten Anda di sini -->
+          <h5 class="card-title">Furnitur Pada Dinding</h5>
+          <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Nama Produk</th>
+                    <th>Varian</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Ut inventore</td>
+                    <td class="fw-bold">
+                        Biru<br />
+                        -
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Exercitationem</td>
+                    <td class="fw-bold">
+                        Biru<br />
+                        Kuning
+                    </td>
+                    <td class="fw-bold text-center">
+                        0<br />
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Doloribus</td>
+                    <td class="fw-bold">
+                        -
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Officiis</td>
+                    <td class="fw-bold">
+                        -
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Sit unde debitis</td>
+                    <td class="fw-bold">
+                        Merah
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         </div>
     </div>
 </div>
@@ -347,8 +555,113 @@
     <div class="card top-selling overflow-auto">
         <div class="card-body pb-0">
             <h5 class="card-title">Furnitur Pada Dataran</h5>
-            <!-- Contentdataransegerahabis / ContentprodukdataransegerahabisPC -->
-            <!-- Silakan letakkan konten Anda di sini -->
+            <table class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                      <th>Produk</th>
+                      <th>Nama Produk</th>
+                      <th>Varian</th>
+                      <th>Stok</th>
+                      <th>Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Ut inventore</td>
+                      <td class="fw-bold">
+                          Biru<br />
+                          -
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Exercitationem</td>
+                      <td class="fw-bold">
+                          Biru<br />
+                          Kuning
+                      </td>
+                      <td class="fw-bold text-center">
+                          0<br />
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Doloribus</td>
+                      <td class="fw-bold">
+                          -
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Officiis</td>
+                      <td class="fw-bold">
+                          -
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <a href="#">
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                          </a>
+                      </td>
+                      <td>Sit unde debitis</td>
+                      <td class="fw-bold">
+                          Merah
+                      </td>
+                      <td class="fw-bold text-center">
+                          0
+                      </td>
+                      <td class='text-start'>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                          <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+          
         </div>
     </div>
 </div>
@@ -356,9 +669,113 @@
 <div class="col-md-6">
     <div class="card top-selling overflow-auto">
         <div class="card-body pb-0">
-            <h5 class="card-title">Furnitur Pada Dinding</h5>
-            <!-- ContentprodukdindingsegerahabisPC -->
-            <!-- Silakan letakkan konten Anda di sini -->
+          <h5 class="card-title">Furnitur Pada Dinding</h5>
+          <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Nama Produk</th>
+                    <th>Varian</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Ut inventore</td>
+                    <td class="fw-bold">
+                        Biru<br />
+                        -
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Exercitationem</td>
+                    <td class="fw-bold">
+                        Biru<br />
+                        Kuning
+                    </td>
+                    <td class="fw-bold text-center">
+                        0<br />
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Doloribus</td>
+                    <td class="fw-bold">
+                        -
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Officiis</td>
+                    <td class="fw-bold">
+                        -
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="" />
+                        </a>
+                    </td>
+                    <td>Sit unde debitis</td>
+                    <td class="fw-bold">
+                        Merah
+                    </td>
+                    <td class="fw-bold text-center">
+                        0
+                    </td>
+                    <td class='text-start'>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleUpdateStokClick()"><i class="bi bi-plus-lg me-1"></i>Stok</button>
+                        <button type="button" class="btn btn-link" style="text-decoration: none; font-size: 0.8rem;" onclick="handleArsipkanClick()">Arsipkan</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         </div>
     </div>
 </div>

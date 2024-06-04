@@ -15,3 +15,5 @@
     // Initialize AOS
     AOS.init();
   </script>
+
+<script src="https://kit.fontawesome.com/11dad0e9e6.js" crossorigin="anonymous"></script>

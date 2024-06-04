@@ -12,7 +12,7 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-menu-button-wide"></i><span>Produk</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-box"></i><span>Produk</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
@@ -89,7 +89,7 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-gem"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-graph-up-arrow"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
@@ -112,7 +112,7 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="programflashsale">
-      <i class="bi bi-person"></i>
+      <i class="bi bi-lightning-charge"></i>
       <span>Program Flash Sale</span>
     </a>
   </li><!-- End Profile Page Nav -->
