@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-white bg-white">
         <div class="container">
           <a class="navbar-brand" href="user/dashboarduser">
             <img src="../gambar/logo.png" width="auto" class="d-inline-block align-top img-fluid" alt="" style="max-height: 70px;">

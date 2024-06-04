@@ -49,13 +49,18 @@
       margin-right: 1rem;
       scroll-snap-align: start;
     }
+    .pageStyle {
+	height: 100%;
+	overflow: hidden;
+}
+
   </style>
 </head>
+@include('user.komponenuser.navbaruser')
+@include('user.include.style')
 <body>
-    @include('user.komponenuser.navbaruser')
-    @include('user.include.style')
-
     {{-- Hero --}}
+    <div class="pageStyle">
     <section id="hero" class="d-flex align-items-center my-3 mt-4">
         <div class="container">
           <div class="container">
@@ -72,16 +77,14 @@
                   </div>
                   <div class="col-lg-12 order-lg-3">
                     <div class="d-none d-lg-block">
-                      <div data-aos="fade-up" data-aos-delay="200" style="margin-bottom: 20px; font-size: 1.26rem; margin-top: 15px;">
+                      <div data-aos="fade-up" data-aos-delay="200" style="margin-bottom: 20px; font-size: 1.26rem; margin-top: 15px; margin-left: -15px">
                         Membawa sentuhan elegan dengan pilihan 
                         furnitur berkualitas tinggi yang benar-benar 
                         membuat ruangan Anda terasa seperti rumah impian.
                       </div>
-                      <button data-aos="fade-up" data-aos-delay="300" class="btn-dark btn-lg" style="border-radius: 100px; margin-top: 20px;">
-                        <span>
+                      <button data-aos="fade-up" data-aos-delay="300" class="btn-dark btn-lg" style="border-radius: 100px; margin-top: 20px; margin-left: -15px">
                           Browse Our Collection
                           <i class="fas fa-arrow-down" style="margin-left: 15px;"></i>
-                        </span>
                       </button>
                     </div>
                   </div>
@@ -116,11 +119,11 @@
                 </div>
               </div>
             </div>
-
           </div>
 
-          {{-- Kategori --}}
 
+          
+          {{-- Kategori --}}
           <div style="margin-bottom: 30px;">
             <div class="container">
               <div class="row">
@@ -160,174 +163,426 @@
             </div>
           </div>
     
-          {{-- Flash Sale --}}
-          <h1 style="font-size: 3.4vw; margin-right: 10px;">
+
+
+          {{-- PROGRAM Flash Sale --}}
+          <div class="container">
+          <h2 style="font-size: 3.4vw; margin-right: 10px;">
             <b>Flash Sale 1.1</b>
-        </h1>
-        
+        </h2>
             <div class="card-row">
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card 1</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card 2</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card 3</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card 3</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card 3</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-              <!-- Add more cards as needed -->
-            </div>
-
-
-            {{-- Produk baru di riliss --}}
-            <div class="container">
-                <p style="font-size: 2rem;">
-                  <b>Hey, New Arrivals Are Here.</b>
-                </p>
-                <div class="row">
-                  <!-- Start of Loop -->
-                  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                    <a href="/Detailproduk" style="text-decoration: none;">
-                      <div style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s;"
-                        onclick="handleProductClick(produk.id)" onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'" onmouseleave="this.style.boxShadow = 'none'">
-                        <span class="badge bg-danger" style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
-                        <img src="produk.image" alt="Product" style="width: 100%; height: 200px;">
+              <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                <a href="/Detailproduk" style="text-decoration: none;">
+                    <div class="card"
+                        style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                        onclick="handleProductClick(produk.id)"
+                        onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                        onmouseleave="this.style.boxShadow = 'none'">
+                        <span class="badge bg-danger"
+                            style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                            style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                         <div class="card-body">
-                          <p class="fw-bold" style="font-size: 1rem;">{/* Penting */} shortenTitle(produk.title) {/* End Penting */}</p>
-                          <div style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                            <p class="card-text" style="text-align: justify; font-size: 0.9rem;">produk.description</p>
+                            <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                            <div
+                                style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                    urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                    erat
+                                </p>
+                            </div>
+                            <div
+                                style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                <!-- Star Rating -->
+                                <span style="color: gold; font-size: 0.9rem;">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <!-- Rating Text -->
+                                <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                            </div>
+                            <br>
+                            <!-- Price -->
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between">
+                                <!-- Free Shipping Badge -->
+                                <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                        class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                <!-- Sold Badge -->
+                                <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+              <a href="/Detailproduk" style="text-decoration: none;">
+                  <div class="card"
+                      style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                      onclick="handleProductClick(produk.id)"
+                      onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                      onmouseleave="this.style.boxShadow = 'none'">
+                      <span class="badge bg-danger"
+                          style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                          style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                      <div class="card-body">
+                          <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                          <div
+                              style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                              <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                  urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                  erat
+                              </p>
                           </div>
-                          <div style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                            <!-- Star Rating -->
-                            <span style="color: gold; font-size: 0.9rem;">
-                              <i class="fas fa-star"></i>
-                            </span>
-                            <!-- Rating Text -->
-                            <span style="margin-left: 5px; font-size: 0.8rem;">produk.rating (produk.reviews)</span>
+                          <div
+                              style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                              <!-- Star Rating -->
+                              <span style="color: gold; font-size: 0.9rem;">
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                              </span>
+                              <!-- Rating Text -->
+                              <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
                           </div>
                           <br>
                           <!-- Price -->
                           <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 1rem; font-weight: bold;">formatRupiah(produk.price)</span>
+                              <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
                           </div>
-                        </div>
-                        <div class="card-footer bg-white">
-                          <div class="d-flex justify-content-between">
-                            <!-- Free Shipping Badge -->
-                            <span class="badge bg-success" style="font-size: 0.7rem;"><i class="fas fa-truck-fast me-2"></i>produk.ongkoskirim</span>
-                            <!-- Sold Badge -->
-                            <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual produk.sold</span>
-                          </div>
-                        </div>
                       </div>
+                      <div class="card-footer bg-white">
+                          <div class="d-flex justify-content-between">
+                              <!-- Free Shipping Badge -->
+                              <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                      class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                              <!-- Sold Badge -->
+                              <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+            <a href="/Detailproduk" style="text-decoration: none;">
+                <div class="card"
+                    style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                    onclick="handleProductClick(produk.id)"
+                    onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                    onmouseleave="this.style.boxShadow = 'none'">
+                    <span class="badge bg-danger"
+                        style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                        style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                    <div class="card-body">
+                        <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                        <div
+                            style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                            <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                erat
+                            </p>
+                        </div>
+                        <div
+                            style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                            <!-- Star Rating -->
+                            <span style="color: gold; font-size: 0.9rem;">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <!-- Rating Text -->
+                            <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                        </div>
+                        <br>
+                        <!-- Price -->
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-flex justify-content-between">
+                            <!-- Free Shipping Badge -->
+                            <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                    class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                            <!-- Sold Badge -->
+                            <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                      <a href="/Detailproduk" style="text-decoration: none;">
+                          <div class="card"
+                              style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                              onclick="handleProductClick(produk.id)"
+                              onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                              onmouseleave="this.style.boxShadow = 'none'">
+                              <span class="badge bg-danger"
+                                  style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                                  style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                              <div class="card-body">
+                                  <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                                  <div
+                                      style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                      <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                          urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                          erat
+                                      </p>
+                                  </div>
+                                  <div
+                                      style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                      <!-- Star Rating -->
+                                      <span style="color: gold; font-size: 0.9rem;">
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                      </span>
+                                      <!-- Rating Text -->
+                                      <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                                  </div>
+                                  <br>
+                                  <!-- Price -->
+                                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                                      <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                                  </div>
+                              </div>
+                              <div class="card-footer bg-white">
+                                  <div class="d-flex justify-content-between">
+                                      <!-- Free Shipping Badge -->
+                                      <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                              class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                      <!-- Sold Badge -->
+                                      <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                    <a href="/Detailproduk" style="text-decoration: none;">
+                        <div class="card"
+                            style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                            onclick="handleProductClick(produk.id)"
+                            onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                            onmouseleave="this.style.boxShadow = 'none'">
+                            <span class="badge bg-danger"
+                                style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                                style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                            <div class="card-body">
+                                <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                                <div
+                                    style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                        urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                        erat
+                                    </p>
+                                </div>
+                                <div
+                                    style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                    <!-- Star Rating -->
+                                    <span style="color: gold; font-size: 0.9rem;">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <!-- Rating Text -->
+                                    <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                                </div>
+                                <br>
+                                <!-- Price -->
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between">
+                                    <!-- Free Shipping Badge -->
+                                    <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                            class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                    <!-- Sold Badge -->
+                                    <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                                </div>
+                            </div>
+                        </div>
                     </a>
+                </div>
+              <!-- card .... -->
+            </div>
+          </div>
+
+
+            <hr/>
+
+            {{-- PRORDUK TERBARU --}}
+            <div class="container mt-5">
+              <p style="font-size: 2rem;">
+                  <b>Hey, New Arrivals Are Here.</b>
+              </p>
+              <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                      <a href="/Detailproduk" style="text-decoration: none;">
+                          <div class="card"
+                              style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                              onclick="handleProductClick(produk.id)"
+                              onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                              onmouseleave="this.style.boxShadow = 'none'">
+                              <span class="badge bg-danger"
+                                  style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                                  style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                              <div class="card-body">
+                                  <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                                  <div
+                                      style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                      <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                          urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                          erat
+                                      </p>
+                                  </div>
+                                  <div
+                                      style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                      <!-- Star Rating -->
+                                      <span style="color: gold; font-size: 0.9rem;">
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                      </span>
+                                      <!-- Rating Text -->
+                                      <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                                  </div>
+                                  <br>
+                                  <!-- Price -->
+                                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                                      <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                                  </div>
+                              </div>
+                              <div class="card-footer bg-white">
+                                  <div class="d-flex justify-content-between">
+                                      <!-- Free Shipping Badge -->
+                                      <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                              class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                      <!-- Sold Badge -->
+                                      <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
                   </div>
                   <!-- End of Loop -->
-                </div>
-                <div style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
+              </div>
+              <div
+                  style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
                   <span style="margin-right: 5px;">
-                    <a href="/Listseluruhproduk" style="text-decoration: none; color: black;"><b>Lihat Selengkapnya</b></a>
+                      <a href="/Listseluruhproduk" style="text-decoration: none; color: black;"><b>Lihat Selengkapnya</b></a>
                   </span>
                   <i class="fas fa-arrow-right"></i>
-                </div>
-                <hr style="clear: both;">
               </div>
+              <hr style="clear: both;">
+          </div>
+          
               
 
 
-              {{-- Produk yang beru di lihat --}}
-              <div class="container">
-                <p style="font-size: 1.8rem;">
-                  <b>Produk yang baru dilihat.</b>
-                </p>
-                <div class="row">
+              {{-- PRORDUK Baru dilihat --}}
+            <div class="container">
+              <p style="font-size: 2rem;">
+                  <b>Produk yang baru dilihat. </b>
+              </p>
+              <div class="row">
                   <!-- Start of Loop -->
+                  <!-- Ganti col-lg-3 menjadi col-lg-4 agar card tersusun dengan baik di grid -->
                   <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                    <a href="/Detailproduk" style="text-decoration: none;">
-                      <div style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s;" onclick="handleProductClick(produk.id)" onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'" onmouseleave="this.style.boxShadow = 'none'">
-                        <!-- Status Badge -->
-                        <span class="badge bg-info" style="position: absolute; top: 10px; right: 10px;">produk.status <i class="fas fa-bolt-lightning" style="margin-left: 5px;"></i></span>
-                        <!-- Image -->
-                        <img src="produk.image" alt="Product" style="width: 100%; height: 200px;">
-                        <div class="card-body">
-                          <!-- Title -->
-                          <p class="fw-bold" style="font-size: 1rem;">produk.title</p>
-                          <!-- Description -->
-                          <div style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                            <p class="card-text" style="text-align: justify; font-size: 0.9rem;">produk.description</p>
+                      <a href="/Detailproduk" style="text-decoration: none;">
+                          <div class="card"
+                              style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
+                              onclick="handleProductClick(produk.id)"
+                              onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                              onmouseleave="this.style.boxShadow = 'none'">
+                              <span class="badge bg-primary"
+                                  style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terlaris</span>
+                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
+                                  style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                              <div class="card-body">
+                                  <p class="fw-bold" style="font-size: 1rem;">Kursi Skandinavia</p>
+                                  <div
+                                      style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                      <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in quam mattis, tincidunt
+                                          urna tincidunt, volutpat libero. Praesent at sapien volutpat, cursus nulla in, aliquet
+                                          erat
+                                      </p>
+                                  </div>
+                                  <div
+                                      style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                      <!-- Star Rating -->
+                                      <span style="color: gold; font-size: 0.9rem;">
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                      </span>
+                                      <!-- Rating Text -->
+                                      <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                                  </div>
+                                  <br>
+                                  <!-- Price -->
+                                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                                      <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                                  </div>
+                              </div>
+                              <div class="card-footer bg-white">
+                                  <div class="d-flex justify-content-between">
+                                      <!-- Free Shipping Badge -->
+                                      <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                              class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                      <!-- Sold Badge -->
+                                      <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                                  </div>
+                              </div>
                           </div>
-                          <!-- Rating -->
-                          <div style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                            <span style="color: gold;">
-                              <i class="fas fa-star"></i>
-                            </span>
-                            <span style="margin-left: 5px;">produk.rating (produk.reviews)</span>
-                          </div>
-                          <br>
-                          <!-- Price -->
-                          <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                              <p style="font-size: 14px; text-decoration: line-through; color: #999; margin-top: -12px; margin-bottom: -25px;">formatRupiah(produk.price)</p>
-                              <p style="font-size: 18px; font-weight: bold; margin-bottom: -7px;">formatRupiah(produk.price - produk.diskon)</p>
-                            </div>
-                            <span style="font-size: 18px; font-weight: bold;">formatRupiah(produk.price)</span>
-                          </div>
-                        </div>
-                        <!-- Footer -->
-                        <div class="card-footer bg-white">
-                          <div class="d-flex justify-content-between">
-                            <!-- Free Shipping Badge -->
-                            <span class="badge bg-success" style="font-size: 0.6rem;"><i class="fas fa-truck-fast me-1"></i>produk.ongkoskirim</span>
-                            <!-- Sold Badge -->
-                            <span class="badge bg-dark" style="font-size: 0.6rem;">Terjual produk.sold</span>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+                      </a>
                   </div>
+                  
                   <!-- End of Loop -->
-                </div>
-                <!-- View All Link -->
-                <div style="text-align: right; display: flex; align-items: center; justify-content: flex-end;">
-                  <span style="margin-right: 5px;">
-                    <a href="/Listseluruhproduklastseen" style="text-decoration: none; color: black;"><b>Lihat Selengkapnya</b></a>
-                  </span>
-                  <i class="fas fa-arrow-right me-2"></i>
-                </div>
-                <!-- Horizontal Line -->
-                <hr style="clear: both;">
               </div>
+              <div
+                  style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
+                  <span style="margin-right: 5px;">
+                      <a href="/Listseluruhproduk" style="text-decoration: none; color: black;"><b>Lihat Selengkapnya</b></a>
+                  </span>
+                  <i class="fas fa-arrow-right"></i>
+              </div>
+              <hr style="clear: both;">
+          </div>
 
               
 {{-- dashboard AR --}}
@@ -392,8 +647,9 @@
         
 
       </section>
-      
+    </div>
 
+      @include('user.komponenuser.footer')
 
       
 

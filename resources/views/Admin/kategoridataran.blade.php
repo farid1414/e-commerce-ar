@@ -112,7 +112,150 @@
                   </div>
                 </div>
                 <div class="d-none d-md-block">
-                  <!-- Tambahkan konten tabel di sini -->
+                 
+                  <div class="card top-selling overflow-auto mt-4">
+                    <div class="card-body pb-0">
+                        <div class="d-flex justify-content-between">
+                            <div class="card-title">Kategori Aktif</div>
+                            <div class="card-title">
+                                <span>1 Kategori</span>
+                            </div>
+                        </div>
+                
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Kategori</th>
+                                    <th class="text-center">Nama Kategori</th>
+                                    <th class="text-center">Total Produk</th>
+                                    <th class="text-center">Dibuat Oleh</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                      <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" width="50" alt="" class="img-fluid"  />
+                                    </td>
+                                    <td class="text-center fw-bold">Meja</td>
+                                    <td class="text-center">
+                                        <a class="text-dark fw-bold">
+                                            8 <br />
+                                            <small>Produk</small>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="text-dark fw-bold text-center">Admin 1 <br />
+                                            <small>09/30/2023 23:59:00</small>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-link" style="text-decoration: none;" onclick="handleArchiveClick()">Arsipkan</button>
+                                        <br />
+                                        <button class="btn btn-link" style="text-decoration: none;">Ubah</button>
+                                        <br />
+
+                                        <div class="dropdown">
+                                          <button class="btn btn-link dropdown-toggle" style="text-decoration:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Lainnya
+                                          </button>
+                                          <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Hapus Kategori</a></li>
+                                            <li><a class="dropdown-item" href="#">Lihat Detail Kategori</a></li>
+                                          </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-group showperpage">
+                                    <label class="form-label">Show per page:</label>
+                                    <select class="form-control" size="sm">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <div class="pagination-info">1 - 1 of 1 items</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="card top-selling overflow-auto mt-4">
+                  <div class="card-body pb-0">
+                      <div class="d-flex justify-content-between">
+                          <div class="card-title">Kategori Non-aktif / Diarsipkan</div>
+                          <div class="card-title">
+                              <span>1 Produk</span>
+                          </div>
+                      </div>
+              
+                      <table class="table table-bordered table-hover">
+                          <thead>
+                              <tr>
+                                  <th class="text-center">Kategori</th>
+                                  <th class="text-center">Nama Kategori</th>
+                                  <th class="text-center">Total Produk</th>
+                                  <th class="text-center">Dibuat Oleh</th>
+                                  <th class="text-center">Aksi</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="text-center">
+                                    <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" width="50" alt="" class="img-fluid"  />
+                                  </td>
+                                  <td class="text-center">
+                                      <a href="#" class="text-primary fw-bold">Meja</a>
+                                  </td>
+                                  <td class="text-center">
+                                      <a class="text-dark fw-bold">8 <br /><small>Produk</small></a>
+                                  </td>
+                                  <td class="text-center">
+                                      <a class="text-dark fw-bold">Admin 1 <br /><small>09/30/2023 23:59:00</small></a>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-link" style="text-decoration: none;" onclick="handleActivateClick()">Aktifkan</button>
+                                      <br />
+                                      <button class="btn btn-link" style="text-decoration: none;">Ubah</button>
+                                      <br />
+                                      <div class="dropdown">
+                                        <button class="btn btn-link dropdown-toggle" style="text-decoration:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          Lainnya
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li><a class="dropdown-item" href="#">Hapus Kategori</a></li>
+                                          <li><a class="dropdown-item" href="#">Lihat Detail Kategori</a></li>
+                                        </ul>
+                                      </div>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <div class="card-footer">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div class="form-group showperpage">
+                                  <label class="form-label">Show per page:</label>
+                                  <select class="form-control" size="sm">
+                                      <option value="10">10</option>
+                                      <option value="25">25</option>
+                                      <option value="50">50</option>
+                                      <option value="100">100</option>
+                                  </select>
+                              </div>
+                              <div class="pagination-info">1 - 1 of 1 items</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+
+
                 </div>
               </div>
             </div>
