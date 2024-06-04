@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Master\CategoryController;
 
 // auth
 Route::get('auth/login', function () {
@@ -19,59 +21,59 @@ Route::get('/', function () {
 });
 
 Route::get('user/dashboarduser', function () {
-    Return view ('user.dashboarduser');
+    return view('user.dashboarduser');
 });
 
 
 // Keranjang
 
 Route::get('user/keranjang', function () {
-    Return view ('user.keranjang');
+    return view('user.keranjang');
 });
 
 Route::get('user/checkout', function () {
-    Return view ('user.checkout');
+    return view('user.checkout');
 });
 
 
 // Detail Produk
 
 Route::get('user/detailproduk', function () {
-    Return view ('user.detailproduk');
+    return view('user.detailproduk');
 });
 
 
 // Kategori
 Route::get('user/kategoridataran', function () {
-    Return view ('user.kategoridataran');
+    return view('user.kategoridataran');
 });
 
 Route::get('user/kategoridinding', function () {
-    Return view ('user.kategoridinding');
+    return view('user.kategoridinding');
 });
 
 
 // Profil Pelanggan
 
 Route::get('user/akunpelanggan', function () {
-    Return view ('user.akunpelanggan');
+    return view('user.akunpelanggan');
 });
 
 
-// detail transaksi 
+// detail transaksi
 
 Route::get('user/detailtransaksi', function () {
-    Return view ('user.detailtransaksi');
+    return view('user.detailtransaksi');
 });
 
 
 // status pembayaran
 Route::get('user/pembayaranberhasil', function () {
-    Return view ('user.pembayaranberhasil');
+    return view('user.pembayaranberhasil');
 });
 
 Route::get('user/pembayarangagal', function () {
-    Return view ('user.pembayarangagal');
+    return view('user.pembayarangagal');
 });
 
 
@@ -79,7 +81,7 @@ Route::get('user/pembayarangagal', function () {
 // Invoice PELANGGAN
 
 Route::get('user/invoicepelanggan', function () {
-    Return view ('user.invoicepelanggan');
+    return view('user.invoicepelanggan');
 });
 
 
@@ -98,133 +100,143 @@ Route::get('user/invoicepelanggan', function () {
 
 // dashboard admin
 Route::get('admin/dashboardadmin', function () {
-    Return view ('admin.dashboardadmin');
+    return view('admin.dashboardadmin');
 });
 
 
 // Produk Dataran
 Route::get('admin/produkdataran', function () {
-    Return view ('admin.produkdataran');
+    return view('admin.produkdataran');
 });
 
 Route::get('admin/tambahprodukdataran', function () {
-    Return view ('admin.tambahprodukdataran');
+    return view('admin.tambahprodukdataran');
 });
 
 // Produk dinding
 Route::get('admin/produkdinding', function () {
-    Return view ('admin.produkdinding');
+    return view('admin.produkdinding');
 });
 
 Route::get('admin/tambahprodukdinding', function () {
-    Return view ('admin.tambahprodukdinding');
+    return view('admin.tambahprodukdinding');
 });
 
 // Detail produk
 Route::get('admin/detailproduk', function () {
-    Return view ('admin.detailproduk');
+    return view('admin.detailproduk');
 });
 
 
 // Kategori Dataran
 Route::get('admin/kategoridataran', function () {
-    Return view ('admin.kategoridataran');
+    return view('admin.kategoridataran');
 });
 
 Route::get('admin/tambahkategoridataran', function () {
-    Return view ('admin.tambahkategoridataran');
+    return view('admin.tambahkategoridataran');
 });
 
 Route::get('admin/detailkategori', function () {
-    Return view ('admin.detailkategori');
+    return view('admin.detailkategori');
 });
 
 
 // Kategori Dinding
 Route::get('admin/kategoridinding', function () {
-    Return view ('admin.kategoridinding');
+    return view('admin.kategoridinding');
 });
 
 Route::get('admin/tambahkategoridinding', function () {
-    Return view ('admin.tambahkategoridinding');
+    return view('admin.tambahkategoridinding');
 });
 
 
 
 // Data Akun
 Route::get('admin/dataakun', function () {
-    Return view ('admin.dataakun');
+    return view('admin.dataakun');
 });
 
 Route::get('admin/tambahadmin', function () {
-    Return view ('admin.tambahadmin');
+    return view('admin.tambahadmin');
 });
 
 Route::get('admin/detailakunadmin', function () {
-    Return view ('admin.detailakunadmin');
+    return view('admin.detailakunadmin');
 });
 
 Route::get('admin/profiladmin', function () {
-    Return view ('admin.profiladmin');
+    return view('admin.profiladmin');
 });
 
 Route::get('admin/detailakunpelanggan', function () {
-    Return view ('admin.detailakunpelanggan');
+    return view('admin.detailakunpelanggan');
 });
 
 
 // Rating dan ulasan
 Route::get('admin/ratingdanulasan', function () {
-    Return view ('admin.ratingdanulasan');
+    return view('admin.ratingdanulasan');
 });
 
 
 // Transaksi
 Route::get('admin/transaksibelumdibayar', function () {
-    Return view ('admin.transaksibelumdibayar');
+    return view('admin.transaksibelumdibayar');
 });
 
 Route::get('admin/transaksisudahdibayar', function () {
-    Return view ('admin.transaksisudahdibayar');
+    return view('admin.transaksisudahdibayar');
 });
 
 Route::get('admin/transaksidibatalkan', function () {
-    Return view ('admin.transaksidibatalkan');
+    return view('admin.transaksidibatalkan');
 });
 
 Route::get('admin/transaksidibatalkan', function () {
-    Return view ('admin.transaksidibatalkan');
+    return view('admin.transaksidibatalkan');
 });
 
 Route::get('admin/detailtransaksi', function () {
-    Return view ('admin.detailtransaksi');
+    return view('admin.detailtransaksi');
 });
 
 Route::get('admin/invoiceadmin', function () {
-    Return view ('admin.invoiceadmin');
+    return view('admin.invoiceadmin');
 });
 
 
 
 // Laporan
 Route::get('admin/laporanharian', function () {
-    Return view ('admin.laporanharian');
+    return view('admin.laporanharian');
 });
 
 Route::get('admin/laporanbulanan', function () {
-    Return view ('admin.laporanbulanan');
+    return view('admin.laporanbulanan');
 });
 
 Route::get('admin/laporantahunan', function () {
-    Return view ('admin.laporantahunan');
+    return view('admin.laporantahunan');
 });
 
 
 // Program Flash sale
 Route::get('admin/programflashsale', function () {
-    Return view ('admin.programflashsale');
+    return view('admin.programflashsale');
 });
 
 Route::get('admin/tambahflashsale', function () {
-    Return view ('admin.tambahflashsale');
+    return view('admin.tambahflashsale');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () {
+    Route::prefix('/category')->name('category.')->group(function () {
+        Route::get('/dataran', [CategoryController::class, 'indexDataran'])->name('index-dataran');
+    });
 });
