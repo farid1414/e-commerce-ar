@@ -25,8 +25,10 @@
                             </div>
                             <div class="ps-3">
                                 <h6>20</h6>
+                                {{-- <h6>{{ $kategoriAktif }}</h6> --}}
+
                                 <span class="text-muted small pt-1">
-                                    Total Kategori Aktif
+                                     Kategori Aktif
                                 </span>
                             </div>
                         </div>
@@ -44,8 +46,10 @@
                             </div>
                             <div class="ps-3">
                                 <h6>20</h6>
+                                {{-- <h6>{{ $kategoriDiarsipkan }}</h6> --}}
+
                                 <span class="text-muted small pt-1" style="font-size: 13px;">
-                                    Total Kategori Diarsipkan
+                                     Kategori Diarsipkan
                                 </span>
                             </div>
                         </div>
@@ -63,8 +67,10 @@
                             </div>
                             <div class="ps-3">
                                 <h6>25</h6>
+                                {{-- <h6>{{ $totalKategoriKeseluruhan}}</h6> --}}
+
                                 <span class="text-muted small pt-1">
-                                    Total Produk Habis
+                                    Total Kategori Keseluruhan
                                 </span>
                             </div>
                         </div>
@@ -239,9 +245,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>

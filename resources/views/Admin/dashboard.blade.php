@@ -1,6 +1,10 @@
+{{-- Tahap 1 --}}
 @extends('layouts.admin.page')
 
+{{-- Tahap untuk judul  --}}
 @section('title', 'Dashboard')
+
+{{-- tahap section jangan lupa di tutup --}}
 @section('content')
 
     <section class="section dashboard">
@@ -17,6 +21,7 @@
                             </div>
                             <div class="ps-3">
                                 <h6>145</h6>
+                                {{-- <h6>{{   $totalPelanggan    }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Pelanggan</span>
                             </div>
                         </div>
@@ -36,6 +41,7 @@
                             </div>
                             <div class="ps-3">
                                 <h6>20</h6>
+                                {{-- <h6>{{    $totalTerjual   }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
                             </div>
                         </div>
@@ -55,6 +61,7 @@
                             </div>
                             <div class="ps-3">
                                 <h6>20</h6>
+                                {{-- <h6>{{   $totalTransaksi     }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
                             </div>
                         </div>
@@ -76,6 +83,7 @@
                             </div>
                             <div class="ps-3">
                                 <h6>Rp. 50.000.000</h6>
+                                {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Pendapatan</span>
                             </div>
                         </div>
@@ -92,6 +100,7 @@
                             </div>
                             <div class="ps-3">
                                 <h6>44</h6>
+                                {{-- <h6>{{ $totalInvoice }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Invoice</span>
                             </div>
                         </div>
@@ -100,6 +109,8 @@
             </div>
 
             {{-- Program Flash Sale yang berjalan --}}
+
+            {{-- @foreach($flashSales as $flashSale) --}}
             <div class="col">
                 <div>
                     <div class="card info-card revenue-card">
@@ -117,7 +128,27 @@
                                         <span class="text-success small pt-1 fw-bold">
                                             8 Produk Total,
                                         </span>
+
+                                        {{-- <h6 style="font-size: 1.2rem;">{{ $flashSale->nama }}</h6>
+                                        <span class="text-success small pt-1 fw-bold">
+                                            {{ $flashSale->total_produk }} Produk Total,
+                                        </span> --}}
+
                                         <br />
+
+                                        {{-- @if($flashSale->status == 'ongoing')
+                                        <span class="text-muted small pt-2 ps-1">
+                                            Sedang Berjalan
+                                        </span>
+                                        @elseif($flashSale->status == 'upcoming')
+                                        <span class="text-muted small pt-2 ps-1">
+                                            Akan Datang
+                                        </span>
+                                        @endif --}}
+
+                                        {{-- <span class="text-muted small pt-2 ps-1">
+                                            {{ $flashSale->start_time }} - {{ $flashSale->end_time }}
+                                        </span> --}}
                                         <span class="text-muted small pt-2 ps-1">
                                             Sedang Berjalan
                                         </span>
@@ -154,6 +185,10 @@
                     </div>
                 </div>
             </div>
+            {{-- @endforeach --}}
+
+
+
             <!-- List transaksi Belum bayar -->
             <div class="col-12">
                 <div class="card top-selling overflow-auto">
@@ -172,21 +207,37 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @foreach($transaksiBelumbayar as $transaksi) --}}
+
                                 <tr>
                                     <td class="text-center">
                                         <a href="/Detailtransaksibelumdibayar" class="text-dark fw-bold">Jhon Doe
                                             1</a>
                                     </td>
+                                    {{-- <td class="text-center">
+                                        <a href="/detail-transaksi-belum-dibayar/{{ $transaksi->id }}" class="text-dark fw-bold">{{ $transaction->customer_nama }}</a>
+                                    </td> --}}
+
                                     <td class="text-center">1 Produk</td>
+                                    {{-- <td class="text-center">{{ $transaksi->total_produk }} Produk</td> --}}
+
                                     <td class="text-center">2001-02-21</td>
+                                    {{-- <td class="text-center">{{ $transaksin>waktu_pemesanan }}</td> --}}
+
                                     <td class="text-center">
                                         <span class="badge bg-primary" style="white-space: pre-line">Menunggu
                                             Pembayaran</span>
                                     </td>
+                                    {{-- <td class="text-center">
+                                        <span class="badge bg-primary" style="white-space: pre-line">{{ $transaksi->status }}</span>
+                                    </td> --}}
+
                                     <td class="text-center">
                                         <a href="/Transaksibelumbayar">Lihat</a>
                                     </td>
                                 </tr>
+                                {{-- @endforeach --}}
+
                             </tbody>
                         </table>
                     </div>
@@ -199,6 +250,7 @@
                         </a>
                     </div>
                 </div>
+
 
                 {{-- Produk Terlaris Terjual 10 keatas --}}
                 <div class="card top-selling overflow-auto">
@@ -217,14 +269,25 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @foreach($produkTerlaris as $produk) --}}
                                 <tr>
                                     <td class="text-center"><img
                                             src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
                                             alt="alt="Meja Gaming"></td>
+                            {{-- <td class="text-center"><img src="{{ asset($produk->image_path) }}" alt="{{ $produk->nama }}"></td> --}}
+
                                     <td class="text-center">Meja Gaming<br><span>Varian : -</span></td>
+                                    {{-- <td class="text-center">{{ $produk->nama }}<br><span>Varian : {{ $produk->varian }}</span></td> --}}
+
                                     <td class="text-center fw-bold">Meja<br><small>Dataran</small></td>
+                                    {{-- <td class="text-center fw-bold">{{ $produk->kategori }}<br><small>{{ $produk->area }}</small></td> --}}
+
                                     <td class="text-center">Rp 1.200.000</td>
+                                    {{-- <td class="text-center">{{ $produk->harga }}</td> --}}
+
                                     <td class="text-center fw-bold">20x</td>
+                                    {{-- <td class="text-center fw-bold">{{ $produk->terjual }}</td> --}}
+
                                 </tr>
                             </tbody>
                         </table>
@@ -232,8 +295,8 @@
                 </div>
 
 
+            <!-- Card Produk Yang Telah Habis (Stok kurang dari 5) -->
                 <div style="margin-top: -15px;">
-                    <!-- Card Produk Yang Telah Habis (Stok = 0) -->
                     <h5 class="card-title">Produk Yang Segera Habis (Stok &lt; 5)</h5>
                     <div class="row">
                         <div class="col-md-6">
@@ -251,6 +314,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{-- @foreach($furniturDataran as $produk) --}}
+
                                             <tr>
                                                 <td>
                                                     <a href="#">
@@ -258,14 +323,27 @@
                                                             alt="" />
                                                     </a>
                                                 </td>
+                                                {{-- <td>
+                                                    <a href="#">
+                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
+                                                    </a>
+                                                </td> --}}
+
                                                 <td>Ut inventore</td>
+                                                {{-- <td>{{ $produk->nama }}</td> --}}
+
                                                 <td class="fw-bold">
                                                     Biru<br />
                                                     -
                                                 </td>
+                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
+
                                                 <td class="fw-bold text-center">
                                                     0
                                                 </td>
+
+                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
+
                                                 <td class='text-start'>
                                                     <button type="button" class="btn btn-link"
                                                         style="text-decoration: none; font-size: 0.8rem;"
@@ -374,6 +452,9 @@
                                                         onclick="handleArsipkanClick()">Arsipkan</button>
                                                 </td>
                                             </tr>
+
+                                            {{-- @endforeach --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -395,6 +476,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{-- @foreach($furniturDinding as $produk) --}}
+
                                             <tr>
                                                 <td>
                                                     <a href="#">
@@ -402,14 +485,28 @@
                                                             alt="" />
                                                     </a>
                                                 </td>
+
+                                                {{-- <td>
+                                                    <a href="#">
+                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
+                                                    </a>
+                                                </td> --}}
+
                                                 <td>Ut inventore</td>
+                                                {{-- <td>{{ $produk->nama }}</td> --}}
+
                                                 <td class="fw-bold">
                                                     Biru<br />
                                                     -
                                                 </td>
+
+                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
+
                                                 <td class="fw-bold text-center">
                                                     0
                                                 </td>
+                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
+
                                                 <td class='text-start'>
                                                     <button type="button" class="btn btn-link"
                                                         style="text-decoration: none; font-size: 0.8rem;"
@@ -518,6 +615,9 @@
                                                         onclick="handleArsipkanClick()">Arsipkan</button>
                                                 </td>
                                             </tr>
+
+                                            {{-- @endforeach --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -527,8 +627,9 @@
                 </div>
 
 
+
+            <!-- Card Produk Yang Telah Habis (Stok = 0) -->
                 <div style="margin-top: -15px;">
-                    <!-- Card Produk Yang Telah Habis (Stok = 0) -->
                     <h5 class="card-title">Produk Yang Telah Habis (Stok = 0)</h5>
                     <div class="row">
                         <div class="col-md-6">
@@ -546,6 +647,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{-- @foreach($furniturDataran as $produk) --}}
+
                                             <tr>
                                                 <td>
                                                     <a href="#">
@@ -553,14 +656,27 @@
                                                             alt="" />
                                                     </a>
                                                 </td>
+                                                {{-- <td>
+                                                    <a href="#">
+                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
+                                                    </a>
+                                                </td> --}}
+
                                                 <td>Ut inventore</td>
+                                                {{-- <td>{{ $produk->nama }}</td> --}}
+
                                                 <td class="fw-bold">
                                                     Biru<br />
                                                     -
                                                 </td>
+                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
+
                                                 <td class="fw-bold text-center">
                                                     0
                                                 </td>
+
+                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
+
                                                 <td class='text-start'>
                                                     <button type="button" class="btn btn-link"
                                                         style="text-decoration: none; font-size: 0.8rem;"
@@ -669,9 +785,11 @@
                                                         onclick="handleArsipkanClick()">Arsipkan</button>
                                                 </td>
                                             </tr>
+                                            
+                                            {{-- @endforeach --}}
+
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -692,20 +810,33 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                {{-- @foreach($furniturDinding as $produk) --}}
+
                                                 <td>
                                                     <a href="#">
                                                         <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
                                                             alt="" />
                                                     </a>
                                                 </td>
+                                                {{-- <td>
+                                                    <a href="#">
+                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
+                                                    </a>
+                                                </td> --}}
                                                 <td>Ut inventore</td>
+                                                {{-- <td>{{ $produk->nama }}</td> --}}
+
                                                 <td class="fw-bold">
                                                     Biru<br />
                                                     -
                                                 </td>
+                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
+
                                                 <td class="fw-bold text-center">
                                                     0
                                                 </td>
+                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
+
                                                 <td class='text-start'>
                                                     <button type="button" class="btn btn-link"
                                                         style="text-decoration: none; font-size: 0.8rem;"
@@ -821,6 +952,10 @@
                         </div>
                     </div>
                 </div>
+
+
+                {{-- @endforeach --}}
+
 
             </div>
         </div>

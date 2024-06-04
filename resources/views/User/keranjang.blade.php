@@ -7,14 +7,18 @@
     <title>Keranjang</title>
 </head>
 @include('user.komponenuser.navbaruser')
+@include('user.komponenuser.bottomnavbar')
 @include('user.include.style')
 @include('user.komponenuser.breadcrumb')
 
 <body>
-    
+  
+
     <div class="container">
         <div class="text-center mt-5 mb-5"> <!-- Menggunakan kelas text-center -->
             <h2><b>Keranjang Belanja Anda.</b></h2>
+        </div>
+
 
             {{-- {products.length === 0 ? ( --}}
 				{{-- <div className="text-center">
@@ -26,161 +30,253 @@
 					<h3>Oops, Keranjang Anda kosong.</h3>
 				</div> --}}
 
-            <div class="card bg-white mb-3 mt-5" style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s;" onclick="handleProductClick(product.id)" onmouseenter="(event) => (event.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)')" onmouseleave="(event) => (event.currentTarget.style.boxShadow = 'none')">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th class="text-center align-middle">
-                                        <i class="fas fa-check"></i>
-                                    </th>
-                                    <th>Produk</th>
-                                    <th>Varian</th>
-                                    <th>Kuantitas</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Ongkir</th>
-                                    <th>Total Harga</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center align-middle">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-index" checked="selectedProducts.includes(index)" onchange="handleCheckboxChange(index)">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Kursi Klasik Eropa" width="100" height="100" style="border-radius: 10px; object-fit: cover;">
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <div class="dropdown ml-4">
-                                            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Pilih Varian
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                              <li><a class="dropdown-item" href="#">Putih</a></li>
-                                              <li><a class="dropdown-item" href="#">Merah</a></li>
-                                              <li><a class="dropdown-item" href="#">Hijau</a></li>
-                                            </ul>
-                                          </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="d-flex align-items-center">
-                                            <button class="btn btn-light btn-sm" onclick="decreaseQuantity(index)" disabled="isMinusDisabled(index)">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <span class="mx-3">1</span>
-                                            <button class="btn btn-light btn-sm" onclick="increaseQuantity(index)" disabled="product.quantity >= product.quantityLimit">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <del>1000000</del> <br />
-                                        <span>
-                                            <small>500000</small>
-                                        </span>
-                                        <br />
-                                        <span class="badge bg-warning ml-2">
-                                            <i class="fas fa-bolt"></i>
-                                            Flash Sale 1.1
-                                        </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <del>20000</del>
-                                        <br />
-                                        <span>
-                                            <small>0</small>
-                                        </span>
-                                        <br />
-                                        <span class="badge bg-success ml-2">
-                                            <i class="fa-solid fa-truck-fast"></i>
-                                            Gratis Ongkir
-                                        </span>
-                                    </td>
-                                    <td class="align-middle">
-                                        500000
-                                    </td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-danger" onclick="removeProduct(index)">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        {{-- PC --}}
+<div class='d-none d-md-block'>
+    <div class="card bg-white mb-3 mt-5" style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s;" onclick="handleProductClick(product.id)" onmouseenter="(event) => (event.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)')" onmouseleave="(event) => (event.currentTarget.style.boxShadow = 'none')">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle">
+                                <i class="fas fa-check"></i>
+                            </th>
+                            <th>Produk</th>
+                            <th>Varian</th>
+                            <th>Kuantitas</th>
+                            <th>Harga Satuan</th>
+                            <th>Ongkir</th>
+                            <th>Total Harga</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center align-middle">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-index" checked="selectedProducts.includes(index)" onchange="handleCheckboxChange(index)">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Kursi Klasik Eropa" width="100" height="100" style="border-radius: 10px; object-fit: cover;">
+                            </td>
+                            <td class="align-middle text-center">
+                                <div class="dropdown ml-4">
+                                    <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Pilih Varian
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="#">Putih</a></li>
+                                      <li><a class="dropdown-item" href="#">Merah</a></li>
+                                      <li><a class="dropdown-item" href="#">Hijau</a></li>
+                                    </ul>
+                                  </div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-light btn-sm" onclick="decreaseQuantity(index)" disabled="isMinusDisabled(index)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="mx-3">1</span>
+                                    <button class="btn btn-light btn-sm" onclick="increaseQuantity(index)" disabled="product.quantity >= product.quantityLimit">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <del>1000000</del> <br />
+                                <span>
+                                    <small>500000</small>
+                                </span>
+                                <br />
+                                <span class="badge bg-warning ml-2">
+                                    <i class="fas fa-bolt"></i>
+                                    Flash Sale 1.1
+                                </span>
+                            </td>
+                            <td class="align-middle">
+                                <del>20000</del>
+                                <br />
+                                <span>
+                                    <small>0</small>
+                                </span>
+                                <br />
+                                <span class="badge bg-success ml-2">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                    Gratis Ongkir
+                                </span>
+                            </td>
+                            <td class="align-middle">
+                                500000
+                            </td>
+                            <td class="align-middle">
+                                <button class="btn btn-danger" onclick="removeProduct(index)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+    
+    <div class="card bg-white mb-3" style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s;" onclick="handleProductClick(product.id)" onmouseenter="(event) => (event.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)')" onmouseleave="(event) => (event.currentTarget.style.boxShadow = 'none')">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle">
+                                <i class="fas fa-check"></i>
+                            </th>
+                            <th>Produk</th>
+                            <th>Varian</th>
+                            <th>Kuantitas</th>
+                            <th>Harga Satuan</th>
+                            <th>Ongkir</th>
+                            <th>Total Harga</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center align-middle">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-index" checked="selectedProducts.includes(index)" onchange="handleCheckboxChange(index)">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Kursi Klasik Eropa" width="100" height="100" style="border-radius: 10px; object-fit: cover;">
+                            </td>
+                            <td class="align-middle text-center">
+                                <div class="me-5">-</div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center ml-5">
+                                    <button class="btn btn-light btn-sm" onclick="decreaseQuantity(index)" disabled="isMinusDisabled(index)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="mx-3">1</span>
+                                    <button class="btn btn-light btn-sm" onclick="increaseQuantity(index)" disabled="product.quantity >= product.quantityLimit">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                1000000
+                            </td>
+                            <td class="align-middle">
+                                20000
+                            </td>
+                            <td class="align-middle">
+                                500000
+                            </td>
+                            <td class="align-middle">
+                                <button class="btn btn-danger" onclick="removeProduct(index)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{{-- Mobile --}}
+<div class='d-block d-lg-none'>
+
+<div class="card mb-4 mt-5">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-1">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" />
+          </div>
+        </div>
+        <div class="col">
+          <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Kursi Klasik Eropa" style="max-width: 140px; border-radius: 10px;" />
+        </div>
+        <div class="col">
+          <div>
+            <p class="fw-bold" style="font-size: 12px;">Kursi Klasik Eropa</p>
+            <p class="fw-bold text-muted" style="font-size: 0.8rem;">Kursi Asli Eropa Dengan Desain Klasik</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <span>Stok Tersedia : </span>
+            <span>10 Produk</span>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <span>Varian yang dipilih: </span>
+            <span><div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  merah
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">putih</a></li>
+                  <li><a class="dropdown-item" href="#">biru</a></li>
+                  <li><a class="dropdown-item" href="#">hijau</a></li>
+                </ul>
+              </div></span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Stock varian yang tersisa: </span>
+            <span>20</span>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <span style="font-size: 1.1rem;">Harga Satuan : </span>
+            <span>Rp. 2.000.000</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span style="font-size: 1.1rem;">Ongkos Kirim : </span>
+            <span>Rp. 5.000</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span style="font-size: 1.1rem;">Total Harga : </span>
+            <span>Rp. 1.505.000</span>
+          </div>
+          <br />
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-white">
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-danger">
+          <i class="fas fa-trash"></i>
+        </button>
+        <div class="d-flex align-items-center">
+          <button class="btn btn-light btn-sm">
+            <i class="fas fa-minus"></i>
+          </button>
+          <span class="mx-4">1</span>
+          <button class="btn btn-light btn-sm">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                
             
-            <div class="card bg-white mb-3" style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s;" onclick="handleProductClick(product.id)" onmouseenter="(event) => (event.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)')" onmouseleave="(event) => (event.currentTarget.style.boxShadow = 'none')">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th class="text-center align-middle">
-                                        <i class="fas fa-check"></i>
-                                    </th>
-                                    <th>Produk</th>
-                                    <th>Varian</th>
-                                    <th>Kuantitas</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Ongkir</th>
-                                    <th>Total Harga</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center align-middle">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault-index" checked="selectedProducts.includes(index)" onchange="handleCheckboxChange(index)">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Kursi Klasik Eropa" width="100" height="100" style="border-radius: 10px; object-fit: cover;">
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <div class="me-5">-</div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="d-flex align-items-center ml-5">
-                                            <button class="btn btn-light btn-sm" onclick="decreaseQuantity(index)" disabled="isMinusDisabled(index)">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <span class="mx-3">1</span>
-                                            <button class="btn btn-light btn-sm" onclick="increaseQuantity(index)" disabled="product.quantity >= product.quantityLimit">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        1000000
-                                    </td>
-                                    <td class="align-middle">
-                                        20000
-                                    </td>
-                                    <td class="align-middle">
-                                        500000
-                                    </td>
-                                    <td class="align-middle">
-                                        <button class="btn btn-danger" onclick="removeProduct(index)">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
 
             <div class="d-flex justify-content-between mt-5">
                 <button class="btn btn-outline-dark">
@@ -207,7 +303,6 @@
             </div>
 
 
-        </div>
         <hr/>
 
     </div>

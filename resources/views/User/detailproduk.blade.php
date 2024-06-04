@@ -137,9 +137,10 @@
                         <div>
                             {{-- Dataran --}}
 
-                            {{-- @include('user.produk.ardataranpolos') --}}
-                            @include('user.produk.ardataranvarian')
-
+                            @include('user.produk.ardataranpolos')
+                            {{-- @include('user.produk.ardataranvarian') --}}
+                            {{-- @include('user.produk.ardatarandimensi') --}}
+                            {{-- @include('user.produk.ardatarandimensivarian') --}}
 
 
                             {{-- Dinding --}}

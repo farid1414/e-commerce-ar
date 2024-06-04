@@ -56,7 +56,13 @@
 
   </style>
 </head>
+
 @include('user.komponenuser.navbaruser')
+
+<div class='d-block d-lg-none'>
+@include('user.komponenuser.bottomnavbar')
+</div>
+
 @include('user.include.style')
 <body>
     {{-- Hero --}}
@@ -167,7 +173,7 @@
 
           {{-- PROGRAM Flash Sale --}}
           <div class="container">
-          <h2 style="font-size: 3.4vw; margin-right: 10px;">
+          <h2 style="font-size: 37px; margin-right: 10px;">
             <b>Flash Sale 1.1</b>
         </h2>
             <div class="card-row">
@@ -178,8 +184,8 @@
                         onclick="handleProductClick(produk.id)"
                         onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                         onmouseleave="this.style.boxShadow = 'none'">
-                        <span class="badge bg-danger"
-                            style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                        <span class="badge bg-warning"
+                            style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Flash Sale 1.1</span>
                             <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
                             style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                         <div class="card-body">
@@ -230,8 +236,8 @@
                       onclick="handleProductClick(produk.id)"
                       onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                       onmouseleave="this.style.boxShadow = 'none'">
-                      <span class="badge bg-danger"
-                          style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                      <span class="badge bg-warning"
+                          style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Flash Sale 1.1</span>
                           <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
                           style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                       <div class="card-body">
@@ -282,8 +288,8 @@
                     onclick="handleProductClick(produk.id)"
                     onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                     onmouseleave="this.style.boxShadow = 'none'">
-                    <span class="badge bg-danger"
-                        style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                    <span class="badge bg-warning"
+                        style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Flash Sale 1.1</span>
                         <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
                         style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                     <div class="card-body">
@@ -334,8 +340,8 @@
                               onclick="handleProductClick(produk.id)"
                               onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                               onmouseleave="this.style.boxShadow = 'none'">
-                              <span class="badge bg-danger"
-                                  style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                              <span class="badge bg-warning"
+                                  style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Flash Sale 1.1</span>
                                   <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
                                   style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                               <div class="card-body">
@@ -386,8 +392,8 @@
                             onclick="handleProductClick(produk.id)"
                             onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                             onmouseleave="this.style.boxShadow = 'none'">
-                            <span class="badge bg-danger"
-                                style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                            <span class="badge bg-warning"
+                                style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Flash Sale 1.1</span>
                                 <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Product"
                                 style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                             <div class="card-body">
@@ -650,10 +656,6 @@
     </div>
 
       @include('user.komponenuser.footer')
-
-      
-
-      
             @include('user.include.script')
 
 </body>

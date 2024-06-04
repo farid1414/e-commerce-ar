@@ -17,9 +17,9 @@
     ar-modes="scene-viewer webxr quick-look" 
     xr-environment 
     ar-scale="auto" 
-    skybox-height="1.8m" 
     shadow-intensity="1" 
     camera-controls 
+    ar-placement="wall" 
     touch-action="pan-y" 
     auto-rotate 
     style="width: 100%; height: 400px; border-radius: 15px; position: relative;">

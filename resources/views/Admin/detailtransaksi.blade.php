@@ -1,32 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- Tahap 1 --}}
+@extends('layouts.admin.page')
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+{{-- Tahap untuk judul  --}}
+@section('title', 'Detail Produk')
 
-  <title>Tambah Admin</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+{{-- tahap section jangan lupa di tutup --}}
+@section('content')
 
-  @include('admin.include.style')
-</head>
 
-<body>
-
- @include('admin.komponenadmin.header')
-@include('admin.komponenadmin.sidebar')
-
-<main id="main" class="main">
-    <div class="pagetitle">
-  <h1>Detail Transaksi (Jhon Doe 1)</h1>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Detail Tranasksi (Jhon doe 1)</li>
-    </ol>
-  </nav>
-</div>
 <section class="section dashboard">
   <div class="card">
     <div class="card-body">
@@ -65,6 +46,8 @@ Pesanan yang dipesan
 
   <div class="contentpesananyangdipesan">
     <!-- Isi dari Contentpesananyangdipesan -->
+
+
     {{-- Lunas --}}
     <div class="card">
         <div class="card-body">
@@ -150,6 +133,9 @@ Pesanan yang dipesan
         </div>
       </div>
       
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-primary">Lihat Invoice</button>
+      </div>
 
 {{-- Belum dibayar --}}
 
@@ -238,10 +224,6 @@ Pesanan yang dipesan
 </div>
 </div>
 </div>
-
-
-
-
     {{-- Dibtalakan --}}
       <div class="card">
         <div class="card-body">
@@ -347,25 +329,6 @@ Pesanan yang dipesan
           </div>
         </div>
       </div>
-
-      
-
-
   </div>
 </section>
-
-
-
-</div>
-</main><!-- End #main -->
-
-                @include('admin.komponenadmin.footer')
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  @include('admin.include.script')
-
-
-
-</body>
-
-</html>
+@stop

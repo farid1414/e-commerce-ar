@@ -42,8 +42,17 @@ Route::get('user/detailproduk', function () {
     return view('user.detailproduk');
 });
 
+// list produk
+Route::get('user/listproduk', function () {
+    return view('user.listproduk');
+});
+
 
 // Kategori
+Route::get('user/kategori', function () {
+    return view('user.kategori');
+});
+
 Route::get('user/kategoridataran', function () {
     return view('user.kategoridataran');
 });
@@ -75,7 +84,6 @@ Route::get('user/pembayaranberhasil', function () {
 Route::get('user/pembayarangagal', function () {
     return view('user.pembayarangagal');
 });
-
 
 
 // Invoice PELANGGAN
@@ -239,4 +247,9 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
     Route::prefix('/category')->name('category.')->group(function () {
         Route::get('/dataran', [CategoryController::class, 'indexDataran'])->name('index-dataran');
     });
+});
+
+
+Route::get('admin/detailflashsale', function () {
+    Return view ('admin.detailflashsale');
 });
