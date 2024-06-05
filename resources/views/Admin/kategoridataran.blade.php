@@ -295,18 +295,18 @@
             const onConfirm = () => {
                 const action = "{{ route($this_helper . 'status') }}/" + id
                 const ajax = new AjaxRequest(action)
-                // ajax.onBefore = () => {
-                //     addLoader2El($('#btn-save'), "Saving...");
-                //     $('#btn-save').attr('disabled', true);
-                // }
+                ajax.onBefore = () => {
+                    $loaderEl.removeClass('d-none')
+                }
 
-                // ajax.onfail = () => {
-                //     removeLoader($('#btn-save'))
-                // }
+                ajax.onfail = () => {
+                    $loaderEl.addClass('d-none')
+                }
 
                 // let data = new FormData(this)
                 ajax.submit(null, (resp) => {
                     if (resp.success) {
+                        $loaderEl.addClass('d-none')
                         $('#table_active_dataran').DataTable().ajax.reload();
                         $('#tabel_arvhive_dataran').DataTable().ajax.reload();
                     }
@@ -316,7 +316,6 @@
             const swal = new swalConfirm(onConfirm, title, msg, true);
             swal.option.confirmButtonText = custom;
             swal.fire()
-            console.log("clcik", id, active);
         })
     </script>
 @endpush

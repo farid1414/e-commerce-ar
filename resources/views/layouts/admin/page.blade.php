@@ -21,6 +21,7 @@
     @include('admin.komponenadmin.sidebar')
 
     <main id="main" class="main">
+        @include('layouts.loader')
         <div class="pagetitle">
             <h1>@yield('head_breadcumb')</h1>
             <nav>
@@ -37,6 +38,14 @@
     @include('admin.komponenadmin.footer')
 
     @include('admin.include.script')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        const $loaderEl = $("#loading");
+    </script>
     <script src="{{ asset('js/ajax.js') }}"></script>
     <script src="{{ asset('js/alert.js') }}"></script>
     @stack('js')
