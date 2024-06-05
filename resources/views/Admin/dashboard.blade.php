@@ -6,7 +6,6 @@
 
 {{-- tahap section jangan lupa di tutup --}}
 @section('content')
-
     <section class="section dashboard">
         <div class="row">
 

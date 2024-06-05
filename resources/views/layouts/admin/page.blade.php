@@ -37,6 +37,8 @@
     @include('admin.komponenadmin.footer')
 
     @include('admin.include.script')
+    <script src="{{ asset('js/ajax.js') }}"></script>
+    <script src="{{ asset('js/alert.js') }}"></script>
     @stack('js')
     @yield('js')
 </body>

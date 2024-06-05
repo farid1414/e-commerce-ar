@@ -18,6 +18,13 @@ function addLoader2El(dom, text = "") {
     dom.html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ${text}`);
 }
 
+function removeLoader(dom, text ="Save")
+{
+    if (typeof dom !== "object") return;
+    dom.attr('disabled', false)
+    dom.html(`<i class="fas fa-save"></i> ${text}`);
+}
+
 /**
  * Ajax Request Helper
  *

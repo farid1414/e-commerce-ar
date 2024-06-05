@@ -265,10 +265,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/category')->name('category.')->group(function () {
         Route::get('/dataran', [CategoryController::class, 'indexDataran'])->name('index-dataran');
+        Route::get('/form-dataran', [CategoryController::class, 'formDataran'])->name('form-dataran');
+        Route::post('/', [CategoryController::class, 'store'])->name('store');
+        Route::get('/data', [CategoryController::class, 'data'])->name('data');
+        Route::post('/status/{id?}', [CategoryController::class, 'status'])->name('status');
     });
 });
 
 
 Route::get('admin/detailflashsale', function () {
-    Return view ('admin.detailflashsale');
+    return view('admin.detailflashsale');
 });

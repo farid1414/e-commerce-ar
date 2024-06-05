@@ -51,9 +51,9 @@ var toastMixin = Swal.mixin({
 });
 
 
-function swalConfirm(onConfirmed, text = "You won't be able to revert this!", manualfire = false) {
+function swalConfirm(onConfirmed, title ="Are you sure?", text = "You won't be able to revert this!", manualfire = false) {
     this.option = {
-        title: "Are you sure?",
+        title: title,
         text: text,
         icon: "warning",
         showCancelButton: true,
