@@ -29,13 +29,49 @@
             width: 40px;
             border-radius: 5px;
         }
+        /* Style tambahan */
+    .product-list img {
+        max-width: 100%;
+        height: auto;
+    }
+    .product-list {
+        max-width: 200px; /* Batasi lebar maksimum */
+    }
+    /* CSS untuk scrollbar */
+    .product-list::-webkit-scrollbar {
+        width: 5px; /* Lebar scrollbar */
+    }
+
+    /* Track */
+    .product-list::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Warna track scrollbar */
+    }
+
+    /* Handle */
+    .product-list::-webkit-scrollbar-thumb {
+        background: #888; /* Warna handle scrollbar */
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    .product-list::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Warna handle scrollbar saat hover */
+    }
+    .carousel-item img {
+        height: 400px; /* Tinggi tetap untuk semua gambar */
+        object-fit: cover; /* Memastikan gambar sesuai dengan ukuran yang ditetapkan */
+    }
     </style>
 </head>
 {{-- INCLUDE & KOMPONEN --}}
-@include('user.komponenuser.navbaruser')
-@include('user.include.style')
-@include('user.komponenuser.breadcrumb')
 
+@include('user.komponenuser.navbaruser')
+
+<div class='d-block d-lg-none'>
+@include('user.komponenuser.bottomnavbar')
+</div>
+
+@include('user.include.style')
 <body>
     <div class="container">
                    <div class="row mt-2">
@@ -44,68 +80,93 @@
 
                         {{-- Gambar PRODUK untuk PC --}}
                         <div class='d-none d-md-block'>
-                            <div class="card" style="background-color: #F9F9F9; border: 0;">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="img-fluid" style="border-radius: 10px; max-height: 400px; max-width: 350px; width: 100%; height: 100%; object-fit: cover;" onclick="openModal(0)" />
-                                        </div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar2.jpg" class="img-fluid" style="border-radius: 10px;" onclick="openModal(1)" />
-                                                </div>
-                                                <div class="col">
-                                                    <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar3.jpg" class="img-fluid" style="border-radius: 10px;" onclick="openModal(2)" />
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <div class="row">
-                                                <div class="col">
-                                                    <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar4.jpg" class="img-fluid" style="border-radius: 10px;" onclick="openModal(3)" />
-                                                </div>
-                                                <div class="col">
-                                                    <div style="position: relative;">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar5.jpg" class="img-fluid" style="border-radius: 10px;" onclick="openModal(4)" />
-                                                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: rgba(115, 115, 115, 0.6); border-radius: 10px;">
-                                                            <button class="btn btn-link text-white" style="text-decoration: none;" onclick="openModal(4)">+ 5 Lainnya</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="product-list d-flex flex-column overflow-auto" style="max-height: 350px;">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Produk 1" class="mb-2">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar2.jpg" alt="Produk 2" class="mb-2">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar3.jpg" alt="Produk 3" class="mb-2">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar4.jpg" alt="Produk 3" class="mb-2">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar5.jpg" alt="Produk 3" class="mb-2">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar6.jpg" alt="Produk 3" class="mb-2">
+                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Produk 3" class="mb-2">
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-9">
+                                   
+
+                                    <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="10000">
+                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100" alt="...">
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="2000">
+                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar2.jpg" class="d-block w-100" alt="...">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar3.jpg" class="d-block w-100" alt="...">
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+
+
                             </div>
                               </div>    
                       
+
+
                               {{-- Gambar PRODUK untuk HP --}}
                               <div class='d-block d-lg-none'>
                                 <div class="container">
-                                    <!-- Gambar 1 -->
-                                    <div class="card">
-                                      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-                                          <div class="carousel-item active">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100 img-fluid" alt="First slide" style="max-height: 500px; object-fit: cover;">
-                                          </div>
-                                          <div class="carousel-item">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100 img-fluid" alt="Second slide" style="max-height: 500px; object-fit: cover;">
-                                          </div>
-                                          <div class="carousel-item">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100 img-fluid" alt="Third slide" style="max-height: 500px; object-fit: cover;">
-                                          </div>
+                                    <div id="carouselExampleDark1" class="carousel carousel-dark slide">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                         </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                          <span class="visually-hidden">Previous</span>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="10000">
+                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100" alt="...">
+                                               
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="2000">
+                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100" alt="...">
+                                                
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="d-block w-100" alt="...">
+                                                
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
                                         </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                          <span class="visually-hidden">Next</span>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
                                         </button>
-                                      </div>
                                     </div>
+                                    
                                    
                                     <div class="container mt-4">
                                       <div class="row">
@@ -133,7 +194,7 @@
                     </div>
         
                     {{-- AUGMENTED REALITYY --}}
-                    <div class="mt-4">
+                    <div class="mt-5">
                         <div>
                             {{-- Dataran --}}
 
@@ -328,7 +389,7 @@
                                                         {{-- ULASAN PELANGGGAN --}}
                                                         <div>
                                                             <div class="d-flex justify-content-between mb-1">
-                                                                <h5 class="card-title">Jhon Doe 1</h5>
+                                                                <h5 class="card-title">Jhon Doe</h5>
                                                                 <span class="text-muted" style="font-size: 0.85rem;">10/03/2023</span>
                                                             </div>
                                                             <div class="row">
@@ -343,18 +404,17 @@
                                                                 </div>
                                                             </div>
                                                             <p class="mt-2 text-muted">Varian : Biru</p>
-                                                            <div class="row mt-3">
-                                                                <div class="col-xs-4 col-md-4 col-lg-2 mb-3">
-                                                                    <div class="image-container" onclick="handleImageClick('../gambar/product-2.jpg')">
-                                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="img-fluid rounded" alt="Product Image">
-                                                                    </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="img-fluid" alt="Product 1" style="max-height: 100px">
                                                                 </div>
-                                                                <div class="col-xs-4 col-md-4 col-lg-2 mb-3">
-                                                                    <div class="image-container" onclick="handleImageClick('../gambar/product-5.jpg')">
-                                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar2.jpg" class="img-fluid rounded" alt="Product Image">
-                                                                    </div>
+                                                                <div class="col">
+                                                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="img-fluid" alt="Product 2" style="max-height: 100px">
                                                                 </div>
-                                                            </div>
+                                                                <div class="col">
+                                                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="img-fluid" alt="Product 3" style="max-height: 100px">
+                                                                </div>
+                                                              </div>
                                                             <p>
                                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac scelerisque arcu, et placerat velit. Phasellus in nisl nisi. Nullam varius purus id justo posuere mollis.
                                                             </p>
@@ -379,7 +439,7 @@
                                                             <hr>
                                                             
                                                             <div class="d-flex justify-content-between mb-1">
-                                                                <h5 class="card-title">J********1</h5>
+                                                                <h5 class="card-title">J********E</h5>
                                                                 <span class="text-muted" style="font-size: 0.85rem;">08/03/2023</span>
                                                             </div>
                                                             <div class="row">
@@ -391,14 +451,11 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row mt-3">
-                                                                <!-- Loop over imageUrls to display images -->
-                                                                <div class="col-xs-4 col-md-4 col-lg-2 mb-3">
-                                                                    <div class="image-container" onclick="handleImageClick(imageUrl)">
-                                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 2/Produk2gambar2.jpg" class="img-fluid rounded" alt="Product Image">
-                                                                    </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                  <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" class="img-fluid" alt="Product 1" style="max-height: 100px">
                                                                 </div>
-                                                            </div>
+                                                              </div>
                                                             <p>
                                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac scelerisque arcu, et placerat velit. Phasellus in nisl nisi. Nullam varius purus id justo posuere mollis.
                                                             </p>
@@ -445,7 +502,7 @@
 
                             {{-- NAMA PRODUK --}}
                             <div>
-                                SÖDERHAMN CHAIR
+                                <b>SÖDERHAMN CHAIR</b>
                             </div>
 
                             {{-- SUB NAMA PRODUK --}}
@@ -524,8 +581,6 @@
        
         
     </div>
-    <!-- Tombol untuk menampilkan modal -->
-<button id="btnMasukkanKeranjang" type="button" class="btn btn-primary">Masukkan ke Keranjang</button>
 
 <!-- Modal KERANJANG -->
 <div class="modal fade" id="modalMasukkanKeranjang" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

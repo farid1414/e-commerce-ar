@@ -6,10 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chekout Produk</title>
 </head>
-@include('user.komponenuser.navbaruser')
-@include('user.include.style')
-@include('user.komponenuser.breadcrumb')
 
+@include('user.komponenuser.navbaruser')
+
+<div class='d-block d-lg-none'>
+@include('user.komponenuser.bottomnavbar')
+</div>
+
+@include('user.include.style')
 <body>
     
     <div class="container">

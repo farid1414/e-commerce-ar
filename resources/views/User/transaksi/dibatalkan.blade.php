@@ -28,8 +28,10 @@
     <div class="card-footer text-muted bg-white">
         <div class="container">
             <div class="row">
-                <div class="col text-right">2 Produk</div>
-                <div class="col-auto text-right">Dibatalkan</div>
+                <div class="col d-flex justify-content-between">
+                    <div class="text-left">2 Produk</div>
+                    <div class="text-right">Dibatalkan</div>
+                </div>
             </div>
         </div>
     </div>

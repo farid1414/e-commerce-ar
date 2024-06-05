@@ -7,9 +7,12 @@
     <title>Kategori Dinding</title>
 </head>
 @include('user.komponenuser.navbaruser')
-@include('user.include.style')
-@include('user.komponenuser.breadcrumb')
 
+<div class='d-block d-lg-none'>
+@include('user.komponenuser.bottomnavbar')
+</div>
+
+@include('user.include.style')
 <body>
     
     <div class="container">

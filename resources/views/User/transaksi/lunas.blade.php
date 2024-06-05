@@ -1,3 +1,41 @@
+<style>
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+    </style>
+
 <div class="card mt-3">
     <div class="card-header bg-dark text-white">
         <div class="row">
@@ -28,8 +66,10 @@
     <div class="card-footer text-muted bg-white">
         <div class="container">
             <div class="row">
-                <div class="col text-right">2 Produk</div>
-                <div class="col-auto text-right">Sudah Dibayar</div>
+                <div class="col d-flex justify-content-between">
+                    <div class="text-left">2 Produk</div>
+                    <div class="text-right">Sudah Dibayar</div>
+                </div>
             </div>
         </div>
     </div>
@@ -126,3 +166,166 @@
         </div>
     </div>
 </div>
+
+{{-- Modal Penilaian --}}
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> <!-- tambahkan kelas modal-lg untuk modal lebih besar -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Beri Penilaian</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 350px; overflow-y: auto;"> <!-- menggunakan inline style max-height dan overflow-y -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 2/Produk2gambar1.jpg" class="img-fluid" alt="Gambar Produk" style="border-radius: 10px">
+                    </div>
+                    <div class="col-md-8">
+                        <h5>Nama Produk</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>Kuantitas: </p>
+                            <p>1x</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Varian: </p>
+                            <p>-</p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                {{-- Star rating --}}
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <div class="rate">
+                            <input type="radio" id="star5" name="rate" value="5" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4" />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate" value="2" />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" value="1" />
+                            <label for="star1" title="text">1 star</label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="alert" role="alert" style="background-color: #F5F5F5;">
+                    <div>
+                        <textarea rows="5" id="comment" placeholder="Tulis ulasan Anda Disini... (Min 50 Karakter)" style="width: 100%; padding: 8px; border-radius: 4px;" required minlength="50" maxlength="250" oninput="updateCommentCount()"></textarea>
+    <div class="d-flex justify-content-end">
+        <span class="text-muted" id="commentCount">0 / 250</span>
+    </div>
+                    </div>
+                    
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <figcaption class="blockquote-footer mt-2">
+                           Gambar yang dapat diupload (
+                            <span id="remainingImagesCount">
+                                3
+                            </span>
+                            )
+                        </figcaption>
+                        <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
+                            <i class="bi bi-camera"></i> Tambah Foto
+                            <input type="file" accept="image/*" id="imageInput" style="display: none;">
+                        </label>
+                    </div>
+                    <div class="row" id="imageRow" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;"></div>
+                </div>
+
+
+                <div class="container">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                Tampilkan nama pada penilaian.
+                            </p>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="customSwitch" onchange="toggleSwitch()">
+                                <label class="form-check-label" for="customSwitch"></label>
+                            </div>
+                        </div>
+                        <span style="margin-top: -20px">
+                            <figcaption class="blockquote-footer mt-1" id="namaPenilaian">
+                                Nama yang ditampilkan adalah
+                                <cite title="Source Title">Jhon Doe</cite>
+                            </figcaption>
+                        </span>
+                    </div>
+                </div>
+                  
+
+
+
+            </div>
+            
+            <div class="modal-footer">
+                <div class="d-flex justify-content-between w-100"> <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
+                    <button type="button" class="btn btn-outline-secondary" onclick="handleReset()">Reset</button>
+                    <button type="button" class="btn btn-dark" onclick="handleButtonClick()">
+                        Kirim Penilaian
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+{{-- Sensor nama --}}
+<script>
+    var originalName;
+
+    // Simpan nama asli saat halaman dimuat
+    window.onload = function() {
+        originalName = document.querySelector('#namaPenilaian cite').textContent;
+    }
+
+    function toggleSwitch() {
+        var nama = document.querySelector('#namaPenilaian cite').textContent;
+        
+        if (originalName === undefined) {
+            originalName = nama;
+        }
+
+        if (document.getElementById("customSwitch").checked) {
+            // Mengubah nama dengan sensor bintang sesuai panjang nama
+            var maskedName = '';
+            for (var i = 0; i < nama.length; i++) {
+                if (i === 0 || i === nama.length - 1 || nama[i] === ' ') {
+                    maskedName += nama[i]; // Biarkan karakter pertama, terakhir, dan spasi tidak tersensor
+                } else {
+                    maskedName += '*'; // Sensor semua karakter lainnya
+                }
+            }
+            document.querySelector('#namaPenilaian cite').textContent = maskedName;
+        } else {
+            // Mengembalikan nama ke kondisi asal
+            document.querySelector('#namaPenilaian cite').textContent = originalName;
+            originalName = undefined;
+        }
+    }
+</script>
+
+
+{{-- Menghitung jumlah text area --}}
+<script>
+    function updateCommentCount() {
+        var comment = document.getElementById("comment").value;
+        var count = comment.length;
+        document.getElementById("commentCount").textContent = count + " / 250";
+    }
+</script>
+
+
+{{-- Menampilkan modal --}}
+  <script>
+function handleShowModal() {
+  $('#myModal').modal('show');
+}
+  </script>

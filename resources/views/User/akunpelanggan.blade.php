@@ -6,10 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Profil Pelanggan</title>
 </head>
-@include('user.komponenuser.navbaruser')
-@include('user.include.style')
-@include('user.komponenuser.breadcrumb')
 
+@include('user.komponenuser.navbaruser')
+
+<div class='d-block d-lg-none'>
+@include('user.komponenuser.bottomnavbar')
+</div>
+
+@include('user.include.style')
 <body>
     
     <div class="container">
@@ -18,6 +22,7 @@
             <h1><b>Akun Saya.</b></h1>
           </div>
 
+          {{-- PC --}}
           <div class="d-none d-lg-block">
             <ul class="nav nav-pills mb-3 d-flex justify-content-around" id="pills-tab" role="tablist" style="margin-bottom: 20px;">
                 <li class="nav-item" role="presentation">
@@ -35,8 +40,9 @@
             </ul>          
         </div>
 
+        {{-- MOBILE --}}
           <div class="d-block d-md-none">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="margin-bottom: 20px;">
+            <ul class="nav nav-pills mb-3 d-flex justify-content-around" id="pills-tab" role="tablist" style="margin-bottom: 20px;">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active btn-outline-dark"
                      id="pills-home-tab" data-bs-toggle="pill" 
@@ -72,6 +78,7 @@
              role="tabpanel" aria-labelledby="pills-home-tab" 
              tabindex="0">
             
+             <div class="container">
              {{-- Data diri --}}
              <h4>Data diri anda.</h4>
              <hr>
@@ -113,7 +120,7 @@
           </button>
 
         </div>
-            
+    </div>
             </div>
 
             {{-- transaksi Belum bayar --}}
