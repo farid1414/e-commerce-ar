@@ -498,8 +498,13 @@
                                 <span>Total Stock yang tersedia: 24</span>
                             </div>
                             <div class="mt-3">
-                                <button class="btn btn-outline-dark btn-lg w-100" style="border-radius: 25px;">Masukkan Keranjang</button>
+                                <button class="btn btn-outline-dark btn-lg w-100" style="border-radius: 25px;" id="btnMasukkanKeranjang">Masukkan Keranjang</button>
                             </div>
+                            
+                            
+  
+
+
                             <hr />
 
 
@@ -519,9 +524,113 @@
        
         
     </div>
-    @include('user.include.script')
+    <!-- Tombol untuk menampilkan modal -->
+<button id="btnMasukkanKeranjang" type="button" class="btn btn-primary">Masukkan ke Keranjang</button>
 
-    @include('user.komponenuser.footer')
+<!-- Modal KERANJANG -->
+<div class="modal fade" id="modalMasukkanKeranjang" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah ke Keranjang</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between">
+          <p>Pilih varian Produk</p>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Merah
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Merah</a></li>
+              <li><a class="dropdown-item">Putih</a></li>
+              <li><a class="dropdown-item">Biru</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr/>
+        <div class="d-flex justify-content-between">
+            <p>Kuantitas</p>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-light btn-sm" onclick="decreaseQuantity()">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <span id="quantityDisplay" class="mx-3">1</span>
+                <button class="btn btn-light btn-sm" onclick="increaseQuantity()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+          <hr/>
+        <div class="d-flex justify-content-between">
+          <p>Harga Produk</p>
+          <p>RP 1000000</p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <p>Ongkos Kirim</p>
+          <p>Rp 5000</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" onclick="closeModal()">Tutup</button>
+        <button type="button" class="btn btn-dark" onclick="addToCart()">Ya, Masukkan</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Script -->
+<script>
+  document.getElementById('btnMasukkanKeranjang').addEventListener('click', function() {
+    $('#modalMasukkanKeranjang').modal('show');
+  });
+
+  function closeModal() {
+    $('#modalMasukkanKeranjang').modal('hide');
+  }
+
+  function addToCart() {
+    Swal.fire({
+      title: 'Produk berhasil dimasukkan ke keranjang!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        closeModal(); // Tutup modal setelah pesan dikonfirmasi
+      }
+    });
+  }
+</script>
+
+<script>
+    var quantity = 1; // Kuantitas awal
+    var quantityLimit = 10; // Batas kuantitas
+
+    function updateQuantityDisplay() {
+        document.getElementById('quantityDisplay').innerText = quantity;
+    }
+
+    function decreaseQuantity() {
+        if (quantity > 1) {
+            quantity--;
+            updateQuantityDisplay();
+        }
+    }
+
+    function increaseQuantity() {
+        if (quantity < quantityLimit) {
+            quantity++;
+            updateQuantityDisplay();
+        }
+    }
+</script>
+
+
+@include('user.include.script')
+
+@include('user.komponenuser.footer')
 </body>
 </html>

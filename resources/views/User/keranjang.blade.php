@@ -7,9 +7,12 @@
     <title>Keranjang</title>
 </head>
 @include('user.komponenuser.navbaruser')
+
+<div class='d-block d-lg-none'>
 @include('user.komponenuser.bottomnavbar')
+</div>
+
 @include('user.include.style')
-@include('user.komponenuser.breadcrumb')
 
 <body>
   
@@ -76,11 +79,11 @@
                             </td>
                             <td class="align-middle">
                                 <div class="d-flex align-items-center">
-                                    <button class="btn btn-light btn-sm" onclick="decreaseQuantity(index)" disabled="isMinusDisabled(index)">
+                                    <button class="btn btn-light btn-sm" onclick="decreaseQuantity()">
                                         <i class="fas fa-minus"></i>
                                     </button>
-                                    <span class="mx-3">1</span>
-                                    <button class="btn btn-light btn-sm" onclick="increaseQuantity(index)" disabled="product.quantity >= product.quantityLimit">
+                                    <span id="quantityDisplay" class="mx-3">1</span>
+                                    <button class="btn btn-light btn-sm" onclick="increaseQuantity()">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -151,7 +154,7 @@
                                 </div>
                             </td>
                             <td class="align-middle">
-                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg" alt="Kursi Klasik Eropa" width="100" height="100" style="border-radius: 10px; object-fit: cover;">
+                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 2/Produk2gambar1.jpg" alt="Kursi Klasik Eropa" width="100" height="100" style="border-radius: 10px; object-fit: cover;">
                             </td>
                             <td class="align-middle text-center">
                                 <div class="me-5">-</div>
@@ -263,14 +266,13 @@
           <i class="fas fa-trash"></i>
         </button>
         <div class="d-flex align-items-center">
-          <button class="btn btn-light btn-sm">
-            <i class="fas fa-minus"></i>
-          </button>
-          <span class="mx-4">1</span>
-          <button class="btn btn-light btn-sm">
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
+            <button class="btn btn-light btn-sm" onclick="decreaseQuantity()">
+                <i class="fas fa-minus"></i>
+            </button>
+            <span id="quantityDisplay" class="mx-3">1</span>
+            <button class="btn btn-light btn-sm" onclick="increaseQuantity()">
+                <i class="fas fa-plus"></i>
+            </button>
       </div>
     </div>
   </div>
@@ -374,6 +376,31 @@
     @include('user.include.script')
 
     @include('user.komponenuser.footer')
+
+
+    <script>
+        var quantity = 1; // Kuantitas awal
+        var quantityLimit = 10; // Batas kuantitas
+    
+        function updateQuantityDisplay() {
+            document.getElementById('quantityDisplay').innerText = quantity;
+        }
+    
+        function decreaseQuantity() {
+            if (quantity > 1) {
+                quantity--;
+                updateQuantityDisplay();
+            }
+        }
+    
+        function increaseQuantity() {
+            if (quantity < quantityLimit) {
+                quantity++;
+                updateQuantityDisplay();
+            }
+        }
+    </script>
+
 
 </body>
 </html>

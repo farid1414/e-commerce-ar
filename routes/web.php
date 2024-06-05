@@ -14,6 +14,7 @@ Route::get('auth/registrasi', function () {
 });
 
 
+// =================== !!  BATAS !! ===================== !! BATAS !! ======================== !! BATAS !! =====================
 
 // User
 Route::get('/', function () {
@@ -41,6 +42,7 @@ Route::get('user/checkout', function () {
 Route::get('user/detailproduk', function () {
     return view('user.detailproduk');
 });
+
 
 // list produk
 Route::get('user/listproduk', function () {
@@ -93,15 +95,32 @@ Route::get('user/invoicepelanggan', function () {
 });
 
 
+// Tentang Kami
+
+Route::get('user/tentangkami', function () {
+    return view('user.tentangkami');
+});
+
+
+// hasil pencarian
+
+Route::get('user/hasilpencarian', function () {
+    return view('user.hasilpencarian');
+});
+
+
+// FAQ
+
+Route::get('user/FAQ', function () {
+    return view('user.FAQ');
+});
 
 
 
 
+// =================== !!  BATAS !! ===================== !! BATAS !! ======================== !! BATAS !! =====================
 
 
-
-
-// -----------------------------------------------------------------
 
 
 // Admin
