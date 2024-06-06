@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Master\Category;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Master\MCategory;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -21,24 +22,34 @@ class CategoryController extends Controller
         view()->share('this_helper', self::ROUTE);
     }
 
-    public function indexDataran()
+    public function index(string $slug)
     {
-        return view('admin.kategoridataran');
+        $mcat = MCategory::firstWhere('slug', $slug);
+        $categories = Category::where('m_categories', $mcat->id)->get();
+        return view('admin.index-category', [
+            'categories' => $categories,
+            'mCat' => $mcat
+        ]);
     }
 
-    public function formDataran()
+    public function form(string $slug, int $id = null)
     {
-        return view('admin.tambahkategoridataran');
+        $cat = MCategory::firstWhere('slug', $slug);
+        $edit = false;
+        if ($id) {
+            $categories = Category::findOrFail($id);
+            $edit = true;
+        }
+        return view('admin.tambahkategori', [
+            'm_cat' => $cat,
+            'categories' => $categories ?? null,
+            'edit' => $edit
+        ]);
     }
 
     public function data(Request $request)
     {
-        $query = Category::select('*');
-        if ($request->is_active) {
-            $query = $query->where('is_active', true);
-        } else {
-            $query = $query->where('is_active', false);
-        }
+        $query = Category::select('*')->where('m_categories', $request->categori)->where('is_active', $request->is_active);
 
         return DataTables::of($query)
             ->addIndexColumn()
@@ -51,13 +62,13 @@ class CategoryController extends Controller
                 }
 
                 return '<button class="btn btn-link btn-active-cat"  data-active="' . $dataArchive . '" data-id="' . $q->id . '" style="text-decoration: none;" >' . $textArchive . '</button> <br />
-                        <a href="#" class="btn btn-link" style="text-decoration: none;">Ubah</a>
+                        <a href="' . route(self::ROUTE . 'form', ['slug' => $q->masterCat->slug, 'id' => $q->id]) . ' " class="btn btn-link" style="text-decoration: none;">Ubah</a>
                         <br />
                         <div class="dropdown">
                             <button class="btn btn-link dropdown-toggle" style="text-decoration:none;"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false"> Lainnya </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Hapus Kategori</a></li>
+                            <li><a class="dropdown-item btn-delete" data-id="' . $q->id . '" data-slug="' . $q->masterCat->slug . '" href="javascript:void(0);">Hapus Kategori</a></li>
                             <li><a class="dropdown-item" href="#">Lihat Detail Kategori</a>
                              </li>
                         </ul>
@@ -100,9 +111,9 @@ class CategoryController extends Controller
             $data['image'] = $url;
         }
 
-        $route = 'index-dataran';
+        $route = 'dataran';
         if ($data['m_categories'] == 2) {
-            $route = 'index-dinding';
+            $route = 'dinding';
         }
         try {
             DB::beginTransaction();
@@ -110,7 +121,53 @@ class CategoryController extends Controller
             DB::commit();
             // return JSON_RESPONSE("Success.\nSave new category product {$cat->name}", $cat);
             return JSON_RESPONSE("Success.\nSave new category product {$cat->name}", null, [
-                'url' => route(self::ROUTE . $route),
+                'url' => route(self::ROUTE . 'index', $route),
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed to save category {$request->name} ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $cat = Category::findOrFail($request->id);
+        if (!$cat) return ERROR_RESPONSE("Category not found");
+
+        $data = [
+            'name' => ucfirst($request->name),
+            'slug' => Str::slug($request->name),
+            'm_categories' => $request->m_categories,
+            'image' => $request->image,
+            'created_by' => Auth::user()->id ?? 1,
+        ];
+        $rules = Category::RULES;
+        $rules['image'] = 'nullable';
+        $validate = Validator::make($data, $rules, Category::MESSAGE);
+        if ($validate->fails()) return ERROR_RESPONSE("Error validation", $validate->getMessageBag()->first() ?? null, Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $data['image'] = $cat->image;
+
+        if ($request->image) {
+            $file = $request->image;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $folder = 'storage/category/';
+            $file->move(public_path($folder), $filename);
+            $url = $folder . $filename;
+            $data['image'] = $url;
+        }
+
+        $route = 'dataran';
+        if ($data['m_categories'] == 2) {
+            $route = 'dinding';
+        }
+
+        try {
+            DB::beginTransaction();
+            $cat->update($data);
+            DB::commit();
+            return JSON_RESPONSE("Success.\nUpdate category product {$cat->name}", null, [
+                'url' => route(self::ROUTE . 'index', $route),
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -137,6 +194,25 @@ class CategoryController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return ERROR_RESPONSE("Failed to update category {$cat->name} ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function delete(string $slug, int $id)
+    {
+        $cat = Category::findOrFail($id);
+        if (!$cat) return ERROR_RESPONSE("Category not found");
+
+        try {
+            DB::beginTransaction();
+            if ($cat->products->count()) {
+                $cat->products->each->delete();
+            }
+            $cat->delete();
+            DB::commit();
+            return JSON_RESPONSE("Success, \nDelete category {$cat->name}");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed to delete category ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

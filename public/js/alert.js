@@ -58,6 +58,7 @@ function swalConfirm(onConfirmed, title ="Are you sure?", text = "You won't be a
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Yes, sure",
+        cancelButtonText :"Tidak",
 
         customClass: {
             confirmButton: "btn btn-danger",

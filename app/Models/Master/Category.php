@@ -40,4 +40,8 @@ class Category extends Model
     {
         return date_format(date_create($this->created_at), 'd/m/Y H:i:s');
     }
+    public function masterCat()
+    {
+        return $this->belongsTo(MCategory::class, 'm_categories', 'id');
+    }
 }

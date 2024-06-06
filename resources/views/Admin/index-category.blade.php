@@ -7,7 +7,7 @@
         <a href="/">Home</a>
     </li>
     <li class="breadcrumb-item active">
-        Kategori Furnitur Pada Dataran
+        Kategori Furnitur Pada {{ $mCat->name }}
     </li>
 @stop
 @section('content')
@@ -24,9 +24,7 @@
                                 <i class="bi bi-box"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>20</h6>
-                                {{-- <h6>{{ $kategoriAktif }}</h6> --}}
-
+                                <h6>{{ $categories->where('is_active', true)->count() }}</h6>
                                 <span class="text-muted small pt-1">
                                     Kategori Aktif
                                 </span>
@@ -45,7 +43,7 @@
                                 <i class="bi bi-box-seam"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>20</h6>
+                                <h6>{{ $categories->where('is_active', false)->count() }}</h6>
                                 {{-- <h6>{{ $kategoriDiarsipkan }}</h6> --}}
 
                                 <span class="text-muted small pt-1" style="font-size: 13px;">
@@ -66,7 +64,7 @@
                                 <i class="bi bi-dropbox"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>25</h6>
+                                <h6>{{ $categories->count() }}</h6>
                                 {{-- <h6>{{ $totalKategoriKeseluruhan}}</h6> --}}
 
                                 <span class="text-muted small pt-1">
@@ -81,7 +79,8 @@
 
         <div class="d-grid gap-2">
             {{-- <button class="btn btn-primary btn-lg" type="button">Tambah Kategori</button> --}}
-            <a href="{{ route($this_helper . 'form-dataran') }}" class="btn btn-primary btn-lg">Tambah Kategori</a>
+            <a href="{{ route($this_helper . 'form', $mCat->slug) }}" class="btn btn-primary btn-lg">Tambah
+                Kategori</a>
         </div>
         <!-- Isi Konten Produk Dataran -->
         <div class="card mt-4">
@@ -99,7 +98,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="card-title">Kategori Aktif</div>
                                 <div class="card-title">
-                                    <span>1 Kategori</span>
+                                    <span>{{ $categories->where('is_active', true)->count() }} Kategori</span>
                                 </div>
                             </div>
 
@@ -164,7 +163,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="card-title">Kategori Non-aktif / Diarsipkan</div>
                                 <div class="card-title">
-                                    <span>1 Produk</span>
+                                    <span>{{ $categories->where('is_active', false)->count() }} Kategori</span>
                                 </div>
                             </div>
 
@@ -196,7 +195,8 @@
             $('#table_active_dataran').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route($this_helper . 'data', ['is_active' => true]) }}",
+                ajax: "{{ route($this_helper . 'data', $mCat->slug) }}/" +
+                    "?categori={{ $mCat->id }}&is_active=" + 1,
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -234,88 +234,124 @@
                     },
                 ]
             });
-        })
-
-        $('#tabel_arvhive_dataran').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route($this_helper . 'data', ['is_active' => false]) }}",
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    orderable: false,
-                    searchable: false,
-                    visible: false
-                },
-                {
-                    data: 'product',
-                    name: 'product',
-                    orderable: false,
-                    searchable: false,
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'total_product',
-                    name: 'total_product',
-                    orderable: false,
-                    searchable: false,
-                },
-                {
-                    data: 'created_date',
-                    name: 'created_date',
-                    orderable: false,
-                    searchable: false,
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
-            ]
-        });
 
 
-        $('body').on('click', '.btn-active-cat', function() {
-            let id = $(this).attr('data-id')
-            let active = $(this).attr('data-active')
+            $('#tabel_arvhive_dataran').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route($this_helper . 'data', $mCat->slug) }}/" +
+                    "?categori={{ $mCat->id }}&is_active=" + 0,
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'product',
+                        name: 'product',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'total_product',
+                        name: 'total_product',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'created_date',
+                        name: 'created_date',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
 
-            let title = "Apakah Anda yakin ingin mengarsipkan kategori ini ?"
-            let msg = "Seluruh Produk yang terdapat pada kategori ini akan diarsipkan juga."
-            let custom = "Ya, Arsipkan kategori"
 
-            if (active == 'true') {
-                title = "Apakah Anda yakin ingin mengAktifkan produk ini ?"
-                msg = "Seluruh Produk yang terdapat pada kategori ini akan diaktifkan juga."
-                custom = "Ya, Aktifkan kategori"
-            }
-            const onConfirm = () => {
-                const action = "{{ route($this_helper . 'status') }}/" + id
-                const ajax = new AjaxRequest(action)
-                ajax.onBefore = () => {
-                    $loaderEl.removeClass('d-none')
+            $('body').on('click', '.btn-active-cat', function() {
+                let id = $(this).attr('data-id')
+                let active = $(this).attr('data-active')
+
+                let title = "Apakah Anda yakin ingin mengarsipkan kategori ini ?"
+                let msg = "Seluruh Produk yang terdapat pada kategori ini akan diarsipkan juga."
+                let custom = "Ya, Arsipkan kategori"
+
+                if (active == 'true') {
+                    title = "Apakah Anda yakin ingin mengAktifkan produk ini ?"
+                    msg = "Seluruh Produk yang terdapat pada kategori ini akan diaktifkan juga."
+                    custom = "Ya, Aktifkan kategori"
                 }
-
-                ajax.onfail = () => {
-                    $loaderEl.addClass('d-none')
-                }
-
-                // let data = new FormData(this)
-                ajax.submit(null, (resp) => {
-                    if (resp.success) {
-                        $loaderEl.addClass('d-none')
-                        $('#table_active_dataran').DataTable().ajax.reload();
-                        $('#tabel_arvhive_dataran').DataTable().ajax.reload();
+                const onConfirm = () => {
+                    const action = "{{ route($this_helper . 'status') }}/" + id
+                    const ajax = new AjaxRequest(action)
+                    ajax.onBefore = () => {
+                        $loaderEl.removeClass('d-none')
                     }
-                })
-            }
 
-            const swal = new swalConfirm(onConfirm, title, msg, true);
-            swal.option.confirmButtonText = custom;
-            swal.fire()
+                    ajax.onfail = () => {
+                        $loaderEl.addClass('d-none')
+                    }
+
+                    // let data = new FormData(this)
+                    ajax.submit(null, (resp) => {
+                        if (resp.success) {
+                            $loaderEl.addClass('d-none')
+                            $('#table_active_dataran').DataTable().ajax.reload();
+                            $('#tabel_arvhive_dataran').DataTable().ajax.reload();
+                        }
+                    })
+                }
+
+                const swal = new swalConfirm(onConfirm, title, msg, true);
+                swal.option.confirmButtonText = custom;
+                swal.fire()
+            })
+
+            $('body').on('click', '.btn-delete', function() {
+                let id = $(this).attr('data-id')
+                let slug = $(this).attr('data-slug')
+
+                const onConfirm = () => {
+                    const action = "{{ route($this_helper . 'delete', $mCat->slug) }}/" + id
+                    const ajax = new AjaxRequest(action, "DELETE")
+                    ajax.onBefore = () => {
+                        $loaderEl.removeClass('d-none')
+                    }
+
+                    ajax.onfail = () => {
+                        $loaderEl.addClass('d-none')
+                    }
+
+                    // let data = new FormData(this)
+                    ajax.submit(null, (resp) => {
+                        if (resp.success) {
+                            swal('success', resp.message ?? "Success delete category")
+                            $loaderEl.addClass('d-none')
+                            $('#table_active_dataran').DataTable().ajax.reload();
+                            $('#tabel_arvhive_dataran').DataTable().ajax.reload();
+                        }
+                    })
+                }
+
+                const confirm = new swalConfirm(onConfirm,
+                    'Apakah Anda yakin ingin menghapus kategori ini ?',
+                    'Kategori yang sudah dihapus tidak bisa dikembalikan kembali');
+                confirm.option.confirmButtonText = 'Ya, Hapus kategori';
+                confirm.fire()
+
+            })
         })
     </script>
 @endpush

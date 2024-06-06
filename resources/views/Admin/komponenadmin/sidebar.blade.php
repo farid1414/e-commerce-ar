@@ -35,12 +35,12 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('master.category.index-dataran') }}">
+                    <a href="{{ route('master.category.index', 'dataran') }}">
                         <i class="bi bi-circle"></i><span>Kategori Dataran</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/kategoridinding">
+                    <a href="{{ route('master.category.index', 'dinding') }}">
                         <i class="bi bi-circle"></i><span>Kategori Dinding</span>
                     </a>
                 </li>
