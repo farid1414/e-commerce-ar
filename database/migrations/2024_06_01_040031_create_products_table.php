@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->uuid();
             $table->string('name');
-            $table->foreignId("m_categroies")->nullable()->comment("master category")->index()->references("id")->on("m_categories");
+            $table->foreignId("m_categories")->nullable()->comment("master category")->index()->references("id")->on("m_categories");
+            $table->foreignId("categori_id")->comment("master category")->index()->references("id")->on("categories");
             $table->string('sub_name')->nullable();
             $table->integer('stock')->default(0);
             $table->integer('harga')->default(0);
@@ -29,7 +30,7 @@ return new class extends Migration
             $table->boolean('status_varian')->default(false);
             $table->boolean('status_diskon')->default(false);
             $table->boolean('status_dimensi')->default(false);
-            $table->integer('diskon')->default(0);
+            $table->integer('diskon')->nullable()->default(0);
             $table->integer('stok_sekarang')->nullable();
             $table->softDeletes();
             $table->timestamps();

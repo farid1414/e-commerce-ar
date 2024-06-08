@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('name');
             $table->string('image')->nullable();
+            $table->foreignId("m_categories")->nullable()->comment("master category")->index()->references("id")->on("m_categories");
             $table->foreignId("created_by")->comment('Created category by user')->nullable()->index()->references("id")->on("users");
             $table->boolean('is_active')->default(true);
             $table->softDeletes();

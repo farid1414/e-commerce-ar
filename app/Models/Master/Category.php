@@ -2,9 +2,10 @@
 
 namespace App\Models\Master;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -12,8 +13,35 @@ class Category extends Model
 
     protected $guarded = [];
     protected $hidden = [
-        'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    const RULES = [
+        'name' => 'required',
+        'image' => 'nullable|mimes:jpg,jpeg,png|max:5240',
+        'm_categories' => 'required',
+        'created_by' => 'required'
+    ];
+
+    const MESSAGE = [
+        'required' => 'param :attribute required',
+    ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'categori_id');
+    }
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
+    }
+    public function created_date()
+    {
+        return date_format(date_create($this->created_at), 'd/m/Y H:i:s');
+    }
+    public function masterCat()
+    {
+        return $this->belongsTo(MCategory::class, 'm_categories', 'id');
+    }
 }
