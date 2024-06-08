@@ -15,7 +15,7 @@
 
 @include('user.include.style')
 <body>
-    
+    <main>
     <div class="container">
 
         <div class="text-center mt-5 mb-5">
@@ -154,6 +154,7 @@
           
         </div>   
     </div>
+    </main>
     @include('user.include.script')
 
     @include('user.komponenuser.footer')

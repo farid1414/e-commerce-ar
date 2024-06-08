@@ -280,34 +280,36 @@
                 
             
 
-            <div class="d-flex justify-content-between mt-5">
-                <button class="btn btn-outline-dark">
-                    <span class="ml-2">
-                        <i class="fas fa-arrow-left" style="margin-right: 10px;"></i>
-                        Kembali
-                    </span>
-                </button>
-                <!-- Conditional Button -->
-                <!-- Kondisional hanya muncul jika ada produk -->
-                <!-- Jika selectedProducts kosong, tombol akan disembunyikan -->
-                <!-- Kondisi ini ditentukan oleh JavaScript di sisi klien -->
-                <button class="btn btn-primary mx-3" >
-                    Pilih Semua
-                </button>
-                <!-- Tombol untuk membuat pesanan -->
-                <!-- Tombol ini akan menampilkan tooltip 'disabled' jika selectedProducts kosong -->
-                <a href="" class="btn btn-dark d-flex align-items-center disabled">
-                    <span class="ml-2">
-                        Buat Pesanan
-                        <i class="fas fa-arrow-right ml-2" style="margin-left: 10px;"></i>
-                    </span>
-                </a>
-            </div>
+      
 
 
-        <hr/>
 
     </div>
+    <div class="d-flex justify-content-between mt-5">
+        <button class="btn btn-outline-dark">
+            <span class="ml-2">
+                <i class="fas fa-arrow-left" style="margin-right: 10px;"></i>
+                Kembali
+            </span>
+        </button>
+        <!-- Conditional Button -->
+        <!-- Kondisional hanya muncul jika ada produk -->
+        <!-- Jika selectedProducts kosong, tombol akan disembunyikan -->
+        <!-- Kondisi ini ditentukan oleh JavaScript di sisi klien -->
+        <button class="btn btn-primary mx-3" >
+            Pilih Semua
+        </button>
+        <!-- Tombol untuk membuat pesanan -->
+        <!-- Tombol ini akan menampilkan tooltip 'disabled' jika selectedProducts kosong -->
+        <a href="" class="btn btn-dark d-flex align-items-center disabled">
+            <span class="ml-2">
+                Buat Pesanan
+                <i class="fas fa-arrow-right ml-2" style="margin-left: 10px;"></i>
+            </span>
+        </a>
+    </div>
+    
+    <hr/>
 
     
      {{-- PRORDUK Baru dilihat --}}

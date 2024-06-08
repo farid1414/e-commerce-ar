@@ -145,7 +145,26 @@
               <footer class="blockquote-footer">Untuk Diskon flash sale diisi tanpa tanda (%)</cite></footer>
 
           </div>
+
+        
       </div>
+      <div class="card">
+        <div class="card-body">
+            <div class="card-title">Opsional      </div>
+
+        <div class="d-flex justify-content-between">
+            <p>Gratis Ongkir Semua Produk Flash Sale</p>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+              </div>
+        </div>
+        </div>
+  </div>
+
+
+      </div>
+      
   </div>
   <!-- Content presentasi diskon dari produk yang dipilih -->
   <div class="card mt-3">

@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hero Section</title>
-  <!-- Bootstrap CSS -->
-
+  <title>Beranda</title>
   <style>
-    /* Your CSS Styles */
     .overlay-background {
       position: absolute;
       top: 0;
@@ -56,7 +53,22 @@
 .body {
       overflow-y: auto; /* Allow vertical scrolling */
     }
-
+ .flash-sale-header {
+      display: flex;
+      align-items: center;
+    }
+    .countdown-timer {
+      font-size: 12px;
+      color: white;
+      display: flex;
+      justify-content: center; 
+    }
+    .countdown-box {
+      background-color: black;
+      padding: 5px 10px;
+      margin: 0 5px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 
@@ -70,6 +82,7 @@
 <body>
     {{-- Hero --}}
   <div class="pageStyle">
+    <main> 
     <section id="hero" class="d-flex align-items-center my-3 mt-4">
         <div class="container">
           <div class="container">
@@ -176,10 +189,30 @@
 
           {{-- PROGRAM Flash Sale --}}
           <div class="container">
-          <h2 style="font-size: 37px; margin-right: 10px;" class="mb-4">
-            <b>Flash Sale 1.1</b>
-        </h2>
-            <div class="card-row">
+            <div class="row">
+              <div class="col flash-sale-header" data-aos="fade-right" data-aos-delay="300">
+                <h1 style="font-size: 3.4vw; margin-right: 10px;">
+                  <b>Flash Sale 1.1</b>
+                </h1>
+          
+                <span style="font-size: 10px;">Berakhir dalam:</span>
+                <div class="countdown-timer">
+                  <!-- Kotak hitam untuk bagian days -->
+                  <div class="countdown-box" id="days"></div>
+                  <span style="color: black;">:</span>
+                  <!-- Kotak hitam untuk bagian hours -->
+                  <div class="countdown-box" id="hours"></div>
+                  <span style="color: black;">:</span>
+                  <!-- Kotak hitam untuk bagian minutes -->
+                  <div class="countdown-box" id="minutes"></div>
+                  <span style="color: black;">:</span>
+                  <!-- Kotak hitam untuk bagian seconds -->
+                  <div class="countdown-box" id="seconds"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-row mt-3">
               <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                 <a href="/Detailproduk" style="text-decoration: none;">
                     <div class="card"
@@ -219,7 +252,16 @@
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
                             </div>
+
+                            <div class="mt-2">
+                              <span style="color: red; font-size: 1rem;">
+                                Segera Habis <i class="bi bi-fire"></i>
+                              </span>
+                            </div>
+
+
                         </div>
+                        
                         <div class="card-footer bg-white">
                             <div class="d-flex justify-content-between">
                                 <!-- Free Shipping Badge -->
@@ -271,6 +313,13 @@
                           <div style="display: flex; justify-content: space-between; align-items: center;">
                               <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
                           </div>
+
+                          <div class="mt-2">
+                            <span style="color: green; font-size: 1rem;">
+                              Tersedia <i class="bi bi-check-lg"></i>
+                            </span>
+                          </div>
+
                       </div>
                       <div class="card-footer bg-white">
                           <div class="d-flex justify-content-between">
@@ -324,6 +373,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
                         </div>
+
+                        <div class="mt-2">
+                          <span style="color: green; font-size: 1rem;">
+                            Tersedia <i class="bi bi-check-lg"></i>
+                          </span>
+                        </div>
                     </div>
                     <div class="card-footer bg-white">
                         <div class="d-flex justify-content-between">
@@ -376,6 +431,12 @@
                                   <div style="display: flex; justify-content: space-between; align-items: center;">
                                       <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
                                   </div>
+
+                                  <div class="mt-2">
+                                    <span style="color: red; font-size: 1rem;">
+                                      Segera Habis <i class="bi bi-fire"></i>
+                                    </span>
+                                  </div>
                               </div>
                               <div class="card-footer bg-white">
                                   <div class="d-flex justify-content-between">
@@ -427,6 +488,11 @@
                                 <!-- Price -->
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
+                                </div>
+                                <div class="mt-2">
+                                  <span style="color: red; font-size: 1rem;">
+                                    Segera Habis <i class="bi bi-fire"></i>
+                                  </span>
                                 </div>
                             </div>
                             <div class="card-footer bg-white">
@@ -723,10 +789,45 @@
         
 
       </section>
+    </main>
     </div>
 
       @include('user.komponenuser.footer')
             @include('user.include.script')
+
+            <script>
+              // Mengatur waktu akhir countdown
+              const flashSaleDate = new Date("2024-07-05T10:00:00Z");
+          
+              // Memperbarui hitungan mundur setiap detik
+              var countdownFunction = setInterval(function() {
+                // Dapatkan waktu sekarang
+                var now = new Date().getTime();
+                
+                // Hitung jarak antara sekarang dan waktu akhir countdown
+                var distance = flashSaleDate - now;
+                
+                // Hitung waktu untuk hari, jam, menit, dan detik
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Tampilkan hasil dalam elemen yang sesuai
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+                
+                // Jika hitungan mundur selesai, tulis teks ini
+                if (distance < 0) {
+                  clearInterval(countdownFunction);
+                  document.querySelector('.countdown-timer').innerHTML = "EXPIRED";
+                }
+              }, 1000);
+            </script>
+          </body>
+          </html>
 
 </body>
 </html>
