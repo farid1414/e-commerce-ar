@@ -13,6 +13,9 @@
 @include('user.komponenuser.bottomnavbar')
 </div>
 
+@include('user.komponenuser.breadcrumb')
+
+
 @include('user.include.style')
 <body>
     

@@ -255,6 +255,7 @@
 
                             <div class="mt-2">
                               <span style="color: red; font-size: 1rem;">
+                               {{-- Stok flash sale kurang dari 5 tampilkan segera habis --}}
                                 Segera Habis <i class="bi bi-fire"></i>
                               </span>
                             </div>
@@ -316,6 +317,7 @@
 
                           <div class="mt-2">
                             <span style="color: green; font-size: 1rem;">
+                            {{-- Stok flash sale lebih dari 5 tampilkan tersedia --}}
                               Tersedia <i class="bi bi-check-lg"></i>
                             </span>
                           </div>
@@ -376,6 +378,7 @@
 
                         <div class="mt-2">
                           <span style="color: green; font-size: 1rem;">
+                          {{-- Stok flash sale lebih dari 5 tampilkan tersedia --}}
                             Tersedia <i class="bi bi-check-lg"></i>
                           </span>
                         </div>
@@ -434,6 +437,7 @@
 
                                   <div class="mt-2">
                                     <span style="color: red; font-size: 1rem;">
+                                    {{-- Stok flash sale kurang dari 5 tampilkan segera habis --}}
                                       Segera Habis <i class="bi bi-fire"></i>
                                     </span>
                                   </div>
@@ -491,6 +495,7 @@
                                 </div>
                                 <div class="mt-2">
                                   <span style="color: red; font-size: 1rem;">
+                                    {{-- Stok flash sale kurang dari 5 tampilkan segera habis --}}
                                     Segera Habis <i class="bi bi-fire"></i>
                                   </span>
                                 </div>

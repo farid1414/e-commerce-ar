@@ -11,13 +11,14 @@
 <div class='d-block d-lg-none'>
 @include('user.komponenuser.bottomnavbar')
 </div>
+@include('user.komponenuser.breadcrumb')
 
 @include('user.include.style')
 <body>
 
-    <section>
+    <main>
     <div class="container">
-        <div class="text-center mt-5 mb-5"> <!-- Menggunakan kelas text-center -->
+        <div class="text-center mt-5 mb-5">
             <h2><b>Telusuri Semua Produk Dari Kami.
             </b></h2>
         </div>
@@ -113,7 +114,7 @@
         </div>
     
     </div>
-    </section>
+    </main>
     <script>
         const sortCardsAlphabetically = (cards, option) => {
             switch (option) {

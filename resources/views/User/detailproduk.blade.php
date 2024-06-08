@@ -70,6 +70,7 @@
 <div class='d-block d-lg-none'>
 @include('user.komponenuser.bottomnavbar')
 </div>
+@include('user.komponenuser.breadcrumb')
 
 @include('user.include.style')
 <body>
@@ -192,7 +193,7 @@
                     </div>
                     <div>
                     </div>
-        
+        <hr>
                     {{-- AUGMENTED REALITYY --}}
                     <div class="mt-5">
                         <div>
@@ -282,7 +283,7 @@
                                                             </div>
                                                             <div class="col">
                                                                 <div class="d-flex align-items-center">
-                                                                    <span style="margin-right: 5px;">5</span>
+                                                                    <span style="margin-right: 5px; margin-top: -10px" class="me-3">5</span>
                                                                     <div class="progress flex-grow-1 mb-2">
                                                                         <div
                                                                             class="progress-bar bg-dark"
@@ -295,7 +296,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex align-items-center">
-                                                                    <span style="margin-right: 5px;">4</span>
+                                                                    <span style="margin-right: 5px; margin-top: -10px" class="me-3">4</span>
                                                                     <div class="progress flex-grow-1 mb-2">
                                                                         <div
                                                                             class="progress-bar bg-dark"
@@ -308,7 +309,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex align-items-center">
-                                                                    <span style="margin-right: 5px;">3</span>
+                                                                    <span style="margin-right: 5px; margin-top: -10px" class="me-3">3</span>
                                                                     <div class="progress flex-grow-1 mb-2">
                                                                         <div
                                                                             class="progress-bar bg-dark"
@@ -321,7 +322,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex align-items-center">
-                                                                    <span style="margin-right: 5px;">2</span>
+                                                                    <span style="margin-right: 5px; margin-top: -10px" class="me-3">2</span>
                                                                     <div class="progress flex-grow-1 mb-2">
                                                                         <div
                                                                             class="progress-bar bg-dark"
@@ -334,7 +335,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex align-items-center">
-                                                                    <span style="margin-right: 5px;">1</span>
+                                                                    <span style="margin-right: 5px; margin-top: -10px" class="me-3">1</span>
                                                                     <div class="progress flex-grow-1 mb-2">
                                                                         <div
                                                                             class="progress-bar bg-dark"

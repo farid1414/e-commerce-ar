@@ -36,7 +36,7 @@
                         <h5 class="card-title">Total Terjual Keseluruhan</h5>
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-bag"></i>
+                                <i class="bi bi-cart-check"></i>
                             </div>
                             <div class="ps-3">
                                 <h6>20</h6>
@@ -70,6 +70,46 @@
 
         </div>
 
+            <div class="row">
+                <div class="col">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Produk Keseluruhan</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-box"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>20</h6>
+                                    {{-- <h6>{{   $totalTransaksi     }}</h6> --}}
+                                    <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Kategori Keseluruhan</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-journal-text"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>20</h6>
+                                    {{-- <h6>{{   $totalTransaksi     }}</h6> --}}
+                                    <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         {{-- Total Pendapatan dari aplikasi bukan midtrans --}}
         <div class="row">
             <div class="col">
@@ -113,7 +153,7 @@
             <div class="col">
                 <div>
                     <div class="card info-card revenue-card">
-                        <div class="card-body" style="margin-bottom: 12px;">
+                        <div class="card-body" style="margin-bottom: 18px;">
                             <h5 class="card-title">
                                 Flash Sale Sedang Berjalan
                             </h5>

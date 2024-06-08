@@ -11,6 +11,7 @@
 <div class='d-block d-lg-none'>
 @include('user.komponenuser.bottomnavbar')
 </div>
+@include('user.komponenuser.breadcrumb')
 
 @include('user.include.style')
 
