@@ -11,17 +11,18 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link {{ request()->is('admin/product/*') ? '' : 'collapsed' }}"
+                data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-box"></i><span>Produk</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/admin/produkdataran">
+                    <a href="{{ route('master.product.index', 'dataran') }}">
                         <i class="bi bi-circle"></i><span>Produk Dataran</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/produkdinding">
+                    <a href="{{ route('master.product.index', 'dinding') }}">
                         <i class="bi bi-circle"></i><span>Produk Dinding</span>
                     </a>
                 </li>

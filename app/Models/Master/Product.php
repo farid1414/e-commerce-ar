@@ -41,4 +41,22 @@ class Product extends Model
         'harga_ongkir' => "Harga ongkir",
         'categori_id' => "Category product"
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categori_id', 'id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
+    public function varians()
+    {
+        return $this->hasMany(ProductVarian::class, 'product_id');
+    }
+    public function masterCat()
+    {
+        return $this->belongsTo(MCategory::class, 'm_categories', 'id');
+    }
 }

@@ -26,7 +26,7 @@ class CategoryController extends Controller
     {
         $mcat = MCategory::firstWhere('slug', $slug);
         $categories = Category::where('m_categories', $mcat->id)->get();
-        return view('admin.index-category', [
+        return view('Admin.index-category', [
             'categories' => $categories,
             'mCat' => $mcat
         ]);
@@ -40,7 +40,7 @@ class CategoryController extends Controller
             $categories = Category::findOrFail($id);
             $edit = true;
         }
-        return view('admin.tambahkategori', [
+        return view('Admin.tambahkategori', [
             'm_cat' => $cat,
             'categories' => $categories ?? null,
             'edit' => $edit
@@ -69,7 +69,7 @@ class CategoryController extends Controller
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false"> Lainnya </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item btn-delete" data-id="' . $q->id . '" data-slug="' . $q->masterCat->slug . '" href="javascript:void(0);">Hapus Kategori</a></li>
-                            <li><a class="dropdown-item" href="#">Lihat Detail Kategori</a>
+                            <li><a class="dropdown-item" href="' . route(self::ROUTE . 'detail', ['slug' => $q->masterCat->slug, 'id' => $q->id]) . '">Lihat Detail Kategori</a>
                              </li>
                         </ul>
             </div>';
@@ -86,6 +86,18 @@ class CategoryController extends Controller
             })
             ->escapeColumns([])
             ->make(true);
+    }
+
+    public function detail(string $slug, int $id)
+    {
+        $cat = Category::findOrFail($id);
+
+        return view(
+            'admin.detailkategori',
+            [
+                'categori' => $cat
+            ]
+        );
     }
 
     public function store(Request $request)

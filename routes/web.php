@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Master\CategoryController;
+use App\Http\Controllers\Master\ProductController;
 
 // auth
 Route::get('auth/login', function () {
@@ -126,43 +127,43 @@ Route::get('user/FAQ', function () {
 // Admin
 
 // dashboard admin
-Route::get('admin/dashboardadmin', function () {
-    return view('admin.dashboardadmin');
-});
+// Route::get('admin/dashboardadmin', function () {
+//     return view('admin.dashboardadmin');
+// });
 
 
 // Produk Dataran
-Route::get('admin/produkdataran', function () {
-    return view('admin.produkdataran');
-});
+// Route::get('admin/produkdataran', function () {
+//     return view('admin.produkdataran');
+// });
 
-Route::get('admin/tambahprodukdataran', function () {
-    return view('admin.tambahprodukdataran');
-});
+// Route::get('admin/tambahprodukdataran', function () {
+//     return view('admin.tambahprodukdataran');
+// });
 
 // Produk dinding
-Route::get('admin/produkdinding', function () {
-    return view('admin.produkdinding');
-});
+// Route::get('admin/produkdinding', function () {
+//     return view('admin.produkdinding');
+// });
 
-Route::get('admin/tambahprodukdinding', function () {
-    return view('admin.tambahprodukdinding');
-});
+// Route::get('admin/tambahprodukdinding', function () {
+//     return view('admin.tambahprodukdinding');
+// });
 
 // Detail produk
-Route::get('admin/detailproduk', function () {
-    return view('admin.detailproduk');
-});
+// Route::get('admin/detailproduk', function () {
+//     return view('admin.detailproduk');
+// });
 
 
 // Kategori Dataran
-Route::get('admin/kategoridataran', function () {
-    return view('admin.kategoridataran');
-});
+// Route::get('admin/kategoridataran', function () {
+//     return view('admin.kategoridataran');
+// });
 
-Route::get('admin/tambahkategoridataran', function () {
-    return view('admin.tambahkategoridataran');
-});
+// Route::get('admin/tambahkategoridataran', function () {
+//     return view('admin.tambahkategoridataran');
+// });
 
 Route::get('admin/detailkategori', function () {
     return view('admin.detailkategori');
@@ -170,13 +171,13 @@ Route::get('admin/detailkategori', function () {
 
 
 // Kategori Dinding
-Route::get('admin/kategoridinding', function () {
-    return view('admin.kategoridinding');
-});
+// Route::get('admin/kategoridinding', function () {
+//     return view('admin.kategoridinding');
+// });
 
-Route::get('admin/tambahkategoridinding', function () {
-    return view('admin.tambahkategoridinding');
-});
+// Route::get('admin/tambahkategoridinding', function () {
+//     return view('admin.tambahkategoridinding');
+// });
 
 
 
@@ -270,6 +271,17 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('/{slug?}/data', [CategoryController::class, 'data'])->name('data');
         Route::post('/status/{id?}', [CategoryController::class, 'status'])->name('status');
         Route::delete('{slug?}/delete/{id?}', [CategoryController::class, 'delete'])->name('delete');
+        Route::get('{slug?}/detail/{id?}', [CategoryController::class, 'detail'])->name('detail');
+    });
+    Route::prefix('/product')->name('product.')->group(function () {
+        Route::get('/{slug?}', [ProductController::class, 'index'])->name('index');
+        Route::get('/form/{slug?}/{uuid?}', [ProductController::class, 'form'])->name('form');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
+        Route::get('/{slug?}/data', [ProductController::class, 'data'])->name('data');
+        Route::post('/{slug?}/update-stock', [ProductController::class, 'updateStock'])->name('update-stock');
+        Route::delete('/{slug?}/delete/{product:uuid?}', [ProductController::class, 'delete'])->name('delete');
+        Route::post('/{slug?}/status/{uuid?}', [ProductController::class, 'status'])->name('status');
+        Route::get('{uuid?}/detail', [ProductController::class, 'detail'])->name('detail');
     });
 });
 

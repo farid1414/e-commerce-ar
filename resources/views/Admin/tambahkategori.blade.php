@@ -249,7 +249,7 @@
             let data = new FormData(this)
             ajax.submit(data, (resp) => {
                 if (resp.success) {
-                    swal('redirect', resp.message ?? "Success set pricelist", resp.url)
+                    swal('redirect', '', resp.message ?? "Success set pricelist", resp.url)
                     removeLoader($('#btn-save'))
                 }
             })
