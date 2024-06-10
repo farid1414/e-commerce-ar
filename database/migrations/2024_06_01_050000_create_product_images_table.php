@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("product_id")->index()->references("id")->on("products");
+            $table->foreignId("product_id")->index()->references("id")->on("products")->cascadeOnDelete();
             $table->string('image');
             $table->softDeletes();
             $table->timestamps();

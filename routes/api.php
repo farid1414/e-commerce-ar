@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::prefix('/category')->name('category.')->group(function () {
     Route::post('/', [CategoryController::class, 'store']);
+    Route::post('/status', [CategoryController::class, 'status']);
+    Route::delete('/delete/{id?}', [CategoryController::class, 'delete']);
 });
 
 
 Route::prefix('/product')->name('product.')->group(function () {
-    Route::post('/', [ProductController::class, 'store']);
+    // Route::post('/', [ProductController::class, 'store']);
 });

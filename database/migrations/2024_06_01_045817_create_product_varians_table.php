@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_varians', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId("product_id")->index()->references("id")->on("products");
+            $table->foreignId("product_id")->index()->references("id")->on("products")->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

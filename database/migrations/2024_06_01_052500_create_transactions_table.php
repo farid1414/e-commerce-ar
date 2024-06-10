@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->index()->references("id")->on("users");
+            $table->foreignId("user_id")->index()->references("id")->on("users")->cascadeOnDelete();
             $table->string('no_pesanan');
             $table->smallInteger('status')->default(0);
             $table->softDeletes();
