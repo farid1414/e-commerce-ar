@@ -1,7 +1,7 @@
 @extends('layouts.admin.page')
-@section('title', 'Kategroi Dataran')
+@section('title', 'Kategroi ' . $mCat->name)
 
-@section('head_breadcumb', 'Kategori Dataran')
+@section('head_breadcumb', 'Kategori ' . $mCat->name)
 @section('content_header')
     <li class="breadcrumb-item">
         <a href="/">Home</a>
@@ -114,44 +114,6 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    {{-- <tr>
-                                        <td class="text-center">
-                                            <img src="{{ asset('GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg') }}"
-                                                width="50" alt="" class="img-fluid" />
-                                        </td>
-                                        <td class="text-center fw-bold">Meja</td>
-                                        <td class="text-center">
-                                            <a class="text-dark fw-bold">
-                                                8 <br />
-                                                <small>Produk</small>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-dark fw-bold text-center">Admin 1 <br />
-                                                <small>09/30/2023 23:59:00</small>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-link" style="text-decoration: none;"
-                                                onclick="handleArchiveClick()">Arsipkan</button>
-                                            <br />
-                                            <button class="btn btn-link" style="text-decoration: none;">Ubah</button>
-                                            <br />
-
-                                            <div class="dropdown">
-                                                <button class="btn btn-link dropdown-toggle" style="text-decoration:none;"
-                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Lainnya
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">Hapus Kategori</a></li>
-                                                    <li><a class="dropdown-item" href="#">Lihat Detail
-                                                            Kategori</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -337,7 +299,7 @@
                     // let data = new FormData(this)
                     ajax.submit(null, (resp) => {
                         if (resp.success) {
-                            swal('success', resp.message ?? "Success delete category")
+                            swal('success', null, resp.message ?? "Success delete category")
                             $loaderEl.addClass('d-none')
                             $('#table_active_dataran').DataTable().ajax.reload();
                             $('#tabel_arvhive_dataran').DataTable().ajax.reload();

@@ -3,7 +3,7 @@
 
      <div class="d-flex align-items-center justify-content-between">
          <a href="/admin/dashboardadmin" class="logo d-flex align-items-center">
-             <img src="../gambar/logo.png" alt="" style="max-height: 60px;">
+             <img src="{{ asset('gambar/logo.png') }}" alt="" style="max-height: 60px;">
          </a>
          <i class="bi bi-list toggle-sidebar-btn"></i>
      </div><!-- End Logo -->

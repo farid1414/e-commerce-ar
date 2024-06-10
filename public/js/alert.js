@@ -1,5 +1,5 @@
 // Function Sweet alert
-function swal(status, message = null, url = null) {
+function swal(status,title =null, message = null,  url = null) {
     if (status == "success") {
         if (message == null) {
             message = "Data saved successfully";
@@ -25,11 +25,12 @@ function swal(status, message = null, url = null) {
         });
     } else {
         if (message == null) {
-            message = "Data saved failed";
+            message = "Error";
         }
+        if(title == null) title ="Data saved failed"
         Swal.fire({
-            title: "Error",
-            text: "" + message,
+            title: message,
+            text: "" + title,
             icon: "error",
         });
     }
