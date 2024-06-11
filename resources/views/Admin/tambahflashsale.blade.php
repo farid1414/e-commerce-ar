@@ -159,6 +159,8 @@
                 <label class="form-check-label" for="flexSwitchCheckDefault"></label>
               </div>
         </div>
+        <footer class="blockquote-footer">Ketika di aktifkan maka semua produk yang telah di pilih akan Gratis Ongkir</footer>
+
         </div>
   </div>
 

@@ -23,8 +23,6 @@
                                 max="" disabled class="form-control" />
                         </div>
                     </form>
-                    <div class="text-danger" id="error"></div>
-                    <footer class="blockquote-footer mt-3">Rentang waktu Tanggal Akhir maksimal 1 minggu dari Tanggal awal.
                     </footer>
                 </div>
             </div>

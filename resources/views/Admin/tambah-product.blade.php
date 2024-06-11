@@ -99,11 +99,7 @@
                         <div class="form-group mb-3">
                             <label for="deskripsiProduk">Deskripsi Produk</label>
                             <textarea class="form-control" name="description" id="deskripsiProduk" rows="4"
-                                placeholder="Masukkan deskripsi produk....." required maxlength="300">
-                            @if ($edit && $product->description)
-{!! $product->description !!}
-@endif
-                            </textarea>
+                                placeholder="Masukkan deskripsi produk....." required maxlength="300">@if ($edit && $product->description){!! $product->description !!}@endif</textarea>
                             <div class="d-flex justify-content-end">
                                 <span class="text-muted" id="deskripsiLength"></span>
                             </div>
@@ -121,8 +117,7 @@
                         <div class="form-group mb-4" id="gambarThumbnail">
                             <label for="thumbnail">Gambar Thumbnail</label>
                             <input type="file" name="thumbnail" accept="image/*" class="form-control" id="thumbnail"
-                                onchange="handleGambarThumbnailChange(event)"
-                                @if (!$edit) required @endif>
+                                onchange="handleGambarThumbnailChange(event)" @if (!$edit) required @endif>
                             <figcaption class="blockquote-footer mt-2">
                                 Sisa gambar Thumbnail yang dapat diupload (<span id="remainingThumbnailCount"></span>)
                             </figcaption>
@@ -130,15 +125,17 @@
                                 @if ($edit && $product->thumbnail)
                                     <img src="{{ url($product->thumbnail) }}" alt="preview thumbnail"
                                         style="max-width: 30%; cursor: pointer; border-radius: 10px; overflow: hidden; margin-top: 10px;">
+                                    <button class="btn btn-danger btn-sm" style="position: absolute; top: 10px; right: 8px;" onclick="removeImage()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 @endif
                             </div>
                         </div>
-
+            
                         <div class="form-group mb-1" id="gambarPendukung">
                             <label for="pendukung">Gambar Pendukung (Maksimal 10)</label>
                             <input type="file" class="form-control" name="image[]" accept="image/*" id="pendukung"
-                                multiple onchange="handleGambarPendukungChange(event)"
-                                @if (!$edit) required @endif>
+                                multiple onchange="handleGambarPendukungChange(event)" @if (!$edit) required @endif>
                             <figcaption class="blockquote-footer mt-2">
                                 Sisa gambar pendukung yang dapat diupload (<span id="remainingPendukungCount"></span>)
                             </figcaption>
@@ -146,7 +143,7 @@
                                 @if ($edit && $product->images->count())
                                     @foreach ($product->images as $img)
                                         <img src="{{ url($img->image) }}" alt="preview image"
-                                            style="max-width: 19%; cursor: pointer; object-fit: cover; position: relative; margin-top: 10px;margin-right:10px">
+                                            style="max-width: 19%; cursor: pointer; object-fit: cover; position: relative; margin-top: 10px; margin-right: 10px;">
                                     @endforeach
                                 @endif
                             </div>
@@ -169,10 +166,8 @@
                                     id="linkARAndroidInput" placeholder="Masukkan Link Untuk Android (Format .glb)*"
                                     required @if ($edit && $product->link_ar) value="{{ $product->link_ar }}" @endif>
                                 <i id="androidCheckIcon" class="bi"></i>
-                                <!-- Icon based on input condition will be added here -->
                             </div>
                             <p id="androidErrorMessage" style="color: red;"></p>
-                            <!-- Error message based on condition will be added here -->
                         </div>
                         <div class="form-group" id="linkARiOS">
                             <label for="linkARIOS">Link AR iOS <b>(IOS-SRC)</b></label>
@@ -182,10 +177,8 @@
                                     class="form-control mb-3 me-2" id="linkARIOSInput"
                                     placeholder="Masukkan Link Untuk iOS (Format .usdz)*" required>
                                 <i id="iOSCheckIcon" class="bi"></i>
-                                <!-- Icon based on input condition will be added here -->
                             </div>
                             <p id="iOSErrorMessage" style="color: red;"></p>
-                            <!-- Error message based on condition will be added here -->
                         </div>
                         <div class="form-group" id="linkSkyBox">
                             <label for="linkSkyBox">Link Skybox <b>(Opsional)</b></label>
@@ -193,23 +186,20 @@
                                 <input type="text" name="link_skybox" class="form-control mb-3"
                                     @if ($edit && $product->link_skybox) value="{{ $product->link_skybox }}" @endif
                                     id="linkSkyBoxInput"
-                                    placeholder="Masukkan link asset SkyBox berformat .jpg dan .png (opsional)">
+                                    placeholder="Masukkan link asset SkyBox (opsional)">
                                 <i id="skyBoxCheckIcon" class="bi"></i>
-                                <!-- Icon based on input condition will be added here -->
                             </div>
-                            <p id="skyBoxErrorMessage" style="color: red; margin-top: 10px;"></p>
-                            <!-- Error message based on condition will be added here -->
                         </div>
                         <div class="d-flex justify-content-end mb-3">
-                            <button id="livePreviewButton" class="btn btn-primary">Lihat Live Preview 3D</button>
+                            <button id="livePreviewButton" type="button" class="btn btn-primary">Lihat Live Preview 3D</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             {{-- Live preview --}}
-
-            <div id="contentLivePreviewARDataran">
+            
+            <div id="contentLivePreviewARDataran" style="display: none;">
                 <model-viewer id="modelViewer"
                     src="https://cdn.glitch.global/483eed9c-fdd2-44f9-bc4b-a9d47fa50b8b/LemariLaci5Susun.glb?v=1699907215280"
                     ios-src=""
@@ -217,7 +207,7 @@
                     shadow-intensity="0" ar skybox-height="2.8m" max-camera-orbit="auto" camera-controls
                     style="width: 100%; height: 400px; border-radius: 10px;"></model-viewer>
                 <br>
-                <button id="toggleRangeInputButton" class="btn btn-primary">Atur intensitas bayangan objek 3D</button>
+                <button id="toggleRangeInputButton" type="button" class="btn btn-primary">Atur intensitas bayangan objek 3D</button>
                 <div id="rangeInputContainer" style="display: none;">
                     <footer class="blockquote-footer mt-3">
                         Bayangan ini akan tampil di Augmented Reality dan 3D interaktif di web.
@@ -513,7 +503,7 @@
                 <button type="button" class="btn btn-outline-dark" onclick="handleBatal()">
                     Kembali
                 </button>
-                <button type="submit" class="btn btn-primary" id="btn-save"><i class="fas fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary" id="btn-save"><i class="fas fa-save"></i> Simpan Produk</button>
             </div>
         </form>
     </section>
@@ -581,18 +571,18 @@
 
 
 @push('js')
+
     {{-- Informasi Produk --}}
     <script>
         function toggleInputGroup() {
             const isInputGroupOpen = document.getElementById("kateGoriproduk").getAttribute("aria-expanded");
-            document.getElementById("kateGoriproduk").setAttribute("aria-expanded", isInputGroupOpen === "true" ? "false" :
-                "true");
+            document.getElementById("kateGoriproduk").setAttribute("aria-expanded", isInputGroupOpen === "true" ? "false" : "true");
         }
-
+    
         function handlePakaiOngkirChange() {
             const pakaiOngkir = document.getElementById("pakaiOngkir").value;
             const ongkosKirimInput = document.getElementById("ongkosKirim");
-
+    
             if (pakaiOngkir === "tidak") {
                 ongkosKirimInput.value = "";
                 ongkosKirimInput.setAttribute("disabled", "true");
@@ -602,11 +592,11 @@
                 ongkosKirimInput.placeholder = "Contoh 5000";
             }
         }
-
+    
         function handleStokProdukChange() {
             const stokProdukInput = document.getElementById("stokProduk");
             const stokProduk = parseInt(stokProdukInput.value);
-
+    
             if (isNaN(stokProduk) || stokProduk <= 0) {
                 Swal.fire({
                     icon: "error",
@@ -617,42 +607,46 @@
                 });
             }
         }
-
+    
         function handleDeskripsiProdukChange() {
             const deskripsiProdukInput = document.getElementById("deskripsiProduk");
             const deskripsiLength = document.getElementById("deskripsiLength");
             deskripsiLength.textContent = deskripsiProdukInput.value.length + " / 300";
         }
-
+    
         // Event listeners
         document.getElementById("stokProduk").addEventListener("change", handleStokProdukChange);
         document.getElementById("deskripsiProduk").addEventListener("input", handleDeskripsiProdukChange);
+    
+        // Initialize description length on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            handleDeskripsiProdukChange();
+        });
     </script>
 
 
     {{-- Gambar Produk --}}
     <script>
-        // JavaScript functions
         const maxThumbnailCount = 1;
         const maxPendukungCount = 10;
-
+    
         let gambarThumbnail = null;
         let gambarPendukungFiles = [];
         let showThumbnailModal = false;
         let showEnlargeModal = false;
         let enlargedImageUrl = "";
         let isLoading = false;
-
+    
         function handleGambarThumbnailChange(event) {
             const file = event.target.files[0];
             gambarThumbnail = file;
             displayThumbnailPreview();
         }
-
+    
         function handleGambarPendukungChange(event) {
             const selectedFiles = event.target.files;
             const totalFiles = selectedFiles.length + gambarPendukungFiles.length;
-
+    
             if (totalFiles > maxPendukungCount) {
                 alert(`Batas maksimal ${maxPendukungCount} gambar pendukung telah tercapai!`);
             } else {
@@ -660,17 +654,17 @@
                 const filesToAdd = Array.from(selectedFiles).slice(0, remainingSpace);
                 gambarPendukungFiles = [...gambarPendukungFiles, ...filesToAdd];
                 displayPendukungPreview();
-
+    
                 if (selectedFiles.length > remainingSpace) {
                     alert(`Hanya ${remainingSpace} gambar pendukung yang ditambahkan karena batas maksimum tercapai!`);
                 }
             }
         }
-
+    
         function displayThumbnailPreview() {
             const previewDiv = document.getElementById("thumbnailPreview");
             previewDiv.innerHTML = "";
-
+    
             if (gambarThumbnail) {
                 const img = document.createElement("img");
                 img.src = URL.createObjectURL(gambarThumbnail);
@@ -681,18 +675,27 @@
                 img.style.overflow = "hidden";
                 img.style.marginTop = "10px";
                 img.addEventListener("click", toggleThumbnailModal);
-
+    
+                const button = document.createElement("button");
+                button.className = "btn btn-danger btn-sm";
+                button.style.position = "absolute";
+                button.style.top = "10px";
+                button.style.right = "8px";
+                button.innerHTML = '<i class="fas fa-times"></i>';
+                button.addEventListener("click", removeImage);
+    
                 previewDiv.appendChild(img);
+                previewDiv.appendChild(button);
             }
-
+    
             const remainingCount = maxThumbnailCount - (gambarThumbnail ? 1 : 0);
             document.getElementById("remainingThumbnailCount").textContent = remainingCount;
         }
-
+    
         function displayPendukungPreview() {
             const previewDiv = document.getElementById("pendukungPreview");
             previewDiv.innerHTML = "";
-
+    
             gambarPendukungFiles.forEach((image, index) => {
                 const div = document.createElement("div");
                 div.className = "mr-2 mb-4";
@@ -700,8 +703,8 @@
                 div.style.cursor = "pointer";
                 div.style.objectFit = "cover";
                 div.style.position = "relative";
-                div.style.marginTop = "-10px";
-
+                div.style.marginTop = "10px";
+    
                 const img = document.createElement("img");
                 img.src = URL.createObjectURL(image);
                 img.alt = `Gambar Pendukung ${index + 1}`;
@@ -710,46 +713,46 @@
                 img.style.objectFit = "cover";
                 img.style.borderRadius = "10px";
                 img.addEventListener("click", () => toggleEnlargeModal(image));
-
+    
                 const button = document.createElement("button");
                 button.className = "btn btn-danger btn-sm";
                 button.style.position = "absolute";
                 button.style.top = "10px";
                 button.style.right = "8px";
-                button.innerHTML = isLoading ? "Loading..." : '<i class="fas fa-times"></i>';
+                button.innerHTML = '<i class="fas fa-times"></i>';
                 button.addEventListener("click", () => removePendukungImage(index));
-
+    
                 div.appendChild(img);
                 div.appendChild(button);
                 previewDiv.appendChild(div);
             });
-
+    
             const remainingCount = maxPendukungCount - gambarPendukungFiles.length;
             document.getElementById("remainingPendukungCount").textContent = remainingCount;
         }
-
+    
         function toggleThumbnailModal() {
             showThumbnailModal = !showThumbnailModal;
             // Toggle modal visibility
             // Add your modal toggling logic here
         }
-
+    
         function toggleEnlargeModal(image) {
             enlargedImageUrl = URL.createObjectURL(image);
             showEnlargeModal = !showEnlargeModal;
             // Toggle modal visibility
             // Add your modal toggling logic here
         }
-
+    
         function removeImage() {
             gambarThumbnail = null;
             displayThumbnailPreview();
         }
-
+    
         function removePendukungImage(index) {
             isLoading = true;
             displayPendukungPreview();
-
+    
             setTimeout(() => {
                 gambarPendukungFiles.splice(index, 1);
                 isLoading = false;
@@ -760,14 +763,17 @@
 
     {{-- LINK AR --}}
     <script>
+        // Set default link skybox (jika user tidak mengisi link skybox maka gunakan link dibawah)
+        const defaultSkyboxUrl = "https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791";
+    
         // Function to handle change in Android AR link input
         const handleLinkARAndroidChange = (e) => {
             const linkARAndroidInput = document.getElementById("linkARAndroidInput");
             const androidCheckIcon = document.getElementById("androidCheckIcon");
             const androidErrorMessage = document.getElementById("androidErrorMessage");
-
+    
             linkARAndroidInput.value = e.target.value;
-
+    
             if (linkARAndroidInput.value.trim()) {
                 if (linkARAndroidInput.value.trim().toLowerCase().includes("glb")) {
                     androidCheckIcon.className = "bi bi-check-lg";
@@ -788,15 +794,15 @@
                 androidErrorMessage.innerText = "";
             }
         };
-
+    
         // Function to handle change in iOS AR link input
         const handleLinkARIOSChange = (e) => {
             const linkARIOSInput = document.getElementById("linkARIOSInput");
             const iOSCheckIcon = document.getElementById("iOSCheckIcon");
             const iOSErrorMessage = document.getElementById("iOSErrorMessage");
-
+    
             linkARIOSInput.value = e.target.value;
-
+    
             if (linkARIOSInput.value.trim()) {
                 if (linkARIOSInput.value.trim().toLowerCase().includes("usdz")) {
                     iOSCheckIcon.className = "bi bi-check-lg";
@@ -817,15 +823,14 @@
                 iOSErrorMessage.innerText = "";
             }
         };
-
+    
         // Function to handle change in SkyBox link input
         const handleLinkSkyBoxChange = (e) => {
             const linkSkyBoxInput = document.getElementById("linkSkyBoxInput");
             const skyBoxCheckIcon = document.getElementById("skyBoxCheckIcon");
-            const skyBoxErrorMessage = document.getElementById("skyBoxErrorMessage");
-
+    
             linkSkyBoxInput.value = e.target.value;
-
+    
             if (linkSkyBoxInput.value.trim()) {
                 if (linkSkyBoxInput.value.trim().toLowerCase().includes("jpg") ||
                     linkSkyBoxInput.value.trim().toLowerCase().includes("png") ||
@@ -834,69 +839,45 @@
                     skyBoxCheckIcon.style.fontSize = "20px";
                     skyBoxCheckIcon.style.marginLeft = "10px";
                     skyBoxCheckIcon.style.color = "green";
-                    skyBoxErrorMessage.innerText = "";
-                } else {
-                    skyBoxCheckIcon.className = "bi bi-exclamation-triangle";
-                    skyBoxCheckIcon.style.fontSize = "20px";
-                    skyBoxCheckIcon.style.marginLeft = "10px";
-                    skyBoxCheckIcon.style.color = "red";
-                    skyBoxErrorMessage.innerText =
-                        "Maaf, format file yang Anda masukkan tidak didukung. Format yang didukung adalah .jpg, .png, .jpeg.";
-                }
+                } 
             } else {
                 skyBoxCheckIcon.className = "";
-                skyBoxErrorMessage.innerText = "";
             }
         };
-
+    
         // Function to handle Live Preview button click
         const handleLivePreviewClick = () => {
-            const loadingIndicator = document.getElementById("loadingIndicator");
+            const livePreviewContent = document.getElementById("contentLivePreviewARDataran");
+            livePreviewContent.style.display = livePreviewContent.style.display === "none" ? "block" : "none";
+    
             const livePreviewButton = document.getElementById("livePreviewButton");
-
-            loadingIndicator.innerHTML = "<div>Loading...</div>"; // Placeholder loading indicator
-
-            // Simulate loading for 1 second before showing Live Preview
-            setTimeout(() => {
-                loadingIndicator.innerHTML = "";
-                const currentButtonText = livePreviewButton.innerText;
-                livePreviewButton.innerText = currentButtonText === "Lihat Live Preview 3D" ?
-                    "Tutup Live Preview 3D" : "Lihat Live Preview 3D";
-            }, );
+            const currentButtonText = livePreviewButton.innerText;
+            livePreviewButton.innerText = currentButtonText === "Lihat Live Preview 3D" ?
+                "Tutup Live Preview 3D" : "Lihat Live Preview 3D";
         };
-
+    
         // Add event listeners to handle input changes
         document.getElementById("linkARAndroidInput").addEventListener("input", handleLinkARAndroidChange);
         document.getElementById("linkARIOSInput").addEventListener("input", handleLinkARIOSChange);
         document.getElementById("linkSkyBoxInput").addEventListener("input", handleLinkSkyBoxChange);
-
+    
         // Add event listener to Live Preview button
         document.getElementById("livePreviewButton").addEventListener("click", handleLivePreviewClick);
-    </script>
-
-
-    {{-- Tombol untuk Live Preview --}}
-    <script>
-        // Function to toggle live preview visibility
-        const toggleLivePreviewVisibility = () => {
-            const livePreviewContent = document.getElementById("contentLivePreviewARDataran");
-            livePreviewContent.style.display = livePreviewContent.style.display === "none" ? "block" : "none";
-        };
-
-        // Add event listener for live preview button
-        document.getElementById("livePreviewButton").addEventListener("click", toggleLivePreviewVisibility);
-    </script>
-
-
-
-    {{-- Live Preview --}}
-    <script>
+    
+        // Ensure default value for SkyBox if not filled
+        document.forms[0].addEventListener("submit", (event) => {
+            const linkSkyBoxInput = document.getElementById("linkSkyBoxInput");
+            if (!linkSkyBoxInput.value.trim()) {
+                linkSkyBoxInput.value = defaultSkyboxUrl;
+            }
+        });
+    
         // Function to toggle range input visibility
         const toggleRangeInputVisibility = () => {
             const rangeInputContainer = document.getElementById("rangeInputContainer");
             rangeInputContainer.style.display = rangeInputContainer.style.display === "none" ? "block" : "none";
         };
-
+    
         // Function to handle change in shadow intensity
         const handleShadowIntensityChange = () => {
             const shadowIntensityRangeInput = document.getElementById("shadowIntensityRangeInput");
@@ -904,16 +885,16 @@
             const shadowIntensity = shadowIntensityRangeInput.value;
             modelViewer.setAttribute("shadow-intensity", shadowIntensity);
         };
-
+    
         // Add event listener for toggle range input button
         document.getElementById("toggleRangeInputButton").addEventListener("click", toggleRangeInputVisibility);
-
+    
         // Add event listener for shadow intensity range input
         document.getElementById("shadowIntensityRangeInput").addEventListener("input", handleShadowIntensityChange);
     </script>
 
-    {{-- Opsional --}}
 
+    {{-- Opsional --}}
     <script>
         function handleBatal() {
             Swal.fire({

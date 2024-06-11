@@ -90,7 +90,7 @@
             </ul>
         </li><!-- End Charts Nav -->
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-graph-up-arrow"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -111,10 +111,16 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li><!-- End Icons Nav --> --}}
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="programflashsale">
+            <a class="nav-link collapsed" href="/admin/laporanharian">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>Laporan</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/programflashsale">
                 <i class="bi bi-lightning-charge"></i>
                 <span>Program Flash Sale</span>
             </a>

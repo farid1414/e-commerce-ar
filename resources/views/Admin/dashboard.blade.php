@@ -70,6 +70,44 @@
 
         </div>
 
+        <div class="row">
+            <div class="col">
+
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Produk Keseluruhan</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-box"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>55</h6>
+                                {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
+                                <span class="text-success small pt-1 fw-bold">Total Produk Keseluruhan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Kategori Keseluruhan</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-journal-text"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>50</h6>
+                                {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
+                                <span class="text-success small pt-1 fw-bold">Total Kategori Keseluruhan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{-- Total Pendapatan dari aplikasi bukan midtrans --}}
         <div class="row">
             <div class="col">

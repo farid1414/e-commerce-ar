@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                    
+                            <hr>
                             <h4 class="mt-3 fw-bold mb-3">Produk Yang Anda Pesan.</h4>
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -268,14 +268,14 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-basic" data-toggle="dropdown">
-                                    Opsi Lain Invoice
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Opsi Unduh Invoice
                                 </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="handleEmailSend()">Kirim Invoice via Email</a>
-                                    <a class="dropdown-item">Unduh Via .pdf</a>
-                                </div>
-                            </div>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#">Kirim Invoice via E-mail</a></li>
+                                  <li><a class="dropdown-item" href="#">Unduh via PDF</a></li>
+                                </ul>
+                              </div>
                             <button class="btn btn-dark d-flex align-items-center" onclick="handlePrint()">
                                 Cetak Invoice
                                 <i class="fas fa-print ml-2"></i>
