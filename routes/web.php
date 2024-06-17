@@ -18,6 +18,7 @@ Route::get('auth/registrasi', function () {
 // =================== !!  BATAS !! ===================== !! BATAS !! ======================== !! BATAS !! =====================
 
 // User
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,7 +27,9 @@ Route::get('user/dashboarduser', function () {
     return view('user.dashboarduser');
 });
 
-
+Route::get('user/loginuser', function () {
+    return view('user.loginuser');
+});
 // Keranjang
 
 Route::get('user/keranjang', function () {
