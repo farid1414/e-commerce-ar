@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("transaction_id")->index()->references("id")->on("transactions")->cascadeOnDelete();
             $table->foreignId("product_id")->index()->references("id")->on("products")->cascadeOnDelete();
             $table->foreignId("product_varian_id")->index()->references("id")->on("product_varians")->cascadeOnDelete();
-            $table->foreignId("user_id")->index()->references("id")->on("users")->cascadeOnDelete();
-            $table->integer('qty');
-            $table->integer('diskon')->nullable();
-            $table->integer('harga');
-            $table->integer('sub_total');
             $table->foreignId("flash_sale_id")->index()->nullable()->references("id")->on("flash_sales")->cascadeOnDelete();
-            $table->smallInteger('status');
-            $table->softDeletes();
+            $table->integer('quantity')->default(0);
+            $table->bigInteger('harga')->unsigned()->default(0);
+            $table->bigInteger('total')->unsigned()->default(0);
+            $table->bigInteger('diskon')->unsigned()->nullable()->default(0);
+            $table->bigInteger('ongkir')->unsigned()->nullable()->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('transaction_details');
     }
 };
