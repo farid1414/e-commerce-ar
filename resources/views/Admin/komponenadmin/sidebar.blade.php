@@ -120,7 +120,7 @@
             </a>
         </li><!-- End Profile Page Nav -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/programflashsale">
+            <a class="nav-link collapsed" href="{{ route('master.flash-sale.index') }}">
                 <i class="bi bi-lightning-charge"></i>
                 <span>Program Flash Sale</span>
             </a>

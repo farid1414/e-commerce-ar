@@ -1,54 +1,56 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Master\CategoryController;
+use App\Http\Controllers\Master\FlashSaleController;
 use App\Http\Controllers\Master\ProductController;
 
 // auth
-Route::get('auth/login', function () {
-    return view('auth.login');
-});
+// Route::get('auth/login', function () {
+//     return view('auth.login');
+// });
 
-Route::get('auth/registrasi', function () {
-    return view('auth.registrasi');
-});
+// Route::get('auth/registrasi', function () {
+//     return view('auth.registrasi');
+// });
 
 
 // =================== !!  BATAS !! ===================== !! BATAS !! ======================== !! BATAS !! =====================
 
 // User
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('user/dashboarduser', function () {
-    return view('user.dashboarduser');
-});
+// Route::get('user/dashboarduser', function () {
+//     return view('user.dashboarduser');
+// });
 
 
 // Keranjang
 
-Route::get('user/keranjang', function () {
-    return view('user.keranjang');
-});
+// Route::get('user/keranjang', function () {
+//     return view('user.keranjang');
+// });
 
-Route::get('user/checkout', function () {
-    return view('user.checkout');
-});
+// Route::get('user/checkout', function () {
+//     return view('user.checkout');
+// });
 
 
 // Detail Produk
 
-Route::get('user/detailproduk', function () {
-    return view('user.detailproduk');
-});
+// Route::get('user/detailproduk', function () {
+//     return view('user.detailproduk');
+// });
 
 
 // list produk
-Route::get('user/listproduk', function () {
-    return view('user.listproduk');
-});
+// Route::get('user/listproduk', function () {
+//     return view('user.listproduk');
+// });
 
 
 // Kategori
@@ -165,9 +167,9 @@ Route::get('user/FAQ', function () {
 //     return view('admin.tambahkategoridataran');
 // });
 
-Route::get('admin/detailkategori', function () {
-    return view('admin.detailkategori');
-});
+// Route::get('admin/detailkategori', function () {
+//     return view('admin.detailkategori');
+// });
 
 
 // Kategori Dinding
@@ -263,6 +265,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Routing admin
 Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/category')->name('category.')->group(function () {
         Route::get('/{slug?}', [CategoryController::class, 'index'])->name('index');
@@ -283,9 +286,31 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::post('/{slug?}/status/{uuid?}', [ProductController::class, 'status'])->name('status');
         Route::get('{uuid?}/detail', [ProductController::class, 'detail'])->name('detail');
     });
+    Route::prefix('/flash-sale')->name('flash-sale.')->group(function () {
+        Route::get('/', [FlashSaleController::class, 'index'])->name('index');
+        Route::get('/form/{id?}', [FlashSaleController::class, 'form'])->name('form');
+        Route::get('list-product', [FlashSaleController::class, 'getProduct'])->name('get-product');
+        Route::post('/', [FlashSaleController::class, 'store'])->name('store');
+    });
 });
 
 
 Route::get('admin/detailflashsale', function () {
     return view('admin.detailflashsale');
+});
+
+// ===== Routing User
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/{uuid?}/product/', [MainController::class, 'detailProduct'])->name('detail-product');
+Route::get('/{uuid?}/detail-product', [MainController::class, 'getDetailProduct'])->name('get-detail-product');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/add-to-cart', [MainController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('/keranjang', [MainController::class, 'keranjang'])->name('keranjang');
+    Route::delete('kerenjang/{id?}', [MainController::class, 'deleteCart'])->name('delete-cart');
+    Route::post('/checkout', [MainController::class, 'postCheckout'])->name('post-checkout');
+    Route::get('/checkout', [MainController::class, 'checkout'])->name('checkout');
+    Route::post('/transaction', [MainController::class, 'transaction'])->name('transaction');
+    Route::get('/transaction-success/{id?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
+    Route::get('/transaction-failed/{id?}', [MainController::class, 'transactionFail'])->name('transaction-failed');
 });

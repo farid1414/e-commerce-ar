@@ -27,7 +27,7 @@ class Product extends Model
         'thumbnail' => 'required|mimes:jpg,jpeg,png|max:5240',
         'link_ar'   => 'required',
         'link_ar_ios' => 'required',
-        'link_skybox' => 'required'
+        'link_skybox' => 'nullable'
     ];
 
     const MESSAGE = [
@@ -58,5 +58,13 @@ class Product extends Model
     public function masterCat()
     {
         return $this->belongsTo(MCategory::class, 'm_categories', 'id');
+    }
+    public function getImage()
+    {
+        return url($this->thumbnail);
+    }
+    public function flashSale()
+    {
+        return $this->hasOne(ProductFlashSale::class, 'product_id', 'id');
     }
 }

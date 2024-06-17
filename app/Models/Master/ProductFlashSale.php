@@ -16,4 +16,14 @@ class ProductFlashSale extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(product::class, 'product_id', 'id');
+    }
+
+    public function flashSale()
+    {
+        return $this->belongsTo(FlashSale::class, 'flash_sale_id', 'id');
+    }
 }
