@@ -125,9 +125,12 @@ class MainController extends Controller
         $order =  $cart->each(function ($item) use (&$order_amount) {
             $order_amount += ($item->sub_total - $item->diskon) + $item->ongkir;
         });
+        $code = "AR-F/ORD-" . now()->toDateString() . "-" . (Transaction::withTrashed()->count() + 1);
         try {
             DB::beginTransaction();
             $transaction = Transaction::create([
+                'code' => $code,
+                'status' => 0,
                 'order_amount' => $order_amount,
                 'user_id' => Auth::user()->id
             ]);
@@ -185,10 +188,11 @@ class MainController extends Controller
 
     public function transaction(Request $request)
     {
-
+        $code = "AR-F/ORD-" . now()->toDateString() . "-" . (Transaction::withTrashed()->count() + 1);
         try {
             DB::beginTransaction();
             $transaction = Transaction::create([
+                'code' => $code,
                 'order_amount' => $request->order_amount,
                 'user_id' => Auth::user()->id
             ]);
@@ -241,11 +245,24 @@ class MainController extends Controller
     public function transactionSuccess(int $id)
     {
         $tr = Transaction::findOrFail($id);
+        $tr->update(['status' => true, 'payment_at' => now()->toDateString()]);
 
         return view('user.pembayaranberhasil');
     }
     public function transactionFail(int $id)
     {
+        $tr = Transaction::findOrFail($id);
+        $tr->update(['status' => -1]);
+
         return view('user.pembayarangagal');
+    }
+    public function profil()
+    {
+
+        $transaction = Transaction::where('user_id', Auth::user()->id)->get();
+
+        return view('user.akunpelanggan', [
+            'transaction' => $transaction
+        ]);
     }
 }

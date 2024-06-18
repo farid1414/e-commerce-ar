@@ -20,9 +20,39 @@
 
             <!-- Content Akun dan Keranjang di Navbar -->
             <ul class="navbar-nav ml-auto align-items-center">
-                <li class="nav-item">
+                <li class="nav-item dropdown">
                     @if (Auth::check())
-                        <a href="javascript:void()" class="nav-link">{{ Auth::user()->name }}</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-arrow profile">
+                            <li><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('profil-pelanggan') }}">
+                                    <i class="bi bi-person me-1"></i>
+                                    <span>Profil Saya</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="bi bi-gear me-1"></i>
+                                    <span>Log Out / Keluar</span>
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @if (config('adminlte.logout_method'))
+                                        {{ method_field(config('adminlte.logout_method')) }}
+                                    @endif
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
                     @else
                         <a class="nav-link" href="{{ route('login') }}">
                             <i class="bi bi-person" style="font-size: 30px; margin-right: 35px;"></i>

@@ -25,9 +25,9 @@ use App\Http\Controllers\Master\ProductController;
 //     return view('user.dashboarduser');
 // });
 
-Route::get('user/loginuser', function () {
-    return view('user.loginuser');
-});
+// Route::get('user/loginuser', function () {
+//     return view('user.loginuser');
+// });
 // Keranjang
 
 // Route::get('user/keranjang', function () {
@@ -68,9 +68,9 @@ Route::get('user/kategoridinding', function () {
 
 // Profil Pelanggan
 
-Route::get('user/akunpelanggan', function () {
-    return view('user.akunpelanggan');
-});
+// Route::get('user/akunpelanggan', function () {
+//     return view('user.akunpelanggan');
+// });
 
 
 // detail transaksi
@@ -81,13 +81,13 @@ Route::get('user/detailtransaksi', function () {
 
 
 // status pembayaran
-Route::get('user/pembayaranberhasil', function () {
-    return view('user.pembayaranberhasil');
-});
+// Route::get('user/pembayaranberhasil', function () {
+//     return view('user.pembayaranberhasil');
+// });
 
-Route::get('user/pembayarangagal', function () {
-    return view('user.pembayarangagal');
-});
+// Route::get('user/pembayarangagal', function () {
+//     return view('user.pembayarangagal');
+// });
 
 
 // Invoice PELANGGAN
@@ -312,4 +312,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/transaction', [MainController::class, 'transaction'])->name('transaction');
     Route::get('/transaction-success/{id?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
     Route::get('/transaction-failed/{id?}', [MainController::class, 'transactionFail'])->name('transaction-failed');
+    Route::get('/profil-pelanggan', [MainController::class, 'profil'])->name('profil-pelanggan');
 });
