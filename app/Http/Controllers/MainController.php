@@ -120,7 +120,7 @@ class MainController extends Controller
 
     public function checkout()
     {
-        $cart = Cart::where('status', false)->get();
+        $cart = Cart::where('status', false)->where('user_id', Auth::user()->id)->get();
         $order_amount = 0;
         $order =  $cart->each(function ($item) use (&$order_amount) {
             $order_amount += ($item->sub_total - $item->diskon) + $item->ongkir;
@@ -174,7 +174,7 @@ class MainController extends Controller
             $transaction->save();
 
             DB::commit();
-            $carts = Cart::where('status', false)->get();
+            $carts = Cart::where('status', false)->where('user_id', Auth::user()->id)->get();
             return view('user.checkout', [
                 'carts' => $carts,
                 'transaction' => $transaction
@@ -246,6 +246,9 @@ class MainController extends Controller
     {
         $tr = Transaction::findOrFail($id);
         $tr->update(['status' => true, 'payment_at' => now()->toDateString()]);
+        $product = $tr->transactionDetail->pluck('product_id');
+        $varian = $tr->transactionDetail->pluck('product_varian_id');
+        $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->update(['status' => -1]);
 
         return view('user.pembayaranberhasil');
     }
