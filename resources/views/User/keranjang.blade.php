@@ -102,7 +102,7 @@
                                                 @endif
                                                 {{-- <del>1000000</del> <br /> --}}
                                                 <br />
-                                                @if ($cart->product->flashSale->where('product_varian_id', $cart->varian->id)->first())
+                                                @if ($cart->product->flashSale)
                                                     <span class="badge bg-warning ml-2">
                                                         <i class="fas fa-bolt"></i>
                                                         {{ $cart->product->flashSale->where('product_varian_id', $cart->varian->id)->first()->flashSale->name }}

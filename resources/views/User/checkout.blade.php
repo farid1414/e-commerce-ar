@@ -64,7 +64,7 @@
                     @endphp
 
                     <input type="hidden" readonly name="product_id[]" value="{{ $cart->product->id }}">
-                    @if ($cart->product->flashSale->where('product_varian_id', $cart->varian->id)->first())
+                    @if ($cart->product->flashSale)
                         @php
                             $flashSale = $cart->product->flashSale
                                 ->where('product_varian_id', $cart->varian->id)

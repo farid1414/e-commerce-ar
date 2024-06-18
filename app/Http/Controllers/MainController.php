@@ -63,7 +63,9 @@ class MainController extends Controller
             'status' => true
         ];
         $flashsale = ProductFlashSale::where('product_id', $request->product_id)->where('product_varian_id', $request->varian);
-        if ($flashsale->first()->count()) $data['flash_sale_id'] = $flashsale->first()->flash_sale_id;
+
+
+        if ($flashsale->first() && $flashsale->first()->count()) $data['flash_sale_id'] = $flashsale->first()->flash_sale_id;
         try {
             DB::beginTransaction();
             Cart::create($data);
