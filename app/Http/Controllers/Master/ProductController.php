@@ -219,8 +219,8 @@ class ProductController extends Controller
             if (isset($request->image)) {
                 $images = $request->image;
                 foreach ($images as  $img) {
-                    $filename = time() . '.' . $img->getClientOriginalExtension();
-                    $folder = 'storage/product/thumbnail/';
+                    $filename = uniqid() . '_' . time() . '.' . $img->getClientOriginalExtension();
+                    $folder = 'storage/product/images/';
                     $img->move(public_path($folder), $filename);
                     $url = $folder . $filename;
 
