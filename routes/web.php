@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\FlashSaleController;
 use App\Http\Controllers\Master\ProductController;
+use App\Http\Controllers\Master\ProfilController;
+use App\Http\Controllers\Master\TransaksiController;
 
 // auth
 // Route::get('auth/login', function () {
@@ -291,6 +293,15 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('list-product', [FlashSaleController::class, 'getProduct'])->name('get-product');
         Route::post('/', [FlashSaleController::class, 'store'])->name('store');
     });
+
+    Route::prefix('/profil')->name('profil.')->group(function () {
+        Route::get('/', [ProfilController::class, 'index'])->name('index');
+        Route::post('/', [ProfilController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/transaksi')->name('transaksi.')->group(function () {
+        Route::get('/success', [TransaksiController::class, 'success']);
+    });
 });
 
 
@@ -313,4 +324,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction-success/{id?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
     Route::get('/transaction-failed/{id?}', [MainController::class, 'transactionFail'])->name('transaction-failed');
     Route::get('/profil-pelanggan', [MainController::class, 'profil'])->name('profil-pelanggan');
+    Route::get('/edit-user', [MainController::class, 'editProfil'])->name('edit-profil');
 });

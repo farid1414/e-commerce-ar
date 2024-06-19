@@ -19,7 +19,7 @@
                                 <i class="bi bi-person"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>145</h6>
+                                <h6>{{ $userCount }}</h6>
                                 {{-- <h6>{{   $totalPelanggan    }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Pelanggan</span>
                             </div>
@@ -147,7 +147,7 @@
 
             {{-- Program Flash Sale yang berjalan --}}
 
-            {{-- @foreach($flashSales as $flashSale) --}}
+            {{-- @foreach ($flashSales as $flashSale) --}}
             <div class="col">
                 <div>
                     <div class="card info-card revenue-card">
@@ -173,7 +173,7 @@
 
                                         <br />
 
-                                        {{-- @if($flashSale->status == 'ongoing')
+                                        {{-- @if ($flashSale->status == 'ongoing')
                                         <span class="text-muted small pt-2 ps-1">
                                             Sedang Berjalan
                                         </span>
@@ -244,7 +244,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach($transaksiBelumbayar as $transaksi) --}}
+                                {{-- @foreach ($transaksiBelumbayar as $transaksi) --}}
 
                                 <tr>
                                     <td class="text-center">
@@ -306,12 +306,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach($produkTerlaris as $produk) --}}
+                                {{-- @foreach ($produkTerlaris as $produk) --}}
                                 <tr>
                                     <td class="text-center"><img
                                             src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
                                             alt="alt="Meja Gaming"></td>
-                            {{-- <td class="text-center"><img src="{{ asset($produk->image_path) }}" alt="{{ $produk->nama }}"></td> --}}
+                                    {{-- <td class="text-center"><img src="{{ asset($produk->image_path) }}" alt="{{ $produk->nama }}"></td> --}}
 
                                     <td class="text-center">Meja Gaming<br><span>Varian : -</span></td>
                                     {{-- <td class="text-center">{{ $produk->nama }}<br><span>Varian : {{ $produk->varian }}</span></td> --}}
@@ -332,7 +332,7 @@
                 </div>
 
 
-            <!-- Card Produk Yang Telah Habis (Stok kurang dari 5) -->
+                <!-- Card Produk Yang Telah Habis (Stok kurang dari 5) -->
                 <div style="margin-top: -15px;">
                     <h5 class="card-title">Produk Yang Segera Habis (Stok &lt; 5)</h5>
                     <div class="row">
@@ -351,7 +351,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach($furniturDataran as $produk) --}}
+                                            {{-- @foreach ($furniturDataran as $produk) --}}
 
                                             <tr>
                                                 <td>
@@ -513,7 +513,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach($furniturDinding as $produk) --}}
+                                            {{-- @foreach ($furniturDinding as $produk) --}}
 
                                             <tr>
                                                 <td>
@@ -665,7 +665,7 @@
 
 
 
-            <!-- Card Produk Yang Telah Habis (Stok = 0) -->
+                <!-- Card Produk Yang Telah Habis (Stok = 0) -->
                 <div style="margin-top: -15px;">
                     <h5 class="card-title">Produk Yang Telah Habis (Stok = 0)</h5>
                     <div class="row">
@@ -684,7 +684,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach($furniturDataran as $produk) --}}
+                                            {{-- @foreach ($furniturDataran as $produk) --}}
 
                                             <tr>
                                                 <td>
@@ -822,7 +822,7 @@
                                                         onclick="handleArsipkanClick()">Arsipkan</button>
                                                 </td>
                                             </tr>
-                                            
+
                                             {{-- @endforeach --}}
 
                                         </tbody>
@@ -847,7 +847,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                {{-- @foreach($furniturDinding as $produk) --}}
+                                                {{-- @foreach ($furniturDinding as $produk) --}}
 
                                                 <td>
                                                     <a href="#">

@@ -164,9 +164,9 @@
                             {{-- <button class="btn btn-outline-danger" onclick="logoutConfirmation()">
                                 <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Log Out / Keluar
                             </button> --}}
-                            <button class="btn btn-outline-dark">
+                            <a href="{{ route('edit-profil') }}" class="btn btn-outline-dark">
                                 Ubah <i class="bi bi-pencil-square"></i>
-                            </button>
+                            </a>
 
                         </div>
                     </div>

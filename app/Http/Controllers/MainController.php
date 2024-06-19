@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Master\Cart;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Master\Product;
 use Illuminate\Support\Carbon;
 use App\Models\Master\FlashSale;
-use App\Models\Master\ProductFlashSale;
-use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Master\ProductFlashSale;
 
 class MainController extends Controller
 {
@@ -268,6 +269,14 @@ class MainController extends Controller
 
         return view('user.akunpelanggan', [
             'transaction' => $transaction
+        ]);
+    }
+    public function editProfil()
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        return view('User.editProfil', [
+            'user' => $user
         ]);
     }
 }

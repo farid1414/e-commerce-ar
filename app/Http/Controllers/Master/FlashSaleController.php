@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Master\Product;
+use Illuminate\Support\Carbon;
 use App\Models\Master\FlashSale;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,31 @@ class FlashSaleController extends Controller
 
     public function index()
     {
-        return view('admin.programflashsale');
+        $currentDateTime = Carbon::now();
+
+        $flashSale = FlashSale::get();
+        // Menampilkan data flash sale yang akan datang (upcoming)
+        $upcomingFlashSales = FlashSale::where(function ($query) use ($currentDateTime) {
+            $query->where('start_time', '>', $currentDateTime);
+        })->with('productFlashSale')->get();
+
+        // Menampilkan data flash sale yang sedang berjalan (active)
+        $activeFlashSales = FlashSale::where(function ($query) use ($currentDateTime) {
+            $query->where('start_time', '<=', $currentDateTime)
+                ->where('end_time', '>=', $currentDateTime);
+        })->with('productFlashSale')->get();
+
+        // Menampilkan data flash sale yang sudah hangus (expired)
+        $expiredFlashSales = FlashSale::where(function ($query) use ($currentDateTime) {
+            $query->where('end_time', '<', $currentDateTime);
+        })->with('productFlashSale')->get();
+
+        return view('admin.programflashsale', [
+            'flashSale' => $flashSale,
+            'upcoming' => $upcomingFlashSales,
+            'active' => $activeFlashSales,
+            'expired' => $expiredFlashSales
+        ]);
     }
 
     public function form()

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +28,15 @@ class HomeController extends Controller
     {
 
         if (Auth::user()->hasRole('admin')) {
-            return view('admin.dashboard');
+            $user = User::get();
+            $userCount = 0;
+            foreach ($user as $u) {
+                if (!$u->hasRole('admin')) $userCount++;
+            }
+            $transaction = Transaction::where('status', true)->get();
+            return view('admin.dashboard', [
+                'userCount' => $userCount
+            ]);
         }
         return redirect()->route('index');
     }
