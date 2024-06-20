@@ -8,10 +8,12 @@
             </a>
 
             <!-- Content Pencarian di Navbar -->
-            <form onsubmit="handleSearch" class="d-flex flex-grow-1 mx-lg-5">
+            <form method="POST" action="{{ route('pencarian') }}" class="d-flex flex-grow-1 mx-lg-5">
+                @csrf
                 <div class="input-group" style="width: 645px;">
-                    <input type="search" class="form-control" placeholder="Cari yang terbaik untuk rumahmu..."
-                        value="" onchange="handleChange" onclick="handleInputClick" list="datalistOptions" />
+                    <input type="search" name="search" class="form-control"
+                        placeholder="Cari yang terbaik untuk rumahmu..." value="" onchange="handleChange"
+                        list="datalistOptions" />
                     <button type="submit" class="btn btn-outline-dark">
                         <i class="bi bi-search" style="font-size: 16px;"></i>
                     </button>

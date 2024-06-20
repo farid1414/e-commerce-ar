@@ -100,6 +100,17 @@ class MainController extends Controller
         ]);
     }
 
+    public function pencarian(Request $request)
+    {
+        $req = $request->search;
+        $product = Product::where('name', 'like', '%' . $req . '%')->get();
+
+        return view('User.hasilpencarian', [
+            'req' => $req,
+            'product' => $product
+        ]);
+    }
+
     public function product()
     {
         $prod = Product::orderBy('created_at')->get();

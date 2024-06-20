@@ -316,6 +316,7 @@ Route::get('/{uuid?}/detail-product', [MainController::class, 'getDetailProduct'
 Route::get('/categori/{slug?}', [MainController::class, 'masterCategory'])->name('category-user');
 Route::get('/product-category/{id?}', [MainController::class, 'prodCat'])->name('product-category');
 Route::get('/product', [MainController::class, 'product'])->name('product');
+Route::post('/pencarian', [MainController::class, 'pencarian'])->name('pencarian');
 
 // ===== Routing Admin ======
 Route::middleware('auth')->group(function () {
