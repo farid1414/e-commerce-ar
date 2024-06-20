@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Master\Cart;
+use App\Models\Master\Category;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Master\Product;
 use Illuminate\Support\Carbon;
 use App\Models\Master\FlashSale;
+use App\Models\Master\MCategory;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +80,32 @@ class MainController extends Controller
             DB::rollBack();
             return ERROR_RESPONSE("Failed to update category {$request->name} ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function masterCategory(string $slug)
+    {
+        $cat = MCategory::firstWhere('slug', $slug);
+        $cat = Category::where('m_categories', $cat->id)->get();
+        return view('user.kategoridataran', [
+            'cat' => $cat
+        ]);
+    }
+
+    public function prodCat(int $id)
+    {
+        $cat = Category::findOrFail($id);
+
+        return view('User.listproduk', [
+            'category' => $cat
+        ]);
+    }
+
+    public function product()
+    {
+        $prod = Product::orderBy('created_at')->get();
+        return view('User.produkall', [
+            'prod' => $prod
+        ]);
     }
 
     public function keranjang()

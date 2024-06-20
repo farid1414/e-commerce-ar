@@ -214,8 +214,9 @@
                     shadow-intensity="0" ar skybox-height="2.8m" max-camera-orbit="auto" camera-controls
                     style="width: 100%; height: 400px; border-radius: 10px;"></model-viewer> --}}
 
-                <model-viewer id="color" src="" ios-src="" skybox-image="" ar
-                    ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto" skybox-height="1.8m"
+                <model-viewer id="color" src="" ios-src=""
+                    skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791 "
+                    ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto" skybox-height="1.8m"
                     shadow-intensity="1" camera-controls touch-action="pan-y" ar-placement="floor" auto-rotate
                     tone-mapping="neutral" style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
 
@@ -650,7 +651,6 @@
             const deskripsiLength = document.getElementById("deskripsiLength");
             deskripsiLength.textContent = deskripsiProdukInput.value.length + " / 300";
         }
-
         // Event listeners
         document.getElementById("stokProduk").addEventListener("change", handleStokProdukChange);
         document.getElementById("deskripsiProduk").addEventListener("input", handleDeskripsiProdukChange);
@@ -907,7 +907,10 @@
             let modelView = $("#contentLivePreviewARDataran model-viewer");
             modelView.attr('src', $("#linkARAndroidInput").val())
             modelView.attr('ios-src', $("#linkARIOSInput").val())
-            modelView.attr('skybox-image', $('#linkSkyBoxInput').val())
+
+            if ($('#linkSkyBoxInput').val()) {
+                modelView.attr('skybox-image', $('#linkSkyBoxInput').val())
+            }
 
             if ($('#custom-switch-varian').is(':checked')) {
                 let html = '<li><button class="dropdown-item" data-color="Original">Original</button></li>'

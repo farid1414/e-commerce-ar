@@ -309,11 +309,15 @@ Route::get('admin/detailflashsale', function () {
     return view('admin.detailflashsale');
 });
 
-// ===== Routing User
+// ===== Routing User =======
 Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/{uuid?}/product/', [MainController::class, 'detailProduct'])->name('detail-product');
 Route::get('/{uuid?}/detail-product', [MainController::class, 'getDetailProduct'])->name('get-detail-product');
+Route::get('/categori/{slug?}', [MainController::class, 'masterCategory'])->name('category-user');
+Route::get('/product-category/{id?}', [MainController::class, 'prodCat'])->name('product-category');
+Route::get('/product', [MainController::class, 'product'])->name('product');
 
+// ===== Routing Admin ======
 Route::middleware('auth')->group(function () {
     Route::post('/add-to-cart', [MainController::class, 'addToCart'])->name('add-to-cart');
     Route::get('/keranjang', [MainController::class, 'keranjang'])->name('keranjang');

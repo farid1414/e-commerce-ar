@@ -176,9 +176,10 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col" data-aos="fade-up-right">
-                                    <a href="/Kategoriground">
+                                    <a href="{{ route('category-user', 'dataran') }}">
                                         <div style="position: relative; overflow: hidden; border-radius: 12px;">
-                                            <img class="img-fluid" src="../gambar/testbg.png" alt="" />
+                                            <img class="img-fluid" src="{{ asset('/gambar/testbg.png') }}"
+                                                alt="" />
                                             <div
                                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); border-radius: 10px;">
                                             </div>
@@ -196,7 +197,7 @@
                                     </a>
                                 </div>
                                 <div class="col" data-aos="fade-up-left">
-                                    <a href="/Kategoridinding">
+                                    <a href="{{ route('category-user', 'dinding') }}">
                                         <div style="position: relative; overflow: hidden; border-radius: 12px;">
                                             <img class="img-fluid" src="../gambar/testbg2.png" alt=""
                                                 style="border-radius: 20px;" />
@@ -410,7 +411,8 @@
                         <div
                             style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
                             <span style="margin-right: 5px;">
-                                <a href="/Listseluruhproduk" style="text-decoration: none; color: black;"><b>Lihat
+                                <a href="{{ route('product') }}"
+                                    style="text-decoration: none; color: black;"><b>Lihat
                                         Selengkapnya</b></a>
                             </span>
                             <i class="fas fa-arrow-right"></i>

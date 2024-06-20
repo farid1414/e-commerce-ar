@@ -20,7 +20,7 @@
     <section>
         <div class="container">
             <div class="text-center mt-5 mb-5"> <!-- Menggunakan kelas text-center -->
-                <h2><b>Telusuri Semua Produk Category {{ $category->name }}.
+                <h2><b>Telusuri Semua Produk
                     </b></h2>
             </div>
             <hr>
@@ -57,7 +57,7 @@
 
             <div class="container mt-5">
                 <div class="row">
-                    @foreach ($category->products as $prod)
+                    @foreach ($prod as $prod)
                         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                             <a href="/Detailproduk" style="text-decoration: none;">
                                 <div class="card"

@@ -75,6 +75,69 @@
             /* Memastikan gambar sesuai dengan ukuran yang ditetapkan */
         }
     </style>
+    <style>
+        #controls {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            max-width: unset;
+            transform: unset;
+            pointer-events: auto;
+            z-index: 100;
+        }
+
+        .dot {
+            display: none;
+        }
+
+        .dim {
+            background: #fff;
+            border-radius: 4px;
+            border: none;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.8);
+            display: block;
+            font-family: Futura, Helvetica Neue, sans-serif;
+            font-size: 1em;
+            font-weight: 700;
+            max-width: 128px;
+            overflow-wrap: break-word;
+            padding: 0.5em 1em;
+            position: absolute;
+            width: max-content;
+            height: max-content;
+            transform: translate3d(-50%, -50%, 0);
+            pointer-events: none;
+            --min-hotspot-opacity: 0;
+        }
+
+        @media only screen and (max-width: 800px) {
+            .dim {
+                font-size: 3vw;
+            }
+        }
+
+        .dimensionLineContainer {
+            pointer-events: none;
+            display: block;
+        }
+
+        .dimensionLine {
+            stroke: #16a5e6;
+            stroke-width: 2;
+            stroke-dasharray: 2;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        /* This keeps child nodes hidden while the element loads */
+        :not(:defined)>* {
+            display: none;
+        }
+    </style>
 </head>
 {{-- INCLUDE & KOMPONEN --}}
 
@@ -816,6 +879,39 @@
                 }
             })
         })
+
+        const modelViewerColor = document.querySelector("model-viewer#color");
+
+        // document.querySelector('#color-controls').addEventListener('click', (event) => {
+        $('body').on('click', '#color-controls', function(e) {
+            // document.querySelector('#color-controls').addEventListener('click', (event) => {
+            event.preventDefault()
+            const colorString = event.target.dataset.color;
+            const [material] = modelViewerColor.model.materials;
+            if (colorString) {
+                if (colorString === "Original") {
+                    // Jika memilih Original, gunakan warna bawaan
+                    material.pbrMetallicRoughness.setBaseColorFactor(null);
+
+                    // Perbarui teks dropdown menjadi "Original"
+                    document.getElementById('selectedColor').textContent = 'Original';
+                } else {
+                    let color = ''
+                    try {
+                        color = JSON.parse(colorString)
+                    } catch {
+                        color = colorString
+                    }
+                    // console.log("color", JSON.parse(colorString));
+                    material.pbrMetallicRoughness.setBaseColorFactor(color);
+                    // material.pbrMetallicRoughness.setBaseColorFactor(JSON.parse("colorString"));
+
+                    // Perbarui teks dropdown dengan warna yang dipilih
+                    const selectedColorText = `${event.target.textContent}`;
+                    document.getElementById('selectedColor').textContent = selectedColorText;
+                }
+            }
+        });
 
         function closeModal() {
             $('#modalMasukkanKeranjang').modal('hide');
