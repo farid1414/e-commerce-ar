@@ -20,11 +20,15 @@
         if ($product->varians->count()) {
             $mode = 'webxr scene-viewer quick-look';
         }
-
+        $place = 'floor';
+        if ($product->m_categories == 2) {
+            $place = 'wall';
+        }
     @endphp
     <model-viewer id="color" src="{{ $product->link_ar }}" ios-src="{{ $product->link_src }}"
         skybox-image="{{ $skybox }}" ar ar-modes="{{ $mode }}" xr-environment ar-scale="auto"
-        skybox-height="1.8m" shadow-intensity="1" camera-controls touch-action="pan-y" ar-placement="floor" auto-rotate
+        skybox-height="1.8m" shadow-intensity="1" camera-controls touch-action="pan-y"
+        ar-placement="{{ $place }}" auto-rotate
         style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
         <div class="d-flex justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
             <span id="arSupportBadge" class="badge" style="font-size: 15px;"></span>

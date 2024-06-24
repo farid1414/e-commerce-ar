@@ -321,7 +321,7 @@ Route::get('/product-category/{id?}', [MainController::class, 'prodCat'])->name(
 Route::get('/product', [MainController::class, 'product'])->name('product');
 Route::post('/pencarian', [MainController::class, 'pencarian'])->name('pencarian');
 
-// ===== Routing Admin ======
+// ===== Routing user  ======
 Route::middleware('auth')->group(function () {
     Route::post('/add-to-cart', [MainController::class, 'addToCart'])->name('add-to-cart');
     Route::get('/keranjang', [MainController::class, 'keranjang'])->name('keranjang');
