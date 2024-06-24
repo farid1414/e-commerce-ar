@@ -300,7 +300,10 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
     });
 
     Route::prefix('/transaksi')->name('transaksi.')->group(function () {
-        Route::get('/success', [TransaksiController::class, 'success']);
+        Route::get('/success', [TransaksiController::class, 'success'])->name('success');
+        Route::get('/pending', [TransaksiController::class, 'pending'])->name('pending');
+        Route::get('/failed', [TransaksiController::class, 'failed'])->name('failed');
+        Route::get('/detail/{id?}', [TransaksiController::class, 'detail'])->name('detail');
     });
 });
 

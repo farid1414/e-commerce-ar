@@ -21,8 +21,17 @@ class Transaction extends Model
         return date_format(date_create($this->created_at), 'd-m-Y H:i:s');
     }
 
+    public function payment_date()
+    {
+        return date_format(date_create($this->payment_at), 'd-m-Y H:i:s');
+    }
+
     public function transactionDetail()
     {
         return $this->hasMany(TransactionDetail::class, 'transaction_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

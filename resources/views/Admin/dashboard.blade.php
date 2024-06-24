@@ -3,7 +3,11 @@
 
 {{-- Tahap untuk judul  --}}
 @section('title', 'Dashboard')
-
+@section('content_header')
+    <li class="breadcrumb-item active">
+        <a href="/">Dashboard</a>
+    </li>
+@stop
 {{-- tahap section jangan lupa di tutup --}}
 @section('content')
     <section class="section dashboard">
@@ -39,7 +43,13 @@
                                 <i class="bi bi-bag"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>20</h6>
+                                @php
+                                    $count = 0;
+                                    foreach ($transactionSuccess as $tr) {
+                                        $count += $tr->transactionDetail->count();
+                                    }
+                                @endphp
+                                <h6>{{ $count }}</h6>
                                 {{-- <h6>{{    $totalTerjual   }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
                             </div>
@@ -59,7 +69,7 @@
                                 <i class="bi bi-bar-chart"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>20</h6>
+                                <h6>{{ $transactionSuccess->count() }}</h6>
                                 {{-- <h6>{{   $totalTransaksi     }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
                             </div>
@@ -81,8 +91,7 @@
                                 <i class="bi bi-box"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>55</h6>
-                                {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
+                                <h6>{{ $produk->count() }}</h6>
                                 <span class="text-success small pt-1 fw-bold">Total Produk Keseluruhan</span>
                             </div>
                         </div>
@@ -99,7 +108,7 @@
                                 <i class="bi bi-journal-text"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>50</h6>
+                                <h6>{{ $categori->count() }}</h6>
                                 {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Kategori Keseluruhan</span>
                             </div>
@@ -119,7 +128,7 @@
                                 <i class="bi bi-people"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>Rp. 50.000.000</h6>
+                                <h6>{{ formatRupiah($transactionSuccess->sum('order_amount')) }}</h6>
                                 {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Pendapatan</span>
                             </div>
@@ -128,7 +137,7 @@
                 </div>
 
                 {{-- Total Invoice  --}}
-                <div class="card info-card customers-card">
+                {{-- <div class="card info-card customers-card">
                     <div class="card-body">
                         <h5 class="card-title">Invoice Keseluruhan</h5>
                         <div class="d-flex align-items-center">
@@ -137,12 +146,11 @@
                             </div>
                             <div class="ps-3">
                                 <h6>44</h6>
-                                {{-- <h6>{{ $totalInvoice }}</h6> --}}
                                 <span class="text-success small pt-1 fw-bold">Total Invoice</span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             {{-- Program Flash Sale yang berjalan --}}
@@ -155,69 +163,34 @@
                             <h5 class="card-title">
                                 Flash Sale Sedang Berjalan
                             </h5>
-                            <div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-lightning-charge"></i>
+                            @forelse ($activeFlashSales as $active)
+                                <div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-lightning-charge"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 style="font-size: 1.2rem;">{{ $active->name }}</h6>
+                                            <span class="text-success small pt-1 fw-bold">
+                                                8 Produk Total,
+                                            </span>
+                                            <br />
+
+                                            <span class="text-muted small pt-2 ps-1">
+                                                Sedang Berjalan
+                                            </span>
+                                            <br />
+                                            <span class="text-muted small pt-2 ps-1">
+                                                2023-05-12 12:00 - 2023-05-12 13:59
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="ps-3">
-                                        <h6 style="font-size: 1.2rem;">Flash Sale 1.1</h6>
-                                        <span class="text-success small pt-1 fw-bold">
-                                            8 Produk Total,
-                                        </span>
-
-                                        {{-- <h6 style="font-size: 1.2rem;">{{ $flashSale->nama }}</h6>
-                                        <span class="text-success small pt-1 fw-bold">
-                                            {{ $flashSale->total_produk }} Produk Total,
-                                        </span> --}}
-
-                                        <br />
-
-                                        {{-- @if ($flashSale->status == 'ongoing')
-                                        <span class="text-muted small pt-2 ps-1">
-                                            Sedang Berjalan
-                                        </span>
-                                        @elseif($flashSale->status == 'upcoming')
-                                        <span class="text-muted small pt-2 ps-1">
-                                            Akan Datang
-                                        </span>
-                                        @endif --}}
-
-                                        {{-- <span class="text-muted small pt-2 ps-1">
-                                            {{ $flashSale->start_time }} - {{ $flashSale->end_time }}
-                                        </span> --}}
-                                        <span class="text-muted small pt-2 ps-1">
-                                            Sedang Berjalan
-                                        </span>
-                                        <br />
-                                        <span class="text-muted small pt-2 ps-1">
-                                            2023-05-12 12:00 - 2023-05-12 13:59
-                                        </span>
-                                    </div>
+                                    <hr />
                                 </div>
-                                <hr />
-                            </div>
-                            <div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-lightning-charge"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6 style="font-size: 1.2rem;">Flash Sale 2.2</h6>
-                                        <span class="text-success small pt-1 fw-bold">
-                                            12 Produk Total,
-                                        </span>
-                                        <br />
-                                        <span class="text-muted small pt-2 ps-1">
-                                            Akan Datang
-                                        </span>
-                                        <br />
-                                        <span class="text-muted small pt-2 ps-1">
-                                            2023-05-12 13:00 - 2023-05-12 15:59
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            @empty
+                                <h5 class="text-center">Tidak Ada Flash Sale</h5>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -244,42 +217,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($transaksiBelumbayar as $transaksi) --}}
-
-                                <tr>
-                                    <td class="text-center">
-                                        <a href="/Detailtransaksibelumdibayar" class="text-dark fw-bold">Jhon Doe
-                                            1</a>
-                                    </td>
-                                    {{-- <td class="text-center">
-                                        <a href="/detail-transaksi-belum-dibayar/{{ $transaksi->id }}" class="text-dark fw-bold">{{ $transaction->customer_nama }}</a>
-                                    </td> --}}
-
-                                    <td class="text-center">1 Produk</td>
-                                    {{-- <td class="text-center">{{ $transaksi->total_produk }} Produk</td> --}}
-
-                                    <td class="text-center">2001-02-21</td>
-                                    {{-- <td class="text-center">{{ $transaksin>waktu_pemesanan }}</td> --}}
-
-                                    <td class="text-center">
-                                        <span class="badge bg-primary" style="white-space: pre-line">Menunggu
-                                            Pembayaran</span>
-                                    </td>
-                                    {{-- <td class="text-center">
-                                        <span class="badge bg-primary" style="white-space: pre-line">{{ $transaksi->status }}</span>
-                                    </td> --}}
-
-                                    <td class="text-center">
-                                        <a href="/Transaksibelumbayar">Lihat</a>
-                                    </td>
-                                </tr>
-                                {{-- @endforeach --}}
-
+                                @foreach ($transactionPending as $pending)
+                                    <tr>
+                                        <td class="text-center">
+                                            <a href="{{ route('master.transaksi.detail', $pending->id) }}"
+                                                class="text-dark fw-bold">{{ $pending->user->name }}</a>
+                                        </td>
+                                        <td class="text-center">{{ $pending->transactionDetail->count() }} Produk</td>
+                                        <td class="text-center">{{ $pending->created_date() }}</td>
+                                        <td class="text-center">
+                                            <span class="badge bg-primary" style="white-space: pre-line">Menunggu
+                                                Pembayaran</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('master.transaksi.detail', $pending->id) }}">Lihat</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div>
-                        <a href="/" target="_blank">
+                        <a href="{{ route('master.transaksi.pending') }}" target="_blank">
                             <div style="margin-bottom: -10px;" class="d-flex justify-content-end">
                                 <p style="margin-right: 20px;">Selengkapnya</p>
                                 <i style="font-size: 20px; margin-top: 2px;" class="fa fa-arrow-right"></i>
@@ -290,7 +249,7 @@
 
 
                 {{-- Produk Terlaris Terjual 10 keatas --}}
-                <div class="card top-selling overflow-auto">
+                {{-- <div class="card top-selling overflow-auto">
                     <div class="card-body pb-0">
                         <h5 class="card-title">
                             Top 5 Produk Terlaris (Terjual lebih dari 10)
@@ -306,30 +265,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($produkTerlaris as $produk) --}}
                                 <tr>
                                     <td class="text-center"><img
                                             src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
                                             alt="alt="Meja Gaming"></td>
-                                    {{-- <td class="text-center"><img src="{{ asset($produk->image_path) }}" alt="{{ $produk->nama }}"></td> --}}
 
                                     <td class="text-center">Meja Gaming<br><span>Varian : -</span></td>
-                                    {{-- <td class="text-center">{{ $produk->nama }}<br><span>Varian : {{ $produk->varian }}</span></td> --}}
-
                                     <td class="text-center fw-bold">Meja<br><small>Dataran</small></td>
-                                    {{-- <td class="text-center fw-bold">{{ $produk->kategori }}<br><small>{{ $produk->area }}</small></td> --}}
-
                                     <td class="text-center">Rp 1.200.000</td>
-                                    {{-- <td class="text-center">{{ $produk->harga }}</td> --}}
-
                                     <td class="text-center fw-bold">20x</td>
-                                    {{-- <td class="text-center fw-bold">{{ $produk->terjual }}</td> --}}
-
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
 
 
                 <!-- Card Produk Yang Telah Habis (Stok kurang dari 5) -->
@@ -340,9 +289,10 @@
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dataran</h5>
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover" id="table_produk_kurang">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Produk</th>
                                                 <th>Nama Produk</th>
                                                 <th>Varian</th>
@@ -350,149 +300,7 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            {{-- @foreach ($furniturDataran as $produk) --}}
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                {{-- <td>
-                                                    <a href="#">
-                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
-                                                    </a>
-                                                </td> --}}
-
-                                                <td>Ut inventore</td>
-                                                {{-- <td>{{ $produk->nama }}</td> --}}
-
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    -
-                                                </td>
-                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
-
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-
-                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
-
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Exercitationem</td>
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    Kuning
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0<br />
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Doloribus</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Officiis</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Sit unde debitis</td>
-                                                <td class="fw-bold">
-                                                    Merah
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-
-                                            {{-- @endforeach --}}
-
-                                        </tbody>
+                                        <tbody> </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -502,9 +310,10 @@
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dinding</h5>
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover" id="table_dinding_kurang">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Produk</th>
                                                 <th>Nama Produk</th>
                                                 <th>Varian</th>
@@ -513,148 +322,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($furniturDinding as $produk) --}}
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-
-                                                {{-- <td>
-                                                    <a href="#">
-                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
-                                                    </a>
-                                                </td> --}}
-
-                                                <td>Ut inventore</td>
-                                                {{-- <td>{{ $produk->nama }}</td> --}}
-
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    -
-                                                </td>
-
-                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
-
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
-
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Exercitationem</td>
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    Kuning
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0<br />
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Doloribus</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Officiis</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Sit unde debitis</td>
-                                                <td class="fw-bold">
-                                                    Merah
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-
-                                            {{-- @endforeach --}}
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -673,9 +340,10 @@
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dataran</h5>
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover" id="table_dataran_habis">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Produk</th>
                                                 <th>Nama Produk</th>
                                                 <th>Varian</th>
@@ -684,146 +352,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($furniturDataran as $produk) --}}
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                {{-- <td>
-                                                    <a href="#">
-                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
-                                                    </a>
-                                                </td> --}}
-
-                                                <td>Ut inventore</td>
-                                                {{-- <td>{{ $produk->nama }}</td> --}}
-
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    -
-                                                </td>
-                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
-
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-
-                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
-
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Exercitationem</td>
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    Kuning
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0<br />
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Doloribus</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Officiis</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Sit unde debitis</td>
-                                                <td class="fw-bold">
-                                                    Merah
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-
-                                            {{-- @endforeach --}}
 
                                         </tbody>
                                     </table>
@@ -835,9 +363,10 @@
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dinding</h5>
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover" id="table_dinding_habis">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Produk</th>
                                                 <th>Nama Produk</th>
                                                 <th>Varian</th>
@@ -846,142 +375,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                {{-- @foreach ($furniturDinding as $produk) --}}
-
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                {{-- <td>
-                                                    <a href="#">
-                                                        <img src="{{ asset($produk->image_path) }}" alt="" />
-                                                    </a>
-                                                </td> --}}
-                                                <td>Ut inventore</td>
-                                                {{-- <td>{{ $produk->nama }}</td> --}}
-
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    -
-                                                </td>
-                                                {{-- <td class="fw-bold">{{ $produk->varian }}</td> --}}
-
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                {{-- <td class="fw-bold text-center">{{ $produk->stok }}</td> --}}
-
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Exercitationem</td>
-                                                <td class="fw-bold">
-                                                    Biru<br />
-                                                    Kuning
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0<br />
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Doloribus</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Officiis</td>
-                                                <td class="fw-bold">
-                                                    -
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                            alt="" />
-                                                    </a>
-                                                </td>
-                                                <td>Sit unde debitis</td>
-                                                <td class="fw-bold">
-                                                    Merah
-                                                </td>
-                                                <td class="fw-bold text-center">
-                                                    0
-                                                </td>
-                                                <td class='text-start'>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleUpdateStokClick()"><i
-                                                            class="bi bi-plus-lg me-1"></i>Stok</button>
-                                                    <button type="button" class="btn btn-link"
-                                                        style="text-decoration: none; font-size: 0.8rem;"
-                                                        onclick="handleArsipkanClick()">Arsipkan</button>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -989,12 +382,170 @@
                         </div>
                     </div>
                 </div>
-
-
                 {{-- @endforeach --}}
-
-
             </div>
         </div>
     </section>
 @stop
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#table_produk_kurang').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('master.product.data', 'dataran') }}/" +
+                    "?categori=" + 1 + " &is_active=" + 1 + "&akan_habis=" + 1,
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'gambar',
+                        name: 'gambar',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                    },
+                    {
+                        data: 'varians',
+                        name: 'varians'
+                    },
+                    {
+                        data: 'stock',
+                        name: 'stock'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+
+            $('#table_dinding_kurang').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('master.product.data', 'dinding') }}/" +
+                    "?categori=" + 2 + " &is_active=" + 1 + "&akan_habis=" + 1,
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'gambar',
+                        name: 'gambar',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                    },
+                    {
+                        data: 'varians',
+                        name: 'varians'
+                    },
+                    {
+                        data: 'stock',
+                        name: 'stock'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+
+            $('#table_dataran_habis').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('master.product.data', 'dataran') }}/" +
+                    "?categori=" + 1 + " &is_active=" + 0 + "&habis=" + 1,
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'gambar',
+                        name: 'gambar',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                    },
+                    {
+                        data: 'varians',
+                        name: 'varians'
+                    },
+                    {
+                        data: 'stock',
+                        name: 'stock'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+
+            $('#table_dinding_habis').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('master.product.data', 'dinding') }}/" +
+                    "?categori=" + 2 + " &is_active=" + 0 + "&habis=" + 1,
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                        visible: false
+                    },
+                    {
+                        data: 'gambar',
+                        name: 'gambar',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                    },
+                    {
+                        data: 'varians',
+                        name: 'varians'
+                    },
+                    {
+                        data: 'stock',
+                        name: 'stock'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        })
+    </script>
+@endpush

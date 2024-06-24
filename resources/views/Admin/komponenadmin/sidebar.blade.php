@@ -73,17 +73,17 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/admin/transaksibelumdibayar">
+                    <a href="{{ route('master.transaksi.pending') }}">
                         <i class="bi bi-circle"></i><span>Belum Bayar</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/transaksisudahdibayar">
+                    <a href="{{ route('master.transaksi.success') }}">
                         <i class="bi bi-circle"></i><span>Sudah Bayar</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/transaksidibatalkan">
+                    <a href="{{ route('master.transaksi.failed') }}">
                         <i class="bi bi-circle"></i><span>Dibatalkan</span>
                     </a>
                 </li>
