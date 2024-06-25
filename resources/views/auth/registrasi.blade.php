@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="d-none d-md-block">
-                        <h1 data-aos="fade-up" style="font-size: 3.9rem; max-width: 600px; margin-bottom: 40px;">
+                        <h1 data-aos="fade-up" style="font-size: 67px; max-width: 600px; margin-bottom: 20px;">
                             <b>Registrasi Untuk Menjadi Pelanggan.</b>
                         </h1>
                     </div>
@@ -93,15 +93,15 @@
                             <div class="input-group">
                                 <input type="password" class="form-control" id="password" name="password"
                                     placeholder="Masukkan kata sandi Anda" required>
-                                <div class="input-group-append" onclick="setShowPassword(!showPassword)"
+                                <div class="input-group-append" onclick="togglePasswordVisibility()"
                                     style="cursor: pointer; font-size: 15px; border-radius: 0px; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
-                                    <i class="fas fa-eye"></i>
+                                    <i id="togglePassword" class="fas fa-eye"></i>
                                 </div>
                             </div>
-                            <small id="passwordHelpBlock" class="form-text text-muted">Password harus memiliki minimal
-                                15 karakter, mengandung huruf, angka, dan karakter.</small>
+                            {{-- <small id="passwordHelpBlock" class="form-text text-muted">Password harus memiliki minimal 15 karakter, mengandung huruf, angka, dan karakter.</small> --}}
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-dark btn-block">Daftar</button>
+                        
+                        <button type="submit" class="btn btn-lg w-100 btn-dark mt-3" style="border-radius: 25px">Daftar</button>
                     </form>
                     <!-- Teks di bawah tombol "Daftar" pada mode responsif -->
                     <div style="margin-top: 20px; font-size: 17px; text-align: center;" class="d-block d-lg-none">
@@ -114,5 +114,21 @@
     @include('user.include.script')
 
 </body>
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const passwordIcon = document.getElementById("togglePassword");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            passwordIcon.classList.remove("fa-eye");
+            passwordIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            passwordIcon.classList.remove("fa-eye-slash");
+            passwordIcon.classList.add("fa-eye");
+        }
+    }
+</script>
 
 </html>

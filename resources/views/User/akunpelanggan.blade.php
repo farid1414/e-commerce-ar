@@ -135,42 +135,63 @@
                         {{-- Data diri --}}
                         <h4>Data diri anda.</h4>
                         <hr>
-                        <div class="d-flex justify-content-between">
+                        
+                        <!-- Nama -->
+                        <div class="d-flex justify-content-between align-items-center">
                             <p>Nama :</p>
-                            <p>{{ Auth::user()->name }}</p>
+                            <div>
+                                <p id="nama">{{ Auth::user()->name }}</p>
+                                <input type="text" class="form-control form-control-md" id="edit-nama" style="display: none;" value="{{ Auth::user()->name }}">
+                            </div>
                         </div>
+                        
                         <hr>
+                        
+                        <!-- Nomor Hand Phone -->
                         <div class="d-flex justify-content-between">
                             <p>Nomor Hand Phone :</p>
-                            <p>{{ Auth::user()->customer->phone }}</p>
+                            <p id="phone">{{ Auth::user()->customer->phone }}</p>
+                            <input type="text" class="form-control" id="edit-phone" style="display: none;" value="{{ Auth::user()->customer->phone }}">
                         </div>
-
                         <hr>
+                        
+                        <!-- Email -->
                         <div class="d-flex justify-content-between">
                             <p>Email :</p>
-                            <p>{{ Auth::user()->email }}</p>
+                            <p id="email">{{ Auth::user()->email }}</p>
+                            <input type="email" class="form-control" id="edit-email" style="display: none;" value="{{ Auth::user()->email }}">
                         </div>
-
                         <hr>
+                        
+                        <!-- Alamat -->
                         <div class="d-flex justify-content-between">
                             <p>Alamat :</p>
-                            <p>{{ Auth::user()->customer->address }}</p>
+                            <p id="alamat">{{ Auth::user()->customer->address }}</p>
+                            <textarea class="form-control" id="edit-alamat" style="display: none;">{{ Auth::user()->customer->address }}</textarea>
                         </div>
-
                         <hr>
+                        
+                        <!-- Password (bisa juga ditambahkan jika diperlukan) -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <p>Password :</p>
+                            <p>*********************</p>
+                        </div>
                         <hr>
-
+                        
+                        <!-- Tombol Ubah dan Simpan/Batal -->
                         <div class="d-flex justify-content-end">
-                            {{-- <button class="btn btn-outline-danger" onclick="logoutConfirmation()">
-                                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Log Out / Keluar
-                            </button> --}}
-                            <a href="{{ route('edit-profil') }}" class="btn btn-outline-dark">
+                            <a class="btn btn-outline-dark" id="btn-ubah">
                                 Ubah <i class="bi bi-pencil-square"></i>
                             </a>
-
+                           
+                            <a class="btn btn-outline-secondary me-5" id="btn-batal" style="display: none;">
+                                Batal <i class="bi bi-x"></i>
+                            </a>
+                            <a class="btn btn-dark" id="btn-simpan" style="display: none;">
+                                Simpan <i class="bi bi-check"></i>
+                            </a>
                         </div>
                     </div>
-                </div>
 
                 {{-- transaksi Belum bayar --}}
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
@@ -204,6 +225,103 @@
 
     @include('user.komponenuser.footer')
 
+
+
+    <script>
+        // Script untuk mengatur perubahan dari tampilan data ke form edit
+        $(document).ready(function() {
+            $('#btn-ubah').click(function() {
+                // Sembunyikan tombol Ubah dan tampilkan tombol Simpan dan Batal
+                $('#btn-ubah').hide();
+                $('#btn-simpan').show();
+                $('#btn-batal').show();
+                
+                // Tampilkan form input untuk setiap data yang ingin diedit
+                $('#nama').hide();
+                $('#edit-nama').show();
+                
+                $('#phone').hide();
+                $('#edit-phone').show();
+                
+                $('#email').hide();
+                $('#edit-email').show();
+                
+                $('#alamat').hide();
+                $('#edit-alamat').show();
+            });
+            
+            $('#btn-batal').click(function() {
+                // Tombol Batal diklik, kembalikan ke tampilan semula
+                $('#btn-ubah').show();
+                $('#btn-simpan').hide();
+                $('#btn-batal').hide();
+                
+                $('#nama').show();
+                $('#edit-nama').hide();
+                
+                $('#phone').show();
+                $('#edit-phone').hide();
+                
+                $('#email').show();
+                $('#edit-email').hide();
+                
+                $('#alamat').show();
+                $('#edit-alamat').hide();
+            });
+            
+            $('#btn-simpan').click(function() {
+                // Implementasikan logika untuk menyimpan perubahan
+                var nama = $('#edit-nama').val();
+                var phone = $('#edit-phone').val();
+                var email = $('#edit-email').val();
+                var alamat = $('#edit-alamat').val();
+                
+                // Lakukan request untuk menyimpan perubahan (misalnya dengan AJAX)
+                // Di sini Anda bisa menggunakan AJAX untuk mengirim data yang diedit ke backend
+                
+                // Contoh AJAX:
+                /*
+                $.ajax({
+                    type: 'POST',
+                    url: '/update-profile',
+                    data: {
+                        nama: nama,
+                        phone: phone,
+                        email: email,
+                        alamat: alamat
+                    },
+                    success: function(response) {
+                        // Tampilkan pesan sukses atau sesuaikan dengan kebutuhan
+                        alert('Data berhasil diupdate!');
+                        
+                        // Kembalikan ke tampilan semula setelah update
+                        $('#btn-ubah').show();
+                        $('#btn-simpan').hide();
+                        $('#btn-batal').hide();
+                        
+                        $('#nama').text(nama).show();
+                        $('#edit-nama').hide();
+                        
+                        $('#phone').text(phone).show();
+                        $('#edit-phone').hide();
+                        
+                        $('#email').text(email).show();
+                        $('#edit-email').hide();
+                        
+                        $('#alamat').text(alamat).show();
+                        $('#edit-alamat').hide();
+                    },
+                    error: function(xhr, status, error) {
+                        // Tampilkan pesan error atau sesuaikan dengan kebutuhan
+                        alert('Terjadi kesalahan: ' + error);
+                    }
+                });
+                */
+            });
+        });
+    </script>
+
+    
     <script>
         function toggleCollapse(collapseId) {
             var collapseElement = document.getElementById(collapseId);

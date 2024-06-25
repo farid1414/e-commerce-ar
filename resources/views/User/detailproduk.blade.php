@@ -278,6 +278,7 @@
                         {{-- @include('user.produk.ardataranvarian') --}}
                         {{-- @include('user.produk.ardatarandimensi') --}}
                         {{-- @include('user.produk.ardatarandimensivarian') --}}
+                        {{-- @include('user.produk.arexperiment') --}}
 
 
                         {{-- Dinding --}}

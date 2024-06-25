@@ -96,9 +96,10 @@
     @include('user.komponenuser.footer')
 
     <script>
-        function togglePassword() {
+        function togglePasswordVisibility() {
             const passwordField = document.getElementById("password");
-            const passwordIcon = document.getElementById("passwordIcon");
+            const passwordIcon = document.getElementById("togglePassword");
+    
             if (passwordField.type === "password") {
                 passwordField.type = "text";
                 passwordIcon.classList.remove("fa-eye");
@@ -110,6 +111,7 @@
             }
         }
     </script>
+    
 </body>
 
 </html>

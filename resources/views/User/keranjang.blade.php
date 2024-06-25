@@ -26,10 +26,20 @@
 
         {{-- {products.length === 0 ? ( --}}
         @if ($carts->count() == 0)
+        <div class="d-none d-md-block">
             <div class="text-center">
-                <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong" style=" maxWidth: 320px" />
-                <h3>Oops, Keranjang Anda kosong.</h3>
+                <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong" style="width: 100%; max-width: 460px;"/>
+                <h3 style="font-size: 20px">Oops, Keranjang Anda kosong.</h3>
             </div>
+        </div>
+
+        <div class="d-block d-md-none">
+            <div class="text-center">
+                <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong" style="width: 100%; max-width: 300px;"/>
+                <h3 style="font-size: 20px">Oops, Keranjang Anda kosong.</h3>
+            </div>
+            
+        </div>
         @else
             {{-- PC --}}
             <div class='d-none d-md-block'>
@@ -46,13 +56,13 @@
                                             <th class="text-center align-middle">
                                                 <i class="fas fa-check"></i>
                                             </th>
-                                            <th>Produk</th>
-                                            <th>Varian</th>
-                                            <th>Kuantitas</th>
-                                            <th>Harga Satuan</th>
-                                            <th>Ongkir</th>
-                                            <th>Total Harga</th>
-                                            <th>Aksi</th>
+                                            <th>Produk.</th>
+                                            <th>Varian.</th>
+                                            <th>Kuantitas.</th>
+                                            <th>Harga Satuan.</th>
+                                            <th>Ongkir.</th>
+                                            <th>Total Harga.</th>
+                                            <th>Aksi.</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,11 +103,11 @@
                                                     @endphp
                                                     <del>{{ formatRupiah($cart->harga) }}</del> <br />
                                                     <span>
-                                                        <small>{{ formatRupiah($harga) }}</small>
+                                                        {{ formatRupiah($harga) }}
                                                     </span>
                                                 @else
                                                     <span>
-                                                        <small>{{ formatRupiah($cart->harga) }}</small>
+                                                        {{ formatRupiah($cart->harga) }}
                                                     </span>
                                                 @endif
                                                 {{-- <del>1000000</del> <br /> --}}
@@ -119,9 +129,9 @@
                                                         <small>0</small>
                                                     </span>
                                                     <br />
-                                                    <span class="badge bg-success ml-2">
+                                                    <span class="badge bg-success">
                                                         <i class="fa-solid fa-truck-fast"></i>
-                                                        Gratis Ongkir
+                                                        Gratis Ongkir.
                                                     </span>
                                                 @endif
                                             </td>
@@ -159,22 +169,18 @@
                             <div class="row align-items-center">
                                 <div class="col-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="check_art_mobile_[]" id="check_cart"
-                                            value="{{ $cart->id }}" type="checkbox" />
+                                        <input class="form-check-input" name="check_art_mobile_[]" id="check_cart" value="{{ $cart->id }}" type="checkbox" />
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <img src="{{ url($cart->product->thumbnail) }}" alt="Kursi Klasik Eropa"
-                                        style="max-width: 140px; border-radius: 10px;" />
-                                </div>
-                                <div class="col">
+                                <div class="col d-flex align-items-center">
+                                    <img src="{{ url($cart->product->thumbnail) }}" alt="Kursi Klasik Eropa" style="max-width: 140px; border-radius: 10px; margin-right: 10px;" />
                                     <div>
-                                        <p class="fw-bold" style="font-size: 12px;">{{ $cart->product->name }}</p>
-                                        <p class="fw-bold text-muted" style="font-size: 0.8rem;">{!! $cart->product->description !!}
-                                        </p>
+                                        <p class="fw-bold" style="font-size: 14.5px;">{{ $cart->product->name }}</p>
+                                        {{-- <p class="fw-bold text-muted" style="font-size: 0.8rem;">{!! $cart->product->description !!}</p> --}}
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <div class="card mt-3">
                                 <div class="card-body">

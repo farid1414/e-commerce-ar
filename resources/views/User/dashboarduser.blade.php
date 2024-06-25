@@ -93,6 +93,8 @@
 @include('user.include.style')
 
 <body>
+
+
     {{-- Hero --}}
     <div class="pageStyle">
         <main>
@@ -109,7 +111,7 @@
                                                 Furniture.</b></h2>
                                     </div>
                                     <div class="d-block d-lg-none">
-                                        <h1 data-aos="fade-up" style="font-size: 3rem; margin-top: 15px;"><b>Find
+                                        <h1 data-aos="fade-up" style="font-size: 3rem; margin-top: 5px;"><b>Find
                                                 Your</b></h1>
                                         <h2 data-aos="fade-up" style="font-size: 3.5rem; margin-top: -5px;"><b>Dream
                                                 Furniture.</b></h2>
@@ -144,7 +146,7 @@
                                         furnitur berkualitas tinggi yang benar-benar
                                         membuat ruangan Anda terasa seperti rumah impian.
                                     </div>
-                                    <button data-aos="fade-up" data-aos-delay="300" class="btn-dark btn-lg"
+                                    <button data-aos="fade-up" data-aos-delay="300" class="btn btn-dark btn-lg"
                                         style="border-radius: 100px; margin-top: 20px;">
                                         <span>
                                             Browse Our Collection
@@ -158,12 +160,27 @@
                         <div class="row">
                             <div class="col">
                                 <div id="collection" style="margin-top: 75px;">
-                                    <h1 data-aos="fade-up" data-aos-delay="100"
-                                        style="font-size: 1.65rem; margin-bottom: 10px;"><b>Browse The Categories</b>
-                                    </h1>
-                                    <h1 data-aos="fade-up" data-aos-delay="200"
-                                        style="font-size: 1.75rem; margin-bottom: 20px;"><b>That We Designed For
-                                            You.</b></h1>
+                                    <div class="d-none d-md-block">
+                                        <p style="font-size: 33px;">
+                                            <b>Browse The Categories</b>
+                                        </p>
+                                        <p style="font-size: 40px;">
+                                            <b>That We Designed For
+                                                You.</b>
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="d-block d-md-none">
+                                        <p style="font-size: 22px; margin-Bottom: -5px">
+                                            <b>Browse The Categories</b>
+                                        </p>
+                                        <p style="font-size: 27px;">
+                                            <b>That We Designed For
+                                                You.</b>
+                                        </p>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -336,89 +353,100 @@
                     @endif
                     <hr />
 
-                    {{-- PRORDUK TERBARU --}}
-                    <div class="container mt-5">
-                        <p style="font-size: 33px;">
-                            <b>Hey, New Arrivals Are Here.</b>
-                        </p>
-                        <div class="row row-cols-2 row-cols-md-4">
-                            <!-- Loop products here -->
-                            @foreach ($newProducts as $new)
-                                <div class="col">
-                                    <a href="{{ route('detail-product', $new->uuid) }}"
-                                        style="text-decoration: none;">
-                                        <div class="card"
-                                            style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px"
-                                            onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
-                                            onmouseleave="this.style.boxShadow = 'none'">
-                                            <span class="badge bg-danger"
-                                                style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk
-                                                Terbaru !!</span>
-                                            <img src="{{ url($new->thumbnail) }}" alt="Product"
-                                                style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
-                                            <div class="card-body">
-                                                <p class="fw-bold" style="font-size: 1rem;">{{ $new->name }}</p>
-                                                <div
-                                                    style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                                    <p class="card-text"
-                                                        style="text-align: justify; font-size: 0.9rem;">
-                                                        {!! $new->description ?? '' !!}
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                                                    <!-- Star Rating -->
-                                                    <span style="color: gold; ">
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                    </span>
-                                                    <!-- Rating Text -->
-                                                    <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
-                                                </div>
-                                                <br>
-                                                <!-- Price -->
-                                                <div
-                                                    style="display: flex; justify-content: space-between; align-items: center;">
-                                                    <span
-                                                        style="font-size: 1rem; font-weight: bold;">{{ formatRupiah($new->harga) }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer bg-white">
-                                                <div
-                                                    class="d-flex @if ($new->harga_ongkir) justify-content-between
+
+{{-- PRORDUK TERBARU --}}
+<div class="container mt-5">
+    <div class="d-none d-md-block">
+        <p style="font-size: 33px;">
+            <b>Hey, New Arrivals Are Here.</b>
+        </p>
+    </div>
+    
+    <div class="d-block d-md-none">
+        <p style="font-size: 26px;">
+            <b>Hey, New Arrivals Are Here.</b>
+        </p>
+    </div>
+    <div class="row row-cols-2 row-cols-md-4">
+        <!-- Loop products here -->
+        @foreach ($newProducts as $new)
+            <div class="col">
+                <a href="{{ route('detail-product', $new->uuid) }}"
+                    style="text-decoration: none;">
+                    <div class="card"
+                        style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;"
+                        onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
+                        onmouseleave="this.style.boxShadow = 'none'">
+                        <span class="badge bg-danger"
+                            style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk
+                            Terbaru !!</span>
+                        <img src="{{ url($new->thumbnail) }}" alt="Product"
+                            style="width: 100%; height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                        <div class="card-body" style="flex-grow: 1;">
+                            <p class="fw-bold" style="font-size: 1rem;">{{ $new->name }}</p>
+                            <div
+                                style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                <p class="card-text"
+                                    style="text-align: justify; font-size: 0.9rem;">
+                                    {!! strlen($new->description) > 70 ? substr($new->description, 0, 70) . '...' : $new->description !!}
+                                </p>
+                            </div>
+                            <div
+                                style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                <!-- Star Rating -->
+                                <span style="color: gold;">
+                                    <i class="fas fa-star" style="font-size: 11px"></i>
+                                    <i class="fas fa-star" style="font-size: 11px"></i>
+                                    <i class="fas fa-star" style="font-size: 11px"></i>
+                                    <i class="fas fa-star" style="font-size: 11px"></i>
+                                    <i class="fas fa-star" style="font-size: 11px"></i>
+                                </span>
+                                <!-- Rating Text -->
+                                <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                            </div>
+                            <br>
+                            <!-- Price -->
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center;">
+                                <span
+                                    style="font-size: 1rem; font-weight: bold;">{{ formatRupiah($new->harga) }}</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div
+                                class="d-flex @if ($new->harga_ongkir) justify-content-between
                                                 @else
                                                     justify-content-end @endif ">
-                                                    <!-- Free Shipping Badge -->
-                                                    @if ($new->harga_ongkir)
-                                                        <span class="badge bg-success" style="font-size: 0.7rem;">
-                                                            <i class="fa-solid fa-truck-fast me-2"
-                                                                style="font-size: 12px"></i>Free Ongkir</span>
-                                                    @endif
-                                                    <!-- Sold Badge -->
-                                                    <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
-                                                        10x</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
+                                <!-- Free Shipping Badge -->
+                                @if ($new->harga_ongkir)
+                                    <span class="badge bg-success" style="font-size: 0.7rem;">
+                                        <i class="fa-solid fa-truck-fast me-2"
+                                            style="font-size: 12px"></i>Free Ongkir</span>
+                                @endif
 
-                        <div
-                            style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
-                            <span style="margin-right: 5px;">
-                                <a href="{{ route('product') }}"
-                                    style="text-decoration: none; color: black;"><b>Lihat
-                                        Selengkapnya</b></a>
-                            </span>
-                            <i class="fas fa-arrow-right"></i>
+                                <!-- Sold Badge -->
+                                <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
+                                    10x</span>
+                            </div>
                         </div>
-                        <hr style="clear: both;">
                     </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+
+    <div class="mt-4"
+        style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
+        <span style="margin-right: 5px;">
+            <a href="{{ route('product') }}"
+                style="text-decoration: none; color: black;"><b>Lihat
+                    Selengkapnya</b></a>
+        </span>
+        <i class="fas fa-arrow-right"></i>
+    </div>
+    <hr style="clear: both;">
+</div>
+
 
 
                     {{-- PRORDUK Baru dilihat --}}

@@ -25,10 +25,20 @@
             $place = 'wall';
         }
     @endphp
-    <model-viewer id="color" src="{{ $product->link_ar }}" ios-src="{{ $product->link_src }}"
-        skybox-image="{{ $skybox }}" ar ar-modes="{{ $mode }}" xr-environment ar-scale="auto"
-        skybox-height="1.8m" shadow-intensity="1" camera-controls touch-action="pan-y"
-        ar-placement="{{ $place }}" auto-rotate
+    <model-viewer 
+         id="color" 
+        src="{{ $product->link_ar }}" 
+        ios-src="{{ $product->link_src }}"
+        skybox-image="{{ $skybox }}" 
+        ar-placement="{{ $place }}"
+        ar-modes="{{ $mode }}" 
+        shadow-intensity="1" 
+        ar 
+        xr-environment 
+        ar-scale="auto"
+        skybox-height="1.8m" 
+        camera-controls 
+        touch-action="pan-y"
         style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
         <div class="d-flex justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
             <span id="arSupportBadge" class="badge" style="font-size: 15px;"></span>
@@ -45,6 +55,9 @@
                         @foreach ($product->varians as $varian)
                             <li><button class="dropdown-item"
                                     data-color="{{ $varian->warna }}">{{ $varian->name }}</button></li>
+                            <li><button class="dropdown-item" data-color="[1, 1, 0, 1]"> Test Kuning</button></li>
+                            <li><button class="dropdown-item" data-color="[1, 0, 0, 1]">Test Merah</button></li>
+                            <li><button class="dropdown-item" data-color="[0, 0, 1, 1]">Test Biru</button></li>
                         @endforeach
                     </ul>
                 </div>
@@ -117,6 +130,67 @@
         }
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+    const modelViewerColor = document.querySelector("model-viewer#color");
+    const colorControls = document.getElementById('color-controls');
+    const dimButtons = document.querySelectorAll('button[slot^="hotspot-dim"]');
+    const customDimensions = {
+        "[1, 1, 0, 1]": { // Kuning
+            Panjang: "4001 cm",
+            'Tinggi 1': "4400 cm",
+            'Tinggi 2': "4400 cm",
+            Lebar: "14400 cm",
+            'Lebar 2': "14400 cm",
+        },
+        "[1, 0, 0, 1]": { // Merah
+            Panjang: "1001 cm",
+            'Tinggi 1': "1100 cm",
+            'Tinggi 2': "1100 cm",
+            Lebar: "13100 cm",
+            'Lebar 2': "13100 cm",
+        },
+        "[0, 0, 1, 1]": { // Biru
+            Panjang: "3001 cm",
+            'Tinggi 1': "3300 cm",
+            'Tinggi 2': "3300 cm",
+            Lebar: "13300 cm",
+            'Lebar 2': "13300 cm",
+        },
+    };
+
+    function updateDimensions(colorString) {
+        const [material] = modelViewerColor.model.materials;
+
+        if (colorString === "Original") {
+            dimButtons[2].textContent = `${(modelViewerColor.getDimensions()['Panjang'] * 100).toFixed(0)} cm`;
+            dimButtons[0].textContent = `${(modelViewerColor.getDimensions()['Lebar'] * 100).toFixed(0)} cm`;
+            dimButtons[1].textContent = `${(modelViewerColor.getDimensions()['Tinggi 1'] * 100).toFixed(0)} cm`;
+            dimButtons[3].textContent = `${(modelViewerColor.getDimensions()['Tinggi 2'] * 100).toFixed(0)} cm`;
+            dimButtons[4].textContent = `${(modelViewerColor.getDimensions()['Lebar 2'] * 100).toFixed(0)} cm`;
+        } else {
+            const dimensions = customDimensions[colorString];
+
+            if (dimensions) {
+                dimButtons[2].textContent = dimensions.Panjang;
+                dimButtons[0].textContent = dimensions.Lebar;
+                dimButtons[1].textContent = dimensions['Tinggi 1'];
+                dimButtons[3].textContent = dimensions['Tinggi 2'];
+                dimButtons[4].textContent = dimensions['Lebar 2'];
+                material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
+            } else {
+                console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+            }
+        }
+    }
+
+    colorControls.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+            const colorString = event.target.dataset.color;
+            updateDimensions(colorString);
+        }
+    });
+});
+
 
     const modelViewer = document.querySelector('#color');
 
@@ -162,16 +236,29 @@
     const dimLines = modelViewer.querySelectorAll('line');
 
     const renderSVG = () => {
-        drawLine(dimLines[0], modelViewer.queryHotspot('hotspot-dot+X-Y+Z'), modelViewer.queryHotspot(
-            'hotspot-dot+X-Y-Z'), modelViewer.queryHotspot('hotspot-dim+X-Y'));
-        drawLine(dimLines[1], modelViewer.queryHotspot('hotspot-dot+X-Y-Z'), modelViewer.queryHotspot(
-            'hotspot-dot+X+Y-Z'), modelViewer.queryHotspot('hotspot-dim+X-Z'));
-        drawLine(dimLines[2], modelViewer.queryHotspot('hotspot-dot+X+Y-Z'), modelViewer.queryHotspot(
-            'hotspot-dot-X+Y-Z')); // always visible
-        drawLine(dimLines[3], modelViewer.queryHotspot('hotspot-dot-X+Y-Z'), modelViewer.queryHotspot(
-            'hotspot-dot-X-Y-Z'), modelViewer.queryHotspot('hotspot-dim-X-Z'));
-        drawLine(dimLines[4], modelViewer.queryHotspot('hotspot-dot-X-Y-Z'), modelViewer.queryHotspot(
-            'hotspot-dot-X-Y+Z'), modelViewer.queryHotspot('hotspot-dim-X-Y'));
+        drawLine(dimLines[0], 
+        modelViewer.queryHotspot('hotspot-dot+X-Y+Z'), 
+        modelViewer.queryHotspot('hotspot-dot+X-Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dim+X-Y'));
+
+        drawLine(dimLines[1], 
+        modelViewer.queryHotspot('hotspot-dot+X-Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dot+X+Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dim+X-Z'));
+
+        drawLine(dimLines[2], 
+        modelViewer.queryHotspot('hotspot-dot+X+Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dot-X+Y-Z')); // always visible
+        drawLine(dimLines[3], 
+
+        modelViewer.queryHotspot('hotspot-dot-X+Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dot-X-Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dim-X-Z'));
+        drawLine(dimLines[4], 
+        
+        modelViewer.queryHotspot('hotspot-dot-X-Y-Z'), 
+        modelViewer.queryHotspot('hotspot-dot-X-Y+Z'), 
+        modelViewer.queryHotspot('hotspot-dim-X-Y'));
     };
 
     modelViewer.addEventListener('load', () => {
@@ -183,67 +270,99 @@
 
         modelViewer.updateHotspot({
             name: 'hotspot-dot+X-Y+Z',
-            position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`
+                position: `${center.x + x2} 
+                     ${center.y - y2} 
+                        ${center.z + z2}`
         });
 
         modelViewer.updateHotspot({
             name: 'hotspot-dim+X-Y',
-            position: `${center.x + x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
+            position: 
+                `${center.x + x2 * 1.2} 
+                        ${center.y - y2 * 1.1} 
+                            ${center.z}`
         });
         modelViewer.querySelector('button[slot="hotspot-dim+X-Y"]').textContent =
             `${(size.z * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
             name: 'hotspot-dot+X-Y-Z',
-            position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`
+            position: 
+                `${center.x + x2} 
+                    ${center.y - y2} 
+                        ${center.z - z2}`
         });
 
         modelViewer.updateHotspot({
             name: 'hotspot-dim+X-Z',
-            position: `${center.x + x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
+            position: 
+                `${center.x + x2 * 1.2} 
+                    ${center.y} 
+                        ${center.z - z2 * 1.2}`
         });
         modelViewer.querySelector('button[slot="hotspot-dim+X-Z"]').textContent =
             `${(size.y * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
             name: 'hotspot-dot+X+Y-Z',
-            position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`
+            position: 
+                `${center.x + x2} 
+                    ${center.y + y2} 
+                        ${center.z - z2}`
         });
 
         modelViewer.updateHotspot({
             name: 'hotspot-dim+Y-Z',
-            position: `${center.x} ${center.y + y2 * 1.1} ${center.z - z2 * 1.1}`
+            position: 
+                 `${center.x} 
+                    ${center.y + y2 * 1.1} 
+                        ${center.z - z2 * 1.1}`
         });
         modelViewer.querySelector('button[slot="hotspot-dim+Y-Z"]').textContent =
             `${(size.x * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
             name: 'hotspot-dot-X+Y-Z',
-            position: `${center.x - x2} ${center.y + y2} ${center.z - z2}`
+            position: 
+                `${center.x - x2} 
+                    ${center.y + y2} 
+                        ${center.z - z2}`
         });
 
         modelViewer.updateHotspot({
             name: 'hotspot-dim-X-Z',
-            position: `${center.x - x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
+            position: 
+                `${center.x - x2 * 1.2} 
+                     ${center.y} 
+                        ${center.z - z2 * 1.2}`
         });
         modelViewer.querySelector('button[slot="hotspot-dim-X-Z"]').textContent =
             `${(size.y * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
             name: 'hotspot-dot-X-Y-Z',
-            position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`
+            position: 
+                `${center.x - x2} 
+                        ${center.y - y2} 
+                                ${center.z - z2}`
         });
 
         modelViewer.updateHotspot({
             name: 'hotspot-dim-X-Y',
-            position: `${center.x - x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
+            position: 
+                    `${center.x - x2 * 1.2} 
+                            ${center.y - y2 * 1.1} 
+                                    ${center.z}`
         });
         modelViewer.querySelector('button[slot="hotspot-dim-X-Y"]').textContent =
             `${(size.z * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
             name: 'hotspot-dot-X-Y+Z',
-            position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`
+            position: 
+                    `${center.x - x2} 
+                            ${center.y - y2} 
+                                ${center.z + z2}`
         });
 
         renderSVG();
@@ -252,7 +371,6 @@
     });
 
     // document.querySelector('#color-controls').addEventListener('click', (event) => {
-
 
     document.addEventListener("DOMContentLoaded", function() {
         hideDefaultARButton();

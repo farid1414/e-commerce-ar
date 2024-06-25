@@ -135,13 +135,13 @@
                     <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-success mr-2" onclick="handleShowModal()">
-                        Beri Penilaian
-                    </button>
+                    <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#cancelOrderModal">
+                        Batalkan Pesanan
+                    </button>                    
                 </div>
                 <div class="col-auto">
                     <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">
-                        Tampilkan Invoice
+                        Bayar Pesanan
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-right ml-2" viewBox="0 0 16 16" style="margin-left: 20px;">
                             <path fill-rule="evenodd"
@@ -153,10 +153,82 @@
                 </div>
             </div>
         </div>
+
+<!-- Modal -->
+<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelOrderModalLabel">Konfirmasi Pembatalan Pesanan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="reasonDropdown">Alasan Pembatalan:</label>
+                    <select class="form-control" id="reasonDropdown">
+                        <option value="" disabled selected >Pilih Opsi</option>
+                        <option value="berubah_pikiran">1. Berubah Pikiran</option>
+                        <option value="ganti_metode_pembayaran">2. Ingin Mengganti Metode Pembayaran</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" onclick="cancelOrder()">Batalkan Pesanan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     </div>
 @empty
     <h3 class="text-center">Tidak ada produk</h3>
 @endforelse
+
+
+<!-- Script untuk menangani pembatalan pesanan -->
+<script>
+    function showConfirmation() {
+        Swal.fire({
+            title: 'Konfirmasi Pembatalan Pesanan',
+            text: 'Apakah Anda yakin ingin membatalkan pesanan ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Batalkan Pesanan',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cancelOrder();
+            }
+        });
+    }
+
+    function cancelOrder() {
+        var reason = document.getElementById('reasonDropdown').value;
+        // Simulasi proses pembatalan pesanan (misalnya, kirim permintaan ke server)
+        setTimeout(() => {
+            // Proses pembatalan berhasil
+            console.log("Alasan Pembatalan: " + reason);
+            // Menampilkan pesan bahwa pesanan berhasil dibatalkan menggunakan Swal
+            Swal.fire(
+                'Pesanan Dibatalkan!',
+                'Pesanan Anda telah berhasil dibatalkan.',
+                'success'
+            ).then(() => {
+                // Setelah menampilkan SweetAlert, Anda bisa menutup modal Bootstrap
+                $('#cancelOrderModal').modal('hide');
+            });
+        },);
+    }
+</script>
+
 
 
 

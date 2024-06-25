@@ -11,28 +11,31 @@
             <form method="POST" action="{{ route('pencarian') }}" class="d-flex flex-grow-1 mx-lg-5">
                 @csrf
                 <div class="input-group" style="width: 645px;">
-                    <input type="search" name="search" class="form-control"
-                        placeholder="Cari yang terbaik untuk rumahmu..." value="" onchange="handleChange"
-                        list="datalistOptions" />
+                    <input type="search" name="search" class="form-control" placeholder="Cari yang terbaik untuk rumahmu..." required>
                     <button type="submit" class="btn btn-outline-dark">
                         <i class="bi bi-search" style="font-size: 16px;"></i>
                     </button>
                 </div>
+                <!-- Pesan validasi untuk input yang wajib diisi -->
+                @error('search')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </form>
+            
 
             <!-- Content Akun dan Keranjang di Navbar -->
             <ul class="navbar-nav ml-auto align-items-center">
                 <li class="nav-item dropdown">
                     @if (Auth::check())
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            {{ Auth::user()->name }}
+                            aria-expanded="false" style="margin-left: -12px; margin-right: 13px">
+                            {{ Auth::user()->name }}.
                         </a>
                         <ul class="dropdown-menu dropdown-menu-arrow profile">
                             <li><a class="dropdown-item d-flex align-items-center"
                                     href="{{ route('profil-pelanggan') }}">
                                     <i class="bi bi-person me-1"></i>
-                                    <span>Profil Saya</span>
+                                    <span>Profil & Transaksi</span>
                                 </a>
                             </li>
                             <li>
@@ -77,7 +80,7 @@
 <div class='d-block d-lg-none'>
     <nav class="navbar navbar-expand-lg navbar-white bg-white">
         <div class="container">
-            <a class="navbar-brand" href="user/dashboarduser">
+            <a class="navbar-brand" href="{{ route('index') }}">
                 <img src="{{ asset('gambar/logo.png') }}" width="auto" class="d-inline-block align-top img-fluid"
                     alt="" style="height: 70px;">
             </a>
