@@ -26,20 +26,22 @@
 
         {{-- {products.length === 0 ? ( --}}
         @if ($carts->count() == 0)
-        <div class="d-none d-md-block">
-            <div class="text-center">
-                <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong" style="width: 100%; max-width: 460px;"/>
-                <h3 style="font-size: 20px">Oops, Keranjang Anda kosong.</h3>
+            <div class="d-none d-md-block">
+                <div class="text-center">
+                    <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong"
+                        style="width: 100%; max-width: 460px;" />
+                    <h3 style="font-size: 20px">Oops, Keranjang Anda kosong.</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="d-block d-md-none">
-            <div class="text-center">
-                <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong" style="width: 100%; max-width: 300px;"/>
-                <h3 style="font-size: 20px">Oops, Keranjang Anda kosong.</h3>
+            <div class="d-block d-md-none">
+                <div class="text-center">
+                    <img src="{{ asset('gambar/emptycart.png') }}" alt="Keranjang Kosong"
+                        style="width: 100%; max-width: 300px;" />
+                    <h3 style="font-size: 20px">Oops, Keranjang Anda kosong.</h3>
+                </div>
+
             </div>
-            
-        </div>
         @else
             {{-- PC --}}
             <div class='d-none d-md-block'>
@@ -115,7 +117,7 @@
                                                 @if ($cart->product->flashSale)
                                                     <span class="badge bg-warning ml-2">
                                                         <i class="fas fa-bolt"></i>
-                                                        {{ $cart->product->flashSale->where('product_varian_id', $cart->varian->id)->first()->flashSale->name }}
+                                                        {{ $cart->product->flashSale->where('product_varian_id', $cart->product_varian_id)->first()->flashSale->name ?? '' }}
                                                     </span>
                                                 @endif
                                             </td>
@@ -169,18 +171,20 @@
                             <div class="row align-items-center">
                                 <div class="col-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="check_art_mobile_[]" id="check_cart" value="{{ $cart->id }}" type="checkbox" />
+                                        <input class="form-check-input" name="check_art_mobile_[]" id="check_cart"
+                                            value="{{ $cart->id }}" type="checkbox" />
                                     </div>
                                 </div>
                                 <div class="col d-flex align-items-center">
-                                    <img src="{{ url($cart->product->thumbnail) }}" alt="Kursi Klasik Eropa" style="max-width: 140px; border-radius: 10px; margin-right: 10px;" />
+                                    <img src="{{ url($cart->product->thumbnail) }}" alt="Kursi Klasik Eropa"
+                                        style="max-width: 140px; border-radius: 10px; margin-right: 10px;" />
                                     <div>
                                         <p class="fw-bold" style="font-size: 14.5px;">{{ $cart->product->name }}</p>
                                         {{-- <p class="fw-bold text-muted" style="font-size: 0.8rem;">{!! $cart->product->description !!}</p> --}}
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                             <div class="card mt-3">
                                 <div class="card-body">

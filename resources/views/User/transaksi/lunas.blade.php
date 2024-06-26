@@ -142,7 +142,8 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
+                    <a href="{{ route('detail-transaction', $tr->id) }}" class="btn btn-outline-dark mb-3">Detail
+                        Pesanan</a>
                 </div>
                 <div class="col-auto">
                     <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">

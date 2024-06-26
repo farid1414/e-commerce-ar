@@ -329,8 +329,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [MainController::class, 'postCheckout'])->name('post-checkout');
     Route::get('/checkout', [MainController::class, 'checkout'])->name('checkout');
     Route::post('/transaction', [MainController::class, 'transaction'])->name('transaction');
-    Route::get('/transaction-success/{id?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
+    Route::get('/transaction-success/{id?}/{type?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
     Route::get('/transaction-failed/{id?}', [MainController::class, 'transactionFail'])->name('transaction-failed');
     Route::get('/profil-pelanggan', [MainController::class, 'profil'])->name('profil-pelanggan');
+    Route::get('/transaction-detail/{id?}', [MainController::class, 'detailTransaction'])->name('detail-transaction');
     Route::get('/edit-user', [MainController::class, 'editProfil'])->name('edit-profil');
 });

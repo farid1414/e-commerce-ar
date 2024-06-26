@@ -284,10 +284,10 @@ class MainController extends Controller
         }
     }
 
-    public function transactionSuccess(int $id)
+    public function transactionSuccess(int $id, string $type = '')
     {
         $tr = Transaction::findOrFail($id);
-        $tr->update(['status' => true, 'payment_at' => now()->toDateString()]);
+        $tr->update(['status' => true, 'payment_at' => now()->toDateString(), 'payment_type' => $type]);
         $product = $tr->transactionDetail->pluck('product_id');
         $varian = $tr->transactionDetail->pluck('product_varian_id');
         $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->update(['status' => -1]);
@@ -316,6 +316,15 @@ class MainController extends Controller
 
         return view('User.editProfil', [
             'user' => $user
+        ]);
+    }
+
+    public function detailTransaction(int $id)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        return view('user.detailtransaksi', [
+            'transaction' => $transaction
         ]);
     }
 }
