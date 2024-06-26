@@ -129,7 +129,7 @@
         </div>
         <hr>
         <!-- Baris tombol -->
-        <div class="container">
+        {{-- <div class="container">
             <div class="row justify-content-between">
                 <div class="col-auto">
                     <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
@@ -137,7 +137,7 @@
                 <div class="col-auto">
                     <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#cancelOrderModal">
                         Batalkan Pesanan
-                    </button>                    
+                    </button>
                 </div>
                 <div class="col-auto">
                     <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">
@@ -152,39 +152,7 @@
                     </a>
                 </div>
             </div>
-        </div>
-
-<!-- Modal -->
-<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel"
-    aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cancelOrderModalLabel">Konfirmasi Pembatalan Pesanan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="reasonDropdown">Alasan Pembatalan:</label>
-                    <select class="form-control" id="reasonDropdown">
-                        <option value="" disabled selected >Pilih Opsi</option>
-                        <option value="berubah_pikiran">1. Berubah Pikiran</option>
-                        <option value="ganti_metode_pembayaran">2. Ingin Mengganti Metode Pembayaran</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-danger" onclick="cancelOrder()">Batalkan Pesanan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
+        </div> --}}
     </div>
 @empty
     <h3 class="text-center">Tidak ada produk</h3>
@@ -225,7 +193,7 @@
                 // Setelah menampilkan SweetAlert, Anda bisa menutup modal Bootstrap
                 $('#cancelOrderModal').modal('hide');
             });
-        },);
+        }, );
     }
 </script>
 

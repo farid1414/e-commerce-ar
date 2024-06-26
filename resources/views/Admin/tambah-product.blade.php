@@ -885,7 +885,7 @@
 
         // Function to handle Live Preview button click
         const handleLivePreviewClick = () => {
-            console.log("master ", "{{ $mCat->name }}");
+            let mCat = "{{ $mCat->name }}";
             if (!$('#linkARAndroidInput').val()) {
                 Swal.fire({
                     title: 'Error',
@@ -907,6 +907,11 @@
             let modelView = $("#contentLivePreviewARDataran model-viewer");
             modelView.attr('src', $("#linkARAndroidInput").val())
             modelView.attr('ios-src', $("#linkARIOSInput").val())
+            if (mCat == 'Dataran') {
+                modelView.attr('ar-placement', 'floor')
+            } else {
+                modelView.attr('ar-placement', 'wall')
+            }
 
             if ($('#linkSkyBoxInput').val()) {
                 modelView.attr('skybox-image', $('#linkSkyBoxInput').val())

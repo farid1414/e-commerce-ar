@@ -323,6 +323,7 @@
 
     
     <script>
+
         function toggleCollapse(collapseId) {
             var collapseElement = document.getElementById(collapseId);
             var isCollapsed = collapseElement.classList.contains('show');

@@ -118,6 +118,16 @@
                             <p class="fw-bold">{{ formatRupiah($harga) }}</p>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-center py-2">
+                        {{-- <div class="col-auto"> --}}
+                        <button type="button" class="btn btn-success mr-2 btn-penilaian"
+                            data-product="{{ $detail->product_id }}" data-name="{{ $detail->product->name }}"
+                            data-image="{{ url($detail->product->thumbnail) }}" data-qty="{{ $detail->quantity }}"
+                            data-varian="{{ $detail->product_varian_id }}">
+                            Beri Penilaian
+                        </button>
+                        {{-- </div> --}}
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -133,11 +143,6 @@
             <div class="row justify-content-between">
                 <div class="col-auto">
                     <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-success mr-2" onclick="handleShowModal()">
-                        Beri Penilaian
-                    </button>
                 </div>
                 <div class="col-auto">
                     <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">
@@ -169,18 +174,18 @@
                 <!-- menggunakan inline style max-height dan overflow-y -->
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 2/Produk2gambar1.jpg"
-                            class="img-fluid" alt="Gambar Produk" style="border-radius: 10px">
+                        <img src="" class="img-fluid img-product" alt="Gambar Produk"
+                            style="border-radius: 10px">
                     </div>
                     <div class="col-md-8">
-                        <h5>Nama Produk</h5>
+                        <h5 id="name_prod">Nama Produk</h5>
                         <div class="d-flex justify-content-between">
                             <p>Kuantitas: </p>
-                            <p>1x</p>
+                            <p id="qty"></p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <p>Varian: </p>
-                            <p>-</p>
+                            <p id="varian">-</p>
                         </div>
                     </div>
                 </div>
@@ -318,8 +323,22 @@
 
 
 {{-- Menampilkan modal --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function handleShowModal() {
+    $('body').on('click', '.btn-penilaian', function() {
+        let name = $(this).attr('data-name')
+        let product = $(this).attr('data-product')
+        let image = $(this).attr('data-image')
+        let qty = $(this).attr('data-qty')
+        let varian = $(this).attr('data-varian')
+        let modal = $('#myModal')
+        modal.find('.img-product').attr('src', image)
+        modal.find('#name_prod').html(name)
+        modal.find('#qty').html(qty)
+        modal.find('#varian').html(varian)
         $('#myModal').modal('show');
-    }
+        console.log("click", name, product, image, qty, varian);
+    })
+
+    function handleShowModal() {}
 </script>
