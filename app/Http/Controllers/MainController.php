@@ -103,8 +103,14 @@ class MainController extends Controller
     public function pencarian(Request $request)
     {
         $req = $request->search;
-        $product = Product::where('name', 'like', '%' . $req . '%')->get();
-
+        // $product = Product::where('name', 'like', '%' . $req . '%')->get();
+        $product = DB::table('products')
+            ->join('categories', 'products.categori_id', '=', 'categories.id')
+            ->where('products.name', 'like', '%' . $req . '%')
+            ->orWhere('categories.name', 'like', '%' . $req . '%')
+            ->orWhere('products.sub_name', 'like', '%' . $req . '%')
+            ->select('products.*')
+            ->get();
         return view('User.hasilpencarian', [
             'req' => $req,
             'product' => $product
