@@ -102,7 +102,7 @@ class MainController extends Controller
 
     public function pencarian(Request $request)
     {
-        $req = $request->search;
+        $req = $request->input('search');
         // $product = Product::where('name', 'like', '%' . $req . '%')->get();
         $product = DB::table('products')
             ->join('categories', 'products.categori_id', '=', 'categories.id')

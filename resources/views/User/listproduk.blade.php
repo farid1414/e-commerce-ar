@@ -59,7 +59,7 @@
                 <div class="row">
                     @foreach ($category->products as $prod)
                         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                            <a href="/Detailproduk" style="text-decoration: none;">
+                            <a href="{{ route('detail-product', $prod->uuid) }}" style="text-decoration: none;">
                                 <div class="card"
                                     style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px""
                                     onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
@@ -101,8 +101,11 @@
                                     <div class="card-footer bg-white">
                                         <div class="d-flex justify-content-between">
                                             <!-- Free Shipping Badge -->
-                                            <span class="badge bg-success" style="font-size: 0.7rem;"><i
-                                                    class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                            {{-- {{ dd($prod) }} --}}
+                                            @if (!$prod->harga_ongkir)
+                                                <span class="badge bg-success" style="font-size: 0.7rem;"><i
+                                                        class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                            @endif
                                             <!-- Sold Badge -->
                                             <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
                                         </div>
