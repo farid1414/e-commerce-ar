@@ -25,10 +25,22 @@
                 <h5 class="card-title">
                     <i class="bi bi-geo-alt-fill"></i> Informasi Pelanggan
                 </h5>
-                <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->name }}</p>
-                <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->email }}</p>
-                <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->customer->phone }}</p>
-                <p class="text-muted">{{ $transaction->user->customer->address }}</p>
+                <div class="d-flex justify-content-between">
+                    <p>Nama : </p>
+                    <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->name }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p>Email :</p>
+                    <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->email }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p>No Handphone :</p>
+                    <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->customer->phone }}</p>
+                </div> 
+                <div class="d-flex justify-content-between">
+                    <p>Alamat :</p>
+                    <p class="text-muted">{{ $transaction->user->customer->address }}</p>
+                </div>          
             </div>
         </div>
         {{-- <div class="card">
@@ -133,12 +145,12 @@
                         </div> --}}
                         <div class="d-flex justify-content-between">
                             <p>Waktu Pemesanan:</p>
-                            <p class="text-muted">{{ $transaction->created_date() }}</p>
+                            <p>{{ $transaction->created_date() }}</p>
                         </div>
                         @if ($transaction->status == 1)
                             <div class="d-flex justify-content-between">
                                 <p>Waktu Pembayaran:</p>
-                                <p class="text-muted">{{ $transaction->payment_date() }}</p>
+                                <p>{{ $transaction->payment_date() }}</p>
                             </div>
                         @endif
                         <div class="d-flex justify-content-between">
@@ -158,13 +170,17 @@
                         <hr>
                         <div class="d-flex justify-content-between">
                             <p><b>Total Keseluruhan :</b></p>
-                            <p>Produk {{ $transaction->transactionDetail->count() }}
+                            <p>Produk {{ $transaction->transactionDetail->count() }},
                                 <b>{{ formatRupiah($total_order) }}</b>
                             </p>
                         </div>
                     </div>
                 </div>
             @endforeach
+
+
+
+            {{-- Tampilkan invoice hanya di transaksi lunas --}}
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary">Lihat Invoice</button>
             </div>

@@ -15,22 +15,21 @@
                     <form>
                         <div class="form-group">
                             <label>Tanggal Awal</label>
-                            <input type="date" value="" onchange="handleStartDateChange(event)" class="form-control" />
+                            <input type="date" id="startDateInput" onchange="handleStartDateChange(event)" class="form-control" />
                         </div>
                         <div class="form-group mt-3">
                             <label>Tanggal Akhir <span class="text-muted">(Opsional)</span></label>
-                            <input type="date" value="" onchange="handleEndDateChange(event)" min=""
+                            <input type="date" id="endDateInput" onchange="handleEndDateChange(event)" min=""
                                 max="" disabled class="form-control" />
                         </div>
                     </form>
-                    </footer>
                 </div>
             </div>
             <div style="margin-top: 20px;" class="d-flex justify-content-between">
-                <button onclick="handleResetClick()" class="btn btn-outline-danger" disabled>Reset Waktu</button>
+                <button id="resetButton" onclick="handleResetClick()" class="btn btn-outline-danger" disabled>Reset Waktu</button>
                 <button onclick="handleSearchClick()" class="btn btn-primary">Tampilkan Data</button>
             </div>
-
+            
             <div id="dashboard" style="display: none;">
                 <h5 class="card-title">Menampilkan Hasil Laporan Harian</h5>
                 <div class="d-flex justify-content-between">
@@ -42,12 +41,10 @@
                     <p class="text-muted" id="endDate">-</p>
                 </div>
                 <hr />
-                <div id="hasilLaporan"></div>
             </div>
-        </div>
+            
+            <h5 class="card-title" id="overviewTitle">Over View tanggal 29 - 30 Agustus 2023.</h5>
 
-
-        <h5 class="card-title">Over View tanggal 29 - 30 Agustus 2023.</h5>
         <div class="row">
             <div class="col-sm-4">
                 <div class="card info-card sales-card">
@@ -194,56 +191,24 @@
             </div>
         </div>
 
-        <h5 class="card-title">Penghasilan tanggal 29 - 30 Agustus 2023.</h5>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Penghasilan Yang Didapatkan</h5>
-                <p>
-                    Pendapatan yang berhasil diraih pada tanggal 29 Agustus 2023 hingga 30 Agustus 2023 mencapai angka luar
-                    biasa sebesar <span id="totalPendapatan"></span>.
-                </p>
-                <hr />
-                <Card.Title>Rincian</Card.Title>
-                <div class="d-flex justify-content-between">
-                    <p style="font-size: 0.9rem;">Pendapatan Non-Flash Sale</p>
-                    <p class="text-muted" id="pendapatanNonFlash"></p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p style="font-size: 0.9rem;">Penjualan Non-Flash Sale</p>
-                    <p class="text-muted" id="penjualanNonFlash"></p>
-                </div>
-                <!-- Jika tidak ada flash sale maka kosongi saja -->
-                <div class="d-flex justify-content-between">
-                    <p style="font-size: 0.9rem;">Pendapatan Flash Sale 1.1</p>
-                    <p class="text-muted" id="pendapatanFlashSale1.1"></p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p style="font-size: 0.9rem;">Penjualan dari Flash Sale 1.1</p>
-                    <p class="text-muted" id="penjualanFlashSale1.1"></p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p style="font-size: 0.9rem;">Pendapatan Flash Sale 2.2</p>
-                    <p class="text-muted" id="pendapatanFlashSale2.2"></p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p style="font-size: 0.9rem;">Penjualan dari Flash Sale 2.2</p>
-                    <p class="text-muted" id="penjualanFlashSale2.2"></p>
-                </div>
-            </div>
-            <div class="card-footer">
-
-                <Card.Footer>
-                    <div class="d-flex justify-content-between">
-                        <p style="font-size: 0.9rem;">
-                            <b>Total Pendapatan : </b>
-                        </p>
-                        <p>
-                            <span id="totalPendapatanFooter"></span>
-                            <br />
-                            <span id="jumlahPenjualan"></span>
-                        </p>
+        <h5 class="card-title">Pendapatan tanggal 29 - 30 Agustus 2023.</h5>
+        <div class="card info-card customers-card">
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Pendapatan</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                            style="background-color: rgb(255, 252, 189);">
+                            <i class="bi bi-envelope-paper" style="color: rgb(255, 237, 43);"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>Rp 100.000.000</h6>
+                        </div>
                     </div>
+                </div>
             </div>
+        </div>
+     
         </div>
 
 
@@ -624,7 +589,87 @@
 
 @push('js')
     {{-- Untuk format hari --}}
+
     <script>
+        function handleStartDateChange(event) {
+            const startDate = event.target.value;
+            const endDateInput = document.getElementById('endDateInput');
+            endDateInput.disabled = false;
+            endDateInput.min = startDate;
+    
+            document.getElementById('startDate').innerText = formatDate(startDate) || '-';
+    
+            // Enable the reset button
+            document.getElementById('resetButton').disabled = false;
+        }
+    
+        function handleEndDateChange(event) {
+            const endDate = event.target.value;
+            document.getElementById('endDate').innerText = formatDate(endDate) || '-';
+    
+            // Enable the reset button
+            document.getElementById('resetButton').disabled = false;
+        }
+    
+        function handleResetClick() {
+            document.getElementById('startDateInput').value = '';
+            document.getElementById('endDateInput').value = '';
+            document.getElementById('endDateInput').disabled = true;
+            document.getElementById('startDate').innerText = '-';
+            document.getElementById('endDate').innerText = '-';
+    
+            // Hide the dashboard
+            document.getElementById('dashboard').style.display = 'none';
+    
+            // Disable the reset button
+            document.getElementById('resetButton').disabled = true;
+    
+            // Reset the overview title
+            document.getElementById('overviewTitle').innerText = 'Over View tanggal -';
+        }
+    
+        function handleSearchClick() {
+            const startDate = document.getElementById('startDateInput').value;
+            const endDate = document.getElementById('endDateInput').value || startDate; // Use startDate if endDate is not set
+    
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('overviewTitle').innerText = generateOverviewTitle(startDate, endDate);
+        }
+    
+        function generateOverviewTitle(startDate, endDate) {
+            const formattedStartDate = formatDate(startDate);
+            const formattedEndDate = formatDate(endDate);
+    
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+    
+            if (startDate === endDate) {
+                return `Over View tanggal ${formattedStartDate}`;
+            } else if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+                return `Over View tanggal ${start.getDate()} - ${end.getDate()} ${formattedEndDate.split(' ')[1]}`;
+            } else {
+                return `Over View tanggal ${formattedStartDate.split(' ')[0]} ${formattedStartDate.split(' ')[1]} - ${formattedEndDate}`;
+            }
+        }
+    
+        function formatDate(dateString) {
+            if (!dateString) return '';
+    
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+    
+            const date = new Date(dateString);
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+    
+            return `${day} ${month} ${year}`;
+        }
+    </script>
+
+    {{-- <script>
         const [startDate, setStartDate] = useState(null);
         const [endDate, setEndDate] = useState(null);
         const [showDashboard, setShowDashboard] = useState(false);
@@ -724,7 +769,7 @@
 
             return formattedDate;
         }
-    </script>
+    </script> --}}
 
 
     {{-- Untuk Pendapatan --}}
