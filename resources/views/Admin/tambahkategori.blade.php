@@ -221,7 +221,7 @@
                 if (result.isConfirmed) {
                     Swal.fire({
                         icon: "info",
-                        title: "Penambahan produk dataran dibatalkan!",
+                        title: "Penambahan Kategori dataran dibatalkan!",
                         showConfirmButton: false,
                         timer: 1500,
                     }).then(() => {
