@@ -113,8 +113,8 @@
                                     <th class="text-center">Nama Produk</th>
                                     <th class="text-center">stok</th>
                                     <th class="text-center">Varian</th>
-                                    <th class="text-center">Harga</th>
-                                    {{-- <th class="text-center">Persentase Diskon</th> --}}
+                                    <th class="text-center">Harga Awal</th>
+                                    <th class="text-center">Harga Diskon</th>
                                     <th class="text-center">Stok flash sale</th>
 
                                 </tr>
@@ -123,32 +123,8 @@
                                 <tr>
                                     <td colspan="6" class="text-center">TIdak ada produk yang dipilih</td>
                                 </tr>
-                                {{-- <tr>
-                                <td class="text-center">
-                                    <img src="" alt="" class="img-thumbnail" />
-                                </td>
-                                <td class="text-center">Meja Gaming</td>
-                                <td class="text-center fw-bold">20</td>
-                                <td class="text-center">Merah<br>Biru</td>
-                                <td class="text-center">Rp 1.100.000</td>
-                                <td class="text-center fw-bold">
-                                    <input type="text" class="form-control mb-2" id="exampleInputEmail1"
-                                        placeholder="varian Merah, contoh 20">
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        placeholder="varian Biru, contoh 20">
-                                </td>
-                                <td class="text-center fw-bold">
-                                    <input type="text" class="form-control mb-2" id="exampleInputEmail1"
-                                        placeholder="varian Merah, contoh 20">
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        placeholder="varian Biru, contoh 20">
-                                </td>
-                            </tr> --}}
                             </tbody>
                         </table>
-                        <footer class="blockquote-footer mt-3">Kosongi kotak jika tidak ingin mengisi pada varian
-                            tersebut</cite></footer>
-                        <footer class="blockquote-footer">Untuk Diskon flash sale diisi tanpa tanda (%)</cite></footer>
 
                     </div>
 

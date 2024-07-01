@@ -74,7 +74,7 @@
             <line class="dimensionLine"></line>
         </svg>
 
-        <div id="controls" class="dim" style="height: 40px">
+        <div id="controls" class="dim d-none" style="height: 40px">
             <label for="show-dimensions">Tampilkan Dimensi:</label>
             <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
         </div>
