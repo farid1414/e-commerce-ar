@@ -99,7 +99,10 @@
                                         </div>
                                     </div>
                                     <div class="card-footer bg-white">
-                                        <div class="d-flex justify-content-between">
+                                        <div
+                                            class="d-flex @if (!$prod->harga_ongkir) justify-content-between
+                                                @else
+                                                    justify-content-end @endif ">
                                             <!-- Free Shipping Badge -->
                                             {{-- {{ dd($prod) }} --}}
                                             @if (!$prod->harga_ongkir)
@@ -107,7 +110,8 @@
                                                         class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
                                             @endif
                                             <!-- Sold Badge -->
-                                            <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
+                                            <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
+                                                {{ $prod->transactionDetail->sum('quantity') }}x</span>
                                         </div>
                                     </div>
                                 </div>
@@ -129,107 +133,104 @@
 
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const sortCardsAlphabetically = (cards, option) => {
-            switch (option) {
-                case "Alfabet A-Z":
-                    return cards.sort((a, b) => a.title.localeCompare(b.title));
-                case "Alfabet Z-A":
-                    return cards.sort((a, b) => b.title.localeCompare(a.title));
-                default:
-                    return cards;
-            }
-        };
-
-        const sortCardsByNewest = (cards, option) => {
-            if (option === "Produk Terbaru") {
-                const cardsWithGratisOngkir = cards.filter(
-                    (card) =>
-                    card.Badge === "Produk Terbaru !!" &&
-                    card.ongkoskirim === "Gratis Ongkir",
-                );
-
-                const cardsWithoutGratisOngkir = cards.filter(
-                    (card) =>
-                    card.Badge === "Produk Terbaru !!" &&
-                    card.ongkoskirim !== "Gratis Ongkir",
-                );
-
-                const otherCards = cards.filter(
-                    (card) => card.Badge !== "Produk Terbaru !!" || !card.Badge,
-                );
-
-                const sortedCardsWithGratisOngkir = cardsWithGratisOngkir.sort(
-                    (a, b) => b.id - a.id,
-                );
-
-                const sortedCardsWithoutGratisOngkir = cardsWithoutGratisOngkir.sort(
-                    (a, b) => b.id - a.id,
-                );
-
-                return [
-                    ...sortedCardsWithGratisOngkir,
-                    ...sortedCardsWithoutGratisOngkir,
-                    ...otherCards,
-                ];
-            } else if (option === "Gratis Ongkir") {
-                const cardsWithGratisOngkir = cards.filter(
-                    (card) => card.ongkoskirim === "Gratis Ongkir",
-                );
-
-                const cardsWithoutGratisOngkir = cards.filter(
-                    (card) => card.ongkoskirim !== "Gratis Ongkir",
-                );
-
-                const sortedCardsWithGratisOngkir = cardsWithGratisOngkir.sort(
-                    (a, b) => b.id - a.id,
-                );
-
-                const sortedCardsWithoutGratisOngkir = cardsWithoutGratisOngkir.sort(
-                    (a, b) => b.id - a.id,
-                );
-
-                return [
-                    ...sortedCardsWithGratisOngkir,
-                    ...sortedCardsWithoutGratisOngkir,
-                ];
-            }
-            return cards;
-        };
-
-        const sortCards = (cards, option) => {
-            switch (option) {
-                case "Harga Tertinggi":
-                    return cards.sort((a, b) => b.price - a.price);
-                case "Harga Terendah":
-                    return cards.sort((a, b) => a.price - b.price);
-                case "Alfabet A-Z":
-                case "Alfabet Z-A":
-                case "Produk Terbaru":
-                case "Gratis Ongkir":
-                    return sortCardsByNewest(
-                        sortCardsAlphabetically([...cards], option),
-                        option,
-                    );
-                default:
-                    return cards;
-            }
-        };
-
-        let sortOption = "Produk Terbaru";
-
         const handleSortOption = (option) => {
-            sortOption = option === "Produk Terbaru" ? "Produk Terbaru" : option;
-        };
+            console.log("op", option);
+        }
+        console.log("asas");
+        // const sortCardsAlphabetically = (cards, option) => {
+        //     switch (option) {
+        //         case "Alfabet A-Z":
+        //             return cards.sort((a, b) => a.title.localeCompare(b.title));
+        //         case "Alfabet Z-A":
+        //             return cards.sort((a, b) => b.title.localeCompare(a.title));
+        //         default:
+        //             return cards;
+        //     }
+        // };
+
+        // const sortCardsByNewest = (cards, option) => {
+        //     if (option === "Produk Terbaru") {
+        //         const cardsWithGratisOngkir = cards.filter(
+        //             (card) =>
+        //             card.Badge === "Produk Terbaru !!" &&
+        //             card.ongkoskirim === "Gratis Ongkir",
+        //         );
+
+        //         const cardsWithoutGratisOngkir = cards.filter(
+        //             (card) =>
+        //             card.Badge === "Produk Terbaru !!" &&
+        //             card.ongkoskirim !== "Gratis Ongkir",
+        //         );
+
+        //         const otherCards = cards.filter(
+        //             (card) => card.Badge !== "Produk Terbaru !!" || !card.Badge,
+        //         );
+
+        //         const sortedCardsWithGratisOngkir = cardsWithGratisOngkir.sort(
+        //             (a, b) => b.id - a.id,
+        //         );
+
+        //         const sortedCardsWithoutGratisOngkir = cardsWithoutGratisOngkir.sort(
+        //             (a, b) => b.id - a.id,
+        //         );
+
+        //         return [
+        //             ...sortedCardsWithGratisOngkir,
+        //             ...sortedCardsWithoutGratisOngkir,
+        //             ...otherCards,
+        //         ];
+        //     } else if (option === "Gratis Ongkir") {
+        //         const cardsWithGratisOngkir = cards.filter(
+        //             (card) => card.ongkoskirim === "Gratis Ongkir",
+        //         );
+
+        //         const cardsWithoutGratisOngkir = cards.filter(
+        //             (card) => card.ongkoskirim !== "Gratis Ongkir",
+        //         );
+
+        //         const sortedCardsWithGratisOngkir = cardsWithGratisOngkir.sort(
+        //             (a, b) => b.id - a.id,
+        //         );
+
+        //         const sortedCardsWithoutGratisOngkir = cardsWithoutGratisOngkir.sort(
+        //             (a, b) => b.id - a.id,
+        //         );
+
+        //         return [
+        //             ...sortedCardsWithGratisOngkir,
+        //             ...sortedCardsWithoutGratisOngkir,
+        //         ];
+        //     }
+        //     return cards;
+        // };
+
+        // const sortCards = (cards, option) => {
+        //     switch (option) {
+        //         case "Harga Tertinggi":
+        //             return cards.sort((a, b) => b.price - a.price);
+        //         case "Harga Terendah":
+        //             return cards.sort((a, b) => a.price - b.price);
+        //         case "Alfabet A-Z":
+        //         case "Alfabet Z-A":
+        //         case "Produk Terbaru":
+        //         case "Gratis Ongkir":
+        //             return sortCardsByNewest(
+        //                 sortCardsAlphabetically([...cards], option),
+        //                 option,
+        //             );
+        //         default:
+        //             return cards;
+        //     }
+        // };
+
+        // let sortOption = "Produk Terbaru";
+
+        // const handleSortOption = (option) => {
+        //     sortOption = option === "Produk Terbaru" ? "Produk Terbaru" : option;
+        // };
     </script>
-
-
-
-
-
-
-
-
     @include('user.komponenuser.footer')
     @include('user.include.script')
 

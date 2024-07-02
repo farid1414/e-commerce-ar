@@ -109,70 +109,70 @@
 
     function handleSearch() {
         const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+        console.log("as", searchTerm);
+        // const searchResults = dataPencarianProduk.filter((produk) =>
+        //     produk.nama.toLowerCase().includes(searchTerm)
+        // );
 
-        const searchResults = dataPencarianProduk.filter((produk) =>
-            produk.nama.toLowerCase().includes(searchTerm)
-        );
+        // const searchResultsContainer = document.getElementById("searchResults");
+        // searchResultsContainer.innerHTML = "";
 
-        const searchResultsContainer = document.getElementById("searchResults");
-        searchResultsContainer.innerHTML = "";
+        // if (searchTerm !== "" && searchResults.length > 0) {
+        //     const resultCount = document.createElement("span");
+        //     resultCount.innerHTML =
+        //         `<span>Hasil Pencarian <b>"${searchTerm}"</b></span> <span class="text-muted">${searchResults.length} produk</span>`;
+        //     searchResultsContainer.appendChild(resultCount);
+        // } else if (searchTerm !== "" && searchResults.length === 0) {
+        //     const notFoundMessage = document.createElement("div");
+        //     notFoundMessage.className = "justify-content-center mt-5";
+        //     notFoundMessage.innerHTML = `
+        //   <div xs="12" md="6" class="text-center">
+        //     <img src="../gambar/Produk-tidak-ditemukan.png" alt="Product Not Found" style="max-width: 59%;" />
+        //     <p style="margin-top: 10px; font-size: 1.2rem;"><b>Oops, maaf produk yang Anda cari tidak ditemukan.</b></p>
+        //     <p style="font-size: 18px; margin-top: -10px;">Coba gunakan kata kunci lain.</p>
+        //   </div>
+        // `;
+        //     searchResultsContainer.appendChild(notFoundMessage);
+        // }
 
-        if (searchTerm !== "" && searchResults.length > 0) {
-            const resultCount = document.createElement("span");
-            resultCount.innerHTML =
-                `<span>Hasil Pencarian <b>"${searchTerm}"</b></span> <span class="text-muted">${searchResults.length} produk</span>`;
-            searchResultsContainer.appendChild(resultCount);
-        } else if (searchTerm !== "" && searchResults.length === 0) {
-            const notFoundMessage = document.createElement("div");
-            notFoundMessage.className = "justify-content-center mt-5";
-            notFoundMessage.innerHTML = `
-          <div xs="12" md="6" class="text-center">
-            <img src="../gambar/Produk-tidak-ditemukan.png" alt="Product Not Found" style="max-width: 59%;" />
-            <p style="margin-top: 10px; font-size: 1.2rem;"><b>Oops, maaf produk yang Anda cari tidak ditemukan.</b></p>
-            <p style="font-size: 18px; margin-top: -10px;">Coba gunakan kata kunci lain.</p>
-          </div>
-        `;
-            searchResultsContainer.appendChild(notFoundMessage);
-        }
-
-        searchResults.forEach((produk) => {
-            const card = document.createElement("div");
-            card.className = "card mt-3 ml-5 ";
-            card.innerHTML = `
-          <div class="card-body d-flex align-items-center"s>
-            <div class="me-2">
-              <img
-                src="${produk.gambar}"
-                alt="Gambar Produk"
-                style="max-width: 100px; max-height: 90px; border-radius: 10px;"
-              />
-            </div>
-            <div style="flex: 1;">
-              <div class="d-flex justify-content-between">
-                <div class="fw-bold">${produk.nama}</div>
-                ${
-                  produk.bintang
-                    ? `<span class="text-muted"><i class="bi bi-star-fill" style="color: gold;"></i> ${produk.bintang}</span>`
-                    : ""
-                }
-              </div>
-              ${produk.varian ? `<span class="text-muted">${produk.varian}</span>` : ""}
-              <div class="d-flex justify-content-between">
-                ${
-                  produk.harga
-                    ? `<span class="text-muted">${produk.harga}</span>`
-                    : ""
-                }
-                ${
-                  produk.terjual
-                    ? `<span class="text-muted">${produk.terjual}</span>`
-                    : ""
-                }
-              </div>
-            </div>
-          </div>
-        `;
-            searchResultsContainer.appendChild(card);
-        });
+        // searchResults.forEach((produk) => {
+        //     const card = document.createElement("div");
+        //     card.className = "card mt-3 ml-5 ";
+        //     card.innerHTML = `
+        //   <div class="card-body d-flex align-items-center"s>
+        //     <div class="me-2">
+        //       <img
+        //         src="${produk.gambar}"
+        //         alt="Gambar Produk"
+        //         style="max-width: 100px; max-height: 90px; border-radius: 10px;"
+        //       />
+        //     </div>
+        //     <div style="flex: 1;">
+        //       <div class="d-flex justify-content-between">
+        //         <div class="fw-bold">${produk.nama}</div>
+        //         ${
+        //           produk.bintang
+        //             ? `<span class="text-muted"><i class="bi bi-star-fill" style="color: gold;"></i> ${produk.bintang}</span>`
+        //             : ""
+        //         }
+        //       </div>
+        //       ${produk.varian ? `<span class="text-muted">${produk.varian}</span>` : ""}
+        //       <div class="d-flex justify-content-between">
+        //         ${
+        //           produk.harga
+        //             ? `<span class="text-muted">${produk.harga}</span>`
+        //             : ""
+        //         }
+        //         ${
+        //           produk.terjual
+        //             ? `<span class="text-muted">${produk.terjual}</span>`
+        //             : ""
+        //         }
+        //       </div>
+        //     </div>
+        //   </div>
+        // `;
+        //     searchResultsContainer.appendChild(card);
+        // });
     }
 </script>

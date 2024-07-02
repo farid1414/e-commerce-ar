@@ -2,6 +2,7 @@
 
 namespace App\Models\Master;
 
+use App\Models\TransactionDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,5 +67,10 @@ class Product extends Model
     public function flashSale()
     {
         return $this->hasOne(ProductFlashSale::class, 'product_id', 'id');
+    }
+
+    public function transactionDetail()
+    {
+        return $this->hasMany(TransactionDetail::class, 'product_id');
     }
 }

@@ -74,7 +74,7 @@ class MainController extends Controller
             Cart::create($data);
             DB::commit();
             return JSON_RESPONSE("Success.\nAdd to cart ", null, [
-                'url' => route('index'),
+                'url' => route('keranjang'),
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -117,12 +117,60 @@ class MainController extends Controller
         ]);
     }
 
-    public function product()
+    public function product(Request $request)
     {
-        $prod = Product::orderBy('created_at')->get();
+        $req = $request->input('data');
+        $prod = Product::query();
+        if ($req == 'terbaru') {
+            $prod =  $prod->orderBy('created_at');
+        } else if ($req == 'harga_tertinggi') {
+            $prod = $prod->orderBy('harga');
+        }
+
+        $prod =  $prod->get();
         return view('User.produkall', [
             'prod' => $prod
         ]);
+    }
+
+    public function orderProd(Request $request)
+    {
+        $search = $req = $request->input('search');
+        $req = $request->input('data');
+        $prod = Product::select('products.*');
+        // $prod = DB::table('products');
+
+        if ($search) {
+            $prod = $prod->join('categories', 'products.categori_id', '=', 'categories.id')
+                ->where('products.name', 'like', '%' . $search . '%')
+                ->orWhere('categories.name', 'like', '%' . $search . '%')
+                ->orWhere('products.sub_name', 'like', '%' . $search . '%');
+        }
+
+        if ($req == 'terbaru') {
+            $peod = $prod->orderBy('created_at');
+        } else if ($req == 'harga_tertinggi') {
+            $prod = $prod->orderBy('harga', 'DESC');
+        } else if ($req == 'harga_rendah') {
+            $peod = $prod->orderBy('harga', "ASC");
+        } else if ($req == 'az') {
+            $prod = $prod->orderBy('name', "ASC");
+        } else if ($req == 'za') {
+            $prod = $prod->orderBy('name', 'DESC');
+        } else if ($req == 'gratis_ongkir') {
+            $prod = $prod->orderBy('harga_ongkir');
+        }
+
+        $prod = $prod->get();
+        $prod = $prod->map(function ($pr) {
+            $pr->thumbnail = url($pr->thumbnail);
+            $pr->description = nl2br($pr->description);
+            $pr->harga = 'Rp ' . number_format($pr->harga, 0, ',', '.');
+            $pr->quantity = $pr->transactionDetail->sum('quantity');
+            return $pr;
+        });
+
+        return JSON_RESPONSE("Success delete cart", $prod);
     }
 
     public function keranjang()
@@ -296,7 +344,7 @@ class MainController extends Controller
         $tr->update(['status' => true, 'payment_at' => now()->toDateString(), 'payment_type' => $type]);
         $product = $tr->transactionDetail->pluck('product_id');
         $varian = $tr->transactionDetail->pluck('product_varian_id');
-        $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->update(['status' => -1]);
+        $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->get()->each()->delete();
 
         return view('user.pembayaranberhasil');
     }
