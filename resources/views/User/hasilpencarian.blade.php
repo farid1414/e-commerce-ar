@@ -359,6 +359,9 @@
             });
         })
     </script>
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+        </div>
 </body>
 
 </html>

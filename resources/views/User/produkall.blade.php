@@ -9,9 +9,6 @@
 </head>
 @include('user.komponenuser.navbaruser')
 
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
 
 @include('user.include.style')
 
@@ -364,6 +361,9 @@
         })
     </script>
 
+<div class='d-block d-lg-none'>
+    @include('user.komponenuser.bottomnavbar')
+</div>
 </body>
 
 </html>

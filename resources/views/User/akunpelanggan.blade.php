@@ -10,9 +10,7 @@
 
 @include('user.komponenuser.navbaruser')
 
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
+
 <style>
     .rate {
         float: left;
@@ -225,7 +223,9 @@
 
     @include('user.komponenuser.footer')
 
-
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+    </div>
 
     <script>
         // Script untuk mengatur perubahan dari tampilan data ke form edit

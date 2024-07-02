@@ -9,9 +9,7 @@
 </head>
 @include('user.komponenuser.navbaruser')
 
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
+
 
 @include('user.include.style')
 
@@ -45,7 +43,9 @@
 
     </div>
     @include('user.include.script')
-
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+    </div>
     @include('user.komponenuser.footer')
 
 </body>

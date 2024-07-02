@@ -68,10 +68,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('keranjang') }}">
                         <div class="position-relative">
-                            <b> <i class="bi bi-cart2" style="font-size: 30px; margin-right: 30px;"></i> </b>
+                            <b>
+                                <i class="bi bi-cart2" style="font-size: 28px; margin-right: 30px;"></i>
+                            </b>
+
+                        {{-- Jika tidak ada item di keranjang maka display None badge spannya dan angkanya--}}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="transform: translate(-50%, -50%); margin-left: -15px; margin-top: 10px">
+                                1
+                            </span>
                         </div>
                     </a>
                 </li>
+                
             </ul>
         </div>
     </nav>

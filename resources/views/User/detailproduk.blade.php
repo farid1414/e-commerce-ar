@@ -143,10 +143,6 @@
 
 @include('user.komponenuser.navbaruser')
 
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
-
 @include('user.include.style')
 
 <body>
@@ -743,6 +739,10 @@
     </div>
     @include('user.include.script')
 
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+    </div>
+    
     @include('user.komponenuser.footer')
     <!-- Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

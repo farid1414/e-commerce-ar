@@ -8,9 +8,7 @@
 </head>
 @include('user.komponenuser.navbaruser')
 
-<div class='d-block d-lg-none'>
-@include('user.komponenuser.bottomnavbar')
-</div>
+
 
 @include('user.include.style')
 <body>
@@ -173,6 +171,9 @@
 
     </div>
     </section>
+    <div class='d-block d-lg-none'>
+      @include('user.komponenuser.bottomnavbar')
+      </div>
     @include('user.komponenuser.footer')
     @include('user.include.script')
 

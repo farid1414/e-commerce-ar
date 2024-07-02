@@ -28,12 +28,21 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('keranjang') }}">
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center position-relative">
                         <i class="fa fa-shopping-cart"></i>
                         <div>Keranjang</div>
+
+
+                        {{-- Jika tidak ada item di keranjang maka display None badge spannya dan angkanya--}}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="margin-left: -10px">
+                            1
+                        </span>
+
+
                     </div>
                 </a>
             </li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">
                     <div class="d-flex flex-column align-items-center">
@@ -47,8 +56,7 @@
 </nav>
 
 <!-- Modal Pencarian -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true"
-    style="width: 85%,">
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered d-flex justify-content-center align-items-center">
         <div class="modal-content">
             <div class="modal-header">
@@ -60,7 +68,39 @@
                     <input type="text" id="searchInput" placeholder="Cari yang terbaik untuk rumahmu..."
                         style="width: 100%; padding: 10px;" oninput="handleSearch()" value="" />
                     <hr />
-                    <div id="searchResults"></div>
+                    <div id="searchResults">
+
+                        {{-- List Produk --}}
+                        <div class="card" style="width: 100%">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="me-2">
+                                    <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
+                                        alt="Gambar Produk"
+                                        style="max-width: 100px; max-height: 90px; border-radius: 10px;" />
+                                </div>
+                                <div style="flex: 1;">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="fw-bold">Nama Produk</p>
+                                        <span class="text-muted">2 Varian</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p>Rp 15.000.000</p>
+                                        <p class="badge text-bg-dark">10x terjual</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Pisahkan jarak produk dengan hr --}}
+                        <hr>
+
+
+                    </div>
+                    <div xs="12" md="6" class="text-center">
+                        <img src="../gambar/Produk-tidak-ditemukan.png" alt="Product Not Found" style="max-width: 59%;" />
+                        <p style="margin-top: 10px; font-size: 1.2rem;"><b>Oops, maaf produk yang Anda cari tidak ditemukan.</b></p>
+                        <p style="font-size: 18px; margin-top: -10px;">Coba gunakan kata kunci lain.</p>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -69,6 +109,7 @@
         </div>
     </div>
 </div>
+
 
 
 <script>
@@ -109,7 +150,7 @@
 
     function handleSearch() {
         const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-        console.log("as", searchTerm);
+        // console.log("as", searchTerm);
         // const searchResults = dataPencarianProduk.filter((produk) =>
         //     produk.nama.toLowerCase().includes(searchTerm)
         // );
