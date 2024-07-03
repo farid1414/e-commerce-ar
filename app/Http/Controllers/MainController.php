@@ -117,6 +117,32 @@ class MainController extends Controller
         ]);
     }
 
+    public function searchProd(Request $request)
+    {
+        $req = $request->input('search');
+        if ($req) {
+            $product = Product::query()
+                ->join('categories', 'products.categori_id', '=', 'categories.id')
+                ->where('products.name', 'like', '%' . $req . '%')
+                ->orWhere('categories.name', 'like', '%' . $req . '%')
+                ->orWhere('products.sub_name', 'like', '%' . $req . '%')
+                ->select('products.*')
+                ->get();
+
+            $product = collect($product)->map(function ($pr) {
+                $pr->thumbnail = url($pr->thumbnail);
+                $pr->description = nl2br($pr->description);
+                $pr->harga = 'Rp ' . number_format($pr->harga, 0, ',', '.');
+                $pr->quantity = $pr->transactionDetail->sum('quantity');
+                $pr->countVarian = $pr->varians->count();
+                return $pr;
+            });
+        } else {
+            $product = collect(); // Mengembalikan koleksi kosong jika $req null atau kosong
+        }
+        return JSON_RESPONSE("Success delete cart", $product);
+    }
+
     public function product(Request $request)
     {
         $req = $request->input('data');
@@ -139,20 +165,18 @@ class MainController extends Controller
         $req = $request->input('data');
         $prod = Product::select('products.*');
         // $prod = DB::table('products');
-
         if ($search) {
             $prod = $prod->join('categories', 'products.categori_id', '=', 'categories.id')
                 ->where('products.name', 'like', '%' . $search . '%')
                 ->orWhere('categories.name', 'like', '%' . $search . '%')
                 ->orWhere('products.sub_name', 'like', '%' . $search . '%');
         }
-
         if ($req == 'terbaru') {
-            $peod = $prod->orderBy('created_at');
+            $prod = $prod->orderBy('created_at');
         } else if ($req == 'harga_tertinggi') {
             $prod = $prod->orderBy('harga', 'DESC');
         } else if ($req == 'harga_rendah') {
-            $peod = $prod->orderBy('harga', "ASC");
+            $prod = $prod->orderBy('harga', "ASC");
         } else if ($req == 'az') {
             $prod = $prod->orderBy('name', "ASC");
         } else if ($req == 'za') {
@@ -167,6 +191,7 @@ class MainController extends Controller
             $pr->description = nl2br($pr->description);
             $pr->harga = 'Rp ' . number_format($pr->harga, 0, ',', '.');
             $pr->quantity = $pr->transactionDetail->sum('quantity');
+            $pr->countVarian = $pr->varians->count();
             return $pr;
         });
 

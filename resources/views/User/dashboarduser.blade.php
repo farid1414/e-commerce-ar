@@ -603,7 +603,7 @@
 
     @include('user.komponenuser.footer')
     @include('user.include.script')
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @if ($flash_sale)
         <script>
             // Mengatur waktu akhir countdown

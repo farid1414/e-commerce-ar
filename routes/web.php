@@ -320,6 +320,7 @@ Route::get('/categori/{slug?}', [MainController::class, 'masterCategory'])->name
 Route::get('/product-category/{id?}', [MainController::class, 'prodCat'])->name('product-category');
 Route::get('/product', [MainController::class, 'product'])->name('product');
 Route::get('/pencarian', [MainController::class, 'pencarian'])->name('pencarian');
+Route::get('/search-product', [MainController::class, 'searchProd'])->name('search-prod');
 
 Route::get('/order-product', [MainController::class, 'orderProd'])->name('order-product');
 
