@@ -50,11 +50,11 @@
                 @php
                     $totalHarga = 0;
                 @endphp
-
-                @foreach ($carts as $i => $cart)
+                {{-- {{ dd($transaction->transactionDetail) }} --}}
+                @foreach ($transaction->transactionDetail as $i => $cart)
                     @php
-                        $subTotal = $cart->sub_total;
-                        $diskon = $cart->diskon ?? 0;
+                        $subTotal = $cart->harga;
+                        $diskon = $transaction->diskon ?? 0;
                         $ongkir = $cart->ongkir ?? 0;
                         $harga = $subTotal - $diskon;
                         $totalOngkir = $harga + $ongkir;
@@ -68,8 +68,10 @@
                                 ->where('product_varian_id', $cart->varian->id)
                                 ->first()->flashSale;
                         @endphp
-                        <input type="hidden" readonly name="flash_sale_id[{{ $i }}]"
-                            value="{{ $flashSale->id }}">
+                        @if ($flashSale)
+                            <input type="hidden" readonly name="flash_sale_id[{{ $i }}]"
+                                value="{{ $flashSale->id }}">
+                        @endif
                     @endif
                     {{-- <input type="hidden" readonly name="varian_id[]" value="{{ $cart->varian->id }}">
                     <input type="hidden" readonly name="qty[]" value="{{ $cart->qty }}">
@@ -87,7 +89,7 @@
                             <hr />
                             <div class="row">
                                 <div class="col d-flex flex-column">
-                                    <img src="{{ $cart->product->thumbnail }}" alt="Produk"
+                                    <img src="{{ url($cart->product->thumbnail) }}" alt="Produk"
                                         style="max-width: 130px; border-radius: 10px; margin-left: 17px;" />
                                 </div>
 
@@ -96,7 +98,7 @@
                                         <p class="fw-bold" style="font-size: 1.2rem;">{{ $cart->product->name }}
                                         </p>
                                         <p class="text-muted">Varian : {{ $cart->varian->name }}</p>
-                                        <span>Kuantitas : {{ $cart->qty }}x</span>
+                                        <span>Kuantitas : {{ $cart->quantity }}x</span>
                                     </div>
                                 </div>
                             </div>
@@ -276,9 +278,9 @@
         })
     </script>
 
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+    </div>
 
 </body>
 

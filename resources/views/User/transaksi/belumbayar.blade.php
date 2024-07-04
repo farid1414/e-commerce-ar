@@ -1,4 +1,4 @@
-@forelse ($transaction->where('status', false) as $tr)
+@forelse ($transaction->where('status', '=', 0) as $index => $tr)
     <div class="card mt-3">
         <div class="card-header bg-dark text-white">
             <div class="row">
@@ -18,8 +18,8 @@
                     </h5>
                 </div>
                 <div class="col-auto">
-                    <button onclick="toggleCollapse('collapse2')" class="btn btn-light collapse-button"
-                        style="border-radius: 15px;">
+                    <button onclick="toggleCollapse('collapse_{{ $index }}')"
+                        class="btn btn-light collapse-button" style="border-radius: 15px;">
                         <svg class="bi bi-chevron-up" width="30" height="30" fill="currentColor"
                             viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="collapse" id="collapse2">
+    <div class="collapse mb-4" id="collapse_{{ $index }}">
         <br>
         <p class="p-3 bg-primary text-white text-center" style="border-radius: 3px;">Belum Dibayar</p>
         <div class="card mb-3">
@@ -153,13 +153,28 @@
                 </div>
             </div>
         </div> --}}
+
+        <div class="modal-footer">
+            <div class="d-flex justify-content-end w-100">
+                <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
+                <button type="button" class="btn btn-info" data-id="{{ $tr->id }}"
+                    data-token="{{ $tr->snap_token }}" id="bayar">
+                    Bayar
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
     </div>
 @empty
     <h3 class="text-center">Tidak ada produk</h3>
 @endforelse
+<pre><div id="result-json"><br></div></pre>
 
 
-<!-- Script untuk menangani pembatalan pesanan -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
+</script>
 <script>
     function showConfirmation() {
         Swal.fire({
@@ -195,10 +210,41 @@
             });
         }, );
     }
+
+    $('body').on('click', '#bayar', function() {
+        let id = $(this).attr('data-id')
+        let token = $(this).attr('data-token')
+        console.log('click', id, token);
+
+        snap.pay(token, {
+            // Optional
+            onSuccess: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result,
+                    null, 2);
+                console.log("res", result);
+                let payment_type = result.payment_type
+                window.location.href =
+                    "{{ route('transaction-success') }}/" + id + '/' +
+                    payment_type
+            },
+            // Optional
+            onPending: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result,
+                    null, 2);
+            },
+            // Optional
+            onError: function(result) {
+                /* You may add your own js here, this is just example */
+                document.getElementById('result-json').innerHTML += JSON.stringify(result,
+                    null, 2);
+                window.location.href =
+                    "{{ route('transaction-failed') }}/" + id
+            }
+        });
+    })
 </script>
-
-
-
 
 <script>
     function toggleCollapse(collapseId) {

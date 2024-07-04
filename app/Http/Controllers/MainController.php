@@ -224,31 +224,17 @@ class MainController extends Controller
     public function postCheckout(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $cart = Cart::whereIn('id', $data['id']);
+        $cart = Cart::whereIn('id', $data['id'])->get();
 
-        try {
-            DB::beginTransaction();
-            $cart->update(['status' => false]);
-            DB::commit();
-            return JSON_RESPONSE("Success.\nCheckout product", null, [
-                'url' => route('checkout'),
-            ]);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    public function checkout()
-    {
-        $cart = Cart::where('status', false)->where('user_id', Auth::user()->id)->get();
         $order_amount = 0;
         $order =  $cart->each(function ($item) use (&$order_amount) {
             $order_amount += ($item->sub_total - $item->diskon) + $item->ongkir;
         });
         $code = "AR-F/ORD-" . now()->toDateString() . "-" . (Transaction::withTrashed()->count() + 1);
+
         try {
             DB::beginTransaction();
+            $cart->each->update(['status' => false]);
             $transaction = Transaction::create([
                 'code' => $code,
                 'status' => 0,
@@ -270,6 +256,48 @@ class MainController extends Controller
                 ]);
             }
 
+            DB::commit();
+            return JSON_RESPONSE("Success.\nCheckout product", null, [
+                'url' => route('checkout', $transaction->id),
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function checkout(int $transaction_id = null)
+    {
+        // $cart = Cart::where('status', false)->where('user_id', Auth::user()->id)->get();
+        // $order_amount = 0;
+        // $order =  $cart->each(function ($item) use (&$order_amount) {
+        //     $order_amount += ($item->sub_total - $item->diskon) + $item->ongkir;
+        // });
+        // $code = "AR-F/ORD-" . now()->toDateString() . "-" . (Transaction::withTrashed()->count() + 1);
+        $transaction = Transaction::findOrFail($transaction_id);
+        try {
+            DB::beginTransaction();
+            // $transaction = Transaction::create([
+            //     'code' => $code,
+            //     'status' => 0,
+            //     'order_amount' => $order_amount,
+            //     'user_id' => Auth::user()->id
+            // ]);
+
+            // foreach ($cart as $key => $cart) {
+            //     TransactionDetail::create([
+            //         'transaction_id' => $transaction->id,
+            //         'product_id' => $cart->product_id,
+            //         'product_varian_id' => $cart->product_varian_id,
+            //         'flash_sale_id' => $cart->flash_sale_id ?? null,
+            //         'quantity' => $cart->qty,
+            //         'harga' => $cart->harga,
+            //         'total' => $cart->sub_total,
+            //         'diskon' => $cart->diskon ?? 0,
+            //         'ongkir' => $cart->ongkir ?? 0
+            //     ]);
+            // }
+
             // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
             // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -282,7 +310,7 @@ class MainController extends Controller
             $params = array(
                 'transaction_details' => array(
                     'order_id' => rand(),
-                    'gross_amount' => $order_amount,
+                    'gross_amount' => $transaction->order_amount,
                 ),
                 'customer_details' => array(
                     'first_name' => Auth::user()->name,
@@ -384,7 +412,6 @@ class MainController extends Controller
     {
 
         $transaction = Transaction::where('user_id', Auth::user()->id)->get();
-
         return view('user.akunpelanggan', [
             'transaction' => $transaction
         ]);

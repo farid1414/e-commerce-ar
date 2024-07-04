@@ -330,7 +330,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/keranjang', [MainController::class, 'keranjang'])->name('keranjang');
     Route::delete('kerenjang/{id?}', [MainController::class, 'deleteCart'])->name('delete-cart');
     Route::post('/checkout', [MainController::class, 'postCheckout'])->name('post-checkout');
-    Route::get('/checkout', [MainController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/{id?}', [MainController::class, 'checkout'])->name('checkout');
     Route::post('/transaction', [MainController::class, 'transaction'])->name('transaction');
     Route::get('/transaction-success/{id?}/{type?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
     Route::get('/transaction-failed/{id?}', [MainController::class, 'transactionFail'])->name('transaction-failed');

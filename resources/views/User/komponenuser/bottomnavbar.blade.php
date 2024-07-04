@@ -179,7 +179,9 @@
                             let clone = $('.template-product > div').clone()
                             clone.find('#image_product').attr('src', prod.thumbnail)
                             clone.find('#name_prod').html(prod.name)
-                            clone.find('#varian').html(prod.countVarian)
+                            if (prod.countVarian > 0) {
+                                clone.find('#varian').html(`Varian : ${prod.countVarian}`)
+                            }
                             clone.find('#harga').html(prod.harga)
                             clone.find('#terjual').html(`Terjual ${prod.quantity}x`)
                             $('#searchResults').append(clone)

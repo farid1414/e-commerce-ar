@@ -40,7 +40,7 @@ class ProductController extends Controller
         $query = Product::select('*')
             ->where('m_categories', $request->categori)
             ->where('is_active', $request->is_active)
-            ->with('varians', 'category');
+        ->with('varians', 'category');
 
         if ($request->akan_habis) {
             $query = $query->where('stock', '>=', 1)->where('stock', '<', 5);
