@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("transaction_id")->index()->nullable()->references("id")->on("transactions")->cascadeOnDelete();
+            $table->foreignId("transaction_id")->index()->nullable()->references("id")->on("transaction_details")->cascadeOnDelete();
             $table->foreignId("user_id")->index()->nullable()->references("id")->on("users")->cascadeOnDelete();
             $table->foreignId("product_id")->index()->nullable()->references("id")->on("products")->cascadeOnDelete();
             $table->foreignId("varian_id")->index()->nullable()->references("id")->on("product_varians")->cascadeOnDelete();

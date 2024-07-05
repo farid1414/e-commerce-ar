@@ -1,4 +1,4 @@
-@forelse ($transaction->where('status', -1) as $tr)
+@forelse ($transaction->where('status', '=', -1) as $tr)
     <div class="card mt-3">
         <div class="card-header bg-dark text-white">
             <div class="row">

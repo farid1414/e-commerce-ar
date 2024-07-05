@@ -337,4 +337,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil-pelanggan', [MainController::class, 'profil'])->name('profil-pelanggan');
     Route::get('/transaction-detail/{id?}', [MainController::class, 'detailTransaction'])->name('detail-transaction');
     Route::get('/edit-user', [MainController::class, 'editProfil'])->name('edit-profil');
+    Route::post('/rating', [MainController::class, 'storeRating'])->name('store-rating');
 });

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Rating;
 use App\Models\Master\Cart;
-use App\Models\Master\Category;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Master\Product;
 use Illuminate\Support\Carbon;
+use App\Models\Master\Category;
 use App\Models\Master\FlashSale;
 use App\Models\Master\MCategory;
 use App\Models\TransactionDetail;
@@ -27,20 +28,24 @@ class MainController extends Controller
             $query->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime);
         })->with('productFlashSale')->first();
-
+        $ratings = Rating::get();
         return view('user.dashboarduser', [
             'flash_sale' => $flashsale,
-            'newProducts' => $product->orderBy('created_at', 'desc')->get()->take(4)
+            'newProducts' => $product->orderBy('created_at', 'desc')->get()->take(4),
+            'ratings' => $ratings
         ]);
     }
 
     public function detailProduct(string $uuid)
     {
         $product = Product::firstWhere('uuid', $uuid);
+        $ratings = Rating::where('product_id', $product->id)->paginate(10);
 
-        return view('user.detailproduk', [
-            'product' => $product
-        ]);
+        // return view('user.detailproduk', [
+        //     'product' => $product,
+        //     'rating' => $rating
+        // ]);
+        return view('User.detailproduk', compact('product', 'ratings'));
     }
 
     public function getDetailProduct(string $uuid)
@@ -397,7 +402,7 @@ class MainController extends Controller
         $tr->update(['status' => true, 'payment_at' => now()->toDateString(), 'payment_type' => $type]);
         $product = $tr->transactionDetail->pluck('product_id');
         $varian = $tr->transactionDetail->pluck('product_varian_id');
-        $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->get()->each()->delete();
+        $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->delete();
 
         return view('user.pembayaranberhasil');
     }
@@ -411,7 +416,7 @@ class MainController extends Controller
     public function profil()
     {
 
-        $transaction = Transaction::where('user_id', Auth::user()->id)->get();
+        $transaction = Transaction::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         return view('user.akunpelanggan', [
             'transaction' => $transaction
         ]);
@@ -432,5 +437,37 @@ class MainController extends Controller
         return view('user.detailtransaksi', [
             'transaction' => $transaction
         ]);
+    }
+
+    public function storeRating(Request $request)
+    {
+
+        $data = [
+            'transaction_id' => $request->transaction_id,
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->product_id,
+            'rating_value' => intval($request->rate),
+            'text_value' => $request->text,
+            'varian_id' => $request->varian_id,
+            'is_samaran' => $request->samaran ? 1 : 0
+        ];
+
+        if (isset($request->image)) {
+            $file = $request->image;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $folder = 'storage/product/rating/';
+            $file->move(public_path($folder), $filename);
+            $url = $folder . $filename;
+            $data['image'] = $url;
+        }
+        try {
+            DB::beginTransaction();
+            Rating::create($data);
+            DB::commit();
+            return JSON_RESPONSE("Success create rating produk");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

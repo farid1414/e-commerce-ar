@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title mt-3 mb-2 text-center" style="font-size: 1.6rem;">Pembayaran Telah Berhasil.</h5>
                 <div class="text-center">
-                    <img src="../gambar/Pembayaranberhasil2.png" alt="Payment Successful" class="img-fluid"
+                    <img src="{{ asset('gambar/Pembayaranberhasil2.png') }}" alt="Payment Successful" class="img-fluid"
                         style="width: 350px;">
                 </div>
                 <p class="card-text text-center">
@@ -26,8 +26,8 @@
             <div class="card-footer bg-white">
                 <div class="d-flex justify-content-between mt-2">
                     <a href="{{ route('index') }}" class="btn btn-outline-dark">Beranda</a>
-                    <button onclick="handlePesanansayaClick()" class="btn btn-dark">Lihat Pesanan Saya <i
-                            class="bi bi-arrow-right" style="margin-left: 8px;"></i></button>
+                    <a href="{{ route('profil-pelanggan') }}" class="btn btn-dark">Lihat Pesanan Saya <i
+                            class="bi bi-arrow-right" style="margin-left: 8px;"></i></a>
                 </div>
             </div>
         </div>

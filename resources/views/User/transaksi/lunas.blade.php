@@ -1,4 +1,4 @@
-@forelse ($transaction->where('status', true) as $index => $tr)
+@forelse ($transaction->where('status','=', 1) as $index => $tr)
     <div class="card mt-3">
         <div class="card-header bg-dark text-white">
             <div class="row">
@@ -123,7 +123,8 @@
                         <button type="button" class="btn btn-success mr-2 btn-penilaian"
                             data-product="{{ $detail->product_id }}" data-name="{{ $detail->product->name }}"
                             data-image="{{ url($detail->product->thumbnail) }}" data-qty="{{ $detail->quantity }}"
-                            data-varian="{{ $detail->product_varian_id }}">
+                            data-varian-name = "{{ $detail->varian->name }}"
+                            data-varian="{{ $detail->product_varian_id }}" data-id="{{ $detail->id }}">
                             Beri Penilaian
                         </button>
                         {{-- </div> --}}
@@ -171,107 +172,108 @@
                 <h5 class="modal-title" id="exampleModalLabel">Beri Penilaian</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="max-height: 350px; overflow-y: auto;">
-                <!-- menggunakan inline style max-height dan overflow-y -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="" class="img-fluid img-product" alt="Gambar Produk"
-                            style="border-radius: 10px">
-                    </div>
-                    <div class="col-md-8">
-                        <h5 id="name_prod">Nama Produk</h5>
-                        <div class="d-flex justify-content-between">
-                            <p>Kuantitas: </p>
-                            <p id="qty"></p>
+            <form action="" method="POSt" id="form-rating">
+                <input type="hidden" readonly name="transaction_id" id="transaction_id">
+                <input type="hidden" readonly name="product_id" id="product_id">
+                <input type="hidden" readonly name="varian_id" id="varian_id">
+                <div class="modal-body" style="max-height: 350px; overflow-y: auto;">
+                    <!-- menggunakan inline style max-height dan overflow-y -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="" class="img-fluid img-product" alt="Gambar Produk"
+                                style="border-radius: 10px">
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Varian: </p>
-                            <p id="varian">-</p>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                {{-- Star rating --}}
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <div class="rate">
-                            <input type="radio" id="star5" name="rate" value="5" />
-                            <label for="star5" title="text">5 stars</label>
-                            <input type="radio" id="star4" name="rate" value="4" />
-                            <label for="star4" title="text">4 stars</label>
-                            <input type="radio" id="star3" name="rate" value="3" />
-                            <label for="star3" title="text">3 stars</label>
-                            <input type="radio" id="star2" name="rate" value="2" />
-                            <label for="star2" title="text">2 stars</label>
-                            <input type="radio" id="star1" name="rate" value="1" />
-                            <label for="star1" title="text">1 star</label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="alert" role="alert" style="background-color: #F5F5F5;">
-                    <div>
-                        <textarea rows="5" id="comment" placeholder="Tulis ulasan Anda Disini... (Min 50 Karakter)"
-                            style="width: 100%; padding: 8px; border-radius: 4px;" required minlength="50" maxlength="250"
-                            oninput="updateCommentCount()"></textarea>
-                        <div class="d-flex justify-content-end">
-                            <span class="text-muted" id="commentCount">0 / 250</span>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <figcaption class="blockquote-footer mt-2">
-                            Gambar yang dapat diupload (
-                            <span id="remainingImagesCount">
-                                3
-                            </span>
-                            )
-                        </figcaption>
-                        <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
-                            <i class="bi bi-camera"></i> Tambah Foto
-                            <input type="file" accept="image/*" id="imageInput" style="display: none;">
-                        </label>
-                    </div>
-                    <div class="row" id="imageRow"
-                        style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;">
-                    </div>
-                </div>
-
-
-                <div class="container">
-                    <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-between">
-                            <p>
-                                Tampilkan nama pada penilaian.
-                            </p>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="customSwitch"
-                                    onchange="toggleSwitch()">
-                                <label class="form-check-label" for="customSwitch"></label>
+                        <div class="col-md-8">
+                            <h5 id="name_prod">Nama Produk</h5>
+                            <div class="d-flex justify-content-between">
+                                <p>Kuantitas: </p>
+                                <p id="qty"></p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p>Varian: </p>
+                                <p id="varian">-</p>
                             </div>
                         </div>
-                        <span style="margin-top: -20px">
-                            <figcaption class="blockquote-footer mt-1" id="namaPenilaian">
-                                Nama yang ditampilkan adalah
-                                <cite title="Source Title">Jhon Doe</cite>
+                    </div>
+                    <hr>
+                    {{-- Star rating --}}
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <div class="rate">
+                                <input type="radio" id="star5" name="rate" value="5" />
+                                <label for="star5" title="text">5 stars</label>
+                                <input type="radio" id="star4" name="rate" value="4" />
+                                <label for="star4" title="text">4 stars</label>
+                                <input type="radio" id="star3" name="rate" value="3" />
+                                <label for="star3" title="text">3 stars</label>
+                                <input type="radio" id="star2" name="rate" value="2" />
+                                <label for="star2" title="text">2 stars</label>
+                                <input type="radio" id="star1" name="rate" value="1" />
+                                <label for="star1" title="text">1 star</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="alert" role="alert" style="background-color: #F5F5F5;">
+                        <div>
+                            <textarea rows="5" id="comment" name="text" placeholder="Tulis ulasan Anda Disini... (Min 50 Karakter)"
+                                style="width: 100%; padding: 8px; border-radius: 4px;" required minlength="50" maxlength="250"
+                                oninput="updateCommentCount()"></textarea>
+                            <div class="d-flex justify-content-end">
+                                <span class="text-muted" id="commentCount">0 / 250</span>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <figcaption class="blockquote-footer mt-2">
+                                Gambar yang dapat diupload ( <span id="remainingImagesCount"> 3 </span>)
                             </figcaption>
-                        </span>
+                            <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
+                                <i class="bi bi-camera"></i> Tambah Foto
+                                <input type="file" name="image" accept="image/*" id="imageInput"
+                                    style="display: none;">
+                            </label>
+                        </div>
+                        <div class="row" id="imageRow"
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;">
+                        </div>
+                    </div>
+
+
+                    <div class="container">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between">
+                                <p>
+                                    Tampilkan nama pada penilaian.
+                                </p>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" name="samaran" type="checkbox" id="customSwitch"
+                                        onchange="toggleSwitch()">
+                                    <label class="form-check-label" for="customSwitch"></label>
+                                </div>
+                            </div>
+                            <span style="margin-top: -20px">
+                                <figcaption class="blockquote-footer mt-1" id="namaPenilaian">
+                                    Nama yang ditampilkan adalah
+                                    <cite title="Source Title">Jhon Doe</cite>
+                                </figcaption>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <div class="d-flex justify-content-between w-100">
-                    <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
-                    <button type="button" class="btn btn-outline-secondary" onclick="handleReset()">Reset</button>
-                    <button type="button" class="btn btn-dark" onclick="handleButtonClick()">
-                        Kirim Penilaian
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between w-100">
+                        <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
+                        <button type="button" class="btn btn-outline-secondary"
+                            onclick="handleReset()">Reset</button>
+                        <button class="btn btn-dark" type="submit"> Kirim Penilaian <i
+                                class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-
+            </form>
         </div>
     </div>
 </div>
@@ -324,7 +326,7 @@
 
 
 {{-- Menampilkan modal --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $('body').on('click', '.btn-penilaian', function() {
         let name = $(this).attr('data-name')
@@ -332,13 +334,72 @@
         let image = $(this).attr('data-image')
         let qty = $(this).attr('data-qty')
         let varian = $(this).attr('data-varian')
+        let id = $(this).attr('data-id')
+        let varian_name = $(this).attr('data-varian-name')
         let modal = $('#myModal')
         modal.find('.img-product').attr('src', image)
         modal.find('#name_prod').html(name)
         modal.find('#qty').html(qty)
-        modal.find('#varian').html(varian)
+        modal.find('#varian').html(varian_name)
+        modal.find('#transaction_id').val(id)
+        modal.find('#product_id').val(product)
+        modal.find('#varian_id').val(varian)
         $('#myModal').modal('show');
         console.log("click", name, product, image, qty, varian);
+    })
+
+    $(document).ready(function() {
+
+        $('body').on('submit', '#form-rating', function(e) {
+            e.preventDefault()
+
+            $.ajax({
+                url: "{{ route('store-rating') }}",
+                method: 'POST',
+                data: new FormData(this),
+                contentType: 'application/json',
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $loaderEl.removeClass('d-none')
+                },
+                success: function(response) {
+                    $loaderEl.addClass('d-none')
+                    Swal.fire({
+                        title: 'Sucess',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(err) {
+                    $loaderEl.addClass('d-none')
+                    let message = "";
+                    const json = err.responseJSON;
+                    if (json !== undefined) {
+                        message = json.message ?? "Internal Server Error";
+                        if (json.errors !== undefined && typeof json
+                            .errors === "string") message +=
+                            `\n${json.errors}`;
+                    } else message = `[${err.status}] ${err.statusText}`;
+                    let login = "{{ route('login') }}"
+                    if (message == "Unauthenticated.") {
+                        window.location.href = login;
+                        return
+                    }
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            })
+        })
     })
 
     function handleShowModal() {}

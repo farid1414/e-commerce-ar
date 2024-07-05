@@ -385,19 +385,37 @@
                                                         {!! strlen($new->description) > 70 ? substr($new->description, 0, 70) . '...' : $new->description !!}
                                                     </p>
                                                 </div>
-                                                <div
-                                                    style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                                                    <!-- Star Rating -->
-                                                    <span style="color: gold;">
+                                                @php
+                                                    $rating = 0;
+                                                    $count = 0;
+                                                    $val = $ratings
+                                                        ->where('product_id', '=', $new->id)
+                                                        ->sum('rating_value');
+                                                    $count = $ratings->where('product_id', '=', $new->id)->count();
+                                                    if ($count > 0) {
+                                                        $rating = $val / $count;
+                                                    }
+
+                                                @endphp
+                                                @if ($count > 0)
+                                                    <div
+                                                        style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
+                                                        <!-- Star Rating -->
+                                                        <span style="color: gold;">
+                                                            @for ($i = 0; $i < $rating; $i++)
+                                                                <i class="fas fa-star" style="font-size: 11px"></i>
+                                                            @endfor
+                                                            {{-- <i class="fas fa-star" style="font-size: 11px"></i>
                                                         <i class="fas fa-star" style="font-size: 11px"></i>
                                                         <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                    </span>
-                                                    <!-- Rating Text -->
-                                                    <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
-                                                </div>
+                                                        <i class="fas fa-star" style="font-size: 11px"></i> --}}
+                                                        </span>
+                                                        <!-- Rating Text -->
+                                                        <span
+                                                            style="margin-left: 5px; font-size: 0.8rem;">{{ $rating }}
+                                                            ({{ $count }})</span>
+                                                    </div>
+                                                @endif
                                                 <br>
                                                 <!-- Price -->
                                                 <div

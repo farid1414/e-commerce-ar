@@ -254,7 +254,6 @@
                         /* You may add your own js here, this is just example */
                         document.getElementById('result-json').innerHTML += JSON.stringify(result,
                             null, 2);
-                        console.log("res", result);
                         let payment_type = result.payment_type
                         window.location.href =
                             "{{ route('transaction-success', $transaction->id) }}/" + payment_type

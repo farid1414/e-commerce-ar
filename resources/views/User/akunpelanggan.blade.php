@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Profil Pelanggan</title>
 </head>
 
@@ -58,6 +59,7 @@
 @include('user.include.style')
 
 <body>
+    @include('layouts.loader')
     <main>
         <div class="container">
 
@@ -225,12 +227,19 @@
     @include('user.include.script')
 
     @include('user.komponenuser.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <div class='d-block d-lg-none'>
         @include('user.komponenuser.bottomnavbar')
     </div>
 
     <script>
+        const $loaderEl = $("#loading");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         // Script untuk mengatur perubahan dari tampilan data ke form edit
         $(document).ready(function() {
             $('#btn-ubah').click(function() {

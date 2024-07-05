@@ -378,10 +378,8 @@
         </div>
     </div>
 
-    @include('user.include.script')
-
     @include('user.komponenuser.footer')
-
+    @include('user.include.script')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var quantity = 1; // Kuantitas awal
@@ -581,10 +579,10 @@
         })
     </script>
 
-    
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
+
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+    </div>
 </body>
 
 </html>

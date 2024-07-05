@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,8 @@
             <div class="card-body">
                 <h5 class="card-title mt-3 mb-2 text-center" style="font-size: 1.6rem;">Pembayaran Gagal.</h5>
                 <div class="text-center">
-                    <img src="../gambar/Pembayarangagal2.png" alt="Payment Failed" class="img-fluid" style="width: 300px;">
+                    <img src="{{ asset('/gambar/Pembayarangagal2.png') }}" alt="Payment Failed" class="img-fluid"
+                        style="width: 300px;">
                 </div>
                 <p class="card-text text-center">
                     Pembayaran tidak berhasil karena terjadi kesalahan. <br>
@@ -23,14 +25,15 @@
             </div>
             <div class="card-footer bg-white">
                 <div class="d-flex justify-content-between mt-2">
-                    <button onclick="handlePesanansayaClick()" class="btn btn-outline-dark">Kembali Ke Beranda</button>
-                    <button onclick="handleBerandaClick()" class="btn btn-dark">Coba Lagi</button>
+                    <a href="{{ route('index') }}" class="btn btn-outline-dark">Kembali Ke Beranda</a>
+                    <a href="{{ route('profil-pelanggan') }}" class="btn btn-dark">Coba Lagi</a>
                 </div>
             </div>
         </div>
-    </div>    
-    
+    </div>
+
     @include('user.include.script')
 
 </body>
+
 </html>
