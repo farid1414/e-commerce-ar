@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Rating;
+use App\Models\Customer;
+use Barryvdh\DomPDF\PDF;
 use App\Models\Master\Cart;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Mail\TransactionEmail;
 use App\Models\Master\Product;
 use Illuminate\Support\Carbon;
 use App\Models\Master\Category;
@@ -16,6 +19,7 @@ use App\Models\Master\MCategory;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Master\ProductFlashSale;
 
 class MainController extends Controller
@@ -469,5 +473,47 @@ class MainController extends Controller
             DB::rollBack();
             return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $customer = Customer::where('user_id', Auth::user()->id)->first();
+
+        try {
+            DB::beginTransaction();
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email
+            ]);
+            $customer->update([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'address' => $request->address ?? null
+            ]);
+            DB::commit();
+            return JSON_RESPONSE("Success, \n Update profil");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        dd($request->all(), $user);
+    }
+
+    public function invoicePelanggan(int $id)
+    {
+        $tr = Transaction::findOrFail($id);
+        return view('user.invoicepelanggan', [
+            'tr' => $tr
+        ]);
+    }
+
+    public function sendEmail(int $id)
+    {
+        $tr = Transaction::findOrFail($id);
+
+        Mail::to(Auth::user()->email)->send(new TransactionEmail($tr));
+
+        return redirect()->back();
     }
 }

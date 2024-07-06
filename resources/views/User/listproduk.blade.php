@@ -55,7 +55,7 @@
 
             <div class="container mt-5">
                 <div class="row">
-                    @foreach ($category->products as $prod)
+                    @foreach ($category->products->where('is_active', '=', true) as $prod)
                         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                             <a href="{{ route('detail-product', $prod->uuid) }}" style="text-decoration: none;">
                                 <div class="card"

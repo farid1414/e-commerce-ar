@@ -338,4 +338,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction-detail/{id?}', [MainController::class, 'detailTransaction'])->name('detail-transaction');
     Route::get('/edit-user', [MainController::class, 'editProfil'])->name('edit-profil');
     Route::post('/rating', [MainController::class, 'storeRating'])->name('store-rating');
+    Route::post('/edit-profil', [MainController::class, 'updateProfil'])->name('update-profil');
+    Route::get('/invoice-pelanggan/{transaction:id?}', [MainController::class, 'invoicePelanggan'])->name('invoice-pelanggan');
+    Route::get('/send-email/{transaction:id?}', [MainController::class, 'sendEmail'])->name('send-email');
+    Route::get('/send-pdf/{transaction:id?}', [MainController::class, 'sendPdf'])->name('send-pdf');
 });

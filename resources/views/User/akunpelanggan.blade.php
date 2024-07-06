@@ -131,70 +131,72 @@
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                     aria-labelledby="pills-home-tab" tabindex="0">
 
-                    <div class="container">
-                        {{-- Data diri --}}
-                        <h4>Data diri anda.</h4>
-                        <hr>
+                    <form action="" method="POST" id="form-profil">
+                        <div class="container">
+                            {{-- Data diri --}}
+                            <h4>Data diri anda.</h4>
+                            <hr>
 
-                        <!-- Nama -->
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p>Nama :</p>
-                            <div>
-                                <p id="nama">{{ Auth::user()->name }}</p>
-                                <input type="text" class="form-control form-control-md" id="edit-nama"
-                                    style="display: none;" value="{{ Auth::user()->name }}">
+                            <!-- Nama -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p>Nama :</p>
+                                <div>
+                                    <p id="nama">{{ Auth::user()->name }}</p>
+                                    <input type="text" name="name" class="form-control form-control-md"
+                                        id="edit-nama" style="display: none;" value="{{ Auth::user()->name }}">
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <!-- Nomor Hand Phone -->
+                            <div class="d-flex justify-content-between">
+                                <p>Nomor Hand Phone :</p>
+                                <p id="phone">{{ Auth::user()->customer->phone }}</p>
+                                <input type="text" name="phone" class="form-control" id="edit-phone"
+                                    style="display: none;" value="{{ Auth::user()->customer->phone }}">
+                            </div>
+                            <hr>
+
+                            <!-- Email -->
+                            <div class="d-flex justify-content-between">
+                                <p>Email :</p>
+                                <p id="email">{{ Auth::user()->email }}</p>
+                                <input type="email" name="email" class="form-control" id="edit-email"
+                                    style="display: none;" value="{{ Auth::user()->email }}">
+                            </div>
+                            <hr>
+
+                            <!-- Alamat -->
+                            <div class="d-flex justify-content-between">
+                                <p>Alamat :</p>
+                                <p id="alamat">{{ Auth::user()->customer->address }}</p>
+                                <textarea class="form-control" name="address" id="edit-alamat" style="display: none;">{{ Auth::user()->customer->address }}</textarea>
+                            </div>
+                            <hr>
+
+                            <!-- Password (bisa juga ditambahkan jika diperlukan) -->
+                            <div class="d-flex justify-content-between mt-4">
+                                <p>Password :</p>
+                                <p>*********************</p>
+                            </div>
+                            <hr>
+
+                            <!-- Tombol Ubah dan Simpan/Batal -->
+                            <div class="d-flex justify-content-end">
+                                <a class="btn btn-outline-dark" id="btn-ubah">
+                                    Ubah <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <a class="btn btn-outline-secondary me-5" id="btn-batal" style="display: none;">
+                                    Batal <i class="bi bi-x"></i>
+                                </a>
+                                <button class="btn btn-dark" id="btn-simpan" type="submit" style="display: none;">
+                                    Simpan <i class="bi bi-check"></i>
+                                </button>
                             </div>
                         </div>
-
-                        <hr>
-
-                        <!-- Nomor Hand Phone -->
-                        <div class="d-flex justify-content-between">
-                            <p>Nomor Hand Phone :</p>
-                            <p id="phone">{{ Auth::user()->customer->phone }}</p>
-                            <input type="text" class="form-control" id="edit-phone" style="display: none;"
-                                value="{{ Auth::user()->customer->phone }}">
-                        </div>
-                        <hr>
-
-                        <!-- Email -->
-                        <div class="d-flex justify-content-between">
-                            <p>Email :</p>
-                            <p id="email">{{ Auth::user()->email }}</p>
-                            <input type="email" class="form-control" id="edit-email" style="display: none;"
-                                value="{{ Auth::user()->email }}">
-                        </div>
-                        <hr>
-
-                        <!-- Alamat -->
-                        <div class="d-flex justify-content-between">
-                            <p>Alamat :</p>
-                            <p id="alamat">{{ Auth::user()->customer->address }}</p>
-                            <textarea class="form-control" id="edit-alamat" style="display: none;">{{ Auth::user()->customer->address }}</textarea>
-                        </div>
-                        <hr>
-
-                        <!-- Password (bisa juga ditambahkan jika diperlukan) -->
-                        <div class="d-flex justify-content-between mt-4">
-                            <p>Password :</p>
-                            <p>*********************</p>
-                        </div>
-                        <hr>
-
-                        <!-- Tombol Ubah dan Simpan/Batal -->
-                        <div class="d-flex justify-content-end">
-                            <a class="btn btn-outline-dark" id="btn-ubah">
-                                Ubah <i class="bi bi-pencil-square"></i>
-                            </a>
-
-                            <a class="btn btn-outline-secondary me-5" id="btn-batal" style="display: none;">
-                                Batal <i class="bi bi-x"></i>
-                            </a>
-                            <a class="btn btn-dark" id="btn-simpan" style="display: none;">
-                                Simpan <i class="bi bi-check"></i>
-                            </a>
-                        </div>
-                    </div>
+                    </form>
 
                 </div>
                 {{-- transaksi Belum bayar --}}
@@ -368,6 +370,56 @@
                 }
             });
         }
+
+        $('body').on('submit', '#form-profil', function(e) {
+            e.preventDefault()
+            $.ajax({
+                url: "{{ route('update-profil') }}",
+                method: 'POST',
+                data: new FormData(this),
+                contentType: 'application/json',
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $loaderEl.removeClass('d-none')
+                },
+                success: function(response) {
+                    $loaderEl.addClass('d-none')
+                    Swal.fire({
+                        title: 'Sucess',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(err) {
+                    $loaderEl.addClass('d-none')
+                    let message = "";
+                    const json = err.responseJSON;
+                    if (json !== undefined) {
+                        message = json.message ?? "Internal Server Error";
+                        if (json.errors !== undefined && typeof json
+                            .errors === "string") message +=
+                            `\n${json.errors}`;
+                    } else message = `[${err.status}] ${err.statusText}`;
+                    let login = "{{ route('login') }}"
+                    if (message == "Unauthenticated.") {
+                        window.location.href = login;
+                        return
+                    }
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            })
+        })
     </script>
 
 </body>

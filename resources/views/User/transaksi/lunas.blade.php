@@ -147,7 +147,7 @@
                         Pesanan</a>
                 </div>
                 <div class="col-auto">
-                    <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">
+                    <a href="{{ route('invoice-pelanggan', $tr->id) }}" class="btn btn-dark d-flex align-items-center">
                         Tampilkan Invoice
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-arrow-right ml-2" viewBox="0 0 16 16" style="margin-left: 20px;">

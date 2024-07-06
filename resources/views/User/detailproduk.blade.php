@@ -346,7 +346,7 @@
                                                         <div class="col">
                                                             <p style="font-size: 3rem; text-align: center;">
                                                                 @if ($count > 0)
-                                                                    {{ $val / $count }}
+                                                                    {{ number_format($val / $count, 1) }}
                                                                 @else
                                                                     0
                                                                 @endif <span
@@ -381,9 +381,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="col">
-                                                            @foreach ($ratingCounts as $star => $count)
+                                                            @foreach ($ratingCounts as $star => $cnt)
                                                                 @php
-                                                                    $percentage = $count ? ($count / $count) * 100 : 0;
+                                                                    $percentage = $count ? ($cnt / $count) * 100 : 0;
                                                                 @endphp
                                                                 <div class="d-flex align-items-center">
                                                                     <span
@@ -398,51 +398,6 @@
                                                                     </div>
                                                                 </div>
                                                             @endforeach
-                                                            {{-- <div class="d-flex align-items-center">
-                                                                <span style="margin-right: 5px;">5</span>
-                                                                <div class="progress flex-grow-1 mb-2">
-                                                                    <div class="progress-bar bg-dark"
-                                                                        role="progressbar" style="width: 100%;"
-                                                                        aria-valuenow="100" aria-valuemin="0"
-                                                                        aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div> --}}
-                                                            {{-- <div class="d-flex align-items-center">
-                                                                <span style="margin-right: 5px;">4</span>
-                                                                <div class="progress flex-grow-1 mb-2">
-                                                                    <div class="progress-bar bg-dark"
-                                                                        role="progressbar" style="width: 75%;"
-                                                                        aria-valuenow="75" aria-valuemin="0"
-                                                                        aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <span style="margin-right: 5px;">3</span>
-                                                                <div class="progress flex-grow-1 mb-2">
-                                                                    <div class="progress-bar bg-dark"
-                                                                        role="progressbar" style="width: 50%;"
-                                                                        aria-valuenow="50" aria-valuemin="0"
-                                                                        aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <span style="margin-right: 5px;">2</span>
-                                                                <div class="progress flex-grow-1 mb-2">
-                                                                    <div class="progress-bar bg-dark"
-                                                                        role="progressbar" style="width: 25%;"
-                                                                        aria-valuenow="25" aria-valuemin="0"
-                                                                        aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex align-items-center">
-                                                                <span style="margin-right: 5px;">1</span>
-                                                                <div class="progress flex-grow-1 mb-2">
-                                                                    <div class="progress-bar bg-dark"
-                                                                        role="progressbar" style="width: 0%;"
-                                                                        aria-valuenow="0" aria-valuemin="0"
-                                                                        aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                     <div class="d-flex justify-content-between"
