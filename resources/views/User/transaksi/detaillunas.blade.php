@@ -108,6 +108,8 @@
                 </div>
             </div>
         @endforeach
+
+        <hr>
         <div class="mt-4 mb-4">
             <h4 class="fw-bold" style="font-size: 1.4rem;">Penilaian & Ulasan Anda.</h4>
             <div class="accordion" id="accordionExample">
@@ -121,7 +123,60 @@
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <Ulasanprodukdihalamandetailpesananlunas />
+                            <div class="d-flex justify-content-between mb-1">
+                                <h5>Jhon Doe 1</h5>
+                                <span class="text-muted" style="font-size: 0.85rem;">
+                                  10/03/2023
+                                </span>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <span class="checked" style="font-size: 1.3rem; color: gold;">★</span>
+                                  <span class="checked" style="font-size: 1.3rem; color: gold;">★</span>
+                                  <span class="checked" style="font-size: 1.3rem; color: gold;">★</span>
+                                  <span class="checked" style="font-size: 1.3rem; color: gold;">★</span>
+                                  <span class="checked" style="font-size: 1.3rem; color: gold;">★</span>
+                                </div>
+                              </div>
+                              <p class="mt-2 text-muted">Varian : Biru</p>
+                            
+                              <div class="row mt-3 d-flex flex-wrap">
+                                <div class="col-xs-4 col-md-4 col-lg-2 mb-3">
+                                  <div class="image-container" onclick="handleImageClick('../gambar/product-2.jpg')">
+                                    <img src="../gambar/product-2.jpg" class="img-fluid rounded" />
+                                  </div>
+                                </div>
+                                <div class="col-xs-4 col-md-4 col-lg-2 mb-3">
+                                  <div class="image-container" onclick="handleImageClick('../gambar/product-5.jpg')">
+                                    <img src="../gambar/product-5.jpg" class="img-fluid rounded" />
+                                  </div>
+                                </div>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac scelerisque arcu, et placerat velit.
+                                Phasellus in nisl nisi. Nullam varius purus id justo posuere mollis.
+                              </p>
+                              <div class="d-flex justify-content-end">
+                                <button onclick="toggleCollapse()" aria-controls="example-collapse-text" aria-expanded="false" class="btn btn-outline-dark">
+                                 Lihat Balasan <span id="collapse-icon"></span>
+                                </button>
+                              </div>
+                              <div id="example-collapse-text" style="display: none;">
+                                <div class="card mt-3">
+                                  <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                      <h5>
+                                        AR-Furniture <span class="badge text-bg-dark" style="font-size: 0.7rem;">Penjual</span>
+                                      </h5>
+                                      <p class="text-muted" style="font-size: 0.85rem;">
+                                        08/03/2023
+                                      </p>
+                                    </div>
+                                    Terima kasih atas penilaian anda, semoga produknya awet.
+                                  </div>
+                                </div>
+                              </div>
+
                         </div>
                     </div>
                 </div>
@@ -144,3 +199,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    function handleImageClick(imageSrc) {
+      // Implement the function to handle image click
+    }
+  
+    function toggleCollapse() {
+      var collapseText = document.getElementById('example-collapse-text');
+      var collapseIcon = document.getElementById('collapse-icon');
+      if (collapseText.style.display === 'none') {
+        collapseText.style.display = 'block';
+        collapseIcon.innerHTML = '▲';
+      } else {
+        collapseText.style.display = 'none';
+        collapseIcon.innerHTML = '▼';
+      }
+    }
+  </script>

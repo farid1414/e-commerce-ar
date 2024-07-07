@@ -129,41 +129,56 @@
         </div>
         <hr>
         <!-- Baris tombol -->
-        {{-- <div class="container">
+        <div class="container">
             <div class="row justify-content-between">
-                <div class="col-auto">
-                    <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#cancelOrderModal">
-                        Batalkan Pesanan
-                    </button>
-                </div>
-                <div class="col-auto">
-                    <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">
-                        Bayar Pesanan
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right ml-2" viewBox="0 0 16 16" style="margin-left: 20px;">
-                            <path fill-rule="evenodd"
-                                d="M9.5 1.5a.5.5 0 01.5.5v4a.5.5 0 01-1 0v-3h-3a.5.5 0 010-1h4a.5.5 0 01.5.5z" />
-                            <path fill-rule="evenodd"
-                                d="M9.293 1.207a.5.5 0 01.708 0l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L12.793 6H1.5a.5.5 0 010-1h11.293L9.293 2.707a.5.5 0 010-.708z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div> --}}
-
-        <div class="modal-footer">
-            <div class="d-flex justify-content-end w-100">
-                <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
-                <button type="button" class="btn btn-info" data-id="{{ $tr->id }}"
-                    data-token="{{ $tr->snap_token }}" id="bayar">
-                    Bayar
-                    <i class="fas fa-arrow-right ml-2"></i>
+              <div class="col-auto">
+                <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#cancelOrderModal">
+                  Batalkan Pesanan
                 </button>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-dark" data-id="{{ $tr->id }}" data-token="{{ $tr->snap_token }}" id="bayar">
+                  Bayar
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
             </div>
-        </div>
+          </div>
+          
+
+    
+          <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="cancelOrderModalLabel">Konfirmasi Pembatalan</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="cancelReason">Alasan Pembatalan</label>
+                      <select class="form-control" id="cancelReason">
+                        <option value="" selected disabled >Pilih alasan</option>
+                        <option value="not_needed">Ingin merubah rincian & membuat pesanan baru.</option>
+                        <option value="ordered_mistake">Lainnya/berubah pikiran.</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                  <button type="button" class="btn btn-danger">Batalkan Pesanan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
     </div>
 @empty
     <h3 class="text-center">Tidak ada produk</h3>

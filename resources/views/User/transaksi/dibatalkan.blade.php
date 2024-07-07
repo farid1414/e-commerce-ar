@@ -132,24 +132,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-success mr-2" onclick="handleShowModal()">
-                        Beri Penilaian
-                    </button>
-                </div>
-                <div class="col-auto">
-                    <a href="/Invoicepesanan" class="btn btn-dark d-flex align-items-center">
-                        Tampilkan Invoice
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right ml-2" viewBox="0 0 16 16" style="margin-left: 20px;">
-                            <path fill-rule="evenodd"
-                                d="M9.5 1.5a.5.5 0 01.5.5v4a.5.5 0 01-1 0v-3h-3a.5.5 0 010-1h4a.5.5 0 01.5.5z" />
-                            <path fill-rule="evenodd"
-                                d="M9.293 1.207a.5.5 0 01.708 0l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L12.793 6H1.5a.5.5 0 010-1h11.293L9.293 2.707a.5.5 0 010-.708z" />
-                        </svg>
-                    </a>
+                    <a href="{{ ROUTE KE DETAIL PESANAN DI BATALKAN }}" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
                 </div>
             </div>
         </div>
