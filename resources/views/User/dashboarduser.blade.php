@@ -564,7 +564,7 @@
                                             melalui smartphone yang dapat menjalankan teknologi AR.
                                         </div>
                                         <div data-aos="fade-up" data-aos-delay="200">
-                                            <a href="/KategoriSC" class="btn btn-dark btn-lg"
+                                            <a href="{{ route('category-all') }}" class="btn btn-dark btn-lg"
                                                 style="border-radius: 100px; margin-bottom: 100px;">
                                                 Coba Pada Produk Lain
                                                 <i class="fas fa-arrow-right ml-2"></i>

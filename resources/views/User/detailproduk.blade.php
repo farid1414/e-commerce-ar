@@ -490,43 +490,43 @@
                                                                     </div>
                                                                     <p>{!! $rating->text_value !!}</p>
 
-                                                                    <div id="balasan">
-                                                                        <div class="d-flex justify-content-end">
-                                                                            <button class="btn btn-outline-dark "
-                                                                                type="button"
-                                                                                data-bs-toggle="collapse"
-                                                                                data-bs-target="#example-collapse-text_{{ $index }}"
-                                                                                aria-expanded="false"
-                                                                                aria-controls="example-collapse-text_{{ $index }}">
-                                                                                Lihat Balasan <i
-                                                                                    class="bi bi-chevron-down"></i>
-                                                                            </button>
-                                                                        </div>
+                                                                    @if ($rating->balasan)
+                                                                        <div id="balasan">
+                                                                            <div class="d-flex justify-content-end">
+                                                                                <button class="btn btn-outline-dark "
+                                                                                    type="button"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    data-bs-target="#example-collapse-text_{{ $index }}"
+                                                                                    aria-expanded="false"
+                                                                                    aria-controls="example-collapse-text_{{ $index }}">
+                                                                                    Lihat Balasan <i
+                                                                                        class="bi bi-chevron-down"></i>
+                                                                                </button>
+                                                                            </div>
 
-                                                                        <div id="example-collapse-text_{{ $index }}"
-                                                                            class="collapse">
-                                                                            <div class="card mt-3">
-                                                                                <div class="card-body">
-                                                                                    <div
-                                                                                        class="d-flex justify-content-between">
-                                                                                        <h5 class="card-title">
-                                                                                            AR-Furniture
-                                                                                            <span class="badge bg-dark"
-                                                                                                style="font-size: 0.7rem;">Penjual</span>
-                                                                                        </h5>
-                                                                                        <p class="text-muted"
-                                                                                            style="font-size: 0.85rem;">
-                                                                                            08/03/2023
-                                                                                        </p>
+                                                                            <div id="example-collapse-text_{{ $index }}"
+                                                                                class="collapse">
+                                                                                <div class="card mt-3">
+                                                                                    <div class="card-body">
+                                                                                        <div
+                                                                                            class="d-flex justify-content-between">
+                                                                                            <h5 class="card-title">
+                                                                                                AR-Furniture
+                                                                                                <span
+                                                                                                    class="badge bg-dark"
+                                                                                                    style="font-size: 0.7rem;">Penjual</span>
+                                                                                            </h5>
+                                                                                            <p class="text-muted"
+                                                                                                style="font-size: 0.85rem;">
+                                                                                                {{ $rating->balasan->created_at }}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        {!! $rating->balasan->balasan !!}
                                                                                     </div>
-                                                                                    Terima kasih atas penilaian anda,
-                                                                                    semoga
-                                                                                    produknya
-                                                                                    awet.
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <hr>
                                                             @endforeach
@@ -534,55 +534,7 @@
                                                         @else
                                                             <p class="text-center">Tidak ada rating</p>
                                                         @endif
-
-                                                        {{-- <div class="d-flex justify-content-between mb-1">
-                                                            <h5 class="card-title">J********E</h5>
-                                                            <span class="text-muted"
-                                                                style="font-size: 0.85rem;">08/03/2023</span>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="d-flex justify-content-start">
-                                                                    <i class="bi bi-star-fill"
-                                                                        style="font-size: 1.3rem; color: gold;"></i>
-                                                                    <i class="bi bi-star-fill"
-                                                                        style="font-size: 1.3rem; color: gold;"></i>
-                                                                    <i class="bi bi-star-fill"
-                                                                        style="font-size: 1.3rem; color: gold;"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                                    class="img-fluid" alt="Product 1"
-                                                                    style="max-height: 100px">
-                                                            </div>
-                                                        </div>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Aliquam ac scelerisque arcu, et placerat velit. Phasellus in
-                                                            nisl nisi. Nullam varius purus id justo posuere mollis.
-                                                        </p> --}}
                                                         <hr />
-
-                                                        {{-- <nav aria-label="Page navigation example">
-                                                            <ul class="pagination justify-content-end">
-                                                                <li class="page-item disabled">
-                                                                    <a class="page-link">Previous</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link"
-                                                                        href="#">1</a></li>
-                                                                <li class="page-item"><a class="page-link"
-                                                                        href="#">2</a></li>
-                                                                <li class="page-item"><a class="page-link"
-                                                                        href="#">3</a></li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#">Next</a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav> --}}
-
                                                     </div>
 
                                                 </div>

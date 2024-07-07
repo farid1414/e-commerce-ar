@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Master\Product;
 use App\Models\Master\ProductVarian;
+use App\Models\Master\RatingBalasan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,5 +34,20 @@ class Rating extends Model
     {
 
         return $this->belongsTo(ProductVarian::class, 'varian_id', 'id');
+    }
+
+    public function dateFull()
+    {
+        return date_format(date_create($this->created_at), 'd-m-Y H:i:s');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function balasan()
+    {
+        return $this->hasOne(RatingBalasan::class, 'rating_id');
     }
 }

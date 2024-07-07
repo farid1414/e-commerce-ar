@@ -131,58 +131,59 @@
         <!-- Baris tombol -->
         <div class="container">
             <div class="row justify-content-between">
-              <div class="col-auto">
-                <a href="/DetailPesananUserLunas" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
-              </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#cancelOrderModal">
-                  Batalkan Pesanan
-                </button>
-              </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-dark" data-id="{{ $tr->id }}" data-token="{{ $tr->snap_token }}" id="bayar">
-                  Bayar
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-              </div>
+                <div class="col-auto">
+                    <a href="{{ route('detail-transaction', $tr->id) }}" class="btn btn-outline-dark mb-3">Detail
+                        Pesanan</a>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger mr-2 cancel-pesanan" data-id="{{ $tr->id }}">
+                        Batalkan Pesanan
+                    </button>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-dark" data-id="{{ $tr->id }}"
+                        data-token="{{ $tr->snap_token }}" id="bayar">
+                        Bayar
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
             </div>
-          </div>
-          
-
-    
-          <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="cancelOrderModalLabel">Konfirmasi Pembatalan</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group">
-                      <label for="cancelReason">Alasan Pembatalan</label>
-                      <select class="form-control" id="cancelReason">
-                        <option value="" selected disabled >Pilih alasan</option>
-                        <option value="not_needed">Ingin merubah rincian & membuat pesanan baru.</option>
-                        <option value="ordered_mistake">Lainnya/berubah pikiran.</option>
-                      </select>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                  <button type="button" class="btn btn-danger">Batalkan Pesanan</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+        </div>
     </div>
 @empty
     <h3 class="text-center">Tidak ada produk</h3>
 @endforelse
+
+<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelOrderModalLabel">Konfirmasi Pembatalan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" id="form-reason">
+                <div class="modal-body">
+                    <input type="hidden" readonly name="transaction_id" id="transaction_id">
+                    <div class="form-group">
+                        <label for="cancelReason">Alasan Pembatalan</label>
+                        <select class="form-control" required name="reason" id="cancelReason">
+                            <option value="" selected disabled>Pilih alasan</option>
+                            <option value="not_needed">Ingin merubah rincian & membuat pesanan baru.</option>
+                            <option value="ordered_mistake">Lainnya/berubah pikiran.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-danger">Batalkan Pesanan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <pre><div id="result-json"><br></div></pre>
 
 
@@ -257,6 +258,12 @@
                     "{{ route('transaction-failed') }}/" + id
             }
         });
+    })
+
+    $('body').on('click', '.cancel-pesanan', function() {
+        let id = $(this).attr('data-id')
+        $('#cancelOrderModal').find('#transaction_id').val(id)
+        $('#cancelOrderModal').modal('show')
     })
 </script>
 

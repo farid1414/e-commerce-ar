@@ -1,4 +1,4 @@
-@forelse ($transaction->where('status', '=', -1) as $tr)
+@forelse ($transaction->where('status', '=', -1) as $index => $tr)
     <div class="card mt-3">
         <div class="card-header bg-dark text-white">
             <div class="row">
@@ -18,8 +18,8 @@
                     </h5>
                 </div>
                 <div class="col-auto">
-                    <button onclick="toggleCollapse('collapse2')" class="btn btn-light collapse-button"
-                        style="border-radius: 15px;">
+                    <button onclick="toggleCollapse('collapse_{{ $index }}')"
+                        class="btn btn-light collapse-button" style="border-radius: 15px;">
                         <svg class="bi bi-chevron-up" width="30" height="30" fill="currentColor"
                             viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="collapse" id="collapse2">
+    <div class="collapse" id="collapse_{{ $index }}">
         <br>
         <p class="p-3 bg-secondary text-white text-center" style="border-radius: 3px;">Pesanan Dibatalkan</p>
         <div class="card mb-3">
@@ -132,7 +132,8 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <a href="{{ ROUTE KE DETAIL PESANAN DI BATALKAN }}" class="btn btn-outline-dark mb-3">Detail Pesanan</a>
+                    <a href="{{ route('detail-transaction', $tr->id) }}" class="btn btn-outline-dark mb-3">Detail
+                        Pesanan</a>
                 </div>
             </div>
         </div>

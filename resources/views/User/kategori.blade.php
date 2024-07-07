@@ -25,9 +25,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col" data-aos="fade-up-right">
-                            <a href="/Kategoriground">
+                            <a href="{{ route('category-user', 'dataran') }}">
                                 <div style="position: relative; overflow: hidden; border-radius: 12px;">
-                                    <img class="img-fluid" src="../gambar/testbg.png" alt="" />
+                                    <img class="img-fluid" src="{{ asset('/gambar/testbg.png') }}" alt="" />
                                     <div
                                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); border-radius: 10px;">
                                     </div>
@@ -45,9 +45,9 @@
                             </a>
                         </div>
                         <div class="col" data-aos="fade-up-left">
-                            <a href="/Kategoridinding">
+                            <a href="{{ route('category-user', 'dinding') }}">
                                 <div style="position: relative; overflow: hidden; border-radius: 12px;">
-                                    <img class="img-fluid" src="../gambar/testbg2.png" alt=""
+                                    <img class="img-fluid" src="{{ asset('/gambar/testbg2.png') }}" alt=""
                                         style="border-radius: 20px;" />
                                     <div
                                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); border-radius: 10px;">
@@ -74,7 +74,7 @@
             <div class='d-block d-lg-none'>
                 @include('user.komponenuser.bottomnavbar')
             </div>
-            
+
 </body>
 
 </html>

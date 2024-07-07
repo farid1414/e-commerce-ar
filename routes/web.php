@@ -7,6 +7,7 @@ use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\FlashSaleController;
 use App\Http\Controllers\Master\ProductController;
 use App\Http\Controllers\Master\ProfilController;
+use App\Http\Controllers\Master\RatingController;
 use App\Http\Controllers\Master\TransaksiController;
 
 // auth
@@ -207,9 +208,9 @@ Route::get('admin/detailakunpelanggan', function () {
 
 
 // Rating dan ulasan
-Route::get('admin/ratingdanulasan', function () {
-    return view('admin.ratingdanulasan');
-});
+// Route::get('admin/ratingdanulasan', function () {
+//     return view('admin.ratingdanulasan');
+// });
 
 
 // Transaksi
@@ -305,6 +306,12 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('/failed', [TransaksiController::class, 'failed'])->name('failed');
         Route::get('/detail/{id?}', [TransaksiController::class, 'detail'])->name('detail');
     });
+
+    Route::prefix('/rating-ulasan')->name('rating.')->group(function () {
+        Route::get('/', [RatingController::class, 'index'])->name('index');
+        Route::get('/data-rating', [RatingController::class, 'data'])->name('data');
+        Route::post('/balsan-rating', [RatingController::class, 'balasanRating'])->name('balasan');
+    });
 });
 
 
@@ -321,7 +328,7 @@ Route::get('/product-category/{id?}', [MainController::class, 'prodCat'])->name(
 Route::get('/product', [MainController::class, 'product'])->name('product');
 Route::get('/pencarian', [MainController::class, 'pencarian'])->name('pencarian');
 Route::get('/search-product', [MainController::class, 'searchProd'])->name('search-prod');
-
+Route::get('/category', [MainController::class, 'category'])->name('category-all');
 Route::get('/order-product', [MainController::class, 'orderProd'])->name('order-product');
 
 // ===== Routing user  ======
@@ -342,4 +349,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/invoice-pelanggan/{transaction:id?}', [MainController::class, 'invoicePelanggan'])->name('invoice-pelanggan');
     Route::get('/send-email/{transaction:id?}', [MainController::class, 'sendEmail'])->name('send-email');
     Route::get('/send-pdf/{transaction:id?}', [MainController::class, 'sendPdf'])->name('send-pdf');
+    Route::post('/batalkan-pesanan', [MainController::class, 'batalkanPesanan'])->name('batalkan-pesanan');
 });

@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/ratingdanulasan">
+                    <a href="{{ route('master.rating.index') }}">
                         <i class="bi bi-circle"></i><span>Rating & Ulasan</span>
                     </a>
                 </li>

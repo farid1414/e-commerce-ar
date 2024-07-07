@@ -16,6 +16,11 @@ class Transaction extends Model
         'deleted_at',
     ];
 
+    const REASON = [
+        'not_needed' => "Ingin merubah rincian & membuat pesanan baru",
+        'ordered_mistake' => "Lainnya/berubah pikiran."
+    ];
+
     public function created_date()
     {
         return date_format(date_create($this->created_at), 'd-m-Y H:i:s');
@@ -33,5 +38,10 @@ class Transaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function rating()
+    {
+        return $this->hasMany(Rating::class, 'transaction_id', 'id');
     }
 }

@@ -52,7 +52,7 @@
                 </div>
             </div>
             <br>
-
+    
             <div class="container mt-5">
                 <div class="row">
                     @foreach ($category->products->where('is_active', '=', true) as $prod)

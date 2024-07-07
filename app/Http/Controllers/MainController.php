@@ -32,7 +32,7 @@ class MainController extends Controller
             $query->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime);
         })->with('productFlashSale')->first();
-        $ratings = Rating::get();
+        $ratings = Rating::orderBy('created_at', 'asc')->get();
         return view('user.dashboarduser', [
             'flash_sale' => $flashsale,
             'newProducts' => $product->orderBy('created_at', 'desc')->get()->take(4),
@@ -40,10 +40,15 @@ class MainController extends Controller
         ]);
     }
 
+    public function category()
+    {
+        return view('user.kategori');
+    }
+
     public function detailProduct(string $uuid)
     {
         $product = Product::firstWhere('uuid', $uuid);
-        $ratings = Rating::where('product_id', $product->id)->paginate(10);
+        $ratings = Rating::where('product_id', $product->id)->with('balasan')->orderBy('created_at', 'asc')->paginate(10);
 
         // return view('user.detailproduk', [
         //     'product' => $product,
@@ -115,6 +120,7 @@ class MainController extends Controller
         // $product = Product::where('name', 'like', '%' . $req . '%')->get();
         $product = DB::table('products')
             ->join('categories', 'products.categori_id', '=', 'categories.id')
+            ->where('is_active', '=', true)
             ->where('products.name', 'like', '%' . $req . '%')
             ->orWhere('categories.name', 'like', '%' . $req . '%')
             ->orWhere('products.sub_name', 'like', '%' . $req . '%')
@@ -131,6 +137,7 @@ class MainController extends Controller
         $req = $request->input('search');
         if ($req) {
             $product = Product::query()
+                ->where('is_active', '=', true)
                 ->join('categories', 'products.categori_id', '=', 'categories.id')
                 ->where('products.name', 'like', '%' . $req . '%')
                 ->orWhere('categories.name', 'like', '%' . $req . '%')
@@ -155,7 +162,7 @@ class MainController extends Controller
     public function product(Request $request)
     {
         $req = $request->input('data');
-        $prod = Product::query();
+        $prod = Product::query()->where('is_active', '=', true);
         if ($req == 'terbaru') {
             $prod =  $prod->orderBy('created_at');
         } else if ($req == 'harga_tertinggi') {
@@ -172,7 +179,7 @@ class MainController extends Controller
     {
         $search = $req = $request->input('search');
         $req = $request->input('data');
-        $prod = Product::select('products.*');
+        $prod = Product::select('products.*')->where('is_active', '=', true);
         // $prod = DB::table('products');
         if ($search) {
             $prod = $prod->join('categories', 'products.categori_id', '=', 'categories.id')
@@ -437,9 +444,13 @@ class MainController extends Controller
     public function detailTransaction(int $id)
     {
         $transaction = Transaction::findOrFail($id);
+        $reason = Transaction::REASON;
+        $rating = Rating::get();
 
         return view('user.detailtransaksi', [
-            'transaction' => $transaction
+            'transaction' => $transaction,
+            'reason' => $reason,
+            'rating' => $rating
         ]);
     }
 
@@ -497,7 +508,6 @@ class MainController extends Controller
             DB::rollBack();
             return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-        dd($request->all(), $user);
     }
 
     public function invoicePelanggan(int $id)
@@ -515,5 +525,19 @@ class MainController extends Controller
         Mail::to(Auth::user()->email)->send(new TransactionEmail($tr));
 
         return redirect()->back();
+    }
+
+    public function batalkanPesanan(Request $request)
+    {
+        $tr = Transaction::findOrFail($request->transaction_id);
+        try {
+            DB::beginTransaction();
+            $tr->update(['status' => -1, 'reason' => $request->reason]);
+            DB::commit();
+            return JSON_RESPONSE("Succes batalkan pesanan");
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed checkout ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

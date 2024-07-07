@@ -420,6 +420,56 @@
                 }
             })
         })
+
+        $('body').on('submit', '#form-reason', function(e) {
+            e.preventDefault()
+            $.ajax({
+                url: "{{ route('batalkan-pesanan') }}",
+                method: 'POST',
+                data: new FormData(this),
+                contentType: 'application/json',
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $loaderEl.removeClass('d-none')
+                },
+                success: function(response) {
+                    $loaderEl.addClass('d-none')
+                    Swal.fire({
+                        title: 'Sucess',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(err) {
+                    $loaderEl.addClass('d-none')
+                    let message = "";
+                    const json = err.responseJSON;
+                    if (json !== undefined) {
+                        message = json.message ?? "Internal Server Error";
+                        if (json.errors !== undefined && typeof json
+                            .errors === "string") message +=
+                            `\n${json.errors}`;
+                    } else message = `[${err.status}] ${err.statusText}`;
+                    let login = "{{ route('login') }}"
+                    if (message == "Unauthenticated.") {
+                        window.location.href = login;
+                        return
+                    }
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            })
+        })
     </script>
 
 </body>
