@@ -121,17 +121,18 @@
                         <div class="form-group mb-4" id="gambarThumbnail">
                             <label for="thumbnail">Gambar Thumbnail</label>
                             <input type="file" name="thumbnail" accept="image/*" class="form-control" id="thumbnail"
-                                   onchange="handleGambarThumbnailChange(event)"
-                                   @if (!$edit) required @endif>
+                                onchange="handleGambarThumbnailChange(event)"
+                                @if (!$edit) required @endif>
                             <figcaption class="blockquote-footer mt-2">
-                                Sisa gambar Thumbnail yang dapat diupload (<span id="remainingThumbnailCount">{{ $edit && $product->thumbnail ? 0 : 1 }}</span>)
+                                Sisa gambar Thumbnail yang dapat diupload (<span
+                                    id="remainingThumbnailCount">{{ $edit && $product->thumbnail ? 0 : 1 }}</span>)
                             </figcaption>
                             <div id="thumbnailPreview" class="position-relative">
                                 @if ($edit && $product->thumbnail)
                                     <img src="{{ url($product->thumbnail) }}" alt="preview thumbnail"
-                                         style="max-width: 30%; cursor: pointer; border-radius: 10px; overflow: hidden; margin-top: 10px;">
+                                        style="max-width: 30%; cursor: pointer; border-radius: 10px; overflow: hidden; margin-top: 10px;">
                                     <button class="btn btn-danger btn-sm"
-                                            style="position: absolute; top: 10px; right: 8px;" onclick="removeImage()">
+                                        style="position: absolute; top: 10px; right: 8px;" onclick="removeImage()">
                                         <i class="fas fa-times"></i>
                                     </button>
                                     <script>
@@ -141,26 +142,27 @@
                                 @endif
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group mb-1" id="gambarPendukung">
                             <label for="pendukung">Gambar Pendukung (Maksimal 10)</label>
                             <input type="file" class="form-control" name="image[]" accept="image/*" id="pendukung"
-                                   multiple onchange="handleGambarPendukungChange(event)"
-                                   @if (!$edit) required @endif>
+                                multiple onchange="handleGambarPendukungChange(event)"
+                                @if (!$edit) required @endif>
                             <figcaption class="blockquote-footer mt-2">
-                                Sisa gambar pendukung yang dapat diupload (<span id="remainingPendukungCount">{{ $edit && $product->images->count() ? 10 - $product->images->count() : 10 }}</span>)
+                                Sisa gambar pendukung yang dapat diupload (<span
+                                    id="remainingPendukungCount">{{ $edit && $product->images->count() ? 10 - $product->images->count() : 10 }}</span>)
                             </figcaption>
                             <div id="pendukungPreview" class="d-flex flex-wrap">
                                 @if ($edit && $product->images->count())
                                     @foreach ($product->images as $img)
                                         <img src="{{ url($img->image) }}" alt="preview image"
-                                             style="max-width: 19%; cursor: pointer; object-fit: cover; position: relative; margin-top: 10px; margin-right: 10px;">
+                                            style="max-width: 19%; cursor: pointer; object-fit: cover; position: relative; margin-top: 10px; margin-right: 10px;">
                                     @endforeach
                                 @endif
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -214,48 +216,54 @@
 
             <div id="contentLivePreviewARDataran" style="display: none;">
                 <model-viewer id="color" src="" ios-src=""
-                skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
-                ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto" skybox-height="1.8m"
-                shadow-intensity="1" camera-controls touch-action="pan-y" ar-placement="floor"
-                tone-mapping="neutral" style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
-  
-    <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
-      <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
-      <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
-      <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
-      <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
-      <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
-      <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1" data-normal="0 1 0"></button>
-      <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
-      <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
-      <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
-      <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>
-      <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="dimensionLineContainer">
-          <line class="dimensionLine"></line>
-          <line class="dimensionLine"></line>
-          <line class="dimensionLine"></line>
-          <line class="dimensionLine"></line>
-          <line class="dimensionLine"></line>
-      </svg>
+                    skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
+                    ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto" skybox-height="1.8m"
+                    shadow-intensity="1" camera-controls touch-action="pan-y" ar-placement="floor"
+                    tone-mapping="neutral" style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
 
-      <div id="controls" class="dim d-none" style="height: 40px">
-          <label for="show-dimensions">Tampilkan Dimensi:</label>
-          <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
-      </div>
-      <div class="d-flex justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
-          <span id="arSupportBadge" class="badge" style="font-size: 15px;"></span>
-      </div>
-      <div class="controls" id="color-controls" style="position: absolute; left: 10px; top: 10px;">
-          <div class="dropdown">
-              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                  <span id="selectedColor">Pilih Warna :</span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
+                    <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
+                    <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1"
+                        data-normal="1 0 0"></button>
+                    <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
+                    <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
+                    <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
+                    <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1"
+                        data-normal="0 1 0"></button>
+                    <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
+                    <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1"
+                        data-normal="-1 0 0"></button>
+                    <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
+                    <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1"
+                        data-normal="-1 0 0"></button>
+                    <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                        class="dimensionLineContainer">
+                        <line class="dimensionLine"></line>
+                        <line class="dimensionLine"></line>
+                        <line class="dimensionLine"></line>
+                        <line class="dimensionLine"></line>
+                        <line class="dimensionLine"></line>
+                    </svg>
 
-              </ul>
-          </div>
-      </div>
-  </model-viewer>
+                    <div id="controls" class="dim d-none" style="height: 40px">
+                        <label for="show-dimensions">Tampilkan Dimensi:</label>
+                        <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
+                    </div>
+                    <div class="d-flex justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
+                        <span id="arSupportBadge" class="badge" style="font-size: 15px;"></span>
+                    </div>
+                    <div class="controls" id="color-controls" style="position: absolute; left: 10px; top: 10px;">
+                        <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span id="selectedColor">Pilih Warna :</span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                            </ul>
+                        </div>
+                    </div>
+                </model-viewer>
 
                 <br>
                 <button id="toggleRangeInputButton" type="button" class="btn btn-primary">Atur intensitas bayangan objek
@@ -898,6 +906,24 @@
             }
         };
 
+        let customDimensions = {
+            // "[1, 0, 0, 1]": { // Dimensi Merah
+            //     Panjang: "4001 cm",
+            //     'Tinggi 1': "4400 cm",
+            //     'Tinggi 2': "4400 cm",
+            //     Lebar: "14400 cm",
+            //     'Lebar 2': "14400 cm",
+            // },
+            // "[0, 0, 1, 1]": { // Dimensi Biru
+            //     Panjang: "5001 cm",
+            //     'Tinggi 1': "5002 cm",
+            //     'Tinggi 2': "5002 cm",
+            //     Lebar: "1503 cm",
+            //     'Lebar 2': "1503 cm",
+            // }
+        };
+
+
         // Function to handle Live Preview button click
         const handleLivePreviewClick = () => {
             let mCat = "{{ $mCat->name }}";
@@ -937,17 +963,40 @@
                 $.each($('#parent-varian #varian'), function(i, item) {
                     let title = $(item).find('#name_varian').val()
                     let warna = $(item).find('#warna_varian').val()
-                    // html += `<li><button class="dropdown-item" data-color="${warna}">${title}</button></li>`
+                    html += `<li><button class="dropdown-item" data-color="${warna}">${title}</button></li>`
 
-
-                    
                     // Data Dummy untuk Test Dimensi Pervarian
-                    html += `  <li><button class="dropdown-item" data-color="[1, 0, 0, 1]">Test Merah</button></li>
-                                <li><button class="dropdown-item" data-color="[0, 0, 1, 1]">Test Biru</button></li>  `
+                    // html += `  <li><button class="dropdown-item" data-color="[1, 0, 0, 1]">Test Merah</button></li>
+                //             <li><button class="dropdown-item" data-color="[0, 0, 1, 1]">Test Biru</button></li>`
 
+                    let panjangVar = $('input[name="panjang_varian[]"]').eq(i).val();
+                    let lebarVar = $('input[name="lebar_varian[]"]').eq(i).val();
+                    let tinggiVar = $('input[name="tinngi_varian[]"]').eq(i).val();
 
+                    customDimensions[warna] = {
+                        Panjang: `${panjangVar} cm`,
+                        'Tinggi 1': `${tinggiVar} cm`,
+                        'Tinggi 2': `${tinggiVar} cm`,
+                        Lebar: `${lebarVar} cm`,
+                        'Lebar 2': `${lebarVar} cm`,
+                    }
 
-
+                    // const customDimensions = {
+                    //     "[1, 0, 0, 1]": { // Dimensi Merah
+                    //         Panjang: "4001 cm",
+                    //         'Tinggi 1': "4400 cm",
+                    //         'Tinggi 2': "4400 cm",
+                    //         Lebar: "14400 cm",
+                    //         'Lebar 2': "14400 cm",
+                    //     },
+                    //     "[0, 0, 1, 1]": { // Dimensi Biru
+                    //         Panjang: "5001 cm",
+                    //         'Tinggi 1': "5002 cm",
+                    //         'Tinggi 2': "5002 cm",
+                    //         Lebar: "1503 cm",
+                    //         'Lebar 2': "1503 cm",
+                    //     }
+                    // };
 
                 })
                 $('#color-controls').find('.dropdown-menu').html(html)
@@ -1193,226 +1242,220 @@
     </script>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const modelViewerColor = document.querySelector('#color');
-        const dimButtons = modelViewerColor.querySelectorAll('button[slot^="hotspot-dim"]');
-        const colorControls = document.getElementById('color-controls');
-    
-        const customDimensions = {
-        "[1, 0, 0, 1]": { // Dimensi Merah
-            Panjang: "4001 cm",
-            'Tinggi 1': "4400 cm",
-            'Tinggi 2': "4400 cm",
-            Lebar: "14400 cm",
-            'Lebar 2': "14400 cm",
-        },
-        "[0, 0, 1, 1]": { // Dimensi Biru
-            Panjang: "5001 cm",
-            'Tinggi 1': "5002 cm",
-            'Tinggi 2': "5002 cm",
-            Lebar: "1503 cm",
-            'Lebar 2': "1503 cm",
-        }
-    };
-    
-        colorControls.addEventListener('click', (event) => {
-            if (event.target.tagName === 'BUTTON') {
-                const colorString = event.target.dataset.color;
-                const dimensions = customDimensions[colorString];
-                
-                if (dimensions) {
-                    dimButtons[2].textContent = dimensions.Panjang;
-                    dimButtons[0].textContent = dimensions.Lebar;
-                    dimButtons[1].textContent = dimensions['Tinggi 1'];
-                    dimButtons[3].textContent = dimensions['Tinggi 2'];
-                    dimButtons[4].textContent = dimensions['Lebar 2'];
-    
-                    const [material] = modelViewerColor.model.materials;
-                    material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const modelViewerColor = document.querySelector('#color');
+            const dimButtons = modelViewerColor.querySelectorAll('button[slot^="hotspot-dim"]');
+            const colorControls = document.getElementById('color-controls');
+
+            colorControls.addEventListener('click', (event) => {
+                if (event.target.tagName === 'BUTTON') {
+                    const colorString = event.target.dataset.color;
+                    const dimensions = customDimensions[colorString];
+
+                    if (dimensions) {
+                        dimButtons[2].textContent = dimensions.Panjang;
+                        dimButtons[0].textContent = dimensions.Lebar;
+                        dimButtons[1].textContent = dimensions['Tinggi 1'];
+                        dimButtons[3].textContent = dimensions['Tinggi 2'];
+                        dimButtons[4].textContent = dimensions['Lebar 2'];
+
+                        const [material] = modelViewerColor.model.materials;
+                        material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
+                    } else {
+                        console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script type="module">
+        const modelViewer = document.querySelector('#color');
+        const checkbox = modelViewer.querySelector('#show-dimensions');
+        const dimElements = [...modelViewer.querySelectorAll('button'), modelViewer.querySelector('#dimLines')];
+
+        function setVisibility(visible) {
+            dimElements.forEach((element) => {
+                if (visible) {
+                    element.classList.remove('hide');
                 } else {
-                    console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+                    element.classList.add('hide');
+                }
+            });
+        }
+
+        checkbox.addEventListener('change', () => {
+            setVisibility(checkbox.checked);
+        });
+
+        modelViewer.addEventListener('ar-status', (event) => {
+            setVisibility(checkbox.checked && event.detail.status !== 'session-started');
+        });
+
+        function drawLine(svgLine, dotHotspot1, dotHotspot2, dimensionHotspot) {
+            if (dotHotspot1 && dotHotspot2) {
+                svgLine.setAttribute('x1', dotHotspot1.canvasPosition.x);
+                svgLine.setAttribute('y1', dotHotspot1.canvasPosition.y);
+                svgLine.setAttribute('x2', dotHotspot2.canvasPosition.x);
+                svgLine.setAttribute('y2', dotHotspot2.canvasPosition.y);
+
+                if (dimensionHotspot && !dimensionHotspot.facingCamera) {
+                    svgLine.classList.add('hide');
+                } else {
+                    svgLine.classList.remove('hide');
                 }
             }
+        }
+
+        const dimLines = modelViewer.querySelectorAll('line');
+        const renderSVG = () => {
+            drawLine(dimLines[0], modelViewer.queryHotspot('hotspot-dot+X-Y+Z'), modelViewer.queryHotspot(
+                'hotspot-dot+X-Y-Z'), modelViewer.queryHotspot('hotspot-dim+X-Y'));
+            drawLine(dimLines[1], modelViewer.queryHotspot('hotspot-dot+X-Y-Z'), modelViewer.queryHotspot(
+                'hotspot-dot+X+Y-Z'), modelViewer.queryHotspot('hotspot-dim+X-Z'));
+            drawLine(dimLines[2], modelViewer.queryHotspot('hotspot-dot+X+Y-Z'), modelViewer.queryHotspot(
+                'hotspot-dot-X+Y-Z')); // always visible
+            drawLine(dimLines[3], modelViewer.queryHotspot('hotspot-dot-X+Y-Z'), modelViewer.queryHotspot(
+                'hotspot-dot-X-Y-Z'), modelViewer.queryHotspot('hotspot-dim-X-Z'));
+            drawLine(dimLines[4], modelViewer.queryHotspot('hotspot-dot-X-Y-Z'), modelViewer.queryHotspot(
+                'hotspot-dot-X-Y+Z'), modelViewer.queryHotspot('hotspot-dim-X-Y'));
+        };
+
+        modelViewer.addEventListener('load', () => {
+            const center = modelViewer.getBoundingBoxCenter();
+            const size = modelViewer.getDimensions();
+            const x2 = size.x / 2;
+            const y2 = size.y / 2;
+            const z2 = size.z / 2;
+
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot+X-Y+Z',
+                position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`
+            });
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim+X-Y',
+                position: `${center.x + x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+X-Y"]').textContent =
+                `${(size.z * 100).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot+X-Y-Z',
+                position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`
+            });
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim+X-Z',
+                position: `${center.x + x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+X-Z"]').textContent =
+                `${(size.y * 100).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot+X+Y-Z',
+                position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`
+            });
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim+Y-Z',
+                position: `${center.x} ${center.y + y2 * 1.1} ${center.z - z2 * 1.1}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim+Y-Z"]').textContent =
+                `${(size.x * 100).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot-X+Y-Z',
+                position: `${center.x - x2} ${center.y + y2} ${center.z - z2}`
+            });
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim-X-Z',
+                position: `${center.x - x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim-X-Z"]').textContent =
+                `${(size.y * 100).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot-X-Y-Z',
+                position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`
+            });
+            modelViewer.updateHotspot({
+                name: 'hotspot-dim-X-Y',
+                position: `${center.x - x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
+            });
+            modelViewer.querySelector('button[slot="hotspot-dim-X-Y"]').textContent =
+                `${(size.z * 100).toFixed(0)} cm`;
+
+            modelViewer.updateHotspot({
+                name: 'hotspot-dot-X-Y+Z',
+                position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`
+            });
+
+            renderSVG();
+            modelViewer.addEventListener('camera-change', renderSVG);
         });
-    });
     </script>
-    
-    <script type="module">
-    const modelViewer = document.querySelector('#color');
-    const checkbox = modelViewer.querySelector('#show-dimensions');
-    const dimElements = [...modelViewer.querySelectorAll('button'), modelViewer.querySelector('#dimLines')];
-    
-    function setVisibility(visible) {
-        dimElements.forEach((element) => {
-            if (visible) {
-                element.classList.remove('hide');
-            } else {
-                element.classList.add('hide');
-            }
-        });
-    }
-    
-    checkbox.addEventListener('change', () => {
-        setVisibility(checkbox.checked);
-    });
-    
-    modelViewer.addEventListener('ar-status', (event) => {
-        setVisibility(checkbox.checked && event.detail.status !== 'session-started');
-    });
-    
-    function drawLine(svgLine, dotHotspot1, dotHotspot2, dimensionHotspot) {
-        if (dotHotspot1 && dotHotspot2) {
-            svgLine.setAttribute('x1', dotHotspot1.canvasPosition.x);
-            svgLine.setAttribute('y1', dotHotspot1.canvasPosition.y);
-            svgLine.setAttribute('x2', dotHotspot2.canvasPosition.x);
-            svgLine.setAttribute('y2', dotHotspot2.canvasPosition.y);
-            
-            if (dimensionHotspot && !dimensionHotspot.facingCamera) {
-                svgLine.classList.add('hide');
-            } else {
-                svgLine.classList.remove('hide');
+
+
+    <style>
+        #controls {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            max-width: unset;
+            transform: unset;
+            pointer-events: auto;
+            z-index: 100;
+        }
+
+        .dot {
+            display: none;
+        }
+
+        .dim {
+            background: #fff;
+            border-radius: 4px;
+            border: none;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            color: rgba(0, 0, 0, 0.8);
+            display: block;
+            font-family: Futura, Helvetica Neue, sans-serif;
+            font-size: 1em;
+            font-weight: 700;
+            max-width: 128px;
+            overflow-wrap: break-word;
+            padding: 0.5em 1em;
+            position: absolute;
+            width: max-content;
+            height: max-content;
+            transform: translate3d(-50%, -50%, 0);
+            pointer-events: none;
+            --min-hotspot-opacity: 0;
+        }
+
+        @media only screen and (max-width: 800px) {
+            .dim {
+                font-size: 3vw;
             }
         }
-    }
-    
-    const dimLines = modelViewer.querySelectorAll('line');
-    const renderSVG = () => {
-        drawLine(dimLines[0], modelViewer.queryHotspot('hotspot-dot+X-Y+Z'), modelViewer.queryHotspot('hotspot-dot+X-Y-Z'), modelViewer.queryHotspot('hotspot-dim+X-Y'));
-        drawLine(dimLines[1], modelViewer.queryHotspot('hotspot-dot+X-Y-Z'), modelViewer.queryHotspot('hotspot-dot+X+Y-Z'), modelViewer.queryHotspot('hotspot-dim+X-Z'));
-        drawLine(dimLines[2], modelViewer.queryHotspot('hotspot-dot+X+Y-Z'), modelViewer.queryHotspot('hotspot-dot-X+Y-Z')); // always visible
-        drawLine(dimLines[3], modelViewer.queryHotspot('hotspot-dot-X+Y-Z'), modelViewer.queryHotspot('hotspot-dot-X-Y-Z'), modelViewer.queryHotspot('hotspot-dim-X-Z'));
-        drawLine(dimLines[4], modelViewer.queryHotspot('hotspot-dot-X-Y-Z'), modelViewer.queryHotspot('hotspot-dot-X-Y+Z'), modelViewer.queryHotspot('hotspot-dim-X-Y'));
-    };
-    
-    modelViewer.addEventListener('load', () => {
-        const center = modelViewer.getBoundingBoxCenter();
-        const size = modelViewer.getDimensions();
-        const x2 = size.x / 2;
-        const y2 = size.y / 2;
-        const z2 = size.z / 2;
-    
-        modelViewer.updateHotspot({
-            name: 'hotspot-dot+X-Y+Z',
-            position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`
-        });
-        modelViewer.updateHotspot({
-            name: 'hotspot-dim+X-Y',
-            position: `${center.x + x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
-        });
-        modelViewer.querySelector('button[slot="hotspot-dim+X-Y"]').textContent = `${(size.z * 100).toFixed(0)} cm`;
-    
-        modelViewer.updateHotspot({
-            name: 'hotspot-dot+X-Y-Z',
-            position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`
-        });
-        modelViewer.updateHotspot({
-            name: 'hotspot-dim+X-Z',
-            position: `${center.x + x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
-        });
-        modelViewer.querySelector('button[slot="hotspot-dim+X-Z"]').textContent = `${(size.y * 100).toFixed(0)} cm`;
-    
-        modelViewer.updateHotspot({
-            name: 'hotspot-dot+X+Y-Z',
-            position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`
-        });
-        modelViewer.updateHotspot({
-            name: 'hotspot-dim+Y-Z',
-            position: `${center.x} ${center.y + y2 * 1.1} ${center.z - z2 * 1.1}`
-        });
-        modelViewer.querySelector('button[slot="hotspot-dim+Y-Z"]').textContent = `${(size.x * 100).toFixed(0)} cm`;
-    
-        modelViewer.updateHotspot({
-            name: 'hotspot-dot-X+Y-Z',
-            position: `${center.x - x2} ${center.y + y2} ${center.z - z2}`
-        });
-        modelViewer.updateHotspot({
-            name: 'hotspot-dim-X-Z',
-            position: `${center.x - x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`
-        });
-        modelViewer.querySelector('button[slot="hotspot-dim-X-Z"]').textContent = `${(size.y * 100).toFixed(0)} cm`;
-    
-        modelViewer.updateHotspot({
-            name: 'hotspot-dot-X-Y-Z',
-            position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`
-        });
-        modelViewer.updateHotspot({
-            name: 'hotspot-dim-X-Y',
-            position: `${center.x - x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`
-        });
-        modelViewer.querySelector('button[slot="hotspot-dim-X-Y"]').textContent = `${(size.z * 100).toFixed(0)} cm`;
-    
-        modelViewer.updateHotspot({
-            name: 'hotspot-dot-X-Y+Z',
-            position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`
-        });
-    
-        renderSVG();
-        modelViewer.addEventListener('camera-change', renderSVG);
-    });
-    </script>
 
+        .dimensionLineContainer {
+            pointer-events: none;
+            display: block;
+        }
 
-<style>
-#controls {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  max-width: unset;
-  transform: unset;
-  pointer-events: auto;
-  z-index: 100;
-}
+        .dimensionLine {
+            stroke: #16a5e6;
+            stroke-width: 2;
+            stroke-dasharray: 2;
+        }
 
-.dot{
-  display: none;
-}
+        .hide {
+            display: none;
+        }
 
-.dim{
-  background: #fff;
-  border-radius: 4px;
-  border: none;
-  box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  color: rgba(0, 0, 0, 0.8);
-  display: block;
-  font-family: Futura, Helvetica Neue, sans-serif;
-  font-size: 1em;
-  font-weight: 700;
-  max-width: 128px;
-  overflow-wrap: break-word;
-  padding: 0.5em 1em;
-  position: absolute;
-  width: max-content;
-  height: max-content;
-  transform: translate3d(-50%, -50%, 0);
-  pointer-events: none;
-  --min-hotspot-opacity: 0;
-}
-
-@media only screen and (max-width: 800px) {
-  .dim{
-    font-size: 3vw;
-  }
-}
-
-.dimensionLineContainer{
-  pointer-events: none;
-  display: block;
-}
-
-.dimensionLine{
-  stroke: #16a5e6;
-  stroke-width: 2;
-  stroke-dasharray: 2;
-}
-
-.hide{
-  display: none;
-}
-/* This keeps child nodes hidden while the element loads */
-:not(:defined) > * {
-  display: none;
-}
-</style>
+        /* This keeps child nodes hidden while the element loads */
+        :not(:defined)>* {
+            display: none;
+        }
+    </style>
 @endpush

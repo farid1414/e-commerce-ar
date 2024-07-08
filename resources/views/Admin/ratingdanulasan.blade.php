@@ -93,7 +93,6 @@
                                 aria-controls="profile-tab-pane" aria-selected="false">Perlu Dibalas
                                 <span class="badge rounded-pill bg-primary"
                                     style="margin-left: 5px;">{{ $belumBalas }}</span>
-
                             </button>
 
                         </li>
@@ -152,66 +151,7 @@
                                 </select>
                             </div>
 
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title">Jhon Doe 1</h5>
-                                        <h5 class="card-title">
-                                            <span style="font-size: 0.78rem;">2023-08-02 23:59:10</span>
-                                        </h5>
-                                    </div>
-                                    <p class="fw-bold">Sofa Klasik Eropa</p>
-                                    <div class="d-flex">
-                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                            style="max-height: 130px; border-radius: 10px;" alt="Gambar produk" />
-                                        <div class="d-flex flex-column justify-content-center align-items-start ml-3"
-                                            style="margin-top: -9px;">
-                                            <div class="star-rating">
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                            </div>
-                                            <p class="mt-1 text-justify">
-                                                There are many variations of passages of Lorem Ipsum available,
-                                                but the majority have suffered alteration in some form, by
-                                                injected humour, or randomised words which don't look even
-                                                slightly believable.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {{-- gambar dari pelanggan --}}
-                                    <div class="d-flex justify-content-end">
-                                        <div class="d-flex flex-row">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                style="max-width: 6rem; cursor: pointer; margin-right: 10px; margin-left: 10px; border-radius: 5px;"
-                                                alt="Gambar Pendukung Ulasan"
-                                                onclick="openModal('../assets/assets/img/card.jpg')" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-end">
-                                        <button onclick="toggleReply()" class="btn btn-primary" id="replyButton">Balas
-                                            Penilaian Ini</button>
-                                    </div>
-                                    <div id="replySection" style="display: none;">
-                                        <textarea id="replyTextarea" class="mt-4 w-100" placeholder="Masukkan tanggapan anda...... (Min 50 Karakter)"
-                                            style="border-radius: 5px;" rows="4" cols="50" maxlength="250"
-                                            oninput="handleDeskripsiProdukChange(event)"></textarea>
-                                        <div class="d-flex justify-content-end">
-                                            <span class="text-muted" id="characterCount">0 / 250</span>
-                                        </div>
-                                        <div class="d-flex justify-content-end mt-2">
-                                            <button onclick="handleSendReply()" class="btn btn-primary"
-                                                id="sendReplyButton" disabled>Kirim Balasan <i
-                                                    class="bi bi-arrow-right"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="rating-belum-dibalas"></div>
 
                         </div>
 
@@ -221,104 +161,17 @@
                             tabindex="0">
 
                             <div class="d-flex justify-content-end mt-4 mb-3">
-                                <div class="dropdown">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Filter
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                                        <li><a class="dropdown-item" href="#">Terlama</a></li>
-                                        <li><a class="dropdown-item" href="#">Rating tertinggi</a></li>
-                                        <li><a class="dropdown-item" href="#">Rating terendah</a></li>
-                                    </ul>
-                                </div>
+                                <select name="" id="filter-rating" class="form-select w-25">
+                                    <option selected>Filter</option>
+                                    <option value="terbaru">Terbaru</option>
+                                    <option value="terlama">Terlama</option>
+                                    <option value="tinggi">Rating tertinggi</option>
+                                    <option value="terendah">Rating Terendah</option>
+                                </select>
                             </div>
 
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title">Jhon Doe 1</h5>
-                                        <h5 class="card-title">
-                                            <span style="font-size: 0.78rem;">2023-08-02 23:59:10</span>
-                                        </h5>
-                                    </div>
-                                    <p class="fw-bold">Sofa Klasik Eropa - Merah</p>
-                                    <div class="d-flex">
-                                        <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                            style="max-height: 130px; border-radius: 10px;" alt="Gambar produk" />
-                                        <div class="d-flex flex-column justify-content-center align-items-start ml-3"
-                                            style="margin-top: -9px;">
-                                            <div class="star-rating">
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                                <i class="bi bi-star-fill text-gold"></i>
-                                            </div>
-                                            <p class="mt-1 text-justify">
-                                                There are many variations of passages of Lorem Ipsum available,
-                                                but the majority have suffered alteration in some form, by
-                                                injected humour, or randomised words which don't look even
-                                                slightly believable.
-                                            </p>
-                                        </div>
-                                    </div>
+                            <div id="sudah-dibalas"></div>
 
-                                    {{-- gambar dari pelanggan --}}
-                                    <div class="d-flex justify-content-end">
-                                        <div class="d-flex flex-row">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                style="max-width: 6rem; cursor: pointer; margin-right: 10px; margin-left: 10px; border-radius: 5px;"
-                                                alt="Gambar Pendukung Ulasan"
-                                                onclick="openModal('../assets/assets/img/card.jpg')" />
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                style="max-width: 6rem; cursor: pointer; margin-right: 10px; border-radius: 5px;"
-                                                alt="Gambar Pendukung Ulasan"
-                                                onclick="openModal('../assets/assets/img/card.jpg')" />
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar1.jpg"
-                                                style="max-width: 6rem; cursor: pointer; border-radius: 5px;"
-                                                alt="Gambar Pendukung Ulasan"
-                                                onclick="openModal('../assets/assets/img/card.jpg')" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title">Tanggapan Anda</h5>
-                                        <h5 class="card-title">
-                                            <span style="font-size: 0.78rem;">2023-08-02 23:59:10</span>
-                                        </h5>
-                                    </div>
-                                    <p class="text-justify">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                                        industry. Lorem Ipsum has been the industry's standard dummy text
-                                        ever since the 1500s, when an unknown printer took a galley of
-                                        type and scrambled it to make a type specimen book
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Gambar dari pelanggan</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img id="modalImage" style="width: 100%; border-radius: 10px;"
-                                                alt="Gambar Lebih Besar" />
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -326,6 +179,22 @@
         </div>
     </section>
 
+    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Gambar dari pelanggan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" style="width: 100%; border-radius: 10px;" alt="Gambar Lebih Besar" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="comp-rating d-none">
         <div class="card">
@@ -383,10 +252,56 @@
         </div>
     </div>
 
+
+    <div class="comp-diabalas d-none">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title" id="title"></h5>
+                    <h5 class="card-title">
+                        <span style="font-size: 0.78rem;" id="created_at">2023-08-02 23:59:10</span>
+                    </h5>
+                </div>
+                <p class="fw-bold" id="name_prod">Sofa Klasik Eropa - Merah</p>
+                <div class="d-flex">
+                    <img id="img_prod" src="" style="max-height: 130px; border-radius: 10px;"
+                        alt="Gambar produk" />
+                    <div class="d-flex flex-column justify-content-center align-items-start ml-3"
+                        style="margin-top: -9px;">
+                        <div class="star-rating" id="start_rating">
+                            <i class="bi bi-star-fill text-gold"></i>
+                        </div>
+                        <p class="mt-1 text-justify" id="desc">
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <div class="d-flex flex-row">
+                        <img id="image-pelanggan" class="d-none"
+                            style="max-width: 6rem; cursor: pointer; margin-right: 10px; margin-left: 10px; border-radius: 5px;"
+                            alt="Gambar Pendukung Ulasan" onclick="openModal('../assets/assets/img/card.jpg')" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Tanggapan Anda</h5>
+                    <h5 class="card-title">
+                        <span style="font-size: 0.78rem;" id="date-tanggapan">2023-08-02 23:59:10</span>
+                    </h5>
+                </div>
+                <p class="text-justify" id="balasan">
+                </p>
+            </div>
+        </div>
+    </div>
+
 @stop
 
 @push('js')
     <script>
+        let elem_rating = ''
         const openModal = (imageSrc) => {
             const modalImage = document.getElementById("modalImage");
             modalImage.src = imageSrc;
@@ -396,9 +311,20 @@
         };
         let rating = []
         const createRating = (data) => {
+            if (elem_rating == 'belum-dibalas') {
+                $('#rating-belum-dibalas').html('')
+            } else if (elem_rating == 'dibalas') {
+                $('#sudah-dibalas').html('')
+            } else {
+                $('#rating-semua').html('')
+            }
             $.each(data, function(i, val) {
-                console.log("val", val);
-                let clone = $('.comp-rating > div').clone()
+                let clone = ''
+                if (elem_rating == 'dibalas') {
+                    clone = $('.comp-diabalas > div').clone();
+                } else {
+                    clone = $('.comp-rating > div').clone()
+                }
                 clone.find('#title').html(val.name)
                 clone.find('#created_at').html(val.create)
                 clone.find('#name_prod').html(val.product.name)
@@ -412,21 +338,34 @@
                 if (val.image != null) {
                     clone.find('#image-pelanggan').removeClass('d-none').attr('src', val.image).attr('onclick',
                         `openModal('${val.image}')`)
-                    console.log('as', clone.find('#image-pelanggan'));
                 } else {
                     clone.find('#image-pelanggan').addClass('d-none')
                 }
                 clone.find('#start_rating').html(rating)
-                clone.find('#rating_id').val(val.id)
-                if (val.balasan != null) {
-                    clone.find('#id_balasan').val(val.balasan.id)
-                    clone.find('#replyTextarea').text(val.balasan.balasan)
+                if (elem_rating == '') {
+                    clone.find('#rating_id').val(val.id)
+
+                    if (val.balasan != null) {
+                        clone.find('#id_balasan').val(val.balasan.id)
+                        clone.find('#replyTextarea').text(val.balasan.balasan)
+                    }
                 }
-                $('#rating-semua').append(clone)
+
+                if (elem_rating == 'dibalas') {
+                    clone.find('#date-tanggapan').html(val.balasan.create)
+                    clone.find('#balasan').html(val.balasan.balasan)
+                }
+                if (elem_rating == 'belum-dibalas') {
+                    $('#rating-belum-dibalas').append(clone)
+                } else if (elem_rating == 'dibalas') {
+                    $('#sudah-dibalas').append(clone)
+                } else {
+                    $('#rating-semua').append(clone)
+                }
             })
         }
 
-        const getRating = (filter = null) => {
+        const getRating = (filter = null, search = null) => {
             const action = "{{ route($this_helper . 'data') }}"
             const ajax = new AjaxRequest(action, 'GET', 'swal', {
                 processData: true,
@@ -441,26 +380,48 @@
             ajax.onfail = () => {
                 $loaderEl.addClass('d-none')
             }
-
-            ajax.submit({
-                filter: filter
-            }, (resp) => {
+            let data = ''
+            if (search != null && filter != null) {
+                data = {
+                    search: search,
+                    filter: filter
+                }
+            } else if (search != null) {
+                data = {
+                    search: search
+                }
+            } else if (filter != null) {
+                data = {
+                    filter: filter
+                }
+            }
+            ajax.submit(data, (resp) => {
                 if (resp.success) {
                     $loaderEl.addClass('d-none');
                     createRating(resp.data)
-                    // createProd(resp.data)
                 }
             })
         }
 
         $('body').on('click', '#profile-tab', function() {
-            console.log("profiele");
+            elem_rating = 'belum-dibalas'
+            getRating(null, 'belum-dibalas')
+        })
+
+        $('body').on('click', '#home-tab', function() {
+            elem_rating = ''
+            getRating(null, null)
         })
 
         $('body').on('change', '#filter-rating', function() {
             let value = $(this).val()
-            getRating(value)
+            getRating(value, elem_rating)
         })
+        $('body').on('click', '#contact-tab', function() {
+            elem_rating = 'dibalas'
+            getRating(null, 'dibalas')
+        })
+
         getRating()
 
         $('body').on('submit', '#form-balasan', function(e) {

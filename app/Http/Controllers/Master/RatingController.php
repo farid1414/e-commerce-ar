@@ -28,7 +28,7 @@ class RatingController extends Controller
         $belum_balas = 0;
         $balasan = $rating->reduce(function ($carry, $item) {
             if ($item->balasan) {
-                $carry += $item->balasan->count();
+                $carry += 1;
             }
             return $carry;
         }, 0);
@@ -50,6 +50,7 @@ class RatingController extends Controller
 
     public function data(Request $request)
     {
+        // dd($request->all());
         $rating = Rating::query()->with('balasan');
         if ($request->filter) {
             $filter = $request->filter;
@@ -68,7 +69,7 @@ class RatingController extends Controller
 
         $rating = $rating->get();
 
-        $rating = $rating->map(function ($rat) {
+        $rating = $rating->map(function ($rat) use ($request) {
             if ($rat->image) {
                 $rat->image = url($rat->image);
             }
@@ -77,9 +78,24 @@ class RatingController extends Controller
             $rat->create = $rat->dateFull();
             $rat->product_image = url($rat->product->thumbnail);
 
-            return $rat;
+            if ($request->search) {
+                if ($request->search == 'belum-dibalas') {
+                    if (!$rat->balasan) {
+                        return $rat;
+                    }
+                } elseif ($request->search == 'dibalas') {
+                    if ($rat->balasan) {
+                        $rat->balasan->create = $rat->balasan->created_date();
+                        return $rat;
+                    }
+                }
+            } else {
+                return $rat;
+            }
         });
-
+        $rating = array_filter($rating->toArray(), function ($element) {
+            return $element !== null;
+        });
         return JSON_RESPONSE("Get data rating", $rating);
     }
 
