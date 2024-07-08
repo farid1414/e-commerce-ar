@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col d-flex justify-content-between">
                         <div class="text-left">{{ $tr->transactionDetail->count() }} Produk</div>
-                        <div class="text-right">Sudah Dibayar</div>
+                        <div class="text-right">Dibatalkan</div>
                     </div>
                 </div>
             </div>

@@ -15,16 +15,73 @@
     @section('content')
         <section class="section dashboard">
             <div class="row">
-                <div class="col-sm-6">
-                    @if ($flashSale->last())
+                <div class="col-sm-4">
+                  <div class="card info-card sales-card">
+                    <!-- Jumlah Pelanggan -->
+                    <div class="card-body">
+                      <h5 class="card-title">Sedang Berjalan</h5>
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: rgb(242, 242, 242);">
+                          <i class="bi bi-box"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>20</h6>
+                          <span class="text-muted small pt-1">
+                            Flash Sale Aktif
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card info-card revenue-card">
+                    <!-- Jumlah Terjual -->
+                    <div class="card-body">
+                      <h5 class="card-title">Akan Datang</h5>
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-box-seam"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>20</h6>
+                          <span class="text-muted small pt-1" style="font-size: 13px;">
+                            Flash Sale Akan Datang
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card info-card customers-card">
+                    <!-- Jumlah Total Terjual -->
+                    <div class="card-body">
+                      <h5 class="card-title">Telah Berakhir</h5>
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-dropbox"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>25</h6>
+                          <span class="text-muted small pt-1">
+                            Flash Sale Telah Berakhir
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {{-- <div class="row"> --}}
+                {{-- <div class="col-sm-6"> --}}
+                    {{-- @if ($flashSale->last())
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="card-title">{{ $flashSale->last()->name }}</h5>
                                     <h5>
-                                        {{-- <small class="badge badge-pill {sale.statusClass}">
-                                        {sale.status}
-                                    </small> --}}
+                                       
                                     </h5>
                                 </div>
                                 <p class="card-text">
@@ -57,7 +114,7 @@
                         </div>
                     @endif
 
-                </div>
+                </div> --}}
                 {{-- <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
@@ -90,10 +147,12 @@
                         </div>
                     </div>
                 </div> --}}
-            </div>
+            {{-- </div> --}}
+
+
             <div class="d-grid gap-2">
                 <a href="{{ route('master.flash-sale.form') }}" class="btn btn-primary btn-lg" type="button">Tambah
-                    Produk</a>
+                    Flash Sale</a>
             </div>
             <!-- Isi Konten Produk Dataran -->
             <div class="card mt-4">

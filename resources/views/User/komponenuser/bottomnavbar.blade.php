@@ -34,10 +34,15 @@
 
 
                         {{-- Jika tidak ada item di keranjang maka display None badge spannya dan angkanya --}}
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="margin-left: -10px">
-                            1
-                        </span>
+                        @auth
+                                @if (Auth()->user()->cart->where('status', 1)->count() > 0)
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                        style="transform: translate(-50%, -50%); margin-left: -15px;">
+                                        {{ Auth()->user()->cart->where('status', 1)->count() }}
+                                    </span>
+                                @endif
+                            @endauth
 
 
                     </div>

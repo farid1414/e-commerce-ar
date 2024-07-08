@@ -49,7 +49,7 @@
                 </div>
                 @if ($transaction->status == -1)
                     <p><b>Alasan : </b></p>
-                    <p>{{ $transaction->reason ? $reason[$transaction->reason] : 'Waktu pembayaran habis' }}</p>
+                    <p>{{ $transaction->reason ? $reason[$transaction->reason] : 'Ingin merubah rincian & membuat pesanan baru.' }}</p>
                 @endif
             </div>
         </div>
