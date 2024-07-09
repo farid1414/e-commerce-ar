@@ -311,12 +311,19 @@
 
 
                                                     @if ($product->stok_sekarang <= 5)
-                                                        <div class="mt-2">
-                                                            <span style="color: red; font-size: 1rem;">
-                                                                Segera Habis <i class="bi bi-fire"></i>
-                                                            </span>
-                                                        </div>
-                                                    @endif
+                                                    <div class="mt-2">
+                                                        <span style="color: red; font-size: 1rem;">
+                                                            Segera Habis <i class="bi bi-fire"></i>
+                                                        </span>
+                                                    </div>
+                                                @else
+                                                    <div class="mt-2">
+                                                        <span style="color: green; font-size: 1rem;">
+                                                            Tersedia <i class="bi bi-check-circle"></i>
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                                
                                                 </div>
 
 

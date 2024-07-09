@@ -162,7 +162,7 @@
         </div>
     </div>
 @empty
-    <h3 class="text-center">Tidak ada produk</h3>
+    <h3 class="text-center">Tidak ada Transaksi.</h3>
 @endforelse
 {{-- Modal Penilaian --}}
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

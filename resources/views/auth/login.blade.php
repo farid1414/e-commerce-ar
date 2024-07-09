@@ -50,40 +50,41 @@
             <div class="col-lg-6">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-                    <div class="form-group">
-                        <label for="email">Alamat Email</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            id="email" placeholder="Masukkan email" value="{{ old('email') }}" required>
+                    <div class="form-group mb-4 mt-4">
+                        <label for="email">Alamat Email:</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                            placeholder="Masukkan email" value="{{ old('email') }}" required autocomplete="email">
                         @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
-                    <br>
+                
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password:</label>
                         <div class="position-relative">
-                            <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" id="password"
-                                placeholder="Masukkan kata sandi Anda" required>
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" placeholder="Masukkan kata sandi Anda" required autocomplete="current-password">
                             <div class="input-group-append" onclick="togglePasswordVisibility()"
                                 style="cursor: pointer; font-size: 15px; border-radius: 0px; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
                                 <i id="togglePassword" class="fas fa-eye"></i>
                             </div>
                             @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
                     </div>
-                    <br>
-                    <!-- Submit Button -->
+                
                     <button type="submit" class="btn btn-primary btn-lg w-100 btn-dark" style="border-radius: 25px;">
                         Masuk
                     </button>
                 </form>
+                
+                
+                
                 <div class="d-block d-lg-none" style="margin-top: 20px; font-size: 18px; text-align: center;">
                     Jika Anda belum memiliki akun anda dapat
                     <a href="{{ route('register') }}"><b> Mendaftar di sini.</b></a>

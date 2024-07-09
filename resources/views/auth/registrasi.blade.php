@@ -68,26 +68,31 @@
                 <div class="col-lg-6">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
+                    
                         <div class="form-group mb-3">
                             <label for="namaPelanggan">Nama Pelanggan</label>
                             <input type="text" class="form-control" id="namaPelanggan" name="name"
                                 placeholder="Masukkan nama Anda" required>
                         </div>
+                    
                         <div class="form-group mb-3">
                             <label for="email">Alamat Email</label>
                             <input type="email" class="form-control" id="email" name="email"
                                 aria-describedby="emailHelp" placeholder="Masukkan email" required>
                         </div>
+                    
                         <div class="form-group mb-3">
                             <label for="nomorHandphone">Nomor Handphone</label>
                             <input type="text" class="form-control" id="nomorHandphone" name="phone"
                                 placeholder="Masukkan nomor handphone Anda (maks. 13 digit)" pattern="[0-9]{1,13}"
                                 title="Harus berupa angka dengan maksimal 13 digit" required>
                         </div>
+                    
                         <div class="form-group mb-3">
                             <label for="alamatLengkap">Alamat Lengkap</label>
                             <textarea class="form-control" id="alamatLengkap" name="address" placeholder="Masukkan alamat lengkap Anda" required></textarea>
                         </div>
+                    
                         <div class="form-group mb-3">
                             <label for="password">Password</label>
                             <div class="input-group">
@@ -98,11 +103,11 @@
                                     <i id="togglePassword" class="fas fa-eye"></i>
                                 </div>
                             </div>
-                            {{-- <small id="passwordHelpBlock" class="form-text text-muted">Password harus memiliki minimal 15 karakter, mengandung huruf, angka, dan karakter.</small> --}}
                         </div>
-                        
+                    
                         <button type="submit" class="btn btn-lg w-100 btn-dark mt-3" style="border-radius: 25px">Daftar</button>
                     </form>
+                    
                     <!-- Teks di bawah tombol "Daftar" pada mode responsif -->
                     <div style="margin-top: 20px; font-size: 17px; text-align: center;" class="d-block d-lg-none">
                         Jika Anda sudah memiliki akun <a href="{{ route('login') }}"><b>Masuk disini.</b></a>

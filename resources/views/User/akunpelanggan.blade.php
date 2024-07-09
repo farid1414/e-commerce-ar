@@ -133,62 +133,63 @@
 
                     <form action="" method="POST" id="form-profil">
                         <div class="container">
-                            {{-- Data diri --}}
-                            <h4>Data diri anda.</h4>
+                            <h4>Data diri Anda.</h4>
                             <hr>
-
+                    
                             <!-- Nama -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p>Nama :</p>
-                                <div>
-                                    <p id="nama">{{ Auth::user()->name }}</p>
-                                    <input type="text" name="name" class="form-control form-control-md"
-                                        id="edit-nama" style="display: none;" value="{{ Auth::user()->name }}">
+                            <div class="mb-2">
+                                <label for="edit-nama" class="form-label fw-bold">Nama :</label>
+                                <div class="d-flex align-items-center">
+                                    <p id="nama" class="form-control-static">{{ Auth::user()->name }}</p>
+                                    <input type="text" name="name" class="form-control" id="edit-nama" style="display: none;" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
-
                             <hr>
-
+                    
                             <!-- Nomor Hand Phone -->
-                            <div class="d-flex justify-content-between">
-                                <p>Nomor Hand Phone :</p>
-                                <p id="phone">{{ Auth::user()->customer->phone }}</p>
-                                <input type="text" name="phone" class="form-control" id="edit-phone"
-                                    style="display: none;" value="{{ Auth::user()->customer->phone }}">
+                            <div class="mb-2">
+                                <label for="edit-phone" class="form-label fw-bold">Nomor Hand Phone :</label>
+                                <div class="d-flex align-items-center">
+                                    <p id="phone" class="form-control-static">{{ Auth::user()->customer->phone }}</p>
+                                    <input type="text" name="phone" class="form-control" id="edit-phone" style="display: none;" value="{{ Auth::user()->customer->phone }}">
+                                </div>
                             </div>
                             <hr>
-
+                    
                             <!-- Email -->
-                            <div class="d-flex justify-content-between">
-                                <p>Email :</p>
-                                <p id="email">{{ Auth::user()->email }}</p>
-                                <input type="email" name="email" class="form-control" id="edit-email"
-                                    style="display: none;" value="{{ Auth::user()->email }}">
+                            <div class="mb-2">
+                                <label for="edit-email" class="form-label fw-bold">Email :</label>
+                                <div class="d-flex align-items-center">
+                                    <p id="email" class="form-control-static">{{ Auth::user()->email }}</p>
+                                    <input type="email" name="email" class="form-control" id="edit-email" style="display: none;" value="{{ Auth::user()->email }}">
+                                </div>
                             </div>
                             <hr>
-
+                    
                             <!-- Alamat -->
-                            <div class="d-flex justify-content-between">
-                                <p>Alamat :</p>
-                                <p id="alamat">{{ Auth::user()->customer->address }}</p>
-                                <textarea class="form-control" name="address" id="edit-alamat" style="display: none;">{{ Auth::user()->customer->address }}</textarea>
+                            <div class="mb-2">
+                                <label for="edit-alamat" class="form-label fw-bold">Alamat :</label>
+                                <div class="d-flex align-items-center">
+                                    <p id="alamat" class="form-control-static">{{ Auth::user()->customer->address }}</p>
+                                    <textarea class="form-control" name="address" id="edit-alamat" style="display: none;">{{ Auth::user()->customer->address }}</textarea>
+                                </div>
                             </div>
                             <hr>
-
-                            <!-- Password (bisa juga ditambahkan jika diperlukan) -->
-                            <div class="d-flex justify-content-between mt-4">
-                                <p>Password :</p>
-                                <p>*********************</p>
+                    
+                            <!-- Password (jika diperlukan) -->
+                            <div class="mb-2">
+                                <label for="edit-password" class="form-label fw-bold">Password :</label>
+                                <p class="form-control-static">*********************</p>
+                                <!-- Jika ingin menambahkan input password, bisa ditambahkan di sini -->
                             </div>
                             <hr>
-
+                    
                             <!-- Tombol Ubah dan Simpan/Batal -->
                             <div class="d-flex justify-content-end">
-                                <a class="btn btn-outline-dark" id="btn-ubah">
-                                    Ubah <i class="bi bi-pencil-square"></i>
+                                <a class="btn btn-outline-dark me-2" id="btn-ubah">
+                                    Ubah data diri <i class="bi bi-pencil-square"></i>
                                 </a>
-
-                                <a class="btn btn-outline-secondary me-5" id="btn-batal" style="display: none;">
+                                <a class="btn btn-outline-secondary me-2" id="btn-batal" style="display: none;">
                                     Batal <i class="bi bi-x"></i>
                                 </a>
                                 <button class="btn btn-dark" id="btn-simpan" type="submit" style="display: none;">
@@ -197,6 +198,8 @@
                             </div>
                         </div>
                     </form>
+                    
+                    
 
                 </div>
                 {{-- transaksi Belum bayar --}}

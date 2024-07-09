@@ -56,78 +56,59 @@
             <div class="container mt-5">
                 <div class="row">
                     @foreach ($category->products->where('is_active', '=', true) as $prod)
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                            <a href="{{ route('detail-product', $prod->uuid) }}" style="text-decoration: none;">
-                                <div class="card"
-                                    style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px""
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <a href="{{ route('detail-product', $prod->uuid) }}" class="text-decoration-none">
+                                <div class="card h-100" style="transition: box-shadow 0.3s; border-radius: 6px;"
                                     onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                                     onmouseleave="this.style.boxShadow = 'none'">
-                                    <span class="badge bg-danger"
-                                        style="position: absolute; top: 10px; right: 10px; font-size: 0.8rem;">Produk
-                                        Terbaru !!</span>
-                                    <img src="{{ url($prod->thumbnail) }}" alt="Product"
-                                        style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
-                                    <div class="card-body">
+                                    <span class="badge bg-danger position-absolute" style="top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                                    <img src="{{ url($prod->thumbnail) }}" alt="Product" class="card-img-top" style="max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                                    <div class="card-body d-flex flex-column">
                                         <p class="fw-bold" style="font-size: 1rem;">{{ $prod->name }}</p>
-                                        <div
-                                            style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                            <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
-                                                {!! $prod->description !!}
-                                            </p>
+                                        <div class="flex-grow-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                            <p class="card-text" style="text-align: justify; font-size: 0.9rem;">{!! $prod->description !!}</p>
                                         </div>
-                                        <div
-                                            style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                                            <!-- Star Rating -->
-                                            <span style="color: gold; font-size: 0.9rem;">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <!-- Rating Text -->
-                                            <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
-                                        </div>
-                                        <br>
-                                        <!-- Price -->
-                                        <div
-                                            style="display: flex; justify-content: space-between; align-items: center;">
-                                            <span
-                                                style="font-size: 1rem; font-weight: bold;">{{ formatRupiah($prod->harga) }}</span>
+                                        <div class="mt-auto">
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-warning" style="font-size: 0.9rem;">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </span>
+                                                <span class="ms-2" style="font-size: 0.8rem;">5 (10)</span>
+                                            </div>
+                                            <br>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="fw-bold" style="font-size: 1rem;">{{ formatRupiah($prod->harga) }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-footer bg-white">
-                                        <div
-                                            class="d-flex @if (!$prod->harga_ongkir) justify-content-between
-                                                @else
-                                                    justify-content-end @endif ">
-                                            <!-- Free Shipping Badge -->
-                                            {{-- {{ dd($prod) }} --}}
+                                        <div class="d-flex @if (!$prod->harga_ongkir) justify-content-between @else justify-content-end @endif">
                                             @if (!$prod->harga_ongkir)
-                                                <span class="badge bg-success" style="font-size: 0.7rem;"><i
-                                                        class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
+                                                <span class="badge bg-success" style="font-size: 0.7rem;">
+                                                    <i class="fa-solid fa-truck-fast me-2"></i>Free Ongkir
+                                                </span>
                                             @endif
-                                            <!-- Sold Badge -->
-                                            <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
-                                                {{ $prod->transactionDetail->sum('quantity') }}x</span>
+                                            <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual {{ $prod->transactionDetail->sum('quantity') }}x</span>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     @endforeach
-                    <!-- End of Loop -->
                 </div>
-                <div
-                    style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
-                    <span style="margin-right: 5px;">
-                        <a href="/Listseluruhproduk" style="text-decoration: none; color: black;"><b>Lihat
-                                Selengkapnya</b></a>
+                {{-- <div class="d-flex justify-content-end align-items-center mt-4" style="font-size: 1rem;">
+                    <span class="me-2">
+                        <a href="/Listseluruhproduk" class="text-decoration-none text-dark"><b>Lihat Selengkapnya</b></a>
                     </span>
                     <i class="fas fa-arrow-right"></i>
-                </div>
+                </div> --}}
                 <hr style="clear: both;">
             </div>
+            
 
         </div>
     </section>

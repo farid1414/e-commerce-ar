@@ -139,5 +139,5 @@
         </div>
     </div>
 @empty
-    <h3 class="text-center">Tidak ada produk</h3>
+    <h3 class="text-center">Tidak ada Transaksi.</h3>
 @endforelse

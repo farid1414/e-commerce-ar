@@ -36,7 +36,7 @@
                             <li><a class="dropdown-item d-flex align-items-center"
                                     href="{{ route('profil-pelanggan') }}">
                                     <i class="bi bi-person me-1"></i>
-                                    <span>Profil & Transaksi</span>
+                                    <span>Profil & Transaksi.</span>
                                 </a>
                             </li>
                             <li>
@@ -46,8 +46,8 @@
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="bi bi-gear me-1"></i>
-                                    <span>Log Out / Keluar</span>
+                                    <i class="bi bi-box-arrow-left me-2"></i>
+                                    <span>Log Out / Keluar.</span>
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

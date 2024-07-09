@@ -138,6 +138,14 @@
             display: none;
         }
     </style>
+    <style>
+        .description {
+            margin-top: -40px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            max-width: 50; /* Restrict the width to 30 characters */
+        }
+    </style>
 </head>
 {{-- INCLUDE & KOMPONEN --}}
 
@@ -158,9 +166,9 @@
                             <div class="col-md-3">
                                 <div class="container">
                                     <div class="product-list d-flex flex-column overflow-auto"
-                                        style="max-height: 350px;">
+                                        style="max-height: 350px; border-radius: 10px">
                                         @foreach ($product->images as $img)
-                                            <img src="{{ url($img->image) }}" alt="Produk 1" class="mb-2">
+                                            <img src="{{ url($img->image) }}" alt="Produk 1">
                                         @endforeach
                                     </div>
                                 </div>
@@ -183,7 +191,7 @@
                                         @foreach ($product->images as $index => $img)
                                             <div class="carousel-item @if ($index == 0) active @endif"
                                                 data-bs-interval="{{ $incrementProduct += 1000 }}">
-                                                <img src="{{ url($img->image) }}" class="d-block w-100" alt="...">
+                                                <img src="{{ url($img->image) }}" class="d-block w-100" alt="..." style="border-radius: 10px">
                                             </div>
                                         @endforeach
                                         {{-- <div class="carousel-item active">
@@ -232,7 +240,7 @@
                                     @foreach ($product->images as $index => $img)
                                         <div class="carousel-item @if ($index == 0) active @endif"
                                             data-bs-interval="{{ $incrementProduct += 1000 }}">
-                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="...">
+                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="..." >
                                         </div>
                                     @endforeach
                                 </div>
@@ -295,9 +303,8 @@
                                         <b>Tentang Produk Ini</b>
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body description">
                                         {!! $product->description ?? '' !!}
                                     </div>
                                 </div>

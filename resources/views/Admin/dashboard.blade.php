@@ -5,7 +5,7 @@
 @section('title', 'Dashboard')
 @section('content_header')
     <li class="breadcrumb-item active">
-        <a href="/">Dashboard</a>
+        <a href="{{ route('home') }}">Dashboard</a>
     </li>
 @stop
 {{-- tahap section jangan lupa di tutup --}}
