@@ -114,7 +114,7 @@
         </li><!-- End Icons Nav --> --}}
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/laporanharian">
+            <a class="nav-link collapsed" href="{{ route('master.laporan.index') }}">
                 <i class="bi bi-graph-up-arrow"></i>
                 <span>Laporan</span>
             </a>

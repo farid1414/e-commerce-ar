@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\FlashSaleController;
+use App\Http\Controllers\Master\LaporanController;
 use App\Http\Controllers\Master\ProductController;
 use App\Http\Controllers\Master\ProfilController;
 use App\Http\Controllers\Master\RatingController;
@@ -241,9 +242,9 @@ Route::get('admin/invoiceadmin', function () {
 
 
 // Laporan
-Route::get('admin/laporanharian', function () {
-    return view('admin.laporanharian');
-});
+// Route::get('admin/laporanharian', function () {
+//     return view('admin.laporanharian');
+// });
 
 Route::get('admin/laporanbulanan', function () {
     return view('admin.laporanbulanan');
@@ -311,6 +312,10 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('/', [RatingController::class, 'index'])->name('index');
         Route::get('/data-rating', [RatingController::class, 'data'])->name('data');
         Route::post('/balsan-rating', [RatingController::class, 'balasanRating'])->name('balasan');
+    });
+
+    Route::prefix('/laporan')->name('laporan.')->group(function () {
+        Route::get('/', [LaporanController::class, 'index'])->name('index');
     });
 });
 

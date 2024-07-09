@@ -99,7 +99,7 @@ class MainController extends Controller
     public function masterCategory(string $slug)
     {
         $cat = MCategory::firstWhere('slug', $slug);
-        $cat = Category::where('m_categories', $cat->id)->get();
+        $cat = Category::where('m_categories', $cat->id)->where('is_active', true)->get();
         return view('user.kategoridataran', [
             'cat' => $cat
         ]);
@@ -137,7 +137,7 @@ class MainController extends Controller
         $req = $request->input('search');
         if ($req) {
             $product = Product::query()
-                ->where('is_active', '=', true)
+                ->where('products.is_active', '=', true)
                 ->join('categories', 'products.categori_id', '=', 'categories.id')
                 ->where('products.name', 'like', '%' . $req . '%')
                 ->orWhere('categories.name', 'like', '%' . $req . '%')
@@ -413,6 +413,14 @@ class MainController extends Controller
         $tr->update(['status' => true, 'payment_at' => now()->toDateString(), 'payment_type' => $type]);
         $product = $tr->transactionDetail->pluck('product_id');
         $varian = $tr->transactionDetail->pluck('product_varian_id');
+        foreach ($tr->transactionDetail as $det) {
+            $prod = Product::findorFail($det->product_id);
+            $qty = $prod->terjual ?? 0;
+            $terjual = $qty + $det->quantity;
+            $stock = $prod->stock;
+            $st = $stock - $det->quantity;
+            $prod->update(['terjual' => $terjual, 'stock' => $stock]);
+        }
         $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->delete();
 
         return view('user.pembayaranberhasil');

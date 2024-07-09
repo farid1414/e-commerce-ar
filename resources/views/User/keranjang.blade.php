@@ -283,26 +283,27 @@
                             Pilih Semua
                         </button>
                     </div>
-                @endif
-                <!-- Tombol untuk membuat pesanan -->
-                <!-- Tombol ini akan menampilkan tooltip 'disabled' jika selectedProducts kosong -->
-                {{-- <a href="" class="btn btn-dark d-flex align-items-center">
+
+                    <!-- Tombol untuk membuat pesanan -->
+                    <!-- Tombol ini akan menampilkan tooltip 'disabled' jika selectedProducts kosong -->
+                    {{-- <a href="" class="btn btn-dark d-flex align-items-center">
                     <span class="ml-2">
 
                     </span>
                 </a> --}}
-                <div class="d-block d-lg-none">
-                    <button class="btn btn-dark d-flex align-items-center buat-pesanan" type="button">
-                        Buat Pesanan
-                        <i class="fas fa-arrow-right ml-2" style="margin-left: 10px;"></i>
-                    </button>
-                </div>
-                <div class="d-lg-block d-none">
-                    <button class="btn btn-dark d-flex align-items-center buat-pesanan-web" type="button">
-                        Buat Pesanan
-                        <i class="fas fa-arrow-right ml-2" style="margin-left: 10px;"></i>
-                    </button>
-                </div>
+                    <div class="d-block d-lg-none">
+                        <button class="btn btn-dark d-flex align-items-center buat-pesanan" type="button">
+                            Buat Pesanan
+                            <i class="fas fa-arrow-right ml-2" style="margin-left: 10px;"></i>
+                        </button>
+                    </div>
+                    <div class="d-lg-block d-none">
+                        <button class="btn btn-dark d-flex align-items-center buat-pesanan-web" type="button">
+                            Buat Pesanan
+                            <i class="fas fa-arrow-right ml-2" style="margin-left: 10px;"></i>
+                        </button>
+                    </div>
+                @endif
             </div>
         @endif
         <hr />
@@ -514,6 +515,71 @@
             $('body').on('click', '.buat-pesanan-web', function() {
                 let cart = []
                 $.each($('input[name="check_art[]"]'), function(i, elem) {
+                    if ($(elem).is(':checked')) {
+                        cart.push($(elem).val())
+                    }
+                })
+                if (cart.length < 1) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Harap pilih product cart terlebih dahulu',
+                    });
+                    return
+                }
+
+                $.ajax({
+                    url: "{{ route('post-checkout') }}",
+                    method: 'POST',
+                    data: JSON.stringify({
+                        id: cart
+                    }),
+                    contentType: 'application/json',
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $loaderEl.removeClass('d-none')
+                    },
+                    success: function(response) {
+                        $loaderEl.addClass('d-none')
+                        Swal.fire({
+                            title: 'Sucess',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = response.url
+                            }
+                        });
+                    },
+                    error: function(err) {
+                        $loaderEl.addClass('d-none')
+                        let message = "";
+                        const json = err.responseJSON;
+                        if (json !== undefined) {
+                            message = json.message ?? "Internal Server Error";
+                            if (json.errors !== undefined && typeof json
+                                .errors === "string") message +=
+                                `\n${json.errors}`;
+                        } else message = `[${err.status}] ${err.statusText}`;
+                        let login = "{{ route('login') }}"
+                        if (message == "Unauthenticated.") {
+                            window.location.href = login;
+                            return
+                        }
+                        Swal.fire({
+                            title: 'Error',
+                            text: message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                })
+            })
+            $('body').on('click', '.buat-pesanan', function() {
+                let cart = []
+                $.each($('input[name="check_art_mobile_[]"]'), function(i, elem) {
                     if ($(elem).is(':checked')) {
                         cart.push($(elem).val())
                     }
