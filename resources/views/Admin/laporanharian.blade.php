@@ -31,7 +31,7 @@
             </div>
             
             <div id="dashboard" style="display: none;">
-                <h5 class="card-title">Menampilkan Hasil Laporan Harian</h5>
+                <h5 class="card-title">Menampilkan Hasil Laporan</h5>
                 <div class="d-flex justify-content-between">
                     <p>Tanggal Awal :</p>
                     <p class="text-muted" id="startDate">-</p>
@@ -70,13 +70,13 @@
                     <!-- Jumlah Terjual -->
                     <div>
                         <div class="card-body">
-                            <h5 class="card-title">Total Terjual</h5>
+                            <h5 class="card-title">Total Produk Terjual</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-bag"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>12 <span style="font-size: 1rem;">Transaksi</span></h6>
+                                    <h6>12 <span style="font-size: 1rem;">Terjual</span></h6>
                                 </div>
                             </div>
                         </div>
@@ -90,19 +90,18 @@
 
                     <div>
                         <div class="card-body">
-                            <h5 class="card-title">Total Transaksi</h5>
+                            <h5 class="card-title">Total Ulasan</h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-bar-chart"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>12 <span style="font-size: 1rem;">Transaksi</span></h6>
+                                    <h6>12 <span style="font-size: 1rem;">Ulasan</span></h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -124,51 +123,6 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-
-
-
-            <div class="col">
-                <div class="card info-card customers-card">
-                    <!-- Jumlah Total Terjual -->
-                    <div>
-                        <div class="card-body">
-                            <h5 class="card-title">Transaksi Belum Di Bayar</h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
-                                    style="background-color: rgb(204, 238, 255);">
-                                    <i class="bi bi-cart-dash" style="color: rgb(6, 128, 189);"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>12 <span style="font-size: 1rem;">Transaksi</span></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="card info-card customers-card">
-                    <div>
-                        <div class="card-body">
-                            <h5 class="card-title">Transaksi Dibatalkan</h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
-                                    style="background-color: rgb(204, 238, 255);">
-                                    <i class="bi bi-cart-dash" style="color: rgb(6, 128, 189);"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>12 <span style="font-size: 1rem;">Transaksi</span></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <div class="col">
@@ -191,10 +145,50 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col">
+                <div class="card info-card customers-card">
+                    <div>
+                        <div class="card-body">
+                            <h5 class="card-title">Total Produk</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                                    style="background-color: rgb(192, 252, 230);">
+                                    <i class="bi bi-cart-check" style="color: rgb(68, 166, 130);"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>12 <span style="font-size: 1rem;">Produk</span></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card info-card customers-card">
+                    <div>
+                        <div class="card-body">
+                            <h5 class="card-title">Total Kategori</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                                    style="background-color: rgb(255, 252, 189);">
+                                    <i class="bi bi-envelope-paper" style="color: rgb(255, 237, 43);"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>12 <span style="font-size: 1rem;">kategori</span></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <h5 class="card-title">Pendapatan tanggal 29 - 30 Agustus 2023.</h5>
         <div class="card info-card customers-card">
             <div>
                 <div class="card-body">
+                    {{-- Pendapatan Aplikasi --}}
                     <h5 class="card-title">Total Pendapatan</h5>
                     <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
@@ -208,11 +202,7 @@
                 </div>
             </div>
         </div>
-     
         </div>
-
-
-
         <h5 class="card-title">5 Produk Terlaris tanggal 29 - 30 Agustus 2023.</h5>
         <div class="card top-selling overflow-auto">
             <div class="card-body">
@@ -437,85 +427,39 @@
                 </div>
             </div>
         </div>
-
-
-
-        <h5 class="card-title">Grafik Penilaian tanggal 29 - 30 Agustus 2023.</h5>
-        <div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Ringkasan Kepuasan Pelanggan</h5>
-                    <div class="chart-container" style="position: relative; height: 100%;">
-                        <canvas id="chart" width="400" height="200"></canvas>
-                    </div>
-                    <hr />
-                    <footer class="blockquote-footer mt-2">
-                        Warna pada grafik hanya berfungsi sebagai penanda untuk membedakan sebuah data dan tidak memiliki
-                        kaitan dengan aspek lainnya.
-                    </footer>
-                    <hr style="margin-bottom: -5px;" />
-                    <h5 class="card-title">Rangkuman</h5>
-                    <div class="d-flex align-items-center">
-                        <h1 class="rating-label mr-2">4.5</h1>
-                        <div class="rating-container">
-                            <span class="text-warning">&#9733;</span>
-                            <span class="text-warning">&#9733;</span>
-                            <span class="text-warning">&#9733;</span>
-                            <span class="text-warning">&#9733;</span>
-                            <span class="text-warning">&#9734;</span>
-                        </div>
-                    </div>
-                    <span>Rating rata-rata saat ini.</span>
-                    <hr />
-                    <h5><strong>Total 80 Penilaian, 30 Ulasan</strong></h5>
-                    <div class="d-flex justify-content-between">
-                        <span>5 Bintang</span>
-                        <span>12 <span style="font-size: 1rem;" class="text-muted">Penilaian</span>, 8 <span
-                                style="font-size: 1rem;" class="text-muted">Ulasan</span></span>
-                    </div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <span>4 Bintang</span>
-                        <span>12 <span style="font-size: 1rem;" class="text-muted">Penilaian</span>, 8 <span
-                                style="font-size: 1rem;" class="text-muted">Ulasan</span></span>
-                    </div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 40%;" aria-valuenow="40"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <span>3 Bintang</span>
-                        <span>12 <span style="font-size: 1rem;" class="text-muted">Penilaian</span>, 8 <span
-                                style="font-size: 1rem;" class="text-muted">Ulasan</span></span>
-                    </div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 30%;" aria-valuenow="30"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <span>2 Bintang</span>
-                        <span>12 <span style="font-size: 1rem;" class="text-muted">Penilaian</span>, 8 <span
-                                style="font-size: 1rem;" class="text-muted">Ulasan</span></span>
-                    </div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 20%;" aria-valuenow="20"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <span>1 Bintang</span>
-                        <span>12 <span style="font-size: 1rem;" class="text-muted">Penilaian</span>, 8 <span
-                                style="font-size: 1rem;" class="text-muted">Ulasan</span></span>
-                    </div>
-                    <div class="progress mt-2">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 10%;" aria-valuenow="10"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h5 class="card-title">Rating & Ulasan pelanggan tanggal 29 - 30 Agustus 2023.</h5>
+            <table class="table table-bordered table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nama Pelanggan</th>
+                        <th>Rating Pelanggan</th>
+                        <th>Ulasan Pelanggan</th>
+                        <th>Waktu Memberi Ulasan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>5</td>
+                        <td>Pelayanan sangat memuaskan!</td>
+                        <td>2024-07-01</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>4</td>
+                        <td>Barang sesuai dengan deskripsi.</td>
+                        <td>2024-06-30</td>
+                    </tr>
+                    <tr>
+                        <td>Michael Johnson</td>
+                        <td>3</td>
+                        <td>Pengiriman agak lambat.</td>
+                        <td>2024-06-29</td>
+                    </tr>
+                    <!-- Tambahkan baris lainnya sesuai kebutuhan -->
+                </tbody>
+            </table>
+    
 
 
         <h5 class="card-title">Data Lengkap Penjualan tanggal 29 - 30 Agustus 2023.</h5>
@@ -526,7 +470,7 @@
                         <th colspan="10" class="text-center" style="font-size: 20px;">AR-Furniture</th>
                     </tr>
                     <tr>
-                        <th colspan="10" class="text-center">Laporan Penjualan Harian Tanggal 2023-08-29 hingga
+                        <th colspan="10" class="text-center">Laporan Penjualan Tanggal 2023-08-29 hingga
                             2023-08-29</th>
                     </tr>
                     <tr>
@@ -548,10 +492,10 @@
                         <td>Sumiasih</td>
                         <td>Banyumas</td>
                         <td class="fw-bold">Kursi Klasik Eropa<br /><span><small>-Biru</small></span></td>
-                        <td>BCA</td>
+                        <td>Bank Transfer</td>
                         <td>...</td>
                         <td>Rp 2.000.000</td>
-                        <td class="fw-bold">5%<br /><span><small>Flash Sale 1.1</small></span></td>
+                        <td class="fw-bold">5%</td>
                         <td>Rp 1.900.000</td>
                     </tr>
                     <tr>
@@ -559,7 +503,7 @@
                         <td>Keisha</td>
                         <td>Kediri</td>
                         <td class="fw-bold">Sofa USA</td>
-                        <td>BCA</td>
+                        <td>Bank_Transfer</td>
                         <td>...</td>
                         <td>Rp 5.000.000</td>
                         <td>-</td>
@@ -580,7 +524,7 @@
 
         <div class="d-flex justify-content-between">
             <a href="/Outputhasilprintlaporanharian">
-                <button class="btn btn-primary">Cetak Laporan</button>
+                <button class="btn btn-primary">Kirim Ke Email</button>
             </a>
         </div>
     </section>
