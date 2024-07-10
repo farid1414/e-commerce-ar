@@ -143,7 +143,8 @@
             margin-top: -40px;
             word-wrap: break-word;
             white-space: pre-wrap;
-            max-width: 50; /* Restrict the width to 30 characters */
+            max-width: 50;
+            /* Restrict the width to 30 characters */
         }
     </style>
 </head>
@@ -191,7 +192,8 @@
                                         @foreach ($product->images as $index => $img)
                                             <div class="carousel-item @if ($index == 0) active @endif"
                                                 data-bs-interval="{{ $incrementProduct += 1000 }}">
-                                                <img src="{{ url($img->image) }}" class="d-block w-100" alt="..." style="border-radius: 10px">
+                                                <img src="{{ url($img->image) }}" class="d-block w-100" alt="..."
+                                                    style="border-radius: 10px">
                                             </div>
                                         @endforeach
                                         {{-- <div class="carousel-item active">
@@ -240,7 +242,7 @@
                                     @foreach ($product->images as $index => $img)
                                         <div class="carousel-item @if ($index == 0) active @endif"
                                             data-bs-interval="{{ $incrementProduct += 1000 }}">
-                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="..." >
+                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="...">
                                         </div>
                                     @endforeach
                                 </div>
@@ -303,7 +305,8 @@
                                         <b>Tentang Produk Ini</b>
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body description">
                                         {!! $product->description ?? '' !!}
                                     </div>
@@ -464,7 +467,7 @@
                                                                     <div class="d-flex justify-content-between mb-1">
                                                                         <h5 class="card-title">
                                                                             @if ($rating->is_samaran)
-                                                                                {{-- {{ maskString($rating->user->name) }} --}}
+                                                                                {{ maskString($rating->user->name) }}
                                                                             @else
                                                                                 {{ $rating->user->name }}
                                                                             @endif
@@ -601,14 +604,17 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="d-flex justify-content-start me-3">
+                                            @for ($i = 1; $i < $rate; $i++)
+                                                <i class="bi bi-star-fill"
+                                                    style="font-size: 1.3rem; color: gold;"></i>
+                                            @endfor
+                                            {{-- <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
                                             <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
-                                            <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
-                                            <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
-                                            <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
+                                            <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i> --}}
                                         </div>
                                     </div>
                                 </div>
-                                <span style="font-size: 20px;">4</span>
+                                <span style="font-size: 20px;">{{ $rate }}</span>
                             </div>
                         </div>
 

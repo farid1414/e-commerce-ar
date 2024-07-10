@@ -74,38 +74,57 @@
                             <div class="card h-100" style="transition: box-shadow 0.3s; border-radius: 6px;"
                                 onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                                 onmouseleave="this.style.boxShadow = 'none'">
-                                <span class="badge bg-danger position-absolute" style="top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
-                                <img src="{{ url($prod->thumbnail) }}" alt="Product" class="card-img-top" style="max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
+                                <span class="badge bg-danger position-absolute"
+                                    style="top: 10px; right: 10px; font-size: 0.8rem;">Produk Terbaru !!</span>
+                                <img src="{{ url($prod->thumbnail) }}" alt="Product" class="card-img-top"
+                                    style="max-height: 200px; object-fit: cover; border-radius: 6px 6px 0 0;">
                                 <div class="card-body d-flex flex-column">
                                     <p class="fw-bold" style="font-size: 1rem;">{{ $prod->name }}</p>
-                                    <div class="flex-grow-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                        <p class="card-text" style="text-align: justify; font-size: 0.9rem;">{!! $prod->description !!}</p>
+                                    <div class="flex-grow-1"
+                                        style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                        <p class="card-text" style="text-align: justify; font-size: 0.9rem;">
+                                            {!! $prod->description !!}</p>
                                     </div>
                                     <div class="mt-auto">
-                                        <div class="d-flex align-items-center">
-                                            <span class="text-warning" style="font-size: 0.9rem;">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span class="ms-2" style="font-size: 0.8rem;">5 (10)</span>
-                                        </div>
+                                        @php
+                                            $rating = 0;
+                                            $count = 0;
+                                            $val = $ratings->where('product_id', '=', $prod->id)->sum('rating_value');
+                                            $count = $ratings->where('product_id', '=', $prod->id)->count();
+                                            if ($count > 0) {
+                                                $rating = $val / $count;
+                                            }
+
+                                        @endphp
+                                        @if ($count > 0)
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-warning" style="font-size: 0.9rem;">
+                                                    @for ($i = 0; $i < $rating; $i++)
+                                                        <i class="fas fa-star" style="font-size: 11px"></i>
+                                                    @endfor
+                                                </span>
+                                                <span class="ms-2" style="font-size: 0.8rem;">{{ $rating }}
+                                                    ({{ $count }})</span>
+                                            </div>
+                                        @endif
                                         <br>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <span class="fw-bold" style="font-size: 1rem;">{{ formatRupiah($prod->harga) }}</span>
+                                            <span class="fw-bold"
+                                                style="font-size: 1rem;">{{ formatRupiah($prod->harga) }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer bg-white">
-                                    <div class="d-flex @if (!$prod->harga_ongkir) justify-content-between @else justify-content-end @endif">
+                                    <div
+                                        class="d-flex @if (!$prod->harga_ongkir) justify-content-between @else justify-content-end @endif">
                                         @if (!$prod->harga_ongkir)
                                             <span class="badge bg-success" style="font-size: 0.7rem;">
-                                                <i class="fa-solid fa-truck-fast me-2" style="font-size: 12px"></i>Free Ongkir
+                                                <i class="fa-solid fa-truck-fast me-2" style="font-size: 12px"></i>Free
+                                                Ongkir
                                             </span>
                                         @endif
-                                        <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual {{ $prod->transactionDetail->sum('quantity') }}x</span>
+                                        <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
+                                            {{ $prod->transactionDetail->sum('quantity') }}x</span>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +134,7 @@
             </div>
             <hr style="clear: both;">
         </div>
-        
+
         </div>
 
 
@@ -141,15 +160,11 @@
                             <div
                                 style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
                                 <!-- Star Rating -->
-                                <span style="color: gold; font-size: 0.9rem;">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                <span style="color: gold; font-size: 0.9rem;" id="rate">
                                     <i class="fas fa-star"></i>
                                 </span>
                                 <!-- Rating Text -->
-                                <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                                <span style="margin-left: 5px; font-size: 0.8rem;" id="count_rate">5 (10)</span>
                             </div>
                             <br>
                             <!-- Price -->
@@ -292,6 +307,7 @@
                             let html = ''
                             let routeTemplate = "{{ route('detail-product', 'UUID') }}";
                             $.each(resp.data, function(i, prod) {
+                                console.log("prod", prod);
                                 let route = routeTemplate.replace('UUID', prod.uuid);
                                 let clone = $('.template-prod > div').clone()
                                 clone.find('#link_prod').attr('href', route)
@@ -300,10 +316,22 @@
                                 clone.find('#desc_prod').html(prod.description)
                                 clone.find('#harga_prod').html(prod.harga)
                                 clone.find('#terjual').html(`Terjual ${prod.quantity}x`)
+                                clone.find('#rate').html('')
+                                clone.find('#count_rate').html('')
                                 if (prod.harga_ongkir == null) {
                                     $('#free_ongkir').removeClass('d-none')
                                 } else {
                                     $('#free_ongkir').addClass('d-none')
+                                }
+                                if (prod.countRate > 0) {
+                                    let html = ''
+                                    for (let index = 0; index < prod
+                                        .countRate; index++) {
+                                        html += ' <i class="fas fa-star"></i>'
+                                    }
+                                    clone.find('#rate').html(html)
+                                    clone.find('#count_rate').html(
+                                        `${prod.rate} (${prod.countRate})`)
                                 }
                                 $('.elem-prod').append(clone)
                             })
@@ -332,14 +360,13 @@
                         })
                     }
                 })
-                // sortOption = option === "Produk Terbaru" ? "Produk Terbaru" : option;
             });
         })
     </script>
 
-<div class='d-block d-lg-none'>
-    @include('user.komponenuser.bottomnavbar')
-</div>
+    <div class='d-block d-lg-none'>
+        @include('user.komponenuser.bottomnavbar')
+    </div>
 </body>
 
 </html>

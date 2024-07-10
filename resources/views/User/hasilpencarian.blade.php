@@ -90,7 +90,7 @@
                                         <div
                                             style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
                                             <!-- Star Rating -->
-                                            <span style="color: gold; font-size: 0.9rem;">
+                                            <span style="color: gold; font-size: 0.9rem;" id="rate">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
@@ -98,7 +98,9 @@
                                                 <i class="fas fa-star"></i>
                                             </span>
                                             <!-- Rating Text -->
-                                            <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
+                                            <span style="margin-left: 5px; font-size: 0.8rem;" id="count_rate">5
+                                                (10)
+                                            </span>
                                         </div>
                                         <br>
                                         <!-- Price -->
@@ -328,6 +330,16 @@
                                 } else {
                                     $('#free_ongkir').addClass('d-none')
                                 }
+                                if (prod.countRate > 0) {
+                                    let html = ''
+                                    for (let index = 0; index < prod
+                                        .countRate; index++) {
+                                        html += ' <i class="fas fa-star"></i>'
+                                    }
+                                    clone.find('#rate').html(html)
+                                    clone.find('#count_rate').html(
+                                        `${prod.rate} (${prod.countRate})`)
+                                }
                                 $('.elem-prod').append(clone)
                             })
                         }
@@ -361,7 +373,7 @@
     </script>
     <div class='d-block d-lg-none'>
         @include('user.komponenuser.bottomnavbar')
-        </div>
+    </div>
 </body>
 
 </html>

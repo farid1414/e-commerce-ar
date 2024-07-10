@@ -27,7 +27,7 @@ class MainController extends Controller
     public function index()
     {
         $currentDateTime = Carbon::now();
-        $product = Product::select('*')->where('is_active', true);
+        $product = Product::select('*')->where('is_active', '=', 1)->where('stock', '>', 0);
         $flashsale = FlashSale::where(function ($query) use ($currentDateTime) {
             $query->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime);
@@ -108,9 +108,11 @@ class MainController extends Controller
     public function prodCat(int $id)
     {
         $cat = Category::findOrFail($id);
+        $rat = Rating::get();
 
         return view('User.listproduk', [
-            'category' => $cat
+            'category' => $cat,
+            'ratings' => $rat
         ]);
     }
 
@@ -138,6 +140,7 @@ class MainController extends Controller
         if ($req) {
             $product = Product::query()
                 ->where('products.is_active', '=', true)
+                ->where('products.stock', '>', 0)
                 ->join('categories', 'products.categori_id', '=', 'categories.id')
                 ->where('products.name', 'like', '%' . $req . '%')
                 ->orWhere('categories.name', 'like', '%' . $req . '%')
@@ -162,7 +165,7 @@ class MainController extends Controller
     public function product(Request $request)
     {
         $req = $request->input('data');
-        $prod = Product::query()->where('is_active', '=', true);
+        $prod = Product::query()->where('is_active', '=', true)->where('stock', '>', 0);
         if ($req == 'terbaru') {
             $prod =  $prod->orderBy('created_at');
         } else if ($req == 'harga_tertinggi') {
@@ -170,8 +173,10 @@ class MainController extends Controller
         }
 
         $prod =  $prod->get();
+        $ratings = Rating::get();
         return view('User.produkall', [
-            'prod' => $prod
+            'prod' => $prod,
+            'ratings' => $ratings
         ]);
     }
 
@@ -179,7 +184,8 @@ class MainController extends Controller
     {
         $search = $req = $request->input('search');
         $req = $request->input('data');
-        $prod = Product::select('products.*')->where('is_active', '=', true);
+        $cat = $request->input('category');
+        $prod = Product::select('products.*')->where('is_active', '=', true)->where('stock', '>', 0);
         // $prod = DB::table('products');
         if ($search) {
             $prod = $prod->join('categories', 'products.categori_id', '=', 'categories.id')
@@ -198,16 +204,22 @@ class MainController extends Controller
         } else if ($req == 'za') {
             $prod = $prod->orderBy('name', 'DESC');
         } else if ($req == 'gratis_ongkir') {
-            $prod = $prod->orderBy('harga_ongkir');
+            $prod = $prod->orderBy('harga_ongkir', 'DESC');
         }
 
-        $prod = $prod->get();
+        if ($cat) {
+            $prod = $prod->where('categori_id', $cat);
+        }
+
+        $prod = $prod->with('ratings')->get();
         $prod = $prod->map(function ($pr) {
             $pr->thumbnail = url($pr->thumbnail);
             $pr->description = nl2br($pr->description);
             $pr->harga = 'Rp ' . number_format($pr->harga, 0, ',', '.');
             $pr->quantity = $pr->transactionDetail->sum('quantity');
             $pr->countVarian = $pr->varians->count();
+            $pr->rate = $pr->ratings->count() ?  $pr->ratings->sum('rating_value') / $pr->ratings->count() : 0;
+            $pr->countRate = $pr->ratings->count();
             return $pr;
         });
 

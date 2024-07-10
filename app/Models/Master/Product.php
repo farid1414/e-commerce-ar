@@ -2,6 +2,7 @@
 
 namespace App\Models\Master;
 
+use App\Models\Rating;
 use App\Models\TransactionDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -72,5 +73,10 @@ class Product extends Model
     public function transactionDetail()
     {
         return $this->hasMany(TransactionDetail::class, 'product_id');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'product_id');
     }
 }
