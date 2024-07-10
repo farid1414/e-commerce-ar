@@ -43,6 +43,7 @@
 <body>
     @include('user.komponenuser.navbaruser')
     @include('user.include.style')
+    @include('user.komponenuser.loadingUser')
 
     <section id="hero" class="d-flex align-items-center" style="margin-top: 40px; margin-bottom: 140px;">
         <div class="container">

@@ -14,6 +14,8 @@
 @include('user.include.style')
 
 <body>
+    @include('user.komponenuser.loadingUser')
+
     <div class="text-center mt-3 mb-4">
         <h1><b>Invoice Pesanan Anda.</b></h1>
         <span>Terima Kasih Sudah Berbelanja Di AR-Furniture</span>

@@ -21,6 +21,7 @@
 
 <body>
     @include('user.komponenuser.navbaruser')
+    @include('user.komponenuser.loadingUser')
 
     <div class="d-block d-lg-none">
         @include('user.komponenuser.bottomnavbar')

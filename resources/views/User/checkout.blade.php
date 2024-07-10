@@ -17,6 +17,8 @@
 
 <body>
     @include('layouts.loader')
+    @include('user.komponenuser.loadingUser')
+
     <div class="container">
         <div class="text-center mt-5 mb-5"> <!-- Menggunakan kelas text-center -->
             <h2><b>Periksa Kembali Pesanan Anda.

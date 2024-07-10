@@ -14,6 +14,8 @@
 @include('user.include.style')
 
 <body>
+    @include('user.komponenuser.loadingUser')
+
     @include('layouts.loader')
     <section>
         <div class="container">

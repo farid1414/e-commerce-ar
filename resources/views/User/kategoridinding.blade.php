@@ -12,7 +12,8 @@
 
 @include('user.include.style')
 <body>
-    
+  @include('user.komponenuser.loadingUser')
+
     <div class="container">
         <div class="text-center mt-5 mb-5"> <!-- Menggunakan kelas text-center -->
             <h2><b>Kategori Terbaik Untuk Anda.

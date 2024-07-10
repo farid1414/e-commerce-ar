@@ -10,6 +10,8 @@
 @include('user.include.style')
 
 <body>
+    @include('user.komponenuser.loadingUser')
+
     <div class="d-flex justify-content-center align-items-center mt-4" style="min-height: 70vh;">
         <div class="card" style="max-width: 400px;" data-aos="fade-up">
             <div class="card-body">

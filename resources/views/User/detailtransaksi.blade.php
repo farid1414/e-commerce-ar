@@ -13,6 +13,7 @@
 @include('user.include.style')
 
 <body>
+    @include('user.komponenuser.loadingUser')
 
     <div class="container">
 

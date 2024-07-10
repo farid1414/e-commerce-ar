@@ -17,6 +17,8 @@
 
 <body>
     @include('layouts.loader')
+    @include('user.komponenuser.loadingUser')
+
     {{-- hasil pencarian untuk search bar PC only --}}
     <section>
         <div class="container">

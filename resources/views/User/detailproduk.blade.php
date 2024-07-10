@@ -156,6 +156,8 @@
 
 <body>
     @include('layouts.loader')
+    @include('user.komponenuser.loadingUser')
+
     <div class="container">
         <div class="row mt-2">
             <div class="col-xs-12 col-md-8">

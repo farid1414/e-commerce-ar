@@ -90,6 +90,8 @@
 
 <body>
     {{-- Hero --}}
+    @include('user.komponenuser.loadingUser')
+
     <div class="pageStyle">
         <main>
             <section id="hero" class="d-flex align-items-center my-3 mt-4">

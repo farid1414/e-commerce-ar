@@ -60,6 +60,8 @@
 
 <body>
     @include('layouts.loader')
+    @include('user.komponenuser.loadingUser')
+
     <main>
         <div class="container">
 
@@ -180,7 +182,15 @@
                             <div class="mb-2">
                                 <label for="edit-password" class="form-label fw-bold">Password :</label>
                                 <p class="form-control-static">*********************</p>
-                                <!-- Jika ingin menambahkan input password, bisa ditambahkan di sini -->
+                                <div class="d-flex align-items-center">
+                                    <div class="input-group" id="password-container" style="display: none;">
+                                        <input type="password" name="password" class="form-control" id="edit-password">
+                                        <button type="button" class="btn btn-outline-secondary" id="toggle-password">
+                                            <i class="bi bi-eye-fill" id="icon-eye"></i>
+                                            <i class="bi bi-eye-slash-fill d-none" id="icon-eye-slash"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <hr>
                     
@@ -198,7 +208,6 @@
                             </div>
                         </div>
                     </form>
-                    
                     
 
                 </div>
@@ -247,95 +256,79 @@
         });
         // Script untuk mengatur perubahan dari tampilan data ke form edit
         $(document).ready(function() {
-            $('#btn-ubah').click(function() {
-                // Sembunyikan tombol Ubah dan tampilkan tombol Simpan dan Batal
-                $('#btn-ubah').hide();
-                $('#btn-simpan').show();
-                $('#btn-batal').show();
+    $('#btn-ubah').click(function() {
+        // Sembunyikan tombol Ubah dan tampilkan tombol Simpan dan Batal
+        $('#btn-ubah').hide();
+        $('#btn-simpan').show();
+        $('#btn-batal').show();
 
-                // Tampilkan form input untuk setiap data yang ingin diedit
-                $('#nama').hide();
-                $('#edit-nama').show();
+        // Tampilkan form input untuk setiap data yang ingin diedit
+        $('#nama').hide();
+        $('#edit-nama').show();
 
-                $('#phone').hide();
-                $('#edit-phone').show();
+        $('#phone').hide();
+        $('#edit-phone').show();
 
-                $('#email').hide();
-                $('#edit-email').show();
+        $('#email').hide();
+        $('#edit-email').show();
 
-                $('#alamat').hide();
-                $('#edit-alamat').show();
-            });
+        $('#alamat').hide();
+        $('#edit-alamat').show();
+        
+        // Tampilkan input password dan ikon mata
+        $('#password-container').show();
+    });
 
-            $('#btn-batal').click(function() {
-                // Tombol Batal diklik, kembalikan ke tampilan semula
-                $('#btn-ubah').show();
-                $('#btn-simpan').hide();
-                $('#btn-batal').hide();
+    $('#btn-batal').click(function() {
+        // Tombol Batal diklik, kembalikan ke tampilan semula
+        $('#btn-ubah').show();
+        $('#btn-simpan').hide();
+        $('#btn-batal').hide();
 
-                $('#nama').show();
-                $('#edit-nama').hide();
+        $('#nama').show();
+        $('#edit-nama').hide();
 
-                $('#phone').show();
-                $('#edit-phone').hide();
+        $('#phone').show();
+        $('#edit-phone').hide();
 
-                $('#email').show();
-                $('#edit-email').hide();
+        $('#email').show();
+        $('#edit-email').hide();
 
-                $('#alamat').show();
-                $('#edit-alamat').hide();
-            });
+        $('#alamat').show();
+        $('#edit-alamat').hide();
 
-            $('#btn-simpan').click(function() {
-                // Implementasikan logika untuk menyimpan perubahan
-                var nama = $('#edit-nama').val();
-                var phone = $('#edit-phone').val();
-                var email = $('#edit-email').val();
-                var alamat = $('#edit-alamat').val();
+        // Sembunyikan input password dan ikon mata
+        $('#password-container').hide();
+    });
 
-                // Lakukan request untuk menyimpan perubahan (misalnya dengan AJAX)
-                // Di sini Anda bisa menggunakan AJAX untuk mengirim data yang diedit ke backend
+    $('#toggle-password').click(function() {
+        var passwordField = $('#edit-password');
+        var passwordFieldType = passwordField.attr('type');
+        var eyeIcon = $('#icon-eye');
+        var eyeSlashIcon = $('#icon-eye-slash');
 
-                // Contoh AJAX:
-                /*
-                $.ajax({
-                    type: 'POST',
-                    url: '/update-profile',
-                    data: {
-                        nama: nama,
-                        phone: phone,
-                        email: email,
-                        alamat: alamat
-                    },
-                    success: function(response) {
-                        // Tampilkan pesan sukses atau sesuaikan dengan kebutuhan
-                        alert('Data berhasil diupdate!');
+        if (passwordFieldType == 'password') {
+            passwordField.attr('type', 'text');
+            eyeIcon.addClass('d-none');
+            eyeSlashIcon.removeClass('d-none');
+        } else {
+            passwordField.attr('type', 'password');
+            eyeIcon.removeClass('d-none');
+            eyeSlashIcon.addClass('d-none');
+        }
+    });
 
-                        // Kembalikan ke tampilan semula setelah update
-                        $('#btn-ubah').show();
-                        $('#btn-simpan').hide();
-                        $('#btn-batal').hide();
+    $('#btn-simpan').click(function() {
+        // Implementasikan logika untuk menyimpan perubahan
+        var nama = $('#edit-nama').val();
+        var phone = $('#edit-phone').val();
+        var email = $('#edit-email').val();
+        var alamat = $('#edit-alamat').val();
+        var password = $('#edit-password').val();
 
-                        $('#nama').text(nama).show();
-                        $('#edit-nama').hide();
-
-                        $('#phone').text(phone).show();
-                        $('#edit-phone').hide();
-
-                        $('#email').text(email).show();
-                        $('#edit-email').hide();
-
-                        $('#alamat').text(alamat).show();
-                        $('#edit-alamat').hide();
-                    },
-                    error: function(xhr, status, error) {
-                        // Tampilkan pesan error atau sesuaikan dengan kebutuhan
-                        alert('Terjadi kesalahan: ' + error);
-                    }
-                });
-                */
-            });
-        });
+        // Kirim data menggunakan AJAX atau metode lainnya
+    });
+});
     </script>
 
 
