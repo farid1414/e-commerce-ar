@@ -55,7 +55,7 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/admin/dataakun">
+                    <a href="{{ route('master.akun.index') }}">
                         <i class="bi bi-circle"></i><span>Data Akun</span>
                     </a>
                 </li>

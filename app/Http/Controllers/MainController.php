@@ -120,7 +120,7 @@ class MainController extends Controller
         // $product = Product::where('name', 'like', '%' . $req . '%')->get();
         $product = DB::table('products')
             ->join('categories', 'products.categori_id', '=', 'categories.id')
-            ->where('is_active', '=', true)
+            ->where('products.is_active', '=', true)
             ->where('products.name', 'like', '%' . $req . '%')
             ->orWhere('categories.name', 'like', '%' . $req . '%')
             ->orWhere('products.sub_name', 'like', '%' . $req . '%')

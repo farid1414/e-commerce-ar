@@ -42,4 +42,12 @@ class TransaksiController extends Controller
             'transaction' => $transaction
         ]);
     }
+
+    public function detailInvoice(int $id)
+    {
+        $tr = Transaction::findOrFail($id);
+        return view('admin.invoiceadmin', [
+            'tr' => $tr
+        ]);
+    }
 }

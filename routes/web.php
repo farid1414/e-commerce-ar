@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\Master\AkunController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Master\CategoryController;
@@ -306,6 +307,7 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('/pending', [TransaksiController::class, 'pending'])->name('pending');
         Route::get('/failed', [TransaksiController::class, 'failed'])->name('failed');
         Route::get('/detail/{id?}', [TransaksiController::class, 'detail'])->name('detail');
+        Route::get('/detail-invoice/{id?}', [TransaksiController::class, 'detailInvoice'])->name('detail-invoice');
     });
 
     Route::prefix('/rating-ulasan')->name('rating.')->group(function () {
@@ -316,6 +318,19 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
 
     Route::prefix('/laporan')->name('laporan.')->group(function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('/data-akun')->name('akun.')->group(function () {
+        Route::get('/', [AkunController::class, 'index'])->name('index');
+        Route::get('/data-admin', [AkunController::class, 'dataAdmin'])->name('data-admin');
+        Route::get('/detail-admin/{id?}', [AkunController::class, 'detailAdmin'])->name('detail-admin');
+        Route::get('/tambah-admin', [AkunController::class, 'tambahAdmin'])->name('tambah-admin');
+        Route::post('/tambah-admin', [AkunController::class, 'storeAdmin'])->name('store-admin');
+        Route::get('/status-admin/{id?}', [AkunController::class, 'statusAdmin'])->name('status-admin');
+        Route::delete('/delete-admin/{id?}', [AkunController::class, 'deleteAdmin'])->name('delete-admin');
+        Route::get('/data-pelanggan', [AkunController::class, 'dataPelanggan'])->name('data-pelanggan');
+        Route::get('/detail-pelanggan/{id?}', [AkunController::class, 'detailPelanggan'])->name('detail-pelanggan');
+        Route::delete('/delete-pelanggan/{id?}', [AkunController::class, 'deletePelanggan'])->name('delete-pelanggan');
     });
 });
 
