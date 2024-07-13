@@ -24,7 +24,7 @@ class ProfilController extends Controller
         $user =  user::findOrFail($id);
         $data = [
             'name' => $request->name,
-            'eamil' => $request->email
+            'email' => $request->email
         ];
         if ($request->password) {
             $data['password'] = Hash::make($request->password);

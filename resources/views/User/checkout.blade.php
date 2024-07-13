@@ -56,9 +56,9 @@
                 @foreach ($transaction->transactionDetail as $i => $cart)
                     @php
                         $subTotal = $cart->harga;
-                        $diskon = $transaction->diskon ?? 0;
+                        $diskon = $cart->diskon ?? 0;
                         $ongkir = $cart->ongkir ?? 0;
-                        $harga = $subTotal - $diskon;
+                        $harga = ($subTotal - $diskon) * $cart->quantity;
                         $totalOngkir = $harga + $ongkir;
                         $totalHarga += $totalOngkir;
                     @endphp

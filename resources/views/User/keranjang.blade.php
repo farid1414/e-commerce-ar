@@ -86,13 +86,15 @@
                                             </td>
                                             <td class="align-middle">
                                                 <div class="d-flex align-items-center">
-                                                    <button class="btn btn-light btn-sm decre-qty" type="button">
+                                                    <button class="btn btn-light btn-sm decre-qty"
+                                                        data-id="{{ $cart->id }}" type="button">
                                                         <i class="fas fa-minus"></i>
                                                     </button>
                                                     <span id="quantityDisplay" class="mx-3">{{ $cart->qty }}</span>
                                                     <input type="hidden" name="qty" value="{{ $cart->qty }}"
                                                         id="qty">
-                                                    <button class="btn btn-light btn-sm add-qty" type="button">
+                                                    <button class="btn btn-light btn-sm add-qty"
+                                                        data-id="{{ $cart->id }}" type="button">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -113,10 +115,10 @@
                                                 @endif
                                                 {{-- <del>1000000</del> <br /> --}}
                                                 <br />
-                                                @if ($cart->product->flashSale)
+                                                @if ($cart->flashSale)
                                                     <span class="badge bg-warning ml-2">
                                                         <i class="fas fa-bolt"></i>
-                                                        {{ $cart->product->flashSale->where('product_varian_id', $cart->product_varian_id)->first()->flashSale->name ?? '' }}
+                                                        {{ $cart->flashSale->name }}
                                                     </span>
                                                 @endif
                                             </td>
@@ -124,12 +126,8 @@
                                             <td class="align-middle">
                                                 @if ($cart->ongkir)
                                                     {{ formatRupiah($cart->ongkir) }}
+                                                    <br />
                                                 @else
-                                                    <br />
-                                                    <span>
-                                                        <small>0</small>
-                                                    </span>
-                                                    <br />
                                                     <span class="badge bg-success">
                                                         <i class="fa-solid fa-truck-fast"></i>
                                                         Gratis Ongkir.
@@ -246,13 +244,15 @@
                                 </button>
                                 <div class="d-flex align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <button class="btn btn-light btn-sm decre-qty" type="button">
+                                        <button class="btn btn-light btn-sm decre-qty" data-id="{{ $cart->id }}"
+                                            type="button">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                         <span id="quantityDisplay" class="mx-3">{{ $cart->qty }}</span>
                                         <input type="hidden" name="qty" value="{{ $cart->qty }}"
                                             id="qty">
-                                        <button class="btn btn-light btn-sm add-qty" type="button">
+                                        <button class="btn btn-light btn-sm add-qty" data-id="{{ $cart->id }}"
+                                            type="button">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
@@ -312,13 +312,11 @@
 
 
         {{-- PRORDUK Baru dilihat --}}
-        <div class="container">
+        {{-- <div class="container">
             <p style="font-size: 2rem;">
                 <b>Produk yang baru dilihat. </b>
             </p>
             <div class="row">
-                <!-- Start of Loop -->
-                <!-- Ganti col-lg-3 menjadi col-lg-4 agar card tersusun dengan baik di grid -->
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                     <a href="/Detailproduk" style="text-decoration: none;">
                         <div class="card"
@@ -346,7 +344,6 @@
                                 </div>
                                 <div
                                     style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                                    <!-- Star Rating -->
                                     <span style="color: gold; font-size: 0.9rem;">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -354,21 +351,21 @@
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
                                     </span>
-                                    <!-- Rating Text -->
+
                                     <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
                                 </div>
                                 <br>
-                                <!-- Price -->
+
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="font-size: 1rem; font-weight: bold;">Rp. 15.000.000</span>
                                 </div>
                             </div>
                             <div class="card-footer bg-white">
                                 <div class="d-flex justify-content-between">
-                                    <!-- Free Shipping Badge -->
+
                                     <span class="badge bg-success" style="font-size: 0.7rem;"><i
                                             class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
-                                    <!-- Sold Badge -->
+
                                     <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual 10x</span>
                                 </div>
                             </div>
@@ -378,7 +375,7 @@
 
                 <!-- End of Loop -->
             </div>
-        </div>
+        </div> --}}
     </div>
 
     @include('user.komponenuser.footer')
@@ -414,10 +411,64 @@
         });
         $(document).ready(function() {
 
+            const updateCart = (id, type) => {
+                $.ajax({
+                    url: "{{ route('update-cart') }}",
+                    method: 'POST',
+                    contentType: false,
+                    processData: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        id: id,
+                        type: type
+                    }),
+                    beforeSend: function() {
+                        $loaderEl.removeClass('d-none')
+                    },
+                    success: function(response) {
+                        $loaderEl.addClass('d-none')
+                        Swal.fire({
+                            title: 'Sucess',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload()
+                            }
+                        });
+                    },
+                    error: function(err) {
+                        $loaderEl.addClass('d-none')
+                        let message = "";
+                        const json = err.responseJSON;
+                        if (json !== undefined) {
+                            message = json.message ?? "Internal Server Error";
+                            if (json.errors !== undefined && typeof json
+                                .errors === "string") message +=
+                                `\n${json.errors}`;
+                        } else message = `[${err.status}] ${err.statusText}`;
+                        let login = "{{ route('login') }}"
+                        if (message == "Unauthenticated.") {
+                            window.location.href = login;
+                            return
+                        }
+                        Swal.fire({
+                            title: 'Error',
+                            text: message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                })
+            }
+
             $('body').on('click', '.add-qty', function() {
                 let parent = $(this).parent()
+                let id = $(this).attr('data-id')
                 let qty = parseInt(parent.find('#qty').val())
                 if (qty < quantityLimit) {
+                    updateCart(id, 'add')
                     qty++
                     parent.find('#qty').val(qty)
                     parent.find('#quantityDisplay').html(qty)
@@ -427,7 +478,9 @@
             $('body').on('click', '.decre-qty', function() {
                 let parent = $(this).parent()
                 let qty = parseInt(parent.find('#qty').val())
+                let id = $(this).attr('data-id')
                 if (qty > 1) {
+                    updateCart(id, 'decre')
                     qty--
                     parent.find('#qty').val(qty)
                     parent.find('#quantityDisplay').html(qty)

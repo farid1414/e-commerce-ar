@@ -60,7 +60,7 @@ class MainController extends Controller
     public function getDetailProduct(string $uuid)
     {
 
-        $product = Product::where('uuid', $uuid)->with('varians')->first();
+        $product = Product::where('uuid', $uuid)->with(['varians', 'flashSale'])->first();
         if (!$product) return ERROR_RESPONSE("Product not found");
 
         return JSON_RESPONSE("Detail product", $product);
@@ -79,10 +79,31 @@ class MainController extends Controller
             'diskon' => $request->diskon ?? null,
             'status' => true
         ];
-        $flashsale = ProductFlashSale::where('product_id', $request->product_id)->where('product_varian_id', $request->varian);
 
+        $currentDateTime = Carbon::now();
+        $productFlashSale = null;
+        $fs = FlashSale::where(function ($query) use ($currentDateTime) {
+            $query->where('start_time', '<=', $currentDateTime)
+                ->where('end_time', '>=', $currentDateTime);
+        })->with('productFlashSale')->get();
 
-        if ($flashsale->first() && $flashsale->first()->count()) $data['flash_sale_id'] = $flashsale->first()->flash_sale_id;
+        if ($fs->count()) {
+            foreach ($fs as $key => $f) {
+                $prodFs = $f->productFlashSale->where('product_id', $request->product_id)->where('product_varian_id', $request->varian)->first();
+                if ($prodFs) {
+                    if ($prodFs->custom_stock && $request->quantity > $prodFs->custom_stock) {
+                        return ERROR_RESPONSE("Stok tidak ada");
+                    }
+                    ($prodFs);
+                    $productFlashSale = $prodFs->flash_sale_id;
+                }
+            }
+        }
+        if ($productFlashSale) {
+            $data['flash_sale_id'] = $productFlashSale;
+        }
+        // if ($flashsale->latest()->first() && $flashsale->latest()->first()->count()) $data['flash_sale_id'] = $flashsale->latest()->first()->flash_sale_id;
+        // dd($request->all(), $flashsale->latest()->first());
         try {
             DB::beginTransaction();
             Cart::create($data);
@@ -90,6 +111,29 @@ class MainController extends Controller
             return JSON_RESPONSE("Success.\nAdd to cart ", null, [
                 'url' => route('keranjang'),
             ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ERROR_RESPONSE("Failed to update category {$request->name} ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function updateCart(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $cart = Cart::findOrFail($id);
+
+        $qty = $cart->qty;
+        if ($type == 'add') {
+            $qty += 1;
+        } else {
+            $qty -= 1;
+        }
+        try {
+            DB::beginTransaction();
+            $cart->update(['qty' => $qty]);
+            DB::commit();
+            return JSON_RESPONSE("Update quantity");
         } catch (\Throwable $th) {
             DB::rollBack();
             return ERROR_RESPONSE("Failed to update category {$request->name} ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -256,7 +300,7 @@ class MainController extends Controller
 
         $order_amount = 0;
         $order =  $cart->each(function ($item) use (&$order_amount) {
-            $order_amount += ($item->sub_total - $item->diskon) + $item->ongkir;
+            $order_amount += (($item->harga - $item->diskon) * $item->qty)  + $item->ongkir;
         });
         $code = "AR-F/ORD-" . now()->toDateString() . "-" . (Transaction::withTrashed()->count() + 1);
 
@@ -423,16 +467,36 @@ class MainController extends Controller
     {
         $tr = Transaction::findOrFail($id);
         $tr->update(['status' => true, 'payment_at' => now()->toDateString(), 'payment_type' => $type]);
+        $tr = Transaction::findOrFail($id);
         $product = $tr->transactionDetail->pluck('product_id');
         $varian = $tr->transactionDetail->pluck('product_varian_id');
+
+        $currentDateTime = Carbon::now();
+        $productFlashSale = null;
+        $fs = FlashSale::where(function ($query) use ($currentDateTime) {
+            $query->where('start_time', '<=', $currentDateTime)
+                ->where('end_time', '>=', $currentDateTime);
+        })->with('productFlashSale')->get();
+
         foreach ($tr->transactionDetail as $det) {
             $prod = Product::findorFail($det->product_id);
             $qty = $prod->terjual ?? 0;
             $terjual = $qty + $det->quantity;
             $stock = $prod->stock;
             $st = $stock - $det->quantity;
-            $prod->update(['terjual' => $terjual, 'stock' => $stock]);
+            $prod->update(['terjual' => $terjual, 'stock' => $st]);
+            if ($fs->count()) {
+                foreach ($fs as $key => $f) {
+                    $prodFs = $f->productFlashSale->where('product_id', $det->product_id)->where('product_varian_id', $det->product_varian_id)->first();
+                    if ($prodFs) {
+                        $qty = $prodFs->custom_stock;
+                        $qty -= $det->quantity;
+                        $prodFs->update(['custom_stock' => $qty]);
+                    }
+                }
+            }
         }
+
         $carts = Cart::where('user_id', Auth::user()->id)->whereIn('product_id', $product)->whereIn('product_varian_id', $varian)->delete();
 
         return view('user.pembayaranberhasil');
@@ -511,12 +575,16 @@ class MainController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $customer = Customer::where('user_id', Auth::user()->id)->first();
 
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email
+        ];
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
         try {
             DB::beginTransaction();
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email
-            ]);
+            $user->update($data);
             $customer->update([
                 'name' => $request->name,
                 'phone' => $request->phone,

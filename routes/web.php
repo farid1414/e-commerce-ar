@@ -257,8 +257,8 @@ Route::get('admin/laporantahunan', function () {
 
 
 // Program Flash sale
-Route::get('admin/programflashsale', function () {
-    return view('admin.programflashsale');
+Route::get('admin/flash', function () {
+    return view('Admin.detailflashsale');
 });
 
 Route::get('admin/tambahflashsale', function () {
@@ -295,6 +295,7 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('/form/{id?}', [FlashSaleController::class, 'form'])->name('form');
         Route::get('list-product', [FlashSaleController::class, 'getProduct'])->name('get-product');
         Route::post('/', [FlashSaleController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [FlashSaleController::class, 'detail'])->name('detail');
     });
 
     Route::prefix('/profil')->name('profil.')->group(function () {
@@ -354,6 +355,7 @@ Route::get('/order-product', [MainController::class, 'orderProd'])->name('order-
 // ===== Routing user  ======
 Route::middleware('auth')->group(function () {
     Route::post('/add-to-cart', [MainController::class, 'addToCart'])->name('add-to-cart');
+    Route::post('/update-cart', [MainController::class, 'updateCart'])->name('update-cart');
     Route::get('/keranjang', [MainController::class, 'keranjang'])->name('keranjang');
     Route::delete('kerenjang/{id?}', [MainController::class, 'deleteCart'])->name('delete-cart');
     Route::post('/checkout', [MainController::class, 'postCheckout'])->name('post-checkout');

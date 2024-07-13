@@ -137,55 +137,62 @@
                         <div class="container">
                             <h4>Data diri Anda.</h4>
                             <hr>
-                    
+
                             <!-- Nama -->
                             <div class="mb-2">
                                 <label for="edit-nama" class="form-label fw-bold">Nama :</label>
                                 <div class="d-flex align-items-center">
                                     <p id="nama" class="form-control-static">{{ Auth::user()->name }}</p>
-                                    <input type="text" name="name" class="form-control" id="edit-nama" style="display: none;" value="{{ Auth::user()->name }}">
+                                    <input type="text" name="name" class="form-control" id="edit-nama"
+                                        style="display: none;" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <hr>
-                    
+
                             <!-- Nomor Hand Phone -->
                             <div class="mb-2">
                                 <label for="edit-phone" class="form-label fw-bold">Nomor Hand Phone :</label>
                                 <div class="d-flex align-items-center">
-                                    <p id="phone" class="form-control-static">{{ Auth::user()->customer->phone }}</p>
-                                    <input type="text" name="phone" class="form-control" id="edit-phone" style="display: none;" value="{{ Auth::user()->customer->phone }}">
+                                    <p id="phone" class="form-control-static">{{ Auth::user()->customer->phone }}
+                                    </p>
+                                    <input type="text" name="phone" class="form-control" id="edit-phone"
+                                        style="display: none;" value="{{ Auth::user()->customer->phone }}">
                                 </div>
                             </div>
                             <hr>
-                    
+
                             <!-- Email -->
                             <div class="mb-2">
                                 <label for="edit-email" class="form-label fw-bold">Email :</label>
                                 <div class="d-flex align-items-center">
                                     <p id="email" class="form-control-static">{{ Auth::user()->email }}</p>
-                                    <input type="email" name="email" class="form-control" id="edit-email" style="display: none;" value="{{ Auth::user()->email }}">
+                                    <input type="email" name="email" class="form-control" id="edit-email"
+                                        style="display: none;" value="{{ Auth::user()->email }}">
                                 </div>
                             </div>
                             <hr>
-                    
+
                             <!-- Alamat -->
                             <div class="mb-2">
                                 <label for="edit-alamat" class="form-label fw-bold">Alamat :</label>
                                 <div class="d-flex align-items-center">
-                                    <p id="alamat" class="form-control-static">{{ Auth::user()->customer->address }}</p>
+                                    <p id="alamat" class="form-control-static">
+                                        {{ Auth::user()->customer->address }}</p>
                                     <textarea class="form-control" name="address" id="edit-alamat" style="display: none;">{{ Auth::user()->customer->address }}</textarea>
                                 </div>
                             </div>
                             <hr>
-                    
+
                             <!-- Password (jika diperlukan) -->
                             <div class="mb-2">
                                 <label for="edit-password" class="form-label fw-bold">Password :</label>
                                 <p class="form-control-static">*********************</p>
                                 <div class="d-flex align-items-center">
                                     <div class="input-group" id="password-container" style="display: none;">
-                                        <input type="password" name="password" class="form-control" id="edit-password">
-                                        <button type="button" class="btn btn-outline-secondary" id="toggle-password">
+                                        <input type="password" placeholder="Password" name="password"
+                                            class="form-control" id="edit-password">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="toggle-password">
                                             <i class="bi bi-eye-fill" id="icon-eye"></i>
                                             <i class="bi bi-eye-slash-fill d-none" id="icon-eye-slash"></i>
                                         </button>
@@ -193,7 +200,7 @@
                                 </div>
                             </div>
                             <hr>
-                    
+
                             <!-- Tombol Ubah dan Simpan/Batal -->
                             <div class="d-flex justify-content-end">
                                 <a class="btn btn-outline-dark me-2" id="btn-ubah">
@@ -208,7 +215,7 @@
                             </div>
                         </div>
                     </form>
-                    
+
 
                 </div>
                 {{-- transaksi Belum bayar --}}
@@ -256,79 +263,79 @@
         });
         // Script untuk mengatur perubahan dari tampilan data ke form edit
         $(document).ready(function() {
-    $('#btn-ubah').click(function() {
-        // Sembunyikan tombol Ubah dan tampilkan tombol Simpan dan Batal
-        $('#btn-ubah').hide();
-        $('#btn-simpan').show();
-        $('#btn-batal').show();
+            $('#btn-ubah').click(function() {
+                // Sembunyikan tombol Ubah dan tampilkan tombol Simpan dan Batal
+                $('#btn-ubah').hide();
+                $('#btn-simpan').show();
+                $('#btn-batal').show();
 
-        // Tampilkan form input untuk setiap data yang ingin diedit
-        $('#nama').hide();
-        $('#edit-nama').show();
+                // Tampilkan form input untuk setiap data yang ingin diedit
+                $('#nama').hide();
+                $('#edit-nama').show();
 
-        $('#phone').hide();
-        $('#edit-phone').show();
+                $('#phone').hide();
+                $('#edit-phone').show();
 
-        $('#email').hide();
-        $('#edit-email').show();
+                $('#email').hide();
+                $('#edit-email').show();
 
-        $('#alamat').hide();
-        $('#edit-alamat').show();
-        
-        // Tampilkan input password dan ikon mata
-        $('#password-container').show();
-    });
+                $('#alamat').hide();
+                $('#edit-alamat').show();
 
-    $('#btn-batal').click(function() {
-        // Tombol Batal diklik, kembalikan ke tampilan semula
-        $('#btn-ubah').show();
-        $('#btn-simpan').hide();
-        $('#btn-batal').hide();
+                // Tampilkan input password dan ikon mata
+                $('#password-container').show();
+            });
 
-        $('#nama').show();
-        $('#edit-nama').hide();
+            $('#btn-batal').click(function() {
+                // Tombol Batal diklik, kembalikan ke tampilan semula
+                $('#btn-ubah').show();
+                $('#btn-simpan').hide();
+                $('#btn-batal').hide();
 
-        $('#phone').show();
-        $('#edit-phone').hide();
+                $('#nama').show();
+                $('#edit-nama').hide();
 
-        $('#email').show();
-        $('#edit-email').hide();
+                $('#phone').show();
+                $('#edit-phone').hide();
 
-        $('#alamat').show();
-        $('#edit-alamat').hide();
+                $('#email').show();
+                $('#edit-email').hide();
 
-        // Sembunyikan input password dan ikon mata
-        $('#password-container').hide();
-    });
+                $('#alamat').show();
+                $('#edit-alamat').hide();
 
-    $('#toggle-password').click(function() {
-        var passwordField = $('#edit-password');
-        var passwordFieldType = passwordField.attr('type');
-        var eyeIcon = $('#icon-eye');
-        var eyeSlashIcon = $('#icon-eye-slash');
+                // Sembunyikan input password dan ikon mata
+                $('#password-container').hide();
+            });
 
-        if (passwordFieldType == 'password') {
-            passwordField.attr('type', 'text');
-            eyeIcon.addClass('d-none');
-            eyeSlashIcon.removeClass('d-none');
-        } else {
-            passwordField.attr('type', 'password');
-            eyeIcon.removeClass('d-none');
-            eyeSlashIcon.addClass('d-none');
-        }
-    });
+            $('#toggle-password').click(function() {
+                var passwordField = $('#edit-password');
+                var passwordFieldType = passwordField.attr('type');
+                var eyeIcon = $('#icon-eye');
+                var eyeSlashIcon = $('#icon-eye-slash');
 
-    $('#btn-simpan').click(function() {
-        // Implementasikan logika untuk menyimpan perubahan
-        var nama = $('#edit-nama').val();
-        var phone = $('#edit-phone').val();
-        var email = $('#edit-email').val();
-        var alamat = $('#edit-alamat').val();
-        var password = $('#edit-password').val();
+                if (passwordFieldType == 'password') {
+                    passwordField.attr('type', 'text');
+                    eyeIcon.addClass('d-none');
+                    eyeSlashIcon.removeClass('d-none');
+                } else {
+                    passwordField.attr('type', 'password');
+                    eyeIcon.removeClass('d-none');
+                    eyeSlashIcon.addClass('d-none');
+                }
+            });
 
-        // Kirim data menggunakan AJAX atau metode lainnya
-    });
-});
+            $('#btn-simpan').click(function() {
+                // Implementasikan logika untuk menyimpan perubahan
+                var nama = $('#edit-nama').val();
+                var phone = $('#edit-phone').val();
+                var email = $('#edit-email').val();
+                var alamat = $('#edit-alamat').val();
+                var password = $('#edit-password').val();
+
+                // Kirim data menggunakan AJAX atau metode lainnya
+            });
+        });
     </script>
 
 

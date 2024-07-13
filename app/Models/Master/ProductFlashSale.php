@@ -22,6 +22,11 @@ class ProductFlashSale extends Model
         return $this->belongsTo(product::class, 'product_id', 'id');
     }
 
+    public function varian()
+    {
+        return $this->belongsTo(ProductVarian::class, 'product_varian_id', 'id');
+    }
+
     public function flashSale()
     {
         return $this->belongsTo(FlashSale::class, 'flash_sale_id', 'id');

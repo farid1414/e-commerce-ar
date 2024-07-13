@@ -313,19 +313,19 @@
 
 
                                                     @if ($product->stok_sekarang <= 5)
-                                                    <div class="mt-2">
-                                                        <span style="color: red; font-size: 1rem;">
-                                                            Segera Habis <i class="bi bi-fire"></i>
-                                                        </span>
-                                                    </div>
-                                                @else
-                                                    <div class="mt-2">
-                                                        <span style="color: green; font-size: 1rem;">
-                                                            Tersedia <i class="bi bi-check-circle"></i>
-                                                        </span>
-                                                    </div>
-                                                @endif
-                                                
+                                                        <div class="mt-2">
+                                                            <span style="color: red; font-size: 1rem;">
+                                                                Segera Habis <i class="bi bi-fire"></i>
+                                                            </span>
+                                                        </div>
+                                                    @else
+                                                        <div class="mt-2">
+                                                            <span style="color: green; font-size: 1rem;">
+                                                                Tersedia <i class="bi bi-check-circle"></i>
+                                                            </span>
+                                                        </div>
+                                                    @endif
+
                                                 </div>
 
 
@@ -471,7 +471,7 @@
 
 
                     {{-- PRORDUK Baru dilihat --}}
-                    <div class="container">
+                    {{-- <div class="container">
                         <p style="font-size: 33px;">
                             <b>Produk yang baru dilihat. </b>
                         </p>
@@ -504,7 +504,7 @@
                                             </div>
                                             <div
                                                 style="margin-top: 10px; display: flex; align-items: center; justify-content: left; margin-bottom: -12px;">
-                                                <!-- Star Rating -->
+
                                                 <span style="color: gold; ">
                                                     <i class="fas fa-star" style="font-size: 11px"></i>
                                                     <i class="fas fa-star" style="font-size: 11px"></i>
@@ -512,7 +512,7 @@
                                                     <i class="fas fa-star" style="font-size: 11px"></i>
                                                     <i class="fas fa-star" style="font-size: 11px"></i>
                                                 </span>
-                                                <!-- Rating Text -->
+
                                                 <span style="margin-left: 5px; font-size: 0.8rem;">5 (10)</span>
                                             </div>
                                             <br>
@@ -524,10 +524,10 @@
                                         </div>
                                         <div class="card-footer bg-white">
                                             <div class="d-flex justify-content-between">
-                                                <!-- Free Shipping Badge -->
+
                                                 <span class="badge bg-success" style="font-size: 0.7rem;"><i
                                                         class="fa-solid fa-truck-fast me-2"></i>Free Ongkir</span>
-                                                <!-- Sold Badge -->
+
                                                 <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
                                                     10x</span>
                                             </div>
@@ -536,7 +536,7 @@
                                 </a>
                             </div>
 
-                            <!-- End of Loop -->
+
                         </div>
                         <div
                             style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
@@ -547,7 +547,7 @@
                             <i class="fas fa-arrow-right"></i>
                         </div>
                         <hr style="clear: both;">
-                    </div>
+                    </div> --}}
 
 
                     {{-- dashboard AR --}}

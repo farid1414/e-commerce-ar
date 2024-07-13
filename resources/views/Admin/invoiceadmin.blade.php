@@ -66,6 +66,7 @@
                                 <th class="text-center">Produk</th>
                                 <th class="text-center">Varian</th>
                                 <th class="text-center">Harga Produk</th>
+                                <th class="text-center">Diskon</th>
                                 <th class="text-center">Kuantitas</th>
                                 <th class="text-center">Subtotal</th>
                             </tr>
@@ -77,20 +78,22 @@
                                     <td class="text-center">{{ $det->product->name }}</td>
                                     <td class="text-center">Varian {{ optional($det->varian)->name }}</td>
                                     <td class="text-center">{{ formatRupiah($det->harga) }}</td>
+                                    <td class="text-center">{{ formatRupiah($det->diskon) }}</td>
                                     <td class="text-center">{{ $det->quantity }}x</td>
-                                    <td class="text-center">{{ formatRupiah($det->total) }}</td>
+                                    <td class="text-center">
+                                        {{ formatRupiah(($det->harga - $det->diskon) * $det->quantity + $det->ongkir) }}</td>
                                 </tr>
                             @endforeach
 
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4"></td>
+                                <td colspan="5"></td>
                                 <td class="text-center"><b>Total Kuantitas</b></td>
                                 <td class="text-center"><b>{{ $tr->transactionDetail->sum('quantity') }} Produk</b></td>
                             </tr>
                             <tr>
-                                <td colspan="4"></td>
+                                <td colspan="5"></td>
                                 <td class="text-center"><b>Total Subtotal</b></td>
                                 <td class="text-center"><b>{{ formatRupiah($tr->order_amount) }}</b></td>
                             </tr>

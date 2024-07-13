@@ -58,10 +58,10 @@
         @endphp
         @foreach ($tr->transactionDetail as $detail)
             @php
-                $subTotal = $detail->total;
+                $subTotal = $detail->harga;
                 $diskon = $detail->diskon ?? 0;
                 $ongkir = $detail->ongkir ?? 0;
-                $harga = $subTotal - $diskon;
+                $harga = ($subTotal - $diskon) * $detail->quantity;
                 $totalOngkir = $harga + $ongkir;
                 $totalHarga += $totalOngkir;
             @endphp
@@ -96,12 +96,12 @@
                             <p>{{ formatRupiah($detail->harga) }}</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <p>Sub Total Produk: </p>
-                            <p>{{ formatRupiah($detail->total) }}</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
                             <p>Diskon: </p>
                             <p>-{{ formatRupiah($diskon) }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Sub Total Produk: </p>
+                            <p>{{ formatRupiah($harga) }}</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <p>Ongkos Kirim: </p>
@@ -115,7 +115,7 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-between">
                             <p class="fw-bold">Total Pesanan: </p>
-                            <p class="fw-bold">{{ formatRupiah($harga) }}</p>
+                            <p class="fw-bold">{{ formatRupiah($totalOngkir) }}</p>
                         </div>
                     </div>
                 </div>

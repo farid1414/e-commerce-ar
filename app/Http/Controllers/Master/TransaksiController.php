@@ -10,7 +10,7 @@ class TransaksiController extends Controller
 {
     public function success()
     {
-        $transactions = Transaction::where('status', 1)->get();
+        $transactions = Transaction::where('status', 1)->orderBy('created_at', 'DESC')->get();
         return view('Admin.transaksisudahdibayar', [
             'transactions' => $transactions,
             'status' => 'Sudah dibayar'
@@ -19,7 +19,7 @@ class TransaksiController extends Controller
 
     public function pending()
     {
-        $transaction = Transaction::where('status', 0)->get();
+        $transaction = Transaction::where('status', 0)->orderBy('created_at', 'DESC')->get();
         return view('Admin.transaksisudahdibayar', [
             'transactions' => $transaction,
             'status' => 'Belum dibayar'
@@ -28,7 +28,7 @@ class TransaksiController extends Controller
 
     public function failed()
     {
-        $transaction = Transaction::where('status', -1)->get();
+        $transaction = Transaction::where('status', -1)->orderBy('created_at', 'DESC')->get();
         return view('Admin.transaksisudahdibayar', [
             'transactions' => $transaction,
             'status' => 'Dibatalkan'

@@ -198,14 +198,6 @@
                                                     style="border-radius: 10px">
                                             </div>
                                         @endforeach
-                                        {{-- <div class="carousel-item active">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar2.jpg"
-                                                class="d-block w-100" alt="...">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img src="../GambarProduk/Dataran/Kategori Kursi/Produk 1/Produk1gambar3.jpg"
-                                                class="d-block w-100" alt="...">
-                                        </div> --}}
                                     </div>
                                     <button class="carousel-control-prev" type="button"
                                         data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -321,249 +313,225 @@
 
                 {{-- PENILAIAN PRODUK --}}
                 <div class="mt-4">
-                    <div>
-                        <div>
-                            <div class="mt-4">
-                                <div class="accordion" id="accordionExample2">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwo1">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapseTwo1" aria-expanded="true"
-                                                aria-controls="collapseTwo1">
-                                                <b>Penilaian Produk Ini</b>
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTwo1" class="accordion-collapse collapse show"
-                                            aria-labelledby="headingTwo1" data-bs-parent="#accordionExample2">
-                                            <div class="accordion-body">
-                                                <div>
-                                                    @php
-                                                        $rate = 0;
-                                                        $count = 0;
-                                                        $maxStars = 5;
-                                                        $val = $ratings->sum('rating_value');
-                                                        $count = $ratings->count();
-                                                        if ($count > 0) {
-                                                            $rate = $val / $count;
-                                                        }
-                                                        $ratingCounts = [
-                                                            5 => $ratings->where('rating_value', '=', 5)->count(),
-                                                            4 => $ratings->where('rating_value', '=', 4)->count(),
-                                                            3 => $ratings->where('rating_value', '=', 3)->count(),
-                                                            2 => $ratings->where('rating_value', '=', 2)->count(),
-                                                            1 => $ratings->where('rating_value', '=', 1)->count(),
-                                                        ];
-                                                    @endphp
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="col">
-                                                            <p style="font-size: 3rem; text-align: center;">
-                                                                @if ($count > 0)
-                                                                    {{ number_format($val / $count, 1) }}
-                                                                @else
-                                                                    0
-                                                                @endif <span
-                                                                    style="font-size: 1.2rem;">/{{ $count }}</span>
-                                                            </p>
-                                                            <div class="d-flex justify-content-center">
-                                                                {{-- <i class="bi bi-star-fill"
-                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
-                                                                <i class="bi bi-star-fill"
-                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
-                                                                <i class="bi bi-star-fill"
-                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
-                                                                <i class="bi bi-star-fill"
-                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
-                                                                <i class="bi bi-star"
-                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i> --}}
-                                                                @for ($i = 1; $i <= $maxStars; $i++)
-                                                                    @if ($i <= $rate)
-                                                                        <i class="bi bi-star-fill"
-                                                                            style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
-                                                                    @else
-                                                                        <i class="bi bi-star"
-                                                                            style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
-                                                                    @endif
-                                                                @endfor
-                                                            </div>
-                                                            <div class="d-flex justify-content-center">
-                                                                <span class="text-muted"
-                                                                    style="font-size: 0.9rem; margin-top: 10px;">
-                                                                    {{ $count }} Ulasan
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            @foreach ($ratingCounts as $star => $cnt)
-                                                                @php
-                                                                    $percentage = $count ? ($cnt / $count) * 100 : 0;
-                                                                @endphp
-                                                                <div class="d-flex align-items-center">
-                                                                    <span
-                                                                        style="margin-right: 5px;">{{ $star }}</span>
-                                                                    <div class="progress flex-grow-1 mb-2">
-                                                                        <div class="progress-bar bg-dark"
-                                                                            role="progressbar"
-                                                                            style="width: {{ $percentage }}%;"
-                                                                            aria-valuenow="{{ $percentage }}"
-                                                                            aria-valuemin="0" aria-valuemax="100">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex justify-content-between"
-                                                        style="margin-top: 30px;">
-                                                        <p class="fw-bold">Filter Ulasan :</p>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-outline-dark dropdown-toggle"
-                                                                type="button" id="dropdownMenuButton"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                Terbaru
-                                                            </button>
-                                                            <ul class="dropdown-menu"
-                                                                aria-labelledby="dropdownMenuButton">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        Terbaru
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        Rating Tertinggi
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        Rating Terendah
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <p class="mt-1 text-muted">
-                                                        <small>Menampilkan 10 dari {{ $count }} ulasan</small>
-                                                    </p>
-
-                                                    <hr>
-
-                                                    @php
-                                                        // function maskString($string)
-                                                        // {
-                                                        //     if (strlen($string) <= 2) {
-                                                        //         return $string;
-                                                        //     }
-                                                        //     $length = strlen($string);
-                                                        //     $first = $string[0];
-                                                        //     $last = $string[$length - 1];
-                                                        //     $middle = str_repeat('*', $length - 2);
-                                                        //     return $first . $middle . $last;
-                                                        // }
-                                                    @endphp
-
-                                                    {{-- ULASAN PELANGGGAN --}}
-                                                    <div>
-                                                        @if ($ratings->count() > 0)
-                                                            @foreach ($ratings as $index => $rating)
-                                                                <div class="mb-3">
-                                                                    <div class="d-flex justify-content-between mb-1">
-                                                                        <h5 class="card-title">
-                                                                            @if ($rating->is_samaran)
-                                                                                {{ maskString($rating->user->name) }}
-                                                                            @else
-                                                                                {{ $rating->user->name }}
-                                                                            @endif
-                                                                        </h5>
-                                                                        <span class="text-muted"
-                                                                            style="font-size: 0.85rem;">{{ $rating->created_date() }}</span>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="d-flex justify-content-start">
-                                                                                @for ($i = 0; $i < $rating->rating_value; $i++)
-                                                                                    <i class="bi bi-star-fill"
-                                                                                        style="font-size: 1.3rem; color: gold;"></i>
-                                                                                @endfor
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    @if ($rating->varian_id)
-                                                                        <p class="mt-2 text-muted">Varian :
-                                                                            {{ $rating->varians->name }}</p>
-                                                                    @endif
-                                                                    <div class="row">
-                                                                        @if ($rating->image)
-                                                                            <div class="col">
-                                                                                <img src="{{ url($rating->image) }}"
-                                                                                    class="img-fluid" alt="Product 3"
-                                                                                    style="max-height: 100px">
-                                                                            </div>
-                                                                        @endif
-                                                                    </div>
-                                                                    <p>{!! $rating->text_value !!}</p>
-
-                                                                    @if ($rating->balasan)
-                                                                        <div id="balasan">
-                                                                            <div class="d-flex justify-content-end">
-                                                                                <button class="btn btn-outline-dark "
-                                                                                    type="button"
-                                                                                    data-bs-toggle="collapse"
-                                                                                    data-bs-target="#example-collapse-text_{{ $index }}"
-                                                                                    aria-expanded="false"
-                                                                                    aria-controls="example-collapse-text_{{ $index }}">
-                                                                                    Lihat Balasan <i
-                                                                                        class="bi bi-chevron-down"></i>
-                                                                                </button>
-                                                                            </div>
-
-                                                                            <div id="example-collapse-text_{{ $index }}"
-                                                                                class="collapse">
-                                                                                <div class="card mt-3">
-                                                                                    <div class="card-body">
-                                                                                        <div
-                                                                                            class="d-flex justify-content-between">
-                                                                                            <h5 class="card-title">
-                                                                                                AR-Furniture
-                                                                                                <span
-                                                                                                    class="badge bg-dark"
-                                                                                                    style="font-size: 0.7rem;">Penjual</span>
-                                                                                            </h5>
-                                                                                            <p class="text-muted"
-                                                                                                style="font-size: 0.85rem;">
-                                                                                                {{ $rating->balasan->created_at }}
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        {!! $rating->balasan->balasan !!}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <hr>
-                                                            @endforeach
-                                                            {{ $ratings->links() }}
+                    <div class="mt-4">
+                        <div class="accordion" id="accordionExample2">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo1">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo1" aria-expanded="true"
+                                        aria-controls="collapseTwo1">
+                                        <b>Penilaian Produk Ini</b>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo1" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingTwo1" data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        <div>
+                                            @php
+                                                $rate = 0;
+                                                $count = 0;
+                                                $maxStars = 5;
+                                                $val = $ratings->sum('rating_value');
+                                                $count = $ratings->count();
+                                                if ($count > 0) {
+                                                    $rate = $val / $count;
+                                                }
+                                                $ratingCounts = [
+                                                    5 => $ratings->where('rating_value', '=', 5)->count(),
+                                                    4 => $ratings->where('rating_value', '=', 4)->count(),
+                                                    3 => $ratings->where('rating_value', '=', 3)->count(),
+                                                    2 => $ratings->where('rating_value', '=', 2)->count(),
+                                                    1 => $ratings->where('rating_value', '=', 1)->count(),
+                                                ];
+                                            @endphp
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="col">
+                                                    <p style="font-size: 3rem; text-align: center;">
+                                                        @if ($count > 0)
+                                                            {{ number_format($val / $count, 1) }}
                                                         @else
-                                                            <p class="text-center">Tidak ada rating</p>
-                                                        @endif
-                                                        <hr />
+                                                            0
+                                                        @endif <span
+                                                            style="font-size: 1.2rem;">/{{ $count }}</span>
+                                                    </p>
+                                                    <div class="d-flex justify-content-center">
+                                                        @for ($i = 1; $i <= $maxStars; $i++)
+                                                            @if ($i <= $rate)
+                                                                <i class="bi bi-star-fill"
+                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
+                                                            @else
+                                                                <i class="bi bi-star"
+                                                                    style="font-size: 1.5rem; color: gold; text-align: center; margin-top: -10px;"></i>
+                                                            @endif
+                                                        @endfor
                                                     </div>
-
+                                                    <div class="d-flex justify-content-center">
+                                                        <span class="text-muted"
+                                                            style="font-size: 0.9rem; margin-top: 10px;">
+                                                            {{ $count }} Ulasan
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    @foreach ($ratingCounts as $star => $cnt)
+                                                        @php
+                                                            $percentage = $count ? ($cnt / $count) * 100 : 0;
+                                                        @endphp
+                                                        <div class="d-flex align-items-center">
+                                                            <span
+                                                                style="margin-right: 5px;">{{ $star }}</span>
+                                                            <div class="progress flex-grow-1 mb-2">
+                                                                <div class="progress-bar bg-dark" role="progressbar"
+                                                                    style="width: {{ $percentage }}%;"
+                                                                    aria-valuenow="{{ $percentage }}"
+                                                                    aria-valuemin="0" aria-valuemax="100">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
+                                            <div class="d-flex justify-content-between" style="margin-top: 30px;">
+                                                <p class="fw-bold">Filter Ulasan :</p>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-dark dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Terbaru
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                Terbaru
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                Rating Tertinggi
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                Rating Terendah
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <p class="mt-1 text-muted">
+                                                <small>Menampilkan 10 dari {{ $count }} ulasan</small>
+                                            </p>
+
+                                            <hr>
+
+                                            @php
+                                                // function maskString($string)
+                                                // {
+                                                //     if (strlen($string) <= 2) {
+                                                //         return $string;
+                                                //     }
+                                                //     $length = strlen($string);
+                                                //     $first = $string[0];
+                                                //     $last = $string[$length - 1];
+                                                //     $middle = str_repeat('*', $length - 2);
+                                                //     return $first . $middle . $last;
+                                                // }
+                                            @endphp
+
+                                            {{-- ULASAN PELANGGGAN --}}
+                                            <div>
+                                                @if ($ratings->count() > 0)
+                                                    @foreach ($ratings as $index => $rating)
+                                                        <div class="mb-3">
+                                                            <div class="d-flex justify-content-between mb-1">
+                                                                <h5 class="card-title">
+                                                                    @if ($rating->is_samaran)
+                                                                        {{ maskString($rating->user->name) }}
+                                                                    @else
+                                                                        {{ $rating->user->name }}
+                                                                    @endif
+                                                                </h5>
+                                                                <span class="text-muted"
+                                                                    style="font-size: 0.85rem;">{{ $rating->created_date() }}</span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="d-flex justify-content-start">
+                                                                        @for ($i = 0; $i < $rating->rating_value; $i++)
+                                                                            <i class="bi bi-star-fill"
+                                                                                style="font-size: 1.3rem; color: gold;"></i>
+                                                                        @endfor
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @if ($rating->varian_id)
+                                                                <p class="mt-2 text-muted">Varian :
+                                                                    {{ $rating->varians->name }}</p>
+                                                            @endif
+                                                            <div class="row">
+                                                                @if ($rating->image)
+                                                                    <div class="col">
+                                                                        <img src="{{ url($rating->image) }}"
+                                                                            class="img-fluid" alt="Product 3"
+                                                                            style="max-height: 100px">
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <p>{!! $rating->text_value !!}</p>
+
+                                                            @if ($rating->balasan)
+                                                                <div id="balasan">
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-outline-dark "
+                                                                            type="button" data-bs-toggle="collapse"
+                                                                            data-bs-target="#example-collapse-text_{{ $index }}"
+                                                                            aria-expanded="false"
+                                                                            aria-controls="example-collapse-text_{{ $index }}">
+                                                                            Lihat Balasan <i
+                                                                                class="bi bi-chevron-down"></i>
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div id="example-collapse-text_{{ $index }}"
+                                                                        class="collapse">
+                                                                        <div class="card mt-3">
+                                                                            <div class="card-body">
+                                                                                <div
+                                                                                    class="d-flex justify-content-between">
+                                                                                    <h5 class="card-title">
+                                                                                        AR-Furniture
+                                                                                        <span class="badge bg-dark"
+                                                                                            style="font-size: 0.7rem;">Penjual</span>
+                                                                                    </h5>
+                                                                                    <p class="text-muted"
+                                                                                        style="font-size: 0.85rem;">
+                                                                                        {{ $rating->balasan->created_at }}
+                                                                                    </p>
+                                                                                </div>
+                                                                                {!! $rating->balasan->balasan !!}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <hr>
+                                                    @endforeach
+                                                    {{ $ratings->links() }}
+                                                @else
+                                                    <p class="text-center">Tidak ada rating</p>
+                                                @endif
+                                                <hr />
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <hr />
-                        <div>
-
                         </div>
                     </div>
+                    <hr />
                 </div>
-                <hr />
             </div>
 
 
@@ -610,9 +578,6 @@
                                                 <i class="bi bi-star-fill"
                                                     style="font-size: 1.3rem; color: gold;"></i>
                                             @endfor
-                                            {{-- <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
-                                            <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i>
-                                            <i class="bi bi-star-fill" style="font-size: 1.3rem; color: gold;"></i> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -766,6 +731,7 @@
 
         let DataProduct = ''
         let DataVarian = ''
+        let DataFlashsale = []
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -783,6 +749,7 @@
                         $loaderEl.addClass('d-none')
                         DataProduct = response.data
                         DataVarian = response.data.varians
+                        DataFlashsale = response.data.flash_sale
                         createKeranjang(response.data)
                     },
                     error: function(xhr) {
@@ -817,11 +784,18 @@
             if ($(this).val()) {
                 let id = $(this).val()
                 let data = DataVarian.filter(val => val.id == id)
+                let flashSale = DataFlashsale.filter(flas => flas.product_varian_id == id)
                 $('#harga').val(data[0].harga)
                 $('#label-harga').html(formatRupiah(data[0].harga))
                 if (data[0].diskon) {
                     $('#diskon').val(data[0].diskon)
                     $('#label-diskon').html(formatRupiah(data[0].diskon))
+                }
+                if (flashSale.length > 0) {
+                    if (flashSale[0].custom_harga != undefined && flashSale[0].custom_harga) {
+                        $('#label-diskon').html(formatRupiah(flashSale[0].custom_harga))
+                        $('#diskon').val(flashSale[0].custom_harga)
+                    }
                 }
             }
         })
@@ -860,18 +834,18 @@
                         if (json.errors !== undefined && typeof json.errors === "string") message +=
                             `\n${json.errors}`;
                     } else message = `[${err.status}] ${err.statusText}`;
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })  
                     let login = "{{ route('login') }}"
                     if (message == "Unauthenticated.") {
                         window.location.href = login;
                         return
                     }
 
-                    Swal.fire({
-                        title: 'Error',
-                        text: message,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    })
                 }
             })
         })
@@ -898,7 +872,6 @@
                     } catch {
                         color = colorString
                     }
-                    // console.log("color", JSON.parse(colorString));
                     material.pbrMetallicRoughness.setBaseColorFactor(color);
                     // material.pbrMetallicRoughness.setBaseColorFactor(JSON.parse("colorString"));
 
@@ -938,6 +911,7 @@
         function decreaseQuantity() {
             if (quantity > 1) {
                 quantity--;
+                console.log("harga", $('#harga').val());
                 updateQuantityDisplay();
             }
         }
@@ -945,6 +919,7 @@
         function increaseQuantity() {
             if (quantity < quantityLimit) {
                 quantity++;
+                console.log("harga", $('#harga').val(), quantity);
                 updateQuantityDisplay();
             }
         }

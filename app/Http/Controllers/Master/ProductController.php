@@ -40,7 +40,7 @@ class ProductController extends Controller
         $query = Product::select('*')
             ->where('m_categories', $request->categori)
             ->where('is_active', $request->is_active)
-        ->with('varians', 'category');
+            ->with('varians', 'category');
 
         if ($request->akan_habis) {
             $query = $query->where('stock', '>=', 1)->where('stock', '<', 5);
@@ -123,7 +123,7 @@ class ProductController extends Controller
     {
 
         $mcat = MCategory::firstWhere('slug', $slug);
-        $cat = Category::where('m_categories', $mcat->id)->get();
+        $cat = Category::where('m_categories', $mcat->id)->where('is_active', '=', 1)->get();
         $edit = false;
         if ($uuid) {
             $edit = true;

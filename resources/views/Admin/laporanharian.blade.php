@@ -16,13 +16,18 @@
                         <h5 class="card-title">Pilih Jangka Waktu Hari</h5>
                         <div class="form-group">
                             <label>Tanggal Awal</label>
-                            <input type="date" name="start_date" id="startDateInput" onchange="handleStartDateChange(event)"
+                            <input type="date" @if ($start_date) value="{{ $start_date }}" @endif
+                                name="start_date" id="startDateInput" onchange="handleStartDateChange(event)"
                                 class="form-control" />
                         </div>
                         <div class="form-group mt-3">
                             <label>Tanggal Akhir <span class="text-muted">(Opsional)</span></label>
                             <input type="date" name="end_date" id="endDateInput" onchange="handleEndDateChange(event)"
-                                min="" max="" disabled class="form-control" />
+                                min="" max=""
+                                @if ($end_date) value="{{ $end_date }}"
+                                @else
+                                disabled @endif
+                                class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -33,7 +38,7 @@
                 </div>
             </form>
 
-            @if ($transaction)
+            @if ($transaction && $transaction->count())
                 <div>
                     <div id="dashboard" style="display: block;">
                         <h5 class="card-title">Menampilkan Hasil Laporan</h5>
@@ -156,7 +161,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col">
                             <div class="card info-card customers-card">
                                 <div>
@@ -195,7 +200,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <h5 class="card-title">Pendapatan {{ $start_date }} - {{ $end_date }}</h5>
                     <div class="card info-card customers-card">
@@ -475,6 +480,10 @@
                     <a href="/Outputhasilprintlaporanharian">
                         <button class="btn btn-primary">Kirim Ke Email</button>
                     </a>
+                </div>
+            @else
+                <div class="d-flex justify-content-center">
+                    <h5>Tidak ada data</h5>
                 </div>
             @endif
     </section>

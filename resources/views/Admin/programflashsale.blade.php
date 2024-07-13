@@ -16,72 +16,73 @@
         <section class="section dashboard">
             <div class="row">
                 <div class="col-sm-4">
-                  <div class="card info-card sales-card">
-                    <!-- Jumlah Pelanggan -->
-                    <div class="card-body">
-                      <h5 class="card-title">Sedang Berjalan</h5>
-                      <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: rgb(242, 242, 242);">
-                          <i class="bi bi-box"></i>
+                    <div class="card info-card sales-card">
+                        <!-- Jumlah Pelanggan -->
+                        <div class="card-body">
+                            <h5 class="card-title">Sedang Berjalan</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                                    style="background-color: rgb(242, 242, 242);">
+                                    <i class="bi bi-box"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{ $active->count() }}</h6>
+                                    <span class="text-muted small pt-1">
+                                        Flash Sale Aktif
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ps-3">
-                          <h6>20</h6>
-                          <span class="text-muted small pt-1">
-                            Flash Sale Aktif
-                          </span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="card info-card revenue-card">
-                    <!-- Jumlah Terjual -->
-                    <div class="card-body">
-                      <h5 class="card-title">Akan Datang</h5>
-                      <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                          <i class="bi bi-box-seam"></i>
+                    <div class="card info-card revenue-card">
+                        <!-- Jumlah Terjual -->
+                        <div class="card-body">
+                            <h5 class="card-title">Akan Datang</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-box-seam"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{ $upcoming->count() }}</h6>
+                                    <span class="text-muted small pt-1" style="font-size: 13px;">
+                                        Flash Sale Akan Datang
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ps-3">
-                          <h6>20</h6>
-                          <span class="text-muted small pt-1" style="font-size: 13px;">
-                            Flash Sale Akan Datang
-                          </span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
                 <div class="col-sm-4">
-                  <div class="card info-card customers-card">
-                    <!-- Jumlah Total Terjual -->
-                    <div class="card-body">
-                      <h5 class="card-title">Telah Berakhir</h5>
-                      <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                          <i class="bi bi-dropbox"></i>
+                    <div class="card info-card customers-card">
+                        <!-- Jumlah Total Terjual -->
+                        <div class="card-body">
+                            <h5 class="card-title">Telah Berakhir</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-dropbox"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{ $expired->count() }}</h6>
+                                    <span class="text-muted small pt-1">
+                                        Flash Sale Telah Berakhir
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ps-3">
-                          <h6>25</h6>
-                          <span class="text-muted small pt-1">
-                            Flash Sale Telah Berakhir
-                          </span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
             {{-- <div class="row"> --}}
-                {{-- <div class="col-sm-6"> --}}
-                    {{-- @if ($flashSale->last())
+            {{-- <div class="col-sm-6"> --}}
+            {{-- @if ($flashSale->last())
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="card-title">{{ $flashSale->last()->name }}</h5>
                                     <h5>
-                                       
+
                                     </h5>
                                 </div>
                                 <p class="card-text">
@@ -115,7 +116,7 @@
                     @endif
 
                 </div> --}}
-                {{-- <div class="col-sm-6">
+            {{-- <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -194,11 +195,19 @@
                                     $totalDataran = 0;
                                     $totalDinding = 0;
                                     $produkTerjual = 0;
-                                    foreach ($exp->productFlashSale as $prod) {
-                                        if ($prod->product->firstWhere('m_categories', 1)) {
+                                    $prodAct = \App\Models\Master\ProductFlashSale::where(
+                                        'flash_sale_id',
+                                        '=',
+                                        $exp->id,
+                                    )
+                                        ->get()
+                                        ->groupBy('product_id');
+                                    foreach ($prodAct as $p => $pr) {
+                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                        if ($product->m_categories == 1) {
                                             $totalDataran++;
                                         }
-                                        if ($prod->product->firstWhere('m_categories', 2)) {
+                                        if ($product->m_categories == 2) {
                                             $totalDinding++;
                                         }
                                     }
@@ -231,7 +240,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">{{ $exp->productFlashSale->count() }}
+                                                <span class="text-end">{{ $totalDataran + $totalDinding }}
                                                 </span>
                                                 {{-- <span class="text-end">{{ $exp->productFlashSale->count() }}
                                                     Produk dari 8 Kategori</span> --}}
@@ -250,17 +259,18 @@
                                                     class="fw-bold">{{ formatRupiah(\App\Models\TransactionDetail::where('flash_sale_id', $exp->id)->sum('total')) }}</span>
                                             </div>
                                             <hr>
-                                            {{-- <div class="d-flex justify-content-between">
-                                                <button class="btn btn-success d-none d-md-block">
+                                            <div class="d-flex justify-content-between">
+                                                {{-- <button class="btn btn-success d-none d-md-block">
                                                     Aktifkan lagi Flash Sale
                                                 </button>
-                                                <button class="btn btn-outline-success">Edit Flash Sale</button>
-                                                <a href="/AnalisisFlashSale" class="btn btn-primary">Lihat Flash Sale</a>
+                                                <button class="btn btn-outline-success">Edit Flash Sale</button> --}}
+                                                <a href="{{ route($this_helper . 'detail', $exp->id) }}"
+                                                    class="btn btn-primary">Lihat Flash Sale</a>
                                             </div>
                                             <div class="d-block d-md-none">
                                                 <hr>
                                                 <button class="btn btn-outline-danger">Shutdown Flash Sale</button>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -271,6 +281,27 @@
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                             aria-labelledby="pills-profile-tab" tabindex="0">
                             @forelse ($active as $act)
+                                @php
+                                    $totalDataran = 0;
+                                    $totalDinding = 0;
+                                    $produkTerjual = 0;
+                                    $prodAct = \App\Models\Master\ProductFlashSale::where(
+                                        'flash_sale_id',
+                                        '=',
+                                        $act->id,
+                                    )
+                                        ->get()
+                                        ->groupBy('product_id');
+                                    foreach ($prodAct as $p => $pr) {
+                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                        if ($product->m_categories == 1) {
+                                            $totalDataran++;
+                                        }
+                                        if ($product->m_categories == 2) {
+                                            $totalDinding++;
+                                        }
+                                    }
+                                @endphp
                                 <div class="card large-card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
@@ -283,34 +314,36 @@
                                         <div class="card-text">
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Waktu Mulai</p>
-                                                <span style="font-size: 0.8rem;">2023-05-12 23:59:00</span>
+                                                <span style="font-size: 0.8rem;">{{ $act->start_time }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Waktu Berakhir</p>
-                                                <span style="font-size: 0.8rem;">2023-05-12 23:59:00</span>
+                                                <span style="font-size: 0.8rem;">{{ $act->end_time }}</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Daratan</p>
-                                                <span>6 Produk</span>
+                                                <span>{{ $totalDataran }} Produk</span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Dinding</p>
-                                                <span>6 Produk</span>
+                                                <span>{{ $totalDinding }} Produk</span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">12 Produk dari 8 Kategori</span>
+                                                <span class="text-end">{{ $totalDataran + $totalDinding }} Produk dari
+                                                    {{ $cat->count() }}
+                                                    Kategori</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Terjual</p>
-                                                <span class="fw-bold">12 Produk Terjual</span>
+                                                <span class="fw-bold"> Produk Terjual</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Pendapatan</p>
-                                                <span class="fw-bold">Rp 1.500.000</span>
+                                                <span class="fw-bold"></span>
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between">
@@ -318,7 +351,8 @@
                                                     Shutdown Flash Sale
                                                 </button>
                                                 <button class="btn btn-outline-success">Edit Flash Sale</button>
-                                                <a href="/AnalisisFlashSale" class="btn btn-primary">Lihat Flash Sale</a>
+                                                <a href="{{ route($this_helper . 'detail', $act->id) }}"
+                                                    class="btn btn-primary">Lihat Flash Sale</a>
                                             </div>
                                             <div class="d-block d-md-none">
                                                 <hr>
@@ -341,11 +375,19 @@
                                     $totalDataran = 0;
                                     $totalDinding = 0;
                                     $produkTerjual = 0;
-                                    foreach ($exp->productFlashSale as $prod) {
-                                        if ($prod->product->firstWhere('m_categories', 1)) {
+                                    $prodAct = \App\Models\Master\ProductFlashSale::where(
+                                        'flash_sale_id',
+                                        '=',
+                                        $exp->id,
+                                    )
+                                        ->get()
+                                        ->groupBy('product_id');
+                                    foreach ($prodAct as $p => $pr) {
+                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                        if ($product->m_categories == 1) {
                                             $totalDataran++;
                                         }
-                                        if ($prod->product->firstWhere('m_categories', 2)) {
+                                        if ($product->m_categories == 2) {
                                             $totalDinding++;
                                         }
                                     }
@@ -378,7 +420,7 @@
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">{{ $exp->productFlashSale->count() }}
+                                                <span class="text-end">{{ $totalDataran + $totalDinding }}
                                                 </span>
                                                 {{-- <span class="text-end">{{ $exp->productFlashSale->count() }}
                                                 Produk dari 8 Kategori</span> --}}
@@ -397,17 +439,18 @@
                                                     class="fw-bold">{{ formatRupiah(\App\Models\TransactionDetail::where('flash_sale_id', $exp->id)->sum('total')) }}</span>
                                             </div>
                                             <hr>
-                                            {{-- <div class="d-flex justify-content-between">
-                                            <button class="btn btn-success d-none d-md-block">
-                                                Aktifkan lagi Flash Sale
-                                            </button>
-                                            <button class="btn btn-outline-success">Edit Flash Sale</button>
-                                            <a href="/AnalisisFlashSale" class="btn btn-primary">Lihat Flash Sale</a>
-                                        </div>
-                                        <div class="d-block d-md-none">
-                                            <hr>
-                                            <button class="btn btn-outline-danger">Shutdown Flash Sale</button>
-                                        </div> --}}
+                                            <div class="d-flex justify-content-between">
+                                                {{-- <button class="btn btn-success d-none d-md-block">
+                                                    Aktifkan lagi Flash Sale
+                                                </button>
+                                                <button class="btn btn-outline-success">Edit Flash Sale</button> --}}
+                                                <a href="{{ route('master.flash-sale.detail', $exp->id) }}"
+                                                    class="btn btn-primary">Lihat Flash Sale</a>
+                                            </div>
+                                            {{-- <div class="d-block d-md-none">
+                                                <hr>
+                                                <button class="btn btn-outline-danger">Shutdown Flash Sale</button>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -423,11 +466,19 @@
                                     $totalDataran = 0;
                                     $totalDinding = 0;
                                     $produkTerjual = 0;
-                                    foreach ($exp->productFlashSale as $prod) {
-                                        if ($prod->product->firstWhere('m_categories', 1)) {
+                                    $prodAct = \App\Models\Master\ProductFlashSale::where(
+                                        'flash_sale_id',
+                                        '=',
+                                        $exp->id,
+                                    )
+                                        ->get()
+                                        ->groupBy('product_id');
+                                    foreach ($prodAct as $p => $pr) {
+                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                        if ($product->m_categories == 1) {
                                             $totalDataran++;
                                         }
-                                        if ($prod->product->firstWhere('m_categories', 2)) {
+                                        if ($product->m_categories == 2) {
                                             $totalDinding++;
                                         }
                                     }
@@ -475,18 +526,27 @@
                                             <hr style="margin-top: -5px;">
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Pendapatan</p>
-                                                <span
-                                                    class="fw-bold">{{ formatRupiah(\App\Models\TransactionDetail::where('flash_sale_id', $exp->id)->sum('total')) }}</span>
+                                                @php
+                                                    $total = 0;
+                                                    foreach ($detail->where('flash_sale_id', $exp->id) as $fs) {
+                                                        $total +=
+                                                            ($fs->harga - $fs->diskon) * $fs->quantity + $fs->ongkir;
+                                                    }
+                                                @endphp
+                                                <span class="fw-bold">
+                                                    {{ formatRupiah($total) }}
+                                                </span>
                                             </div>
                                             <hr>
-                                            {{-- <div class="d-flex justify-content-between">
-                                                <button class="btn btn-success d-none d-md-block">
+                                            <div class="d-flex justify-content-end">
+                                                {{-- <button class="btn btn-success d-none d-md-block">
                                                     Aktifkan lagi Flash Sale
-                                                </button>
-                                                <button class="btn btn-outline-success">Edit Flash Sale</button>
-                                                <a href="/AnalisisFlashSale" class="btn btn-primary">Lihat Flash Sale</a>
+                                                </button> --}}
+                                                {{-- <button class="btn btn-outline-success">Edit Flash Sale</button> --}}
+                                                <a href="{{ route('master.flash-sale.detail', $exp->id) }}"
+                                                    class="btn btn-primary">Lihat Flash Sale</a>
                                             </div>
-                                            <div class="d-block d-md-none">
+                                            {{-- <div class="d-block d-md-none">
                                                 <hr>
                                                 <button class="btn btn-outline-danger">Shutdown Flash Sale</button>
                                             </div> --}}

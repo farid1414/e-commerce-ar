@@ -9,7 +9,9 @@ use Illuminate\Support\Carbon;
 use App\Models\Master\FlashSale;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Master\Category;
 use App\Models\Master\ProductFlashSale;
+use App\Models\TransactionDetail;
 
 class FlashSaleController extends Controller
 {
@@ -40,12 +42,17 @@ class FlashSaleController extends Controller
         $expiredFlashSales = FlashSale::where(function ($query) use ($currentDateTime) {
             $query->where('end_time', '<', $currentDateTime);
         })->with('productFlashSale')->get();
-
+        $cat = Category::where('is_active', 1)->get();
+        $detail = TransactionDetail::get();
+        $prodFs  = ProductFlashSale::get();
         return view('admin.programflashsale', [
             'flashSale' => $flashSale,
             'upcoming' => $upcomingFlashSales,
             'active' => $activeFlashSales,
-            'expired' => $expiredFlashSales
+            'expired' => $expiredFlashSales,
+            'cat' => $cat,
+            'detail' => $detail,
+            'prodFs' => $prodFs
         ]);
     }
 
@@ -76,7 +83,6 @@ class FlashSaleController extends Controller
     }
     public function  store(Request $request)
     {
-
         $id = $request->id;
         $prod_flash = [];
         foreach ($id as $i => $id) {
@@ -85,7 +91,8 @@ class FlashSaleController extends Controller
                     $data = [
                         'product_id' => $id,
                         'product_varian_id' => $request->id_varian[$id][$key],
-                        'custom_stock' => $stok
+                        'custom_stock' => $stok,
+                        'custom_harga' => $request->harga_varian[$id][$key]
                     ];
                     array_push($prod_flash, $data);
                 }
@@ -101,7 +108,8 @@ class FlashSaleController extends Controller
             $flash = FlashSale::create([
                 'name' => $request->title,
                 'start_time' => $request->start_time,
-                'end_time' => $request->end_time
+                'end_time' => $request->end_time,
+                'free_ongkir' => isset($requestgratis_ongkir) ? 1 : 0,
             ]);
 
             foreach ($prod_flash as $prod) {
@@ -116,5 +124,18 @@ class FlashSaleController extends Controller
             DB::rollBack();
             return ERROR_RESPONSE("Failed to update category {$request->name} ", $th->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    public function detail(int $id)
+    {
+        $dt = Carbon::now();
+        $fs = FlashSale::findOrFail($id);
+        $detail = TransactionDetail::get();
+        return view('Admin.detailflashsale', [
+            'fs' => $fs,
+            'dt' => $dt,
+            'detail' => $detail
+        ]);
     }
 }

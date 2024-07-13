@@ -36,11 +36,11 @@
                 <div class="d-flex justify-content-between">
                     <p>No Handphone :</p>
                     <p style="margin-bottom: 4px;" class="text-muted">{{ $transaction->user->customer->phone }}</p>
-                </div> 
+                </div>
                 <div class="d-flex justify-content-between">
                     <p>Alamat :</p>
                     <p class="text-muted">{{ $transaction->user->customer->address }}</p>
-                </div>          
+                </div>
             </div>
         </div>
         {{-- <div class="card">
@@ -75,7 +75,7 @@
 
             @foreach ($transaction->transactionDetail as $detail)
                 @php
-                    $total_order = $detail->total + $detail->ongkir;
+                    $total_order = ($detail->harga - $detail->diskon) * $detail->quantity;
                 @endphp
                 <div class="card">
                     <div class="card-body">
@@ -113,6 +113,10 @@
                                     @elseif($transaction->status == 0)
                                         <td class="text-center">
                                             <span class="badge text-bg-primary">Menunggu <br> Pembayaran</span>
+                                        </td>
+                                    @else
+                                        <td class="text-center">
+                                            <span class="badge text-bg-secondary">Dibatalkan</span>
                                         </td>
                                     @endif
                                 </tr>
@@ -182,7 +186,8 @@
 
             {{-- Tampilkan invoice hanya di transaksi lunas --}}
             <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary">Lihat Invoice</button>
+                <a href="{{ route('master.transaksi.detail-invoice', $transaction->id) }}" type="button"
+                    class="btn btn-primary">Lihat Invoice</button>
             </div>
 
             {{-- Belum dibayar --}}

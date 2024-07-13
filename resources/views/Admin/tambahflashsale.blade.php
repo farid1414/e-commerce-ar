@@ -143,8 +143,7 @@
                             </div>
                         </div>
                         <footer class="blockquote-footer">Ketika di aktifkan maka semua produk yang telah di pilih akan
-                            Gratis
-                            Ongkir</footer>
+                            Gratis Ongkir</footer>
 
                     </div>
                 </div>
@@ -207,7 +206,6 @@
         })
 
         $('body').on('submit', '#save-flash-sale', function(e) {
-            console.log('asas');
             e.preventDefault()
             const action = "{{ route($this_helper . 'store') }}"
             const ajax = new AjaxRequest(action)
@@ -246,17 +244,24 @@
                 }
                 html += `<td>Rp. ${prod.price} </td>`
                 if (prod.varians.length > 0) {
+                    html += `<td>`
+                    prod.varians.map(varian => {
+                        html +=
+                            `<input type="text" name="harga_varian[${prod.id}][]" required class="form-control mb-2" id="exampleInputEmail1" placeholder="Diskon harga ${varian.name}, contoh 20000"> <br>`
+                    })
+                    html += '</td>'
+
                     html += '<td> '
                     prod.varians.map(varian => {
                         html +=
-                            `<input type="hidden" name="id_varian[${prod.id}][]" value="${varian.id}"> <input type="text" name="stok_varian[${prod.id}][]" required class="form-control mb-2" id="exampleInputEmail1" placeholder="varian ${varian.name}, contoh 20"> <br>`
+                            `<input type="hidden" name="id_varian[${prod.id}][]" value="${varian.id}"> <input type="text" name="stok_varian[${prod.id}][]" required class="form-control mb-2" id="exampleInputEmail1" placeholder="Stok Varian ${varian.name}, contoh 20"> <br>`
                     })
                     html += '</td>'
+
                 } else {
                     html += '<td> - </td>'
                 }
                 html += '</tr>'
-                console.log("da", prod);
             })
             $('#list-product tbody').html(html)
         }

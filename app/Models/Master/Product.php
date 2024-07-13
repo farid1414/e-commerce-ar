@@ -67,7 +67,7 @@ class Product extends Model
     }
     public function flashSale()
     {
-        return $this->hasOne(ProductFlashSale::class, 'product_id', 'id');
+        return $this->hasMany(ProductFlashSale::class, 'product_id', 'id');
     }
 
     public function transactionDetail()
