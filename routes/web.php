@@ -257,8 +257,8 @@ Route::get('admin/laporantahunan', function () {
 
 
 // Program Flash sale
-Route::get('admin/flash', function () {
-    return view('Admin.detailflashsale');
+Route::get('admin/lap', function () {
+    return view('Admin.KirimEmailLaporan');
 });
 
 Route::get('admin/tambahflashsale', function () {
@@ -319,6 +319,7 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
 
     Route::prefix('/laporan')->name('laporan.')->group(function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
+        Route::get('/send-email', [LaporanController::class, 'sendEmail'])->name('send-email');
     });
 
     Route::prefix('/data-akun')->name('akun.')->group(function () {

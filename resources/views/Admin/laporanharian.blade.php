@@ -243,7 +243,8 @@
                                                 <img src="{{ url($prod->thumbnail) }}" alt="" />
                                             </td>
                                             <td class="text-center">{{ $prod->name }}</td>
-                                            <td class="text-center fw-bold">Meja<br /><small>Dataran</small></td>
+                                            <td class="text-center fw-bold">
+                                                {{ $prod->category->name }}<br /><small>Dataran</small></td>
                                             <td class="text-center">{{ formatRupiah($prod->harga) }}</td>
                                             <td class="text-center fw-bold">{{ $prod->terjual }}</td>
                                             {{-- <td class="text-center">100x</td> --}}
@@ -281,7 +282,8 @@
                                                 <img src="{{ url($prod->thumbnail) }}" alt="" />
                                             </td>
                                             <td class="text-center">{{ $prod->name }}</td>
-                                            <td class="text-center fw-bold">Meja<br /><small>Dataran</small></td>
+                                            <td class="text-center fw-bold">
+                                                {{ $prod->category->name }}<br /><small>Dinding</small></td>
                                             <td class="text-center">{{ formatRupiah($prod->harga) }}</td>
                                             <td class="text-center fw-bold">{{ $prod->terjual }}</td>
                                             {{-- <td class="text-center">100x</td> --}}
@@ -477,7 +479,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a href="/Outputhasilprintlaporanharian">
+                    <a
+                        href="{{ route($this_helper . 'send-email', ['start_date' => $start_date, 'end_date' => $end_date]) }}">
                         <button class="btn btn-primary">Kirim Ke Email</button>
                     </a>
                 </div>
