@@ -165,23 +165,188 @@
     <h3 class="text-center">Tidak ada Transaksi.</h3>
 @endforelse
 {{-- Modal Penilaian --}}
+@forelse ($transaction->where('status','=', 1) as $index => $tr)
+    <div class="card mt-3">
+        <div class="card-header bg-dark text-white">
+            <div class="row">
+                <div class="col">
+                    <span style="font-size: 0.85rem;">{{ $tr->code ?? '' }}</span>
+                </div>
+                <div class="col-auto">
+                    <span style="font-size: 0.85rem;">{{ $tr->created_date() }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="card-title" style="margin-bottom: -10px;">
+                        <p class="fs-3 fs-md-5">{{ formatRupiah($tr->order_amount) }}</p>
+                    </h5>
+                </div>
+                <div class="col-auto">
+                    <button onclick="toggleCollapse('collapse_{{ $index }}')"
+                        class="btn btn-light collapse-button" style="border-radius: 15px;">
+                        <svg class="bi bi-chevron-up" width="30" height="30" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex justify-content-between">
+                        <div class="text-left">{{ $tr->transactionDetail->count() }} Produk</div>
+                        <div class="text-right">Sudah Dibayar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapse_{{ $index }}">
+        <br>
+        <p class="p-3 bg-success text-white text-center" style="border-radius: 3px;">Lunas</p>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title fw-bold">No. Pesanan</h5>
+                    <h5 class="card-title text-muted d-flex align-items-center" style="font-size: 1rem;">
+                        {{ $tr->code ?? '' }}</h5>
+                </div>
+            </div>
+        </div>
+        @php
+            $totalHarga = 0;
+        @endphp
+        @foreach ($tr->transactionDetail as $detail)
+            @php
+                $subTotal = $detail->harga;
+                $diskon = $detail->diskon ?? 0;
+                $ongkir = $detail->ongkir ?? 0;
+                $harga = ($subTotal - $diskon) * $detail->quantity;
+                $totalOngkir = $harga + $ongkir;
+                $totalHarga += $totalOngkir;
+            @endphp
+            <div class="mb-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between" style="margin-bottom: -20px;">
+                            <p class="fw-bold" style="font-size: 20px;">Rician Pesanan</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col d-flex flex-column">
+                                <img src="{{ url($detail->product->thumbnail) }}" alt="Produk"
+                                    style="max-width: 150px; border-radius: 10px;">
+                            </div>
+                            <div class="col d-flex flex-column">
+                                <div>
+                                    <p class="fw-bold" style="font-size: 1.2rem;">{{ $detail->product->name }}</p>
+                                    <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    <span>Kuantitas : {{ $detail->quantity }}x</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <p style="font-size: 20px;"><b>Rincian Harga</b></p>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <p>Harga Satuan: </p>
+                            <p>{{ formatRupiah($detail->harga) }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Diskon: </p>
+                            <p>-{{ formatRupiah($diskon) }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Sub Total Produk: </p>
+                            <p>{{ formatRupiah($harga) }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Ongkos Kirim: </p>
+                            <p>{{ formatRupiah($ongkir) }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Sub Total Ongkos Kirim: </p>
+                            <p>{{ formatRupiah($ongkir) }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <p class="fw-bold">Total Pesanan: </p>
+                            <p class="fw-bold">{{ formatRupiah($totalOngkir) }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center py-2">
+                        {{-- <div class="col-auto"> --}}
+                        <button type="button" class="btn btn-success mr-2 btn-penilaian"
+                            data-product="{{ $detail->product_id }}" data-name="{{ $detail->product->name }}"
+                            data-image="{{ url($detail->product->thumbnail) }}" data-qty="{{ $detail->quantity }}"
+                            data-varian-name = "{{ $detail->varian->name }}"
+                            data-varian="{{ $detail->product_varian_id }}" data-id="{{ $detail->id }}">
+                            Beri Penilaian
+                        </button>
+                        {{-- </div> --}}
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        <hr>
+        <div class="d-flex justify-content-between">
+            <p class="fw-bold">Total Keseluruhan: </p>
+            <p class="fw-bold">{{ $tr->transactionDetail->count() }} Produk</p>
+            <p><b>{{ formatRupiah($totalHarga) }}</b></p>
+        </div>
+        <hr>
+        <!-- Baris tombol -->
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <a href="{{ route('detail-transaction', $tr->id) }}" class="btn btn-outline-dark mb-3">Detail
+                        Pesanan</a>
+                </div>
+                <div class="col-auto">
+                    <a href="{{ route('invoice-pelanggan', $tr->id) }}" class="btn btn-dark d-flex align-items-center">
+                        Tampilkan Invoice
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-right ml-2" viewBox="0 0 16 16" style="margin-left: 20px;">
+                            <path fill-rule="evenodd"
+                                d="M9.5 1.5a.5.5 0 01.5.5v4a.5.5 0 01-1 0v-3h-3a.5.5 0 010-1h4a.5.5 0 01.5.5z" />
+                            <path fill-rule="evenodd"
+                                d="M9.293 1.207a.5.5 0 01.708 0l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L12.793 6H1.5a.5.5 0 010-1h11.293L9.293 2.707a.5.5 0 010-.708z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+@empty
+    <h3 class="text-center">Tidak ada Transaksi.</h3>
+@endforelse
+{{-- Modal Penilaian --}}
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered"> <!-- tambahkan kelas modal-lg untuk modal lebih besar -->
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Beri Penilaian</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POSt" id="form-rating">
+            <form action="" method="POST" id="form-rating">
                 <input type="hidden" readonly name="transaction_id" id="transaction_id">
                 <input type="hidden" readonly name="product_id" id="product_id">
                 <input type="hidden" readonly name="varian_id" id="varian_id">
                 <div class="modal-body" style="max-height: 350px; overflow-y: auto;">
-                    <!-- menggunakan inline style max-height dan overflow-y -->
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="" class="img-fluid img-product" alt="Gambar Produk"
-                                style="border-radius: 10px">
+                            <img src="" class="img-fluid img-product" alt="Gambar Produk" style="border-radius: 10px">
                         </div>
                         <div class="col-md-8">
                             <h5 id="name_prod">Nama Produk</h5>
@@ -225,22 +390,20 @@
                         </div>
 
                         <hr>
-                        <div class="d-flex justify-content-between">
-                            <figcaption class="blockquote-footer mt-2">
-                                Gambar yang dapat diupload ( <span id="remainingImagesCount"> 3 </span>)
-                            </figcaption>
-                            <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
-                                <i class="bi bi-camera"></i> Tambah Foto
-                                <input type="file" name="image" accept="image/*" id="imageInput"
-                                    style="display: none;">
-                            </label>
-                        </div>
-                        <div class="row" id="imageRow"
-                            style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;">
+                        <div class="container mt-5">
+                            <div class="d-flex justify-content-between">
+                                <figcaption class="blockquote-footer mt-2">
+                                    Gambar yang dapat diupload (<span id="remainingImagesCount">3</span>)
+                                </figcaption>
+                                <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
+                                    <i class="bi bi-camera"></i> Tambah Foto
+                                    <input type="file" name="image" accept="image/*" id="imageInput" style="display: none;" multiple>
+                                </label>
+                            </div>
+                            <div class="row" id="imageRow" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;">
+                            </div>
                         </div>
                     </div>
-
-
                     <div class="container">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-between">
@@ -256,7 +419,7 @@
                             <span style="margin-top: -20px">
                                 <figcaption class="blockquote-footer mt-1" id="namaPenilaian">
                                     Nama yang ditampilkan adalah
-                                    <cite title="Source Title">Jhon Doe</cite>
+                                    <cite title="Source Title">{{ Auth::user()->name }}</cite>
                                 </figcaption>
                             </span>
                         </div>
@@ -265,18 +428,219 @@
 
                 <div class="modal-footer">
                     <div class="d-flex justify-content-between w-100">
-                        <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
-                        <button type="button" class="btn btn-outline-secondary"
-                            onclick="handleReset()">Reset</button>
-                        <button class="btn btn-dark" type="submit"> Kirim Penilaian <i
-                                class="fas fa-arrow-right ml-2"></i>
-                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="handleReset()">Reset</button>
+                        <button class="btn btn-dark" type="submit">Kirim Penilaian <i class="fas fa-arrow-right ml-2"></i></button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    let imageCount = 0;
+    const maxImages = 3;
+
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        const files = event.target.files;
+
+        if (files.length + imageCount > maxImages) {
+            alert('Anda hanya dapat mengupload maksimal ' + maxImages + ' gambar.');
+            return;
+        }
+
+        Array.from(files).forEach(file => {
+            if (imageCount < maxImages) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.style.position = 'relative';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    img.style.borderRadius = '8px';
+                    imgContainer.appendChild(img);
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.innerHTML = 'Hapus';
+                    removeBtn.className = 'btn btn-danger btn-sm';
+                    removeBtn.style.position = 'absolute';
+                    removeBtn.style.top = '5px';
+                    removeBtn.style.right = '5px';
+                    removeBtn.addEventListener('click', function() {
+                        imgContainer.remove();
+                        imageCount--;
+                        document.getElementById('remainingImagesCount').innerText = maxImages - imageCount;
+                    });
+                    imgContainer.appendChild(removeBtn);
+
+                    document.getElementById('imageRow').appendChild(imgContainer);
+                    imageCount++;
+                    document.getElementById('remainingImagesCount').innerText = maxImages - imageCount;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        event.target.value = ''; // Reset input file
+    });
+
+    function updateCommentCount() {
+        const comment = document.getElementById('comment');
+        const commentCount = document.getElementById('commentCount');
+        commentCount.innerText = `${comment.value.length} / 250`;
+    }
+
+    function handleReset() {
+        // Reset star rating
+        document.querySelectorAll('input[name="rate"]').forEach(input => {
+            input.checked = false;
+        });
+
+        // Reset textarea
+        const comment = document.getElementById('comment');
+        comment.value = '';
+        updateCommentCount();
+
+        // Reset images
+        const imageRow = document.getElementById('imageRow');
+        while (imageRow.firstChild) {
+            imageRow.removeChild(imageRow.firstChild);
+        }
+        imageCount = 0;
+        document.getElementById('remainingImagesCount').innerText = maxImages;
+    }
+</script>
+
+
+{{-- Sensor nama --}}
+<script>
+    var originalName;
+
+    // Simpan nama asli saat halaman dimuat
+    window.onload = function() {
+        originalName = document.querySelector('#namaPenilaian cite').textContent;
+    }
+
+    function toggleSwitch() {
+        var nama = document.querySelector('#namaPenilaian cite').textContent;
+
+        if (originalName === undefined) {
+            originalName = nama;
+        }
+
+        if (document.getElementById("customSwitch").checked) {
+            // Mengubah nama dengan sensor bintang sesuai panjang nama
+            var maskedName = '';
+            for (var i = 0; i < nama.length; i++) {
+                if (i === 0 || i === nama.length - 1 || nama[i] === ' ') {
+                    maskedName += nama[i]; // Biarkan karakter pertama, terakhir, dan spasi tidak tersensor
+                } else {
+                    maskedName += '*'; // Sensor semua karakter lainnya
+                }
+            }
+            document.querySelector('#namaPenilaian cite').textContent = maskedName;
+        } else {
+            // Mengembalikan nama ke kondisi asal
+            document.querySelector('#namaPenilaian cite').textContent = originalName;
+            originalName = undefined;
+        }
+    }
+</script>
+
+
+{{-- Menghitung jumlah text area --}}
+<script>
+    function updateCommentCount() {
+        var comment = document.getElementById("comment").value;
+        var count = comment.length;
+        document.getElementById("commentCount").textContent = count + " / 250";
+    }
+</script>
+
+
+{{-- Menampilkan modal --}}
+
+<script>
+    $('body').on('click', '.btn-penilaian', function() {
+        let name = $(this).attr('data-name')
+        let product = $(this).attr('data-product')
+        let image = $(this).attr('data-image')
+        let qty = $(this).attr('data-qty')
+        let varian = $(this).attr('data-varian')
+        let id = $(this).attr('data-id')
+        let varian_name = $(this).attr('data-varian-name')
+        let modal = $('#myModal')
+        modal.find('.img-product').attr('src', image)
+        modal.find('#name_prod').html(name)
+        modal.find('#qty').html(qty)
+        modal.find('#varian').html(varian_name)
+        modal.find('#transaction_id').val(id)
+        modal.find('#product_id').val(product)
+        modal.find('#varian_id').val(varian)
+        $('#myModal').modal('show');
+        console.log("click", name, product, image, qty, varian);
+    })
+
+    $(document).ready(function() {
+
+        $('body').on('submit', '#form-rating', function(e) {
+            e.preventDefault()
+
+            $.ajax({
+                url: "{{ route('store-rating') }}",
+                method: 'POST',
+                data: new FormData(this),
+                contentType: 'application/json',
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $loaderEl.removeClass('d-none')
+                },
+                success: function(response) {
+                    $loaderEl.addClass('d-none')
+                    Swal.fire({
+                        title: 'Sucess',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(err) {
+                    $loaderEl.addClass('d-none')
+                    let message = "";
+                    const json = err.responseJSON;
+                    if (json !== undefined) {
+                        message = json.message ?? "Internal Server Error";
+                        if (json.errors !== undefined && typeof json
+                            .errors === "string") message +=
+                            `\n${json.errors}`;
+                    } else message = `[${err.status}] ${err.statusText}`;
+                    let login = "{{ route('login') }}"
+                    if (message == "Unauthenticated.") {
+                        window.location.href = login;
+                        return
+                    }
+                    Swal.fire({
+                        title: 'Error',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            })
+        })
+    })
+
+    function handleShowModal() {}
+</script>
+
 
 
 {{-- Sensor nama --}}
