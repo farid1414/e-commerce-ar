@@ -979,12 +979,14 @@
                     let lebarVar = $('input[name="lebar_varian[]"]').eq(i).val();
                     let tinggiVar = $('input[name="tinngi_varian[]"]').eq(i).val();
 
-                    customDimensions[warna] = {
-                        Panjang: `${panjangVar} cm`,
-                        'Tinggi 1': `${tinggiVar} cm`,
-                        'Tinggi 2': `${tinggiVar} cm`,
-                        Lebar: `${lebarVar} cm`,
-                        'Lebar 2': `${lebarVar} cm`,
+                    if (panjangVar && lebarVar && tinggiVar) {
+                        customDimensions[warna] = {
+                            Panjang: `${panjangVar} cm`,
+                            'Tinggi 1': `${tinggiVar} cm`,
+                            'Tinggi 2': `${tinggiVar} cm`,
+                            Lebar: `${lebarVar} cm`,
+                            'Lebar 2': `${lebarVar} cm`,
+                        }
                     }
                 })
                 $('#color-controls').find('.dropdown-menu').html(html)
@@ -1240,17 +1242,37 @@
                     const colorString = event.target.dataset.color;
                     const dimensions = customDimensions[colorString];
 
-                    if (dimensions) {
-                        dimButtons[2].textContent = dimensions.Panjang;
-                        dimButtons[0].textContent = dimensions.Lebar;
-                        dimButtons[1].textContent = dimensions['Tinggi 1'];
-                        dimButtons[3].textContent = dimensions['Tinggi 2'];
-                        dimButtons[4].textContent = dimensions['Lebar 2'];
+                    if ($('#custom-switch-dimensi').is(':checked')) {
+                        if (colorString == 'Original') {
+                            console.log("original");
+                            const modelViewer = document.querySelector('#color');
+                            const center = modelViewer.getBoundingBoxCenter();
 
-                        const [material] = modelViewerColor.model.materials;
-                        material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
-                    } else {
-                        console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+                            // Fungsi untuk Mengambil Dimensi bawaan
+                            const size = modelViewer.getDimensions();
+
+                            const x2 = size.x / 2;
+                            const y2 = size.y / 2;
+                            const z2 = size.z / 2;
+
+                            dimButtons[2].textContent = `${(size.x * 100).toFixed(0)} cm`;
+                            dimButtons[0].textContent = `${(size.z * 100).toFixed(0)} cm`;
+                            dimButtons[1].textContent = `${(size.y * 100).toFixed(0)} cm`;
+                            dimButtons[3].textContent = `${(size.y * 100).toFixed(0)} cm`;
+                            dimButtons[4].textContent = `${(size.z * 100).toFixed(0)} cm`;
+
+                        } else if (dimensions) {
+                            dimButtons[2].textContent = dimensions.Panjang;
+                            dimButtons[0].textContent = dimensions.Lebar;
+                            dimButtons[1].textContent = dimensions['Tinggi 1'];
+                            dimButtons[3].textContent = dimensions['Tinggi 2'];
+                            dimButtons[4].textContent = dimensions['Lebar 2'];
+
+                            const [material] = modelViewerColor.model.materials;
+                            material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
+                        } else {
+                            console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+                        }
                     }
                 }
             });
