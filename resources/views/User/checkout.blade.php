@@ -148,7 +148,7 @@
 
             <div class="d-flex justify-content-between">
                 <p class="fw-bold">Total Keseluruhan :</p>
-                <p class="fw-bold">{{ $cart->count() }} Produk,</p>
+                <p class="fw-bold">{{ $carts->count() }} Produk,</p>
                 <p class="fw-bold">{{ formatRupiah($totalHarga) }}</p>
             </div>
         </div>
@@ -254,9 +254,12 @@
                     // Optional
                     onSuccess: function(result) {
                         /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result,
-                            null, 2);
+                        // document.getElementById('result-json').innerHTML += JSON.stringify(result,
+                        //     null, 2);
                         let payment_type = result.payment_type
+                        if (payment_type == "bank_transfer") {
+                            payment_type = result.va_numbers[0]['bank']
+                        }
                         window.location.href =
                             "{{ route('transaction-success', $transaction->id) }}/" + payment_type
                     },

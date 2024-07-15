@@ -540,7 +540,6 @@ class MainController extends Controller
 
     public function storeRating(Request $request)
     {
-
         $data = [
             'transaction_id' => $request->transaction_id,
             'user_id' => Auth::user()->id,

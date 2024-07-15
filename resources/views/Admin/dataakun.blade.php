@@ -29,7 +29,7 @@
                                 <i class="bi bi-box"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>20</h6>
+                                <h6>{{ $admins->where('status', '=', 1)->count() }}</h6>
                                 <span class="text-muted small pt-1">
                                     Total Akun Admin
                                 </span>
@@ -48,7 +48,7 @@
                                 <i class="bi bi-box-seam"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>20</h6>
+                                <h6>{{ $admins->where('status', '=', 0)->count() }}</h6>
                                 <span class="text-muted small pt-1" style="font-size: 13px;">
                                     Total Admin Non-Aktif
                                 </span>
@@ -67,7 +67,7 @@
                                 <i class="bi bi-dropbox"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>25</h6>
+                                <h6>{{ $nonAdmins->count() }}</h6>
                                 <span class="text-muted small pt-1">
                                     Total Akun Pelanggan
                                 </span>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            {{-- <div class="col-sm-4">
                 <div class="card info-card customers-card">
                     <!-- Jumlah Total Terjual -->
                     <div class="card-body">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="d-grid gap-2">

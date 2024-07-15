@@ -30,7 +30,10 @@ class AkunController extends Controller
             $query->where('name', 'admin');
         })->get();
 
-        return view('admin.dataakun');
+        return view('admin.dataakun', [
+            'admins' => $admins,
+            'nonAdmins' => $nonAdmins
+        ]);
     }
 
 

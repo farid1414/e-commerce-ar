@@ -81,7 +81,8 @@
                                     <td class="text-center">{{ formatRupiah($det->diskon) }}</td>
                                     <td class="text-center">{{ $det->quantity }}x</td>
                                     <td class="text-center">
-                                        {{ formatRupiah(($det->harga - $det->diskon) * $det->quantity + $det->ongkir) }}</td>
+                                        {{ formatRupiah(($det->harga - $det->diskon) * $det->quantity + $det->ongkir) }}
+                                    </td>
                                 </tr>
                             @endforeach
 
@@ -236,7 +237,7 @@
 
         </div>
 
-        <div class="card mt-3 print-hidden">
+        {{-- <div class="card mt-3 print-hidden">
             <div class="card-body">
                 <div class="card-title" style="margin-top: -20px"></div>
                 <div class="d-flex justify-content-between">
@@ -256,7 +257,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
 
 @stop
