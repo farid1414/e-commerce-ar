@@ -130,13 +130,15 @@
 
         // Loop melalui varians untuk membangun objek
         @foreach ($product->varians as $varian)
-            customDimensions["{{ $varian->warna }}"] = {
-                Panjang: "{{ $varian->panjang ?? 0 }} cm",
-                'Tinggi 1': "{{ $varian->tinggi ?? 0 }} cm",
-                'Tinggi 2': "{{ $varian->tinggi ?? 0 }} cm",
-                Lebar: "{{ $varian->lebar ?? 0 }} cm",
-                'Lebar 2': "{{ $varian->lebar ?? 0 }} cm",
-            };
+            @if ($varian->panjang && $varian->lebar && $varian->tinggi)
+                customDimensions["{{ $varian->warna }}"] = {
+                    Panjang: "{{ $varian->panjang ?? 0 }} cm",
+                    'Tinggi 1': "{{ $varian->tinggi ?? 0 }} cm",
+                    'Tinggi 2': "{{ $varian->tinggi ?? 0 }} cm",
+                    Lebar: "{{ $varian->lebar ?? 0 }} cm",
+                    'Lebar 2': "{{ $varian->lebar ?? 0 }} cm",
+                };
+            @endif
         @endforeach
 
 
@@ -146,7 +148,6 @@
                 if (colorString === "Original") {
                     const modelViewer = document.querySelector('#color');
                     const center = modelViewer.getBoundingBoxCenter();
-
                     // Fungsi untuk Mengambil Dimensi bawaan
                     const size = modelViewer.getDimensions();
 
@@ -161,7 +162,22 @@
                     dimButtons[4].textContent = `${(size.z * 100).toFixed(0)} cm`;
                 } else {
                     const dimensions = customDimensions[colorString];
-                    if (dimensions) {
+                    if (dimensions == undefined) {
+                        const modelViewer = document.querySelector('#color');
+                        const center = modelViewer.getBoundingBoxCenter();
+                        // Fungsi untuk Mengambil Dimensi bawaan
+                        const size = modelViewer.getDimensions();
+
+                        const x2 = size.x / 2;
+                        const y2 = size.y / 2;
+                        const z2 = size.z / 2;
+
+                        dimButtons[2].textContent = `${(size.x * 100).toFixed(0)} cm`;
+                        dimButtons[0].textContent = `${(size.z * 100).toFixed(0)} cm`;
+                        dimButtons[1].textContent = `${(size.y * 100).toFixed(0)} cm`;
+                        dimButtons[3].textContent = `${(size.y * 100).toFixed(0)} cm`;
+                        dimButtons[4].textContent = `${(size.z * 100).toFixed(0)} cm`;
+                    } else if (dimensions) {
                         dimButtons[2].textContent = dimensions.Panjang;
                         dimButtons[0].textContent = dimensions.Lebar;
                         dimButtons[1].textContent = dimensions['Tinggi 1'];
