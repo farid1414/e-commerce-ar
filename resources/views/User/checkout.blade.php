@@ -64,7 +64,7 @@
                     @endphp
 
                     <input type="hidden" readonly name="product_id[]" value="{{ $cart->product->id }}">
-                    @if ($cart->product->flashSale)
+                    @if ($cart->product->flashSale->count())
                         @php
                             $flashSale = $cart->product->flashSale
                                 ->where('product_varian_id', $cart->varian->id)
@@ -148,7 +148,7 @@
 
             <div class="d-flex justify-content-between">
                 <p class="fw-bold">Total Keseluruhan :</p>
-                <p class="fw-bold">{{ $carts->count() }} Produk,</p>
+                <p class="fw-bold">{{ $transaction->transactionDetail->count() }} Produk,</p>
                 <p class="fw-bold">{{ formatRupiah($totalHarga) }}</p>
             </div>
         </div>

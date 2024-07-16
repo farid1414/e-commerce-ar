@@ -296,6 +296,7 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::get('list-product', [FlashSaleController::class, 'getProduct'])->name('get-product');
         Route::post('/', [FlashSaleController::class, 'store'])->name('store');
         Route::get('/detail/{id?}', [FlashSaleController::class, 'detail'])->name('detail');
+        Route::post('/change-status', [FlashSaleController::class, 'changeStatus'])->name('change-status');
     });
 
     Route::prefix('/profil')->name('profil.')->group(function () {

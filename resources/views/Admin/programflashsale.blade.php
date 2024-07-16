@@ -347,10 +347,23 @@
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between">
-                                                <button class="btn btn-outline-danger d-none d-md-block">
-                                                    Shutdown Flash Sale
+                                                <form action="{{ route($this_helper . 'change-status') }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="flash_sale_id"
+                                                        value="{{ $act->id }}">
+                                                    @if (!$act->shutdown)
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger d-none d-md-block">
+                                                            Shutdown Flash Sale
+                                                        @else
+                                                            <button type="submit"
+                                                                class="btn btn-outline-primary d-none d-md-block">
+                                                                Aktifkan Flash Sale
+                                                    @endif
+                                                </form>
                                                 </button>
-                                                <button class="btn btn-outline-success">Edit Flash Sale</button>
+                                                {{-- <button class="btn btn-outline-success">Edit Flash Sale</button> --}}
                                                 <a href="{{ route($this_helper . 'detail', $act->id) }}"
                                                     class="btn btn-primary">Lihat Flash Sale</a>
                                             </div>

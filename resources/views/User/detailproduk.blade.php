@@ -469,12 +469,14 @@
                                                                     {{ $rating->varians->name }}</p>
                                                             @endif
                                                             <div class="row">
-                                                                @if ($rating->image)
-                                                                    <div class="col">
-                                                                        <img src="{{ url($rating->image) }}"
-                                                                            class="img-fluid" alt="Product 3"
-                                                                            style="max-height: 100px">
-                                                                    </div>
+                                                                @if ($rating->ratingImage->count())
+                                                                    @foreach ($rating->ratingImage as $img)
+                                                                        <div class="col">
+                                                                            <img src="{{ url($img->image) }}"
+                                                                                class="img-fluid" alt="Product 3"
+                                                                                style="max-height: 100px">
+                                                                        </div>
+                                                                    @endforeach
                                                                 @endif
                                                             </div>
                                                             <p>{!! $rating->text_value !!}</p>
@@ -581,7 +583,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span style="font-size: 20px;">{{ $rate }}</span>
+                                <span style="font-size: 20px;">{{ number_format($rate, 1) }}</span>
                             </div>
                         </div>
 
@@ -732,6 +734,7 @@
         let DataProduct = ''
         let DataVarian = ''
         let DataFlashsale = []
+        let fs = null;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -747,9 +750,11 @@
                     },
                     success: function(response) {
                         $loaderEl.addClass('d-none')
-                        DataProduct = response.data
-                        DataVarian = response.data.varians
-                        DataFlashsale = response.data.flash_sale
+                        console.log("res", response);
+                        DataProduct = response.data.product
+                        DataVarian = DataProduct.varians
+                        DataFlashsale = DataProduct.flash_sale;
+                        fs = response.data.fs
                         createKeranjang(response.data)
                     },
                     error: function(xhr) {
@@ -762,19 +767,19 @@
 
         const createKeranjang = (data) => {
             let ongkir = 0
-            if (data.varians.length > 0) {
-                $.each(data.varians, function(i, val) {
+            if (data.product.varians.length > 0) {
+                $.each(data.product.varians, function(i, val) {
                     $('#varian').append($('<option>', {
                         value: val.id,
                         text: val.name
                     }));
                 })
             }
-            if (data.harga_ongkir) {
-                ongkir = formatRupiah(data.harga_ongkir)
+            if (data.product.harga_ongkir) {
+                ongkir = formatRupiah(data.product.harga_ongkir)
             }
-            $('#harga').val(data.harga)
-            $('#label-harga').html(formatRupiah(data.harga))
+            $('#harga').val(data.product.harga)
+            $('#label-harga').html(formatRupiah(data.product.harga))
             $('#label-ongkir').html(ongkir)
             $('#ongkir').val(ongkir)
             $('#modalMasukkanKeranjang').modal('show');
@@ -791,7 +796,8 @@
                     $('#diskon').val(data[0].diskon)
                     $('#label-diskon').html(formatRupiah(data[0].diskon))
                 }
-                if (flashSale.length > 0) {
+                if (fs != null && flashSale.length > 0) {
+                    console.log("fllas", flashSale);
                     if (flashSale[0].custom_harga != undefined && flashSale[0].custom_harga) {
                         $('#label-diskon').html(formatRupiah(flashSale[0].custom_harga))
                         $('#diskon').val(flashSale[0].custom_harga)
@@ -839,7 +845,7 @@
                         text: message,
                         icon: 'error',
                         confirmButtonText: 'OK'
-                    })  
+                    })
                     let login = "{{ route('login') }}"
                     if (message == "Unauthenticated.") {
                         window.location.href = login;

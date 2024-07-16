@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Models\Rating;
 use App\Models\Customer;
 use Barryvdh\DomPDF\PDF;
+use App\Models\ImageRating;
 use App\Models\Master\Cart;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Mail\TransactionEmail;
@@ -28,7 +30,7 @@ class MainController extends Controller
     {
         $currentDateTime = Carbon::now();
         $product = Product::select('*')->where('is_active', '=', 1)->where('stock', '>', 0);
-        $flashsale = FlashSale::where(function ($query) use ($currentDateTime) {
+        $flashsale = FlashSale::where('shutdown', '=', 0)->where(function ($query) use ($currentDateTime) {
             $query->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime);
         })->with('productFlashSale')->first();
@@ -59,11 +61,19 @@ class MainController extends Controller
 
     public function getDetailProduct(string $uuid)
     {
-
+        $currentDateTime = Carbon::now();
         $product = Product::where('uuid', $uuid)->with(['varians', 'flashSale'])->first();
+        $fs = FlashSale::where('shutdown', '=', 0)->where(function ($query) use ($currentDateTime) {
+            $query->where('start_time', '<=', $currentDateTime)
+                ->where('end_time', '>=', $currentDateTime);
+        })->with('productFlashSale')->first();
         if (!$product) return ERROR_RESPONSE("Product not found");
 
-        return JSON_RESPONSE("Detail product", $product);
+        $data = [
+            'product' => $product,
+            'fs' => $fs
+        ];
+        return JSON_RESPONSE("Detail product", $data);
     }
 
     public function addToCart(Request $request)
@@ -82,7 +92,7 @@ class MainController extends Controller
 
         $currentDateTime = Carbon::now();
         $productFlashSale = null;
-        $fs = FlashSale::where(function ($query) use ($currentDateTime) {
+        $fs = FlashSale::where('shutdown', '=', 0)->where(function ($query) use ($currentDateTime) {
             $query->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime);
         })->with('productFlashSale')->get();
@@ -473,7 +483,7 @@ class MainController extends Controller
 
         $currentDateTime = Carbon::now();
         $productFlashSale = null;
-        $fs = FlashSale::where(function ($query) use ($currentDateTime) {
+        $fs = FlashSale::where('shutdown', '=', 0)->where(function ($query) use ($currentDateTime) {
             $query->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime);
         })->with('productFlashSale')->get();
@@ -550,17 +560,19 @@ class MainController extends Controller
             'is_samaran' => $request->samaran ? 1 : 0
         ];
 
-        if (isset($request->image)) {
-            $file = $request->image;
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $folder = 'storage/product/rating/';
-            $file->move(public_path($folder), $filename);
-            $url = $folder . $filename;
-            $data['image'] = $url;
-        }
         try {
             DB::beginTransaction();
-            Rating::create($data);
+            $rating = Rating::create($data);
+            if (isset($request->image)) {
+                foreach ($request->image as $img) {
+                    $file = $img;
+                    $filename = Str::random(3) . time() . '.' . $file->getClientOriginalExtension();
+                    $folder = 'storage/product/rating/';
+                    $file->move(public_path($folder), $filename);
+                    $url = $folder . $filename;
+                    ImageRating::create(['image' => $url, 'rating_id' => $rating->id]);
+                }
+            }
             DB::commit();
             return JSON_RESPONSE("Success create rating produk");
         } catch (\Throwable $th) {

@@ -219,10 +219,8 @@
                     skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
                     ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto" skybox-height="1.8m"
                     shadow-intensity="1" camera-controls touch-action="pan-y"
-                    @if ($mCat->id == 1) ar-placement="floor"
-                    @else
-                      ar-placement="wall" @endif
-                    tone-mapping="neutral" style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
+                    ar-placement="@if ($mCat->id == 1) floor @else wall @endif" tone-mapping="neutral"
+                    style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
 
                     {{-- Dimensi --}}
                     <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
@@ -1244,7 +1242,6 @@
 
                     if ($('#custom-switch-dimensi').is(':checked')) {
                         if (colorString == 'Original') {
-                            console.log("original");
                             const modelViewer = document.querySelector('#color');
                             const center = modelViewer.getBoundingBoxCenter();
 

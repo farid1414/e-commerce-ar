@@ -138,4 +138,15 @@ class FlashSaleController extends Controller
             'detail' => $detail
         ]);
     }
+
+    public function changeStatus(Request $request)
+    {
+        $fs = FlashSale::findOrFail($request->flash_sale_id);
+
+        $status = false;
+        if (!$fs->shutdown) $status = true;
+        $fs->update(['shutdown' => $status]);
+
+        return redirect()->back();
+    }
 }

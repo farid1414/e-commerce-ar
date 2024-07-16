@@ -197,7 +197,7 @@ class ProductController extends Controller
             }
         }
 
-        if (isset($request->panjang_varian) && $request->check_dimenso_varian == "on") {
+        if (isset($request->panjang_varian) && $request->check_dimensi == "on") {
             foreach ($request->panjang_varian as $index => $p) {
                 if (isset($dataVarian[$index])) {
                     $dataVarian[$index]['panjang'] = $p;

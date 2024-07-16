@@ -120,13 +120,15 @@
                     </div>
                     <div class="d-flex justify-content-center py-2">
                         {{-- <div class="col-auto"> --}}
-                        <button type="button" class="btn btn-success mr-2 btn-penilaian"
-                            data-product="{{ $detail->product_id }}" data-name="{{ $detail->product->name }}"
-                            data-image="{{ url($detail->product->thumbnail) }}" data-qty="{{ $detail->quantity }}"
-                            data-varian-name = "{{ $detail->varian->name }}"
-                            data-varian="{{ $detail->product_varian_id }}" data-id="{{ $detail->id }}">
-                            Beri Penilaian
-                        </button>
+                        @if (!$tr->rating)
+                            <button type="button" class="btn btn-success mr-2 btn-penilaian"
+                                data-product="{{ $detail->product_id }}" data-name="{{ $detail->product->name }}"
+                                data-image="{{ url($detail->product->thumbnail) }}" data-qty="{{ $detail->quantity }}"
+                                data-varian-name = "{{ $detail->varian->name }}"
+                                data-varian="{{ $detail->product_varian_id }}" data-id="{{ $detail->id }}">
+                                Beri Penilaian
+                            </button>
+                        @endif
                         {{-- </div> --}}
                     </div>
                 </div>
@@ -166,18 +168,17 @@
 @endforelse
 {{-- Modal Penilaian --}}
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered"> <!-- tambahkan kelas modal-lg untuk modal lebih besar -->
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Beri Penilaian</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POSt" id="form-rating">
+            <form action="" method="POST" id="form-rating">
                 <input type="hidden" readonly name="transaction_id" id="transaction_id">
                 <input type="hidden" readonly name="product_id" id="product_id">
                 <input type="hidden" readonly name="varian_id" id="varian_id">
                 <div class="modal-body" style="max-height: 350px; overflow-y: auto;">
-                    <!-- menggunakan inline style max-height dan overflow-y -->
                     <div class="row">
                         <div class="col-md-4">
                             <img src="" class="img-fluid img-product" alt="Gambar Produk"
@@ -225,22 +226,22 @@
                         </div>
 
                         <hr>
-                        <div class="d-flex justify-content-between">
-                            <figcaption class="blockquote-footer mt-2">
-                                Gambar yang dapat diupload ( <span id="remainingImagesCount"> 3 </span>)
-                            </figcaption>
-                            <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
-                                <i class="bi bi-camera"></i> Tambah Foto
-                                <input type="file" name="image" accept="image/*" id="imageInput"
-                                    style="display: none;">
-                            </label>
-                        </div>
-                        <div class="row" id="imageRow"
-                            style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;">
+                        <div class="container mt-5">
+                            <div class="d-flex justify-content-between">
+                                <figcaption class="blockquote-footer mt-2">
+                                    Gambar yang dapat diupload (<span id="remainingImagesCount">3</span>)
+                                </figcaption>
+                                <label for="imageInput" class="btn btn-outline-dark" style="margin-bottom: 10px;">
+                                    <i class="bi bi-camera"></i> Tambah Foto
+                                    <input type="file" name="image[]" accept="image/*" id="imageInput"
+                                        style="display: none;" multiple>
+                                </label>
+                            </div>
+                            <div class="row" id="imageRow"
+                                style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 20px;">
+                            </div>
                         </div>
                     </div>
-
-
                     <div class="container">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-between">
@@ -256,7 +257,7 @@
                             <span style="margin-top: -20px">
                                 <figcaption class="blockquote-footer mt-1" id="namaPenilaian">
                                     Nama yang ditampilkan adalah
-                                    <cite title="Source Title">Jhon Doe</cite>
+                                    <cite title="Source Title">{{ Auth::user()->name }}</cite>
                                 </figcaption>
                             </span>
                         </div>
@@ -265,18 +266,95 @@
 
                 <div class="modal-footer">
                     <div class="d-flex justify-content-between w-100">
-                        <!-- tambahkan kelas w-100 untuk membuat div memiliki lebar 100% -->
                         <button type="button" class="btn btn-outline-secondary"
                             onclick="handleReset()">Reset</button>
-                        <button class="btn btn-dark" type="submit"> Kirim Penilaian <i
-                                class="fas fa-arrow-right ml-2"></i>
-                        </button>
+                        <button class="btn btn-dark" type="submit">Kirim Penilaian <i
+                                class="fas fa-arrow-right ml-2"></i></button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    let imageCount = 0;
+    const maxImages = 3;
+
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        const files = event.target.files;
+
+        if (files.length + imageCount > maxImages) {
+            alert('Anda hanya dapat mengupload maksimal ' + maxImages + ' gambar.');
+            return;
+        }
+
+        Array.from(files).forEach(file => {
+            if (imageCount < maxImages) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.style.position = 'relative';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    img.style.borderRadius = '8px';
+                    imgContainer.appendChild(img);
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.innerHTML = 'Hapus';
+                    removeBtn.className = 'btn btn-danger btn-sm';
+                    removeBtn.style.position = 'absolute';
+                    removeBtn.style.top = '5px';
+                    removeBtn.style.right = '5px';
+                    removeBtn.addEventListener('click', function() {
+                        imgContainer.remove();
+                        imageCount--;
+                        document.getElementById('remainingImagesCount').innerText =
+                            maxImages - imageCount;
+                    });
+                    imgContainer.appendChild(removeBtn);
+
+                    document.getElementById('imageRow').appendChild(imgContainer);
+                    imageCount++;
+                    document.getElementById('remainingImagesCount').innerText = maxImages -
+                        imageCount;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // event.target.value = ''; // Reset input file
+    });
+
+    function updateCommentCount() {
+        const comment = document.getElementById('comment');
+        const commentCount = document.getElementById('commentCount');
+        commentCount.innerText = `${comment.value.length} / 250`;
+    }
+
+    function handleReset() {
+        // Reset star rating
+        document.querySelectorAll('input[name="rate"]').forEach(input => {
+            input.checked = false;
+        });
+
+        // Reset textarea
+        const comment = document.getElementById('comment');
+        comment.value = '';
+        updateCommentCount();
+
+        // Reset images
+        const imageRow = document.getElementById('imageRow');
+        while (imageRow.firstChild) {
+            imageRow.removeChild(imageRow.firstChild);
+        }
+        imageCount = 0;
+        document.getElementById('remainingImagesCount').innerText = maxImages;
+    }
+</script>
 
 
 {{-- Sensor nama --}}

@@ -53,31 +53,32 @@
                 </div>
             </div>
         @endif
+        @if ($product->status_dimensi == 1)
+            <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
+            <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
+            <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1" data-normal="0 1 0"></button>
+            <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
+            <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>
+            <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                class="dimensionLineContainer">
+                <line class="dimensionLine"></line>
+                <line class="dimensionLine"></line>
+                <line class="dimensionLine"></line>
+                <line class="dimensionLine"></line>
+                <line class="dimensionLine"></line>
+            </svg>
 
-        <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
-        <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
-        <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
-        <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
-        <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
-        <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
-        <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1" data-normal="0 1 0"></button>
-        <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
-        <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
-        <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
-        <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>
-        <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-            class="dimensionLineContainer">
-            <line class="dimensionLine"></line>
-            <line class="dimensionLine"></line>
-            <line class="dimensionLine"></line>
-            <line class="dimensionLine"></line>
-            <line class="dimensionLine"></line>
-        </svg>
-
-        <div id="controls" class="dim d-none" style="height: 40px">
-            <label for="show-dimensions">Tampilkan Dimensi:</label>
-            <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
-        </div>
+            <div id="controls" class="dim d-none" style="height: 40px">
+                <label for="show-dimensions">Tampilkan Dimensi:</label>
+                <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
+            </div>
+        @endif
 
         <div class="d-block d-lg-none">
             <button id="arButton" onclick="activateAR()"
@@ -125,29 +126,6 @@
         const colorControls = document.getElementById('color-controls');
         const dimButtons = document.querySelectorAll('button[slot^="hotspot-dim"]');
 
-        // const customDimensions = {
-        //     "[1, 1, 0, 1]": { // Kuning
-        //         Panjang: "4001 cm",
-        //         'Tinggi 1': "4400 cm",
-        //         'Tinggi 2': "4400 cm",
-        //         Lebar: "14400 cm",
-        //         'Lebar 2': "14400 cm",
-        //     },
-        //     "[1, 0, 0, 1]": { // Merah
-        //         Panjang: "1001 cm",
-        //         'Tinggi 1': "1100 cm",
-        //         'Tinggi 2': "1100 cm",
-        //         Lebar: "13100 cm",
-        //         'Lebar 2': "13100 cm",
-        //     },
-        //     "[0, 0, 1, 1]": { // Biru
-        //         Panjang: "3001 cm",
-        //         'Tinggi 1': "3300 cm",
-        //         'Tinggi 2': "3300 cm",
-        //         Lebar: "13300 cm",
-        //         'Lebar 2': "13300 cm",
-        //     },
-        // };
         let customDimensions = {};
 
         // Loop melalui varians untuk membangun objek
@@ -161,45 +139,48 @@
             };
         @endforeach
 
-        console.log("cus", customDimensions);
 
         function updateDimensions(colorString) {
             const [material] = modelViewerColor.model.materials;
+            @if ($product->status_dimensi == 1)
+                if (colorString === "Original") {
+                    const modelViewer = document.querySelector('#color');
+                    const center = modelViewer.getBoundingBoxCenter();
 
-            if (colorString === "Original") {
-                dimButtons[2].textContent =
-                    `${(modelViewerColor.getDimensions()['Panjang'] * 100).toFixed(0)} cm`;
-                dimButtons[0].textContent =
-                    `${(modelViewerColor.getDimensions()['Lebar'] * 100).toFixed(0)} cm`;
-                dimButtons[1].textContent =
-                    `${(modelViewerColor.getDimensions()['Tinggi 1'] * 100).toFixed(0)} cm`;
-                dimButtons[3].textContent =
-                    `${(modelViewerColor.getDimensions()['Tinggi 2'] * 100).toFixed(0)} cm`;
-                dimButtons[4].textContent =
-                    `${(modelViewerColor.getDimensions()['Lebar 2'] * 100).toFixed(0)} cm`;
-            } else {
-                const dimensions = customDimensions[colorString];
+                    // Fungsi untuk Mengambil Dimensi bawaan
+                    const size = modelViewer.getDimensions();
 
+                    const x2 = size.x / 2;
+                    const y2 = size.y / 2;
+                    const z2 = size.z / 2;
 
-                if (dimensions) {
-                    dimButtons[2].textContent = dimensions.Panjang;
-                    dimButtons[0].textContent = dimensions.Lebar;
-                    dimButtons[1].textContent = dimensions['Tinggi 1'];
-                    dimButtons[3].textContent = dimensions['Tinggi 2'];
-                    dimButtons[4].textContent = dimensions['Lebar 2'];
-
-                    let colorPalet = 'original'
-                    try {
-                        colorPalet = JSON.parse(colorString)
-                    } catch (err) {
-                        colorPalet = colorString
-                    }
-                    // material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
-                    material.pbrMetallicRoughness.baseColorFactor = colorPalet;
+                    dimButtons[2].textContent = `${(size.x * 100).toFixed(0)} cm`;
+                    dimButtons[0].textContent = `${(size.z * 100).toFixed(0)} cm`;
+                    dimButtons[1].textContent = `${(size.y * 100).toFixed(0)} cm`;
+                    dimButtons[3].textContent = `${(size.y * 100).toFixed(0)} cm`;
+                    dimButtons[4].textContent = `${(size.z * 100).toFixed(0)} cm`;
                 } else {
-                    console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+                    const dimensions = customDimensions[colorString];
+                    if (dimensions) {
+                        dimButtons[2].textContent = dimensions.Panjang;
+                        dimButtons[0].textContent = dimensions.Lebar;
+                        dimButtons[1].textContent = dimensions['Tinggi 1'];
+                        dimButtons[3].textContent = dimensions['Tinggi 2'];
+                        dimButtons[4].textContent = dimensions['Lebar 2'];
+
+                        let colorPalet = 'original'
+                        try {
+                            colorPalet = JSON.parse(colorString)
+                        } catch (err) {
+                            colorPalet = colorString
+                        }
+                        // material.pbrMetallicRoughness.baseColorFactor = JSON.parse(colorString);
+                        material.pbrMetallicRoughness.baseColorFactor = colorPalet;
+                    } else {
+                        console.log(`Dimensi kustom untuk warna ${colorString} tidak ditemukan.`);
+                    }
                 }
-            }
+            @endif
         }
 
         colorControls.addEventListener('click', (event) => {

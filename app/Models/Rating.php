@@ -50,4 +50,9 @@ class Rating extends Model
     {
         return $this->hasOne(RatingBalasan::class, 'rating_id');
     }
+
+    public function ratingImage()
+    {
+        return $this->hasMany(ImageRating::class, 'rating_id');
+    }
 }
