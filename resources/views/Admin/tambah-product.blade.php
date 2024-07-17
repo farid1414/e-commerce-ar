@@ -217,10 +217,9 @@
             <div id="contentLivePreviewARDataran" style="display: none;">
                 <model-viewer id="color" src="" ios-src=""
                     skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
-                    ar ar-modes="webxr scene-viewer quick-look" 
-                    xr-environment ar-scale="auto" 
-                    skybox-height="@if($mCat->id == 2 ) 0 @else 1.8m @endif"
-                    shadow-intensity="1" camera-controls touch-action="pan-y"
+                    ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto"
+                    skybox-height="@if ($mCat->id == 2) 0 @else 1.8m @endif" shadow-intensity="1"
+                    camera-controls touch-action="pan-y"
                     ar-placement="@if ($mCat->id == 1) floor @else wall @endif" tone-mapping="neutral"
                     style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
 
@@ -276,7 +275,8 @@
                     <footer class="blockquote-footer mt-3">
                         Bayangan ini akan tampil di Augmented Reality dan 3D interaktif di web.
                     </footer>
-                    <input type="range" id="shadowIntensityRangeInput" class="form-range mt-2" min="0"
+                    <input type="range" @if ($edit && $product->bayangan) value="{{ $product->bayangan }}" @endif
+                        name="bayangan" id="shadowIntensityRangeInput" class="form-range mt-2" min="0"
                         max="3" step="0.5">
                     <hr>
                 </div>

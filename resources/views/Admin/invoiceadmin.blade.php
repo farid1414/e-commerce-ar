@@ -3,7 +3,17 @@
 
 {{-- Tahap untuk judul  --}}
 @section('title', 'Dashboard')
-
+@section('content_header')
+    <li class="breadcrumb-item">
+        <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item ">
+        Transaksi
+    </li>
+    <li class="breadcrumb-item active">
+        Detail Invoice
+    </li>
+@stop
 {{-- tahap section jangan lupa di tutup --}}
 @section('content')
 
@@ -237,10 +247,11 @@
 
         </div>
 
-        {{-- <div class="card mt-3 print-hidden">
+        <div class="card mt-3 print-hidden">
             <div class="card-body">
                 <div class="card-title" style="margin-top: -20px"></div>
-                <div class="d-flex justify-content-between">
+                <a href="{{ route('send-email', $tr->id) }}" class="btn btn-primary">Kirim Invoice via Email Admin</a>
+                {{-- <div class="d-flex justify-content-between">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown-basic"
                             data-toggle="dropdown">
@@ -251,13 +262,9 @@
                             <a class="dropdown-item">Unduh Via .pdf</a>
                         </div>
                     </div>
-                    <button class="btn btn-dark d-flex align-items-center" onclick="handlePrint()">
-                        Cetak Invoice
-                        <i class="fas fa-print ml-2"></i>
-                    </button>
-                </div>
+                </div> --}}
             </div>
-        </div> --}}
+        </div>
     </section>
 
 @stop

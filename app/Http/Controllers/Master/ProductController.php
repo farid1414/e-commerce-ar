@@ -150,6 +150,7 @@ class ProductController extends Controller
             'sub_name' => $request->sub_name,
             'stock' => $request->stock,
             'harga' => $request->harga,
+            'bayangan' => $request->bayangan,
             'description' => $request->description ?? null,
             'harga_ongkir' => $request->ongkir ?? null,
             'thumbnail' => $request->thumbnail,
