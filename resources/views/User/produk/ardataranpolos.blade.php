@@ -11,82 +11,94 @@
 
 
     @php
-        $skybox =
-            'https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791';
-        $mode = 'scene-viewer webxr quick-look';
-        if ($product->link_skybox) {
-            $skybox = $product->link_skybox;
-        }
-        if ($product->varians->count()) {
-            $mode = 'webxr scene-viewer quick-look';
-        }
-        $place = 'floor';
-        if ($product->m_categories == 2) {
-            $place = 'wall';
-        }
-    @endphp
-    <model-viewer id="color" src="{{ $product->link_ar }}" ios-src="{{ $product->link_src }}"
-        skybox-image="{{ $skybox }}" ar-placement="{{ $place }}" ar-modes="{{ $mode }}"
-        shadow-intensity="1" ar xr-environment ar-scale="auto" skybox-height="1.8m" camera-controls touch-action="pan-y"
-        style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
-        <div class="d-flex justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
-            <span id="arSupportBadge" class="badge" style="font-size: 15px;"></span>
-        </div>
-        @if ($product->varians->count())
-            <div class="controls" id="color-controls" style="position: absolute; left: 10px; top: 10px;">
-                <div class="dropdown">
-                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <span id="selectedColor">Pilih Warna :</span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><button class="dropdown-item" data-color="Original">Original</button></li>
-                        @foreach ($product->varians as $varian)
-                            <li><button class="dropdown-item"
-                                    data-color="{{ $varian->warna }}">{{ $varian->name }}</button></li>
-                            <li>
-                        @endforeach
-                        {{-- <button class="dropdown-item" data-color="[1, 1, 0, 1]"> Test Kuning</button></li>
-                        <li><button class="dropdown-item" data-color="[1, 0, 0, 1]">Test Merah</button></li>
-                        <li><button class="dropdown-item" data-color="[0, 0, 1, 1]">Test Biru</button></li> --}}
-                    </ul>
-                </div>
-            </div>
-        @endif
-        @if ($product->status_dimensi == 1)
-            <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
-            <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
-            <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
-            <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
-            <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
-            <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
-            <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1" data-normal="0 1 0"></button>
-            <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
-            <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
-            <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
-            <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>
-            <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                class="dimensionLineContainer">
-                <line class="dimensionLine"></line>
-                <line class="dimensionLine"></line>
-                <line class="dimensionLine"></line>
-                <line class="dimensionLine"></line>
-                <line class="dimensionLine"></line>
-            </svg>
+    $skybox = 'https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791';
+    if ($product->link_skybox) {
+        $skybox = $product->link_skybox;
+    }
 
-            <div id="controls" class="dim d-none" style="height: 40px">
-                <label for="show-dimensions">Tampilkan Dimensi:</label>
-                <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
-            </div>
-        @endif
+    // Tentukan apakah produk memiliki varian atau dimensi
+    $hasVarian = $product->varians->count() > 0;
+    $hasDimensi = $product->status_dimensi == 1;
+    $hasCustomDimensiVarian = $hasVarian && $hasDimensi;
+    
+    // Tentukan mode AR
+    if ($hasVarian || $hasDimensi || $hasCustomDimensiVarian) {
+        $mode = 'webxr scene-viewer quick-look';
+    } else {
+        $mode = 'scene-viewer quick-look';
+    }
 
-        <div class="d-block d-lg-none">
-            <button id="arButton" onclick="activateAR()"
-                style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; height: 30px;">
-                👋 Hey, Gunakan AR
-            </button>
+    $place = $product->m_categories == 2 ? 'wall' : 'floor';
+@endphp
+<model-viewer id="color" 
+                src="{{ $product->link_ar }}" 
+                ios-src="{{ $product->link_src }}"
+                skybox-image="{{ $skybox }}" 
+                ar-placement="{{ $place }}" 
+                ar-modes="{{ $mode }}"
+                shadow-intensity="1" {{-- Bayangan --}}
+                ar 
+                xr-environment 
+                ar-scale="auto" 
+                skybox-height="@if($product->masterCat->id == 2 ) 0 @else 1.8m @endif" 
+                camera-controls touch-action="pan-y"
+                style=" width: 100%; 
+                        height: 450px; 
+                        border-radius: 15px; 
+                        position: relative;">
+    <div class="d-flex justify-content-end" style="position: absolute; bottom: 10px; right: 10px;">
+        <span id="arSupportBadge" class="badge" style="font-size: 15px;"></span>
+    </div>
+    @if ($hasVarian)
+        <div class="controls" id="color-controls" style="position: absolute; left: 10px; top: 10px;">
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span id="selectedColor">Pilih Warna :</span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><button class="dropdown-item" data-color="Original">Original</button></li>
+                    @foreach ($product->varians as $varian)
+                        <li><button class="dropdown-item" data-color="{{ $varian->warna }}">{{ $varian->name }}</button></li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
-    </model-viewer>
+    @endif
+
+    @if ($hasDimensi)
+        <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
+        <button slot="hotspot-dim+X-Y" class="dim" data-position="1 -1 0" data-normal="1 0 0"></button>
+        <button slot="hotspot-dot+X-Y-Z" class="dot" data-position="1 -1 -1" data-normal="1 0 0"></button>
+        <button slot="hotspot-dim+X-Z" class="dim" data-position="1 0 -1" data-normal="1 0 0"></button>
+        <button slot="hotspot-dot+X+Y-Z" class="dot" data-position="1 1 -1" data-normal="0 1 0"></button>
+        <button slot="hotspot-dim+Y-Z" class="dim" data-position="0 -1 -1" data-normal="0 1 0"></button>
+        <button slot="hotspot-dot-X+Y-Z" class="dot" data-position="-1 1 -1" data-normal="0 1 0"></button>
+        <button slot="hotspot-dim-X-Z" class="dim" data-position="-1 0 -1" data-normal="-1 0 0"></button>
+        <button slot="hotspot-dot-X-Y-Z" class="dot" data-position="-1 -1 -1" data-normal="-1 0 0"></button>
+        <button slot="hotspot-dim-X-Y" class="dim" data-position="-1 -1 0" data-normal="-1 0 0"></button>
+        <button slot="hotspot-dot-X-Y+Z" class="dot" data-position="-1 -1 1" data-normal="-1 0 0"></button>
+        <svg id="dimLines" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="dimensionLineContainer">
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+            <line class="dimensionLine"></line>
+        </svg>
+
+        <div id="controls" class="dim d-none" style="height: 40px">
+            <label for="show-dimensions">Tampilkan Dimensi:</label>
+            <input id="show-dimensions" class="ml-2" type="checkbox" checked="true">
+        </div>
+    @endif
+
+    <div class="d-block d-lg-none">
+        <button id="arButton" onclick="activateAR()"
+            style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; height: 30px;">
+            👋 Hey, Gunakan AR
+        </button>
+    </div>
+</model-viewer>
 </div>
 
 <script>

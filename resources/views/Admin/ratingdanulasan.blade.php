@@ -3,7 +3,14 @@
 
 {{-- Tahap untuk judul  --}}
 @section('title', 'Dashboard')
-
+@section('content_header')
+    <li class="breadcrumb-item">
+        <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">
+        Rating & Ulasan
+    </li>
+@stop
 {{-- tahap section jangan lupa di tutup --}}
 @section('content')
 

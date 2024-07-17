@@ -5,6 +5,14 @@
 {{-- Tahap 2 untuk judul  --}}
 @section('title', 'Data Akun')
 
+@section('content_header')
+    <li class="breadcrumb-item">
+        <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">
+       Data Akun
+    </li>
+@stop
 
 {{-- jika ada css --}}
 {{-- @section('css')
