@@ -30,17 +30,15 @@
                         <a href="{{ route('product-category', $cat->id) }}" style="text-decoration: none;">
                             <div class="text-center">
                                 <img src="{{ url($cat->image) }}" alt="Gambar 1"
-                                    style="border-radius: 10px; max-width: 100%;" class="img-fluid">
-                                <p class="fw-bold mt-3 text-black">{{ $cat->name }}</p>
+                                     style="border-radius: 8px; max-width: 100%; max-height: 250px;" class="img-fluid">
+                                <p class="fw-bold mt-3 text-black">{{ $cat->name }}.</p>
                             </div>
                         </a>
                     </div>
                 @endforeach
                 <!-- Add more columns for additional images -->
             </div>
-        </div>
-
-
+        </div>        
 
     </div>
     @include('user.include.script')

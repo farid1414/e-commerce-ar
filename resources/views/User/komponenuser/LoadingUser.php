@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Loader Overlay</title>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/infinity.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/grid.js"></script>
   <style>
     /* Style for the loader container */
     .loader-overlay {
@@ -31,16 +31,24 @@
   
   <!-- Loader container -->
   <div class="loader-overlay" id="loader">
-    <l-infinity
-      size="85"
-      stroke="4"
-      stroke-length="0.15"
-      bg-opacity="0.1"
-      speed="1.3"
-      color="black"
-    ></l-infinity>
+
+  
+  <l-grid
+  size="86"
+  speed="1.5"
+  color="black" 
+></l-grid>
+
+
   </div>
   
+
+
+
+
+
+
+
   <script>
     
     setTimeout(function() {

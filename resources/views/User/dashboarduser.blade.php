@@ -199,7 +199,7 @@
                                             <div
                                                 style="position: absolute; bottom: 10px; left: 15px; color: white; font-weight: bold; font-size: 3.4vw; display: flex; flex-direction: column; align-items: start;">
                                                 <span>
-                                                    Place <br /> Furniture <br /> On The Ground
+                                                    Place <br /> Furniture <br /> On The Ground.
                                                 </span>
                                             </div>
                                             <div
@@ -220,7 +220,7 @@
                                             <div
                                                 style="position: absolute; bottom: 10px; left: 15px; color: white; font-weight: bold; font-size: 3.4vw; display: flex; flex-direction: column; align-items: start;">
                                                 <span>
-                                                    Place <br /> Furniture <br /> On The Wall
+                                                    Place <br /> Furniture <br /> On The Wall.
                                                 </span>
                                             </div>
                                             <div
@@ -370,14 +370,13 @@
                                 <b>Hey, New Arrivals Are Here.</b>
                             </p>
                         </div>
-                        <div class="row row-cols-2 row-cols-md-4">
+                        <div class="row">
                             <!-- Loop products here -->
                             @foreach ($newProducts as $new)
-                                <div class="col">
-                                    <a href="{{ route('detail-product', $new->uuid) }}"
-                                        style="text-decoration: none;">
+                                <div class="col-6 col-lg-3" style="margin-bottom: 20px;">
+                                    <a href="{{ route('detail-product', $new->uuid) }}" style="text-decoration: none;">
                                         <div class="card"
-                                            style="width: 100%; margin-bottom: 20px; position: relative; transition: box-shadow 0.3s; border-radius: 6px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;"
+                                            style="width: 100%; position: relative; transition: box-shadow 0.3s; border-radius: 6px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;"
                                             onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
                                             onmouseleave="this.style.boxShadow = 'none'">
                                             <span class="badge bg-danger"
@@ -404,7 +403,7 @@
                                                     if ($count > 0) {
                                                         $rating = $val / $count;
                                                     }
-
+                        
                                                 @endphp
                                                 @if ($count > 0)
                                                     <div
@@ -414,10 +413,7 @@
                                                             @for ($i = 0; $i < $rating; $i++)
                                                                 <i class="fas fa-star" style="font-size: 11px"></i>
                                                             @endfor
-                                                            {{-- <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i>
-                                                        <i class="fas fa-star" style="font-size: 11px"></i> --}}
+                                                        
                                                         </span>
                                                         <!-- Rating Text -->
                                                         <span
@@ -440,11 +436,11 @@
                                                     justify-content-end @endif ">
                                                     <!-- Free Shipping Badge -->
                                                     @if (!$new->harga_ongkir)
-                                                        <span class="badge bg-success " style="font-size: 0.7rem;">
-                                                            <i class="fa-solid fa-truck-fast me-2"
-                                                                style="font-size: 12px"></i>Free Ongkir</span>
+                                                        <span class="badge bg-success me-2" style="font-size: 0.68rem; margin-left: -12px">
+                                                            <i class="fa-solid fa-truck-fast me-1"
+                                                                style="font-size: 0.55rem"></i>Free Ongkir</span>
                                                     @endif
-
+                        
                                                     <!-- Sold Badge -->
                                                     <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
                                                         {{ $new->transactionDetail->sum('quantity') }}x</span>
@@ -455,6 +451,7 @@
                                 </div>
                             @endforeach
                         </div>
+                        
 
                         <div class="mt-4"
                             style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
@@ -566,7 +563,7 @@
                                 <div class="col-lg-12 order-lg-3 mt-3">
                                     <div class="d-none d-lg-block">
                                         <div data-aos="fade-up" data-aos-delay="200"
-                                            style="margin-bottom: 20px; font-size: 18px; margin-top: 15px;">
+                                            style="margin-bottom: 20px; font-size: 18px; margin-top: 15px; margin-left: -15px">
                                             Lihat produk furnitur kami dengan teknologi Augmented Reality yang
                                             menampilkan furnitur 3D secara virtual dan letakkan pada ruangan anda tanpa
                                             perlu mengunduh aplikasi apapun. Pastikan anda mengakses teknologi ini
@@ -574,7 +571,7 @@
                                         </div>
                                         <div data-aos="fade-up" data-aos-delay="200">
                                             <a href="{{ route('category-all') }}" class="btn btn-dark btn-lg"
-                                                style="border-radius: 100px; margin-bottom: 100px;">
+                                                style="border-radius: 100px; margin-bottom: 100px; margin-left: -15px">
                                                 Coba Pada Produk Lain
                                                 <i class="fas fa-arrow-right ml-2"></i>
                                             </a>

@@ -50,12 +50,12 @@
                     <div id="dashboard" style="display: block;">
                         <h5 class="card-title">Menampilkan Hasil Laporan</h5>
                         <div class="d-flex justify-content-between">
-                            <p>Tanggal Awal : {{ $start_date }}</p>
-                            <p class="text-muted" id="startDate">-</p>
+                            <p>Tanggal Awal : </p>
+                            <p class="text-muted" id="startDate">{{ $start_date }}</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <p>Tanggal Akhir : {{ $end_date }}</p>
-                            <p class="text-muted" id="endDate">-</p>
+                            <p>Tanggal Akhir : </p>
+                            <p class="text-muted" id="endDate">{{ $end_date }}</p>
                         </div>
                         <hr />
                     </div>
@@ -227,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-                    <h5 class="card-title">5 Produk Terlaris tanggal 29 - 30 Agustus 2023.</h5>
+                    <h5 class="card-title">5 Produk Terlaris {{ $start_date }} - {{ $end_date }}.</h5>
                     <div class="card top-selling overflow-auto">
                         <div class="card-body">
                             <h5 class="card-title">Produk Dataran Terlaris (terjual lebih dari 5)</h5>
@@ -307,7 +307,7 @@
 
 
 
-                    <h5 class="card-title">Kategori Terlaris tanggal 29 - 30 Agustus 2023.</h5>
+                    <h5 class="card-title">Kategori Terlaris {{ $start_date }} - {{ $end_date }}.</h5>
 
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-0">
@@ -429,8 +429,7 @@
                                     <th colspan="10" class="text-center" style="font-size: 20px;">AR-Furniture</th>
                                 </tr>
                                 <tr>
-                                    <th colspan="10" class="text-center">Laporan Penjualan Tanggal 2023-08-29 hingga
-                                        2023-08-29</th>
+                                    <th colspan="10" class="text-center">Laporan Penjualan {{ $start_date }} - {{ $end_date }}</th>
                                 </tr>
                                 <tr>
                                     <th>No.</th>
