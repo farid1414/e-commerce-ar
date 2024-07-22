@@ -177,24 +177,40 @@
                         <div class="form-group" id="linkARAndroid">
                             <label for="linkARAndroid">Link AR Android <b>(SRC)</b></label>
                             <div style="display: flex;">
-                                <input type="text" class="form-control mb-3 me-2" name="link_ar_android"
+                                <input type="text" class="form-control me-2" name="link_ar_android"
                                     id="linkARAndroidInput" placeholder="Masukkan Link Untuk Android (Format .glb)*"
                                     required @if ($edit && $product->link_ar) value="{{ $product->link_ar }}" @endif>
                                 <i id="androidCheckIcon" class="bi"></i>
                             </div>
                             <p id="androidErrorMessage" style="color: red;"></p>
                         </div>
+            <hr>
                         <div class="form-group" id="linkARiOS">
                             <label for="linkARIOS">Link AR iOS <b>(IOS-SRC)</b></label>
                             <div style="display: flex;">
                                 <input type="text" name="link_ar_ios"
                                     @if ($edit && $product->link_ar_ios) value="{{ $product->link_ar_ios }}" @endif
-                                    class="form-control mb-3 me-2" id="linkARIOSInput"
+                                    class="form-control me-2" id="linkARIOSInput"
                                     placeholder="Masukkan Link Untuk iOS (Format .usdz)*" required>
                                 <i id="iOSCheckIcon" class="bi"></i>
                             </div>
                             <p id="iOSErrorMessage" style="color: red;"></p>
                         </div>
+<hr>
+                        <div class="form-group w-100">
+                            <label for="PosisiAR">Posisi Penempatan Objek AR</label>
+                            <div class="input-group">
+                                <select class="form-select" name="kategori" id="PosisiAR" required>
+                                    <option value="" disabled selected>Pilih Posisi Penempatan Objek AR</option>
+                                    <option value="dataran">Dataran / Lantai</option>
+                                    <option value="dinding">Dinding</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <hr>
+
                         <div class="form-group" id="linkSkyBox">
                             <label for="linkSkyBox">Link Skybox <b>(Opsional)</b></label>
                             <div style="display: flex;">
@@ -219,6 +235,9 @@
                             </p>
                           </small>
                         </div>
+
+
+                        
                         <div class="d-flex justify-content-end mb-3">
                             <button id="livePreviewButton" type="button" class="btn btn-primary">Lihat Live Preview
                                 3D</button>
@@ -227,8 +246,8 @@
                 </div>
             </div>
 
-            {{-- Live preview --}}
 
+            {{-- Live preview --}}
             <div id="contentLivePreviewARDataran" style="display: none;">
                 <model-viewer id="color" src="" ios-src=""
                     skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
