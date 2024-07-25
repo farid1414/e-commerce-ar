@@ -202,15 +202,15 @@
 
 
         <!-- Kategori yang hanya tampil di desktop -->
-<div class="d-none d-md-block" style="margin-top: -20px">
+<div class="d-none d-md-block" style="margin-top: -50px">
     <div class="container my-5">
         <div class="row justify-content-center">
             <!-- Card 1 -->
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../gambar/tentangkami5.jpg" class="card-img-top" alt="Kategori 1" style="height: 150px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
+                    <img src="../Dataran/Kursi/Kursi.jpg" class="card-img-top" alt="Kategori 1" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Kursi.</h5>
                     </div>
                 </div>
             </div>
@@ -218,9 +218,9 @@
             <!-- Card 2 -->
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" class="card-img-top" alt="Kategori 2" style="height: 150px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
+                    <img src="../Dataran/Meja/Meja.jpg" class="card-img-top" alt="Kategori 2" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Meja.</h5>
                     </div>
                 </div>
             </div>
@@ -228,19 +228,53 @@
             <!-- Card 3 -->
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" class="card-img-top" alt="Kategori 3" style="height: 150px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
+                    <img src="../Dataran/Sofa/Sofa.jpg" class="card-img-top" alt="Kategori 3" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Sofa.</h5>
                     </div>
                 </div>
             </div>
     
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
+                    <img src="../Dataran/Lemari Sisi/LemariSisi.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Lemari Sisi.</h5>
+                    </div>
+                </div>
+            </div>
+
             <!-- Card 4 -->
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
+                    <img src="../Dataran/Drawer/Drawer.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Drawer.</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
+                    <img src="../Dinding/Cermin Dinding/Cermin.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Cermin.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
+                    <img src="../Dinding/Kabinet Dinding/Kabinet.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Kabinet.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
+                    <img src="../Dinding/Rak Dinding/Rak.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
+                    <div class="card-body" style="height: 60px">
+                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Rak Dinding.</h5>
                     </div>
                 </div>
             </div>
