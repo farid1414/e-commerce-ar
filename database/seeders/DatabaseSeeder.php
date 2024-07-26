@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
         $this->call(MasterCatSeeder::class);
+        $this->call(PermissionDemoSeeder::class);
     }
 }

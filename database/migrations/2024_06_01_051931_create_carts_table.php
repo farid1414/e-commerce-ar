@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('diskon')->nullable();
             $table->integer('harga');
             $table->integer('sub_total');
-            $table->foreignId("flash_sale_id")->index()->references("id")->on("flash_sales")->cascadeOnDelete();
+            $table->foreignId("flash_sale_id")->index()->nullable()->references("id")->on("flash_sales")->cascadeOnDelete();
             $table->smallInteger('status');
             $table->softDeletes();
             $table->timestamps();

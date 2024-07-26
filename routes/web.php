@@ -1,54 +1,60 @@
 <?php
 
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\Master\AkunController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Master\CategoryController;
+use App\Http\Controllers\Master\FlashSaleController;
+use App\Http\Controllers\Master\LaporanController;
 use App\Http\Controllers\Master\ProductController;
+use App\Http\Controllers\Master\ProfilController;
+use App\Http\Controllers\Master\RatingController;
+use App\Http\Controllers\Master\TransaksiController;
 
 // auth
-Route::get('auth/login', function () {
-    return view('auth.login');
-});
+// Route::get('auth/login', function () {
+//     return view('auth.login');
+// });
 
-Route::get('auth/registrasi', function () {
-    return view('auth.registrasi');
-});
+// Route::get('auth/registrasi', function () {
+//     return view('auth.registrasi');
+// });
 
 
 // =================== !!  BATAS !! ===================== !! BATAS !! ======================== !! BATAS !! =====================
 
 // User
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('user/dashboarduser', function () {
-    return view('user.dashboarduser');
-});
+// Route::get('user/dashboarduser', function () {
+//     return view('user.dashboarduser');
+// });
 
-
+// Route::get('user/loginuser', function () {
+//     return view('user.loginuser');
+// });
 // Keranjang
 
-Route::get('user/keranjang', function () {
-    return view('user.keranjang');
-});
+// Route::get('user/keranjang', function () {
+//     return view('user.keranjang');
+// });
 
-Route::get('user/checkout', function () {
-    return view('user.checkout');
-});
+// Route::get('user/checkout', function () {
+//     return view('user.checkout');
+// });
 
 
 // Detail Produk
 
-Route::get('user/detailproduk', function () {
-    return view('user.detailproduk');
-});
+// Route::get('user/detailproduk', function () {
+//     return view('user.detailproduk');
+// });
 
 
 // list produk
-Route::get('user/listproduk', function () {
-    return view('user.listproduk');
-});
+// Route::get('user/listproduk', function () {
+//     return view('user.listproduk');
+// });
 
 
 // Kategori
@@ -67,9 +73,9 @@ Route::get('user/kategoridinding', function () {
 
 // Profil Pelanggan
 
-Route::get('user/akunpelanggan', function () {
-    return view('user.akunpelanggan');
-});
+// Route::get('user/akunpelanggan', function () {
+//     return view('user.akunpelanggan');
+// });
 
 
 // detail transaksi
@@ -80,13 +86,13 @@ Route::get('user/detailtransaksi', function () {
 
 
 // status pembayaran
-Route::get('user/pembayaranberhasil', function () {
-    return view('user.pembayaranberhasil');
-});
+// Route::get('user/pembayaranberhasil', function () {
+//     return view('user.pembayaranberhasil');
+// });
 
-Route::get('user/pembayarangagal', function () {
-    return view('user.pembayarangagal');
-});
+// Route::get('user/pembayarangagal', function () {
+//     return view('user.pembayarangagal');
+// });
 
 
 // Invoice PELANGGAN
@@ -165,9 +171,9 @@ Route::get('user/FAQ', function () {
 //     return view('admin.tambahkategoridataran');
 // });
 
-Route::get('admin/detailkategori', function () {
-    return view('admin.detailkategori');
-});
+// Route::get('admin/detailkategori', function () {
+//     return view('admin.detailkategori');
+// });
 
 
 // Kategori Dinding
@@ -204,9 +210,9 @@ Route::get('admin/detailakunpelanggan', function () {
 
 
 // Rating dan ulasan
-Route::get('admin/ratingdanulasan', function () {
-    return view('admin.ratingdanulasan');
-});
+// Route::get('admin/ratingdanulasan', function () {
+//     return view('admin.ratingdanulasan');
+// });
 
 
 // Transaksi
@@ -237,9 +243,9 @@ Route::get('admin/invoiceadmin', function () {
 
 
 // Laporan
-Route::get('admin/laporanharian', function () {
-    return view('admin.laporanharian');
-});
+// Route::get('admin/laporanharian', function () {
+//     return view('admin.laporanharian');
+// });
 
 Route::get('admin/laporanbulanan', function () {
     return view('admin.laporanbulanan');
@@ -251,8 +257,8 @@ Route::get('admin/laporantahunan', function () {
 
 
 // Program Flash sale
-Route::get('admin/programflashsale', function () {
-    return view('admin.programflashsale');
+Route::get('admin/lap', function () {
+    return view('Admin.KirimEmailLaporan');
 });
 
 Route::get('admin/tambahflashsale', function () {
@@ -263,6 +269,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Routing admin
 Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/category')->name('category.')->group(function () {
         Route::get('/{slug?}', [CategoryController::class, 'index'])->name('index');
@@ -283,9 +290,88 @@ Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () 
         Route::post('/{slug?}/status/{uuid?}', [ProductController::class, 'status'])->name('status');
         Route::get('{uuid?}/detail', [ProductController::class, 'detail'])->name('detail');
     });
+    Route::prefix('/flash-sale')->name('flash-sale.')->group(function () {
+        Route::get('/', [FlashSaleController::class, 'index'])->name('index');
+        Route::get('/form/{id?}', [FlashSaleController::class, 'form'])->name('form');
+        Route::get('list-product', [FlashSaleController::class, 'getProduct'])->name('get-product');
+        Route::post('/', [FlashSaleController::class, 'store'])->name('store');
+        Route::get('/detail/{id?}', [FlashSaleController::class, 'detail'])->name('detail');
+        Route::post('/change-status', [FlashSaleController::class, 'changeStatus'])->name('change-status');
+    });
+
+    Route::prefix('/profil')->name('profil.')->group(function () {
+        Route::get('/', [ProfilController::class, 'index'])->name('index');
+        Route::post('/', [ProfilController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/transaksi')->name('transaksi.')->group(function () {
+        Route::get('/success', [TransaksiController::class, 'success'])->name('success');
+        Route::get('/pending', [TransaksiController::class, 'pending'])->name('pending');
+        Route::get('/failed', [TransaksiController::class, 'failed'])->name('failed');
+        Route::get('/detail/{id?}', [TransaksiController::class, 'detail'])->name('detail');
+        Route::get('/detail-invoice/{id?}', [TransaksiController::class, 'detailInvoice'])->name('detail-invoice');
+    });
+
+    Route::prefix('/rating-ulasan')->name('rating.')->group(function () {
+        Route::get('/', [RatingController::class, 'index'])->name('index');
+        Route::get('/data-rating', [RatingController::class, 'data'])->name('data');
+        Route::post('/balsan-rating', [RatingController::class, 'balasanRating'])->name('balasan');
+    });
+
+    Route::prefix('/laporan')->name('laporan.')->group(function () {
+        Route::get('/', [LaporanController::class, 'index'])->name('index');
+        Route::get('/send-email', [LaporanController::class, 'sendEmail'])->name('send-email');
+    });
+
+    Route::prefix('/data-akun')->name('akun.')->group(function () {
+        Route::get('/', [AkunController::class, 'index'])->name('index');
+        Route::get('/data-admin', [AkunController::class, 'dataAdmin'])->name('data-admin');
+        Route::get('/detail-admin/{id?}', [AkunController::class, 'detailAdmin'])->name('detail-admin');
+        Route::get('/tambah-admin', [AkunController::class, 'tambahAdmin'])->name('tambah-admin');
+        Route::post('/tambah-admin', [AkunController::class, 'storeAdmin'])->name('store-admin');
+        Route::get('/status-admin/{id?}', [AkunController::class, 'statusAdmin'])->name('status-admin');
+        Route::delete('/delete-admin/{id?}', [AkunController::class, 'deleteAdmin'])->name('delete-admin');
+        Route::get('/data-pelanggan', [AkunController::class, 'dataPelanggan'])->name('data-pelanggan');
+        Route::get('/detail-pelanggan/{id?}', [AkunController::class, 'detailPelanggan'])->name('detail-pelanggan');
+        Route::delete('/delete-pelanggan/{id?}', [AkunController::class, 'deletePelanggan'])->name('delete-pelanggan');
+    });
 });
 
 
 Route::get('admin/detailflashsale', function () {
     return view('admin.detailflashsale');
+});
+
+// ===== Routing User =======
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/{uuid?}/product/', [MainController::class, 'detailProduct'])->name('detail-product');
+Route::get('/{uuid?}/detail-product', [MainController::class, 'getDetailProduct'])->name('get-detail-product');
+Route::get('/categori/{slug?}', [MainController::class, 'masterCategory'])->name('category-user');
+Route::get('/product-category/{id?}', [MainController::class, 'prodCat'])->name('product-category');
+Route::get('/product', [MainController::class, 'product'])->name('product');
+Route::get('/pencarian', [MainController::class, 'pencarian'])->name('pencarian');
+Route::get('/search-product', [MainController::class, 'searchProd'])->name('search-prod');
+Route::get('/category', [MainController::class, 'category'])->name('category-all');
+Route::get('/order-product', [MainController::class, 'orderProd'])->name('order-product');
+
+// ===== Routing user  ======
+Route::middleware('auth')->group(function () {
+    Route::post('/add-to-cart', [MainController::class, 'addToCart'])->name('add-to-cart');
+    Route::post('/update-cart', [MainController::class, 'updateCart'])->name('update-cart');
+    Route::get('/keranjang', [MainController::class, 'keranjang'])->name('keranjang');
+    Route::delete('kerenjang/{id?}', [MainController::class, 'deleteCart'])->name('delete-cart');
+    Route::post('/checkout', [MainController::class, 'postCheckout'])->name('post-checkout');
+    Route::get('/checkout/{id?}', [MainController::class, 'checkout'])->name('checkout');
+    Route::post('/transaction', [MainController::class, 'transaction'])->name('transaction');
+    Route::get('/transaction-success/{id?}/{type?}', [MainController::class, 'transactionSuccess'])->name('transaction-success');
+    Route::get('/transaction-failed/{id?}', [MainController::class, 'transactionFail'])->name('transaction-failed');
+    Route::get('/profil-pelanggan', [MainController::class, 'profil'])->name('profil-pelanggan');
+    Route::get('/transaction-detail/{id?}', [MainController::class, 'detailTransaction'])->name('detail-transaction');
+    Route::get('/edit-user', [MainController::class, 'editProfil'])->name('edit-profil');
+    Route::post('/rating', [MainController::class, 'storeRating'])->name('store-rating');
+    Route::post('/edit-profil', [MainController::class, 'updateProfil'])->name('update-profil');
+    Route::get('/invoice-pelanggan/{transaction:id?}', [MainController::class, 'invoicePelanggan'])->name('invoice-pelanggan');
+    Route::get('/send-email/{transaction:id?}', [MainController::class, 'sendEmail'])->name('send-email');
+    Route::get('/send-pdf/{transaction:id?}', [MainController::class, 'sendPdf'])->name('send-pdf');
+    Route::post('/batalkan-pesanan', [MainController::class, 'batalkanPesanan'])->name('batalkan-pesanan');
 });

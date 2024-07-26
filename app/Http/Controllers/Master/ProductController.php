@@ -123,7 +123,7 @@ class ProductController extends Controller
     {
 
         $mcat = MCategory::firstWhere('slug', $slug);
-        $cat = Category::where('m_categories', $mcat->id)->get();
+        $cat = Category::where('m_categories', $mcat->id)->where('is_active', '=', 1)->get();
         $edit = false;
         if ($uuid) {
             $edit = true;
@@ -150,6 +150,7 @@ class ProductController extends Controller
             'sub_name' => $request->sub_name,
             'stock' => $request->stock,
             'harga' => $request->harga,
+            'bayangan' => $request->bayangan,
             'description' => $request->description ?? null,
             'harga_ongkir' => $request->ongkir ?? null,
             'thumbnail' => $request->thumbnail,
@@ -197,7 +198,7 @@ class ProductController extends Controller
             }
         }
 
-        if (isset($request->panjang_varian) && $request->check_dimenso_varian == "on") {
+        if (isset($request->panjang_varian) && $request->check_dimensi == "on") {
             foreach ($request->panjang_varian as $index => $p) {
                 if (isset($dataVarian[$index])) {
                     $dataVarian[$index]['panjang'] = $p;
@@ -219,8 +220,8 @@ class ProductController extends Controller
             if (isset($request->image)) {
                 $images = $request->image;
                 foreach ($images as  $img) {
-                    $filename = time() . '.' . $img->getClientOriginalExtension();
-                    $folder = 'storage/product/thumbnail/';
+                    $filename = uniqid() . '_' . time() . '.' . $img->getClientOriginalExtension();
+                    $folder = 'storage/product/images/';
                     $img->move(public_path($folder), $filename);
                     $url = $folder . $filename;
 

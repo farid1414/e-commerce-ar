@@ -3,14 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Master\Cart;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasFactory, Notifiable;
+    use HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -65,5 +70,20 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'user_id', 'id');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class, 'user_id', 'id');
+    }
+
+    public function created_date()
+    {
+        return date_format(date_create($this->created_at), 'd-m-Y H:i:s');
     }
 }

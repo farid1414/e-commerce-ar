@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Logo -->
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="{{ route('index') }}">
                         <img src="{{ asset('gambar/logo.png') }}" width="auto" height="85"
                             class="d-inline-block align-top" alt="">
                     </a>
@@ -21,7 +21,7 @@
                     <h6 class="text-sentencecase fw-bold mb-4">Tautan Yang Berguna</h6>
                     <!-- Link List -->
                     <div class="useful-links">
-                        <p><a href="/" class="text-reset">Beranda</a></p>
+                        <p><a href="{{ route('index') }}" class="text-reset">Beranda</a></p>
                         <p><a href="/kategoriSC" class="text-reset">Kategori</a></p>
                         <p><a href="/FAQ" class="text-reset">FAQ</a></p>
                         <p><a href="/Tentangkami" class="text-reset">Tentang Kami</a></p>

@@ -11,7 +11,7 @@
 <script src="{{ asset('assets/vendor/quill/quill.js') }}"></script>
 <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
 <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-<script src="../assets/vendor/php-email-form/validate.js"></script>
+<script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
