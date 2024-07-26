@@ -169,13 +169,14 @@
                             <div class="col-md-3">
                                 <div class="container">
                                     <div class="product-list d-flex flex-column overflow-auto"
-                                        style="max-height: 350px; border-radius: 10px">
+                                        style="max-height: 400px;">
                                         @foreach ($product->images as $img)
-                                            <img src="{{ url($img->image) }}" alt="Produk 1">
+                                            <img src="{{ url($img->image) }}" alt="Produk 1" style="margin-bottom: 10px; border-radius: 8px;">
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <div class="col-md-9">
                                 <div id="carouselExampleDark" class="carousel carousel-dark slide">
@@ -195,7 +196,7 @@
                                             <div class="carousel-item @if ($index == 0) active @endif"
                                                 data-bs-interval="{{ $incrementProduct += 1000 }}">
                                                 <img src="{{ url($img->image) }}" class="d-block w-100" alt="..."
-                                                    style="border-radius: 10px">
+                                                    style="border-radius: 8px">
                                             </div>
                                         @endforeach
                                     </div>
@@ -236,7 +237,7 @@
                                     @foreach ($product->images as $index => $img)
                                         <div class="carousel-item @if ($index == 0) active @endif"
                                             data-bs-interval="{{ $incrementProduct += 1000 }}">
-                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="...">
+                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="..." style="border-radius: 10px">
                                         </div>
                                     @endforeach
                                 </div>
@@ -257,12 +258,23 @@
                                 <div class="row">
                                     @foreach ($product->images as $index => $img)
                                         <div class="col">
-                                            <img src="{{ url($img->image) }}" class="img-fluid" alt="Product 1">
+                                            <img src="{{ url($img->image) }}" class="img-fluid" alt="Product 1" style="border-radius: 10px; max-width: 100%; height: auto;">
                                         </div>
                                     @endforeach
-
                                 </div>
                             </div>
+                            
+                            {{-- <div class="container mt-4">
+                                <div class="row">
+                                    @foreach ($product->images as $index => $img)
+                                        <div class="col">
+                                            <img src="{{ url($img->image) }}" class="img-fluid" alt="Product 1" style="border-radius: 10px;">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div> --}}
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -272,19 +284,7 @@
                 {{-- AUGMENTED REALITYY --}}
                 <div class="mt-5">
                     <div>
-                        {{-- Dataran --}}
-
                         @include('user.produk.ardataranpolos')
-                        {{-- @include('user.produk.ardataranvarian') --}}
-                        {{-- @include('user.produk.ardatarandimensi') --}}
-                        {{-- @include('user.produk.ardatarandimensivarian') --}}
-                        {{-- @include('user.produk.arexperiment') --}}
-
-
-                        {{-- Dinding --}}
-
-                        {{-- @include('user.produk.ardindingpolos') --}}
-
                     </div>
                 </div>
 

@@ -68,7 +68,7 @@
                             <div class="ps-3">
                                 <h6>{{ $rating->count() }}</h6>
                                 <span class="text-muted small pt-1">
-                                    Total Produk Habis
+                                    Total Rating Keseluruhan
                                 </span>
                             </div>
                         </div>

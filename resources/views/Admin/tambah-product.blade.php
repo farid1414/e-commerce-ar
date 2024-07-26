@@ -177,24 +177,40 @@
                         <div class="form-group" id="linkARAndroid">
                             <label for="linkARAndroid">Link AR Android <b>(SRC)</b></label>
                             <div style="display: flex;">
-                                <input type="text" class="form-control mb-3 me-2" name="link_ar_android"
+                                <input type="text" class="form-control me-2" name="link_ar_android"
                                     id="linkARAndroidInput" placeholder="Masukkan Link Untuk Android (Format .glb)*"
                                     required @if ($edit && $product->link_ar) value="{{ $product->link_ar }}" @endif>
                                 <i id="androidCheckIcon" class="bi"></i>
                             </div>
                             <p id="androidErrorMessage" style="color: red;"></p>
                         </div>
+            <hr>
                         <div class="form-group" id="linkARiOS">
                             <label for="linkARIOS">Link AR iOS <b>(IOS-SRC)</b></label>
                             <div style="display: flex;">
                                 <input type="text" name="link_ar_ios"
                                     @if ($edit && $product->link_ar_ios) value="{{ $product->link_ar_ios }}" @endif
-                                    class="form-control mb-3 me-2" id="linkARIOSInput"
+                                    class="form-control me-2" id="linkARIOSInput"
                                     placeholder="Masukkan Link Untuk iOS (Format .usdz)*" required>
                                 <i id="iOSCheckIcon" class="bi"></i>
                             </div>
                             <p id="iOSErrorMessage" style="color: red;"></p>
                         </div>
+<hr>
+                        <div class="form-group w-100">
+                            <label for="PosisiAR">Posisi Penempatan Objek AR</label>
+                            <div class="input-group">
+                                <select class="form-select" name="kategori" id="PosisiAR" required>
+                                    <option value="" disabled selected>Pilih Posisi Penempatan Objek AR</option>
+                                    <option value="dataran">Dataran / Lantai</option>
+                                    <option value="dinding">Dinding</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <hr>
+
                         <div class="form-group" id="linkSkyBox">
                             <label for="linkSkyBox">Link Skybox <b>(Opsional)</b></label>
                             <div style="display: flex;">
@@ -204,6 +220,24 @@
                                 <i id="skyBoxCheckIcon" class="bi"></i>
                             </div>
                         </div>
+
+                        <div style="margin-top: -20px">
+                        <small>
+                            <b>Apa itu SkyBox ?</b>
+                          </small>
+                          <br />
+                          <small>
+                            <p class="text-justify">
+                              Pada dasarnya, skybox adalah cara untuk menciptakan
+                              lingkungan 3D yang tampak nyata. Skybox ini berfungsi
+                              untuk mensimulasikan lingkungan digital bagi pengguna VR
+                              "Head-mounted display" yang mengakses aplikasi web ini. Hal ini membuat pengguna VR dapat merasakan simulasi berada di dalam Skybox.
+                            </p>
+                          </small>
+                        </div>
+
+
+                        
                         <div class="d-flex justify-content-end mb-3">
                             <button id="livePreviewButton" type="button" class="btn btn-primary">Lihat Live Preview
                                 3D</button>
@@ -212,8 +246,8 @@
                 </div>
             </div>
 
-            {{-- Live preview --}}
 
+            {{-- Live preview --}}
             <div id="contentLivePreviewARDataran" style="display: none;">
                 <model-viewer id="color" src="" ios-src=""
                     skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
@@ -221,7 +255,7 @@
                     skybox-height="@if ($mCat->id == 2) 0 @else 1.8m @endif" shadow-intensity="1"
                     camera-controls touch-action="pan-y"
                     ar-placement="@if ($mCat->id == 1) floor @else wall @endif" tone-mapping="neutral"
-                    style="width: 100%; height: 400px; border-radius: 15px; position: relative;">
+                    style="width: 100%; height: 500px; border-radius: 15px; position: relative;">
 
                     {{-- Dimensi --}}
                     <button slot="hotspot-dot+X-Y+Z" class="dot" data-position="1 -1 1" data-normal="1 0 0"></button>
@@ -330,9 +364,9 @@
                 id="varian_produk">
                 <div class="card-body">
                     <h5 class="card-title">Varian Produk</h5>
-                    <p>Isi masing-masing kotak dengan "Red", "Green" atau "#A52A2A", "#F0FFFF" tanpa menggunakan tanda
+                    <p>Isi masing-masing kotak dengan "Red", "Green" tanpa menggunakan tanda
                         (" "). </p>
-                    <p>Warna harus disebutkan dalam Bahasa Inggris atau sebagai kode warna CSS (Maksimal 5 Warna) agar
+                    <p>Warna harus disebutkan dalam Bahasa Inggris (Maksimal 5 Warna) agar
                         Augmented Reality dapat membaca warna tersebut. Stoknya diambil dari Jumlah stok yang sudah
                         ditentukan di atas (Total Stok Produk).</p>
 
@@ -439,53 +473,44 @@
                 id="dimensi_produk">
                 <div class="card-body">
                     <h5 class="card-title">Dimensi Produk</h5>
-                    <div class="d-flex justify-content-between">
-                        <p class="fw-bold">
-                            Non-Aktifkan Dimensi Manual ?
-                        </p>
-                        <p>
-                            {{-- <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefaultOtomatis">
-                        </div> --}}
-                        </p>
-                    </div>
-                    <footer class="blockquote-footer">
+                  
+                    {{-- <footer class="blockquote-footer">
                         Anda saat ini sedang mengaktifkan dimensi yang mengambil data dimensi ukuran dari 3D bawaan,
                         kemungkinan
                         ukuran dimensi yang diambil dari 3D bawaan tidak sesuai yang diinginkan. Aktifkan dimensi manual
                         agar
                         lebih akurat sesuai dengan yang diinginkan.
-                    </footer>
+                    </footer> --}}
                     <hr>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="panjang">Panjang</label>
                         <input type="text" class="form-control"
                             @if ($edit && $product->panjang) value="{{ $product->panjang }}" @endif
                             name="panjang_produk" id="panjang" placeholder="Masukkan panjang produk">
-                    </div>
-                    <div class="form-group">
+                    </div> --}}
+                    {{-- <div class="form-group">
                         <label for="lebar" class="mt-2">Lebar</label>
                         <input type="text" class="form-control"
                             @if ($edit && $product->lebar) value="{{ $product->lebar }}" @endif name="lebar_produk"
                             id="lebar" placeholder="Masukkan lebar produk">
-                    </div>
-                    <div class="form-group mt-2">
+                    </div> --}}
+                    {{-- <div class="form-group mt-2">
                         <label for="tinggi">Tinggi</label>
                         <input type="text" class="form-control"
                             @if ($edit && $product->tinggi) value="{{ $product->tinggi }}" @endif name="tinggi_produk"
                             id="tinggi" placeholder="Masukkan tinggi produk">
-                    </div>
-                    <footer class="blockquote-footer mt-3">
+                    </div> --}}
+                    {{-- <footer class="blockquote-footer mt-3">
                         Kosongi kotak jika tidak ingin memberi Skala dan Dimensi pada varian tersebut.
                     </footer>
                     <footer class="blockquote-footer">
                         Dimensi ini juga akan tampil di Augmented Reality dan saat pelanggan akan memasukkan produk ke
                         keranjang.
-                    </footer>
-                    <footer class="blockquote-footer">
+                    </footer> --}}
+                    {{-- <footer class="blockquote-footer">
                         Jika mengaktifkan mode Dimensi Produk, pengguna tidak bisa memperbesar dan memperkecil produk di
                         Augmented reality.
-                    </footer>
+                    </footer> --}}
                     <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
                         <i class="bi bi-exclamation-circle me-2"></i>
                         <div>

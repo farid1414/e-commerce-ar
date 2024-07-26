@@ -25,7 +25,9 @@
                             <div class="ps-3">
                                 <h6>{{ $userCount }}</h6>
                                 {{-- <h6>{{   $totalPelanggan    }}</h6> --}}
-                                <span class="text-success small pt-1 fw-bold">Total Pelanggan</span>
+                                <span class="text-muted small pt-1">
+                                    Total Pelanggan
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -51,7 +53,9 @@
                                 @endphp
                                 <h6>{{ $count }}</h6>
                                 {{-- <h6>{{    $totalTerjual   }}</h6> --}}
-                                <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
+                                <span class="text-muted small pt-1">
+                                    Produk Terjual
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -71,7 +75,9 @@
                             <div class="ps-3">
                                 <h6>{{ $transactionSuccess->count() }}</h6>
                                 {{-- <h6>{{   $totalTransaksi     }}</h6> --}}
-                                <span class="text-success small pt-1 fw-bold">Produk Terjual</span>
+                                <span class="text-muted small pt-1">
+                                    Transaksi Keseluruhan
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -92,7 +98,9 @@
                             </div>
                             <div class="ps-3">
                                 <h6>{{ $produk->count() }}</h6>
-                                <span class="text-success small pt-1 fw-bold">Total Produk Keseluruhan</span>
+                                <span class="text-muted small pt-1">
+                                    Total Produk Keseluruhan
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -110,7 +118,9 @@
                             <div class="ps-3">
                                 <h6>{{ $categori->count() }}</h6>
                                 {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
-                                <span class="text-success small pt-1 fw-bold">Total Kategori Keseluruhan</span>
+                                <span class="text-muted small pt-1">
+                                    Total Kategori Keseluruhan
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -130,7 +140,9 @@
                             <div class="ps-3">
                                 <h6>{{ formatRupiah($transactionSuccess->sum('order_amount')) }}</h6>
                                 {{-- <h6>  Rp.   {{ number_format($totalRevenue, 0, ',', '.')   }}</h6> --}}
-                                <span class="text-success small pt-1 fw-bold">Total Pendapatan</span>
+                                <span class="text-muted small pt-1">
+                                    Total Pendapatan
+                                </span>
                             </div>
                         </div>
                     </div>

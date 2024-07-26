@@ -126,7 +126,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="card-title">Admin</div>
                                 <div class="card-title">
-                                    <span style="font-size: 0.78rem;">2 Akun Admin</span>
+                                    <span style="font-size: 0.78rem;">Akun Admin</span>
                                     {{-- <span style="font-size: 0.78rem;">{{ $totalAdmin }} Akun Admin</span> --}}
 
                                 </div>
@@ -180,7 +180,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="card-title">Pelanggan</div>
                                 <div class="card-title">
-                                    <span style="font-size: 0.78rem;">3 Akun Aktif</span>
+                                    <span style="font-size: 0.78rem;">Akun Pelanggan</span>
                                 </div>
                             </div>
                             {{-- <div class="d-flex justify-content-end mb-4">
