@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'developer@test.com',
             'password' => bcrypt('password'),
         ]);
-        $this->call(MasterCatSeeder::class);
+        // $this->call(MasterCatSeeder::class);
         $this->call(PermissionDemoSeeder::class);
     }
 }

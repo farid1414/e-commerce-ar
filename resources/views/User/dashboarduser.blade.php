@@ -85,21 +85,26 @@
     <style>
         /* Webkit browsers (Chrome, Safari) */
         .container::-webkit-scrollbar {
-            width: 8px; /* Width of the scrollbar */
+            width: 8px;
+            /* Width of the scrollbar */
             border-radius: 10px;
         }
-    
+
         .container::-webkit-scrollbar-track {
-            background: #f1f1f1; /* Color of the track */
+            background: #f1f1f1;
+            /* Color of the track */
         }
-    
+
         .container::-webkit-scrollbar-thumb {
-            background: #333; /* Color of the scrollbar thumb */
-            border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+            background: #333;
+            /* Color of the scrollbar thumb */
+            border-radius: 10px;
+            /* Rounded corners for the scrollbar thumb */
         }
-    
+
         .container::-webkit-scrollbar-thumb:hover {
-            background: #555; /* Slightly lighter color when hovering */
+            background: #555;
+            /* Slightly lighter color when hovering */
         }
     </style>
 </head>
@@ -201,168 +206,136 @@
                     </div>
 
 
-        <!-- Kategori yang hanya tampil di desktop -->
-<div class="d-none d-md-block" style="margin-top: -50px">
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <!-- Card 1 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dataran/Kursi/Kursi.jpg" class="card-img-top" alt="Kategori 1" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Kursi.</h5>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 2 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dataran/Meja/Meja.jpg" class="card-img-top" alt="Kategori 2" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Meja.</h5>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 3 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dataran/Sofa/Sofa.jpg" class="card-img-top" alt="Kategori 3" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Sofa.</h5>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dataran/Lemari Sisi/LemariSisi.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Lemari Sisi.</h5>
-                    </div>
-                </div>
-            </div>
+                    <!-- Kategori yang hanya tampil di desktop -->
+                    <div class="d-none d-md-block" style="margin-top: -50px">
+                        <div class="container my-5">
+                            <div class="row justify-content-center">
+                                <!-- Card 1 -->
+                                @foreach ($categories as $cat)
+                                    <div class="col-md-3 col-sm-6 mb-4">
+                                        <div class="card"
+                                            style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
+                                            <img src="{{ url($cat->image) }}" class="card-img-top" alt="Kategori 1"
+                                                style="height: 150px; object-fit: cover;">
+                                            <div class="card-body" style="height: 60px">
+                                                <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">
+                                                    Kursi.
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
 
-            <!-- Card 4 -->
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dataran/Drawer/Drawer.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Drawer.</h5>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dinding/Cermin Dinding/Cermin.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Cermin.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dinding/Kabinet Dinding/Kabinet.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Kabinet.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                    <img src="../Dinding/Rak Dinding/Rak.jpg" class="card-img-top" alt="Kategori 4" style="height: 150px; object-fit: cover;">
-                    <div class="card-body" style="height: 60px">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Rak Dinding.</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                    <!-- Kategori yang hanya tampil di mobile -->
+                    <div class="d-block d-md-none" style="margin-top: -40px">
+                        <div class="container my-5">
+                            <!-- Horizontal Scroll Container -->
+                            <div
+                                style="display: flex; overflow-x: auto; padding: 1rem 0; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #333 #f1f1f1;">
+                                <!-- Card 1 -->
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami5.jpg" alt="Kategori 1"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
 
-<!-- Kategori yang hanya tampil di mobile -->
-<div class="d-block d-md-none" style="margin-top: -40px">
-    <div class="container my-5">
-        <!-- Horizontal Scroll Container -->
-        <div style="display: flex; overflow-x: auto; padding: 1rem 0; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #333 #f1f1f1;">
-            <!-- Card 1 -->
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami5.jpg" alt="Kategori 1" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 2 -->
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 2" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 3 -->
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 3" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Card 4 -->
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 4" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 4" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori</h5>
-                    </div>
-                </div>
-            </div>
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 4" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 4" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-            <div style="flex: 0 0 auto; margin-right: 1rem;">
-                <div class="card" style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                    <img src="../gambar/tentangkami2.jpg" alt="Kategori 4" style="width: 100%; height: 150px; object-fit: cover;">
-                    <div class="card-body" style="padding: 1rem;">
-                        <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama Kategori.</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                <!-- Card 2 -->
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 2"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
 
-              
+                                <!-- Card 3 -->
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 3"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 4 -->
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <div class="card"
+                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
+                                            style="width: 100%; height: 150px; object-fit: cover;">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
+                                                Kategori.</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
 
                     {{-- Kategori
@@ -555,7 +528,8 @@
                             <!-- Loop products here -->
                             @foreach ($newProducts as $new)
                                 <div class="col-6 col-lg-3" style="margin-bottom: 20px;">
-                                    <a href="{{ route('detail-product', $new->uuid) }}" style="text-decoration: none;">
+                                    <a href="{{ route('detail-product', $new->uuid) }}"
+                                        style="text-decoration: none;">
                                         <div class="card"
                                             style="width: 100%; position: relative; transition: box-shadow 0.3s; border-radius: 6px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;"
                                             onmouseenter="this.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)'"
@@ -584,7 +558,7 @@
                                                     if ($count > 0) {
                                                         $rating = $val / $count;
                                                     }
-                        
+
                                                 @endphp
                                                 @if ($count > 0)
                                                     <div
@@ -594,7 +568,7 @@
                                                             @for ($i = 0; $i < $rating; $i++)
                                                                 <i class="fas fa-star" style="font-size: 11px"></i>
                                                             @endfor
-                                                        
+
                                                         </span>
                                                         <!-- Rating Text -->
                                                         <span
@@ -617,11 +591,12 @@
                                                     justify-content-end @endif ">
                                                     <!-- Free Shipping Badge -->
                                                     @if (!$new->harga_ongkir)
-                                                        <span class="badge bg-success me-2" style="font-size: 0.68rem; margin-left: -12px">
+                                                        <span class="badge bg-success me-2"
+                                                            style="font-size: 0.68rem; margin-left: -12px">
                                                             <i class="fa-solid fa-truck-fast me-1"
                                                                 style="font-size: 0.55rem"></i>Free Ongkir</span>
                                                     @endif
-                        
+
                                                     <!-- Sold Badge -->
                                                     <span class="badge bg-dark" style="font-size: 0.65rem;">Terjual
                                                         {{ $new->transactionDetail->sum('quantity') }}x</span>
@@ -632,7 +607,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        
+
 
                         <div class="mt-4"
                             style="text-align: right; display: flex; align-items: center; justify-content: flex-end; font-size: 1rem;">
@@ -815,7 +790,7 @@
                 this.style.transform = 'translateY(-5px)';
                 this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
             });
-    
+
             card.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
                 this.style.boxShadow = 'none';

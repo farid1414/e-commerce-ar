@@ -43,7 +43,7 @@
 
         $('body').on('submit', '#form-update', function(e) {
             e.preventDefault()
-            const action = "{{ route($this_helper . 'update-stock', $mCat->slug) }}"
+            const action = "{{ route($this_helper . 'update-stock') }}"
             const ajax = new AjaxRequest(action, "POST", "swal", {
                 beforeSend: function() {
                     addLoader2El($('#btn-save'), "Saving...");

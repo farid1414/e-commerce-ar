@@ -8,7 +8,7 @@
         <a href="/">Home</a>
     </li>
     <li class="breadcrumb-item">
-        Kategori Furnitur Pada {{ $m_cat->name }}
+        Kategori Furnitur
     </li>
     <li class="breadcrumb-item active">Form</li>
 @stop
@@ -25,7 +25,8 @@
                             @if ($edit && $categories)
                                 <input type="hidden" name="id" id="id" value="{{ $categories->id }}">
                             @endif
-                            <input type="hidden" readonly name="m_categories" id="m_categories" value="{{ $m_cat->id }}">
+                            {{-- <input type="hidden" readonly name="m_categories" id="m_categories"
+                                value="{{ $m_cat->id }}"> --}}
                             <div class="form-group" id="gambarKategori">
                                 <label>Gambar Kategori</label>
                                 <input type="file" name="image" accept="image/*" onchange="handleGambarChange(event)"
@@ -34,25 +35,31 @@
                                     Sisa gambar Kategori yang dapat diunggah (<span id="sisaGambarCount">1</span>)
                                 </figcaption>
 
-                                <div style="position: relative; max-width: 30%; cursor: pointer; border-radius: 10px; overflow: hidden;">
+                                <div
+                                    style="position: relative; max-width: 30%; cursor: pointer; border-radius: 10px; overflow: hidden;">
                                     <img id="previewGambar"
                                         class="@if ($edit && $categories) d-block @else d-none @endif"
                                         src="@if ($edit && $categories) {{ url($categories->image) }} @endif"
-                                        alt="Preview" style="width: 100%; height: auto;" onclick="handleImageClick(event)" />
+                                        alt="Preview" style="width: 100%; height: auto;"
+                                        onclick="handleImageClick(event)" />
                                     <button class="btn btn-danger btn-sm"
-                                        style="position: absolute; top: 5px; right: 5px; z-index: 1;" onclick="handleRemoveImage(event)">
+                                        style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                        onclick="handleRemoveImage(event)">
                                         <i class="bi bi-x"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="form-group mt-3" id="namaKategori">
                                 <label>Nama Kategori</label>
-                                <input type="text" value="@if ($edit && $categories) {{ $categories->name }} @endif"
-                                    name="name" placeholder="Masukkan nama kategori" class="form-control mb-3" required />
+                                <input type="text"
+                                    value="@if ($edit && $categories) {{ $categories->name }} @endif" name="name"
+                                    placeholder="Masukkan nama kategori" class="form-control mb-3" required />
                             </div>
                             <div class="d-flex justify-content-between mb-2 mt-5 align-items-center">
-                                <button type="button" class="btn btn-outline-dark" onclick="handleBatal(event)">Batal</button>
-                                <button class="btn btn-primary" id="btn-save" type="submit"><i class="fas fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-dark"
+                                    onclick="handleBatal(event)">Batal</button>
+                                <button class="btn btn-primary" id="btn-save" type="submit"><i class="fas fa-save"></i>
+                                    Save</button>
                             </div>
                         </form>
                     </div>

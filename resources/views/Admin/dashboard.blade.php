@@ -297,7 +297,7 @@
                 <div style="margin-top: -15px;">
                     <h5 class="card-title">Produk Yang Segera Habis (Stok &lt; 5)</h5>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dataran</h5>
@@ -318,7 +318,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dinding</h5>
@@ -338,7 +338,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -348,7 +348,7 @@
                 <div style="margin-top: -15px;">
                     <h5 class="card-title">Produk Yang Telah Habis (Stok = 0)</h5>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dataran</h5>
@@ -371,7 +371,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Furnitur Pada Dinding</h5>
@@ -391,7 +391,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 {{-- @endforeach --}}
@@ -406,8 +406,8 @@
             $('#table_produk_kurang').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('master.product.data', 'dataran') }}/" +
-                    "?categori=" + 1 + " &is_active=" + 1 + "&akan_habis=" + 1,
+                ajax: "{{ route('master.product.data') }}/" +
+                    "?is_active=" + 1 + "&akan_habis=" + 1,
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -442,50 +442,50 @@
                 ]
             });
 
-            $('#table_dinding_kurang').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('master.product.data', 'dinding') }}/" +
-                    "?categori=" + 2 + " &is_active=" + 1 + "&akan_habis=" + 1,
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false,
-                        visible: false
-                    },
-                    {
-                        data: 'gambar',
-                        name: 'gambar',
-                        orderable: false,
-                        searchable: false,
-                    },
-                    {
-                        data: 'name',
-                        name: 'name',
-                    },
-                    {
-                        data: 'varians',
-                        name: 'varians'
-                    },
-                    {
-                        data: 'stock',
-                        name: 'stock'
-                    },
-                    {
-                        data: 'actions',
-                        name: 'actions',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
-            });
+            // $('#table_dinding_kurang').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     ajax: "{{ route('master.product.data', 'dinding') }}/" +
+            //         "?categori=" + 2 + " &is_active=" + 1 + "&akan_habis=" + 1,
+            //     columns: [{
+            //             data: 'DT_RowIndex',
+            //             name: 'DT_RowIndex',
+            //             orderable: false,
+            //             searchable: false,
+            //             visible: false
+            //         },
+            //         {
+            //             data: 'gambar',
+            //             name: 'gambar',
+            //             orderable: false,
+            //             searchable: false,
+            //         },
+            //         {
+            //             data: 'name',
+            //             name: 'name',
+            //         },
+            //         {
+            //             data: 'varians',
+            //             name: 'varians'
+            //         },
+            //         {
+            //             data: 'stock',
+            //             name: 'stock'
+            //         },
+            //         {
+            //             data: 'actions',
+            //             name: 'actions',
+            //             orderable: false,
+            //             searchable: false
+            //         },
+            //     ]
+            // });
 
             $('#table_dataran_habis').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('master.product.data', 'dataran') }}/" +
-                    "?categori=" + 1 + " &is_active=" + 0 + "&habis=" + 1,
+                ajax: "{{ route('master.product.data') }}/" +
+                    "?is_active=" + 0 + "&habis=" + 1,
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',

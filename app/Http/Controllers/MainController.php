@@ -35,10 +35,12 @@ class MainController extends Controller
                 ->where('end_time', '>=', $currentDateTime);
         })->with('productFlashSale')->first();
         $ratings = Rating::orderBy('created_at', 'asc')->get();
+        $categories = Category::where('is_active', 1)->get();
         return view('user.dashboarduser', [
             'flash_sale' => $flashsale,
             'newProducts' => $product->orderBy('created_at', 'desc')->get()->take(4),
-            'ratings' => $ratings
+            'ratings' => $ratings,
+            'categories' => $categories
         ]);
     }
 
@@ -152,8 +154,8 @@ class MainController extends Controller
 
     public function masterCategory(string $slug)
     {
-        $cat = MCategory::firstWhere('slug', $slug);
-        $cat = Category::where('m_categories', $cat->id)->where('is_active', true)->get();
+        // $cat = MCategory::firstWhere('slug', $slug);
+        $cat = Category::where('m_categories', $slug)->where('is_active', true)->get();
         return view('user.kategoridataran', [
             'cat' => $cat
         ]);

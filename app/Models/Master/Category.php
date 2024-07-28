@@ -21,7 +21,7 @@ class Category extends Model
     const RULES = [
         'name' => 'required',
         'image' => 'required|mimes:jpg,jpeg,png|max:5240',
-        'm_categories' => 'required',
+        // 'm_categories' => 'required',
         'created_by' => 'required'
     ];
 

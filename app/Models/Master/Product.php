@@ -19,7 +19,7 @@ class Product extends Model
 
     const RULES = [
         'name'  => 'required',
-        'm_categories' => 'required',
+        // 'm_categories' => 'required',
         'categori_id' => 'required',
         'sub_name' => 'nullable',
         'stock' => 'required|numeric',
@@ -29,7 +29,8 @@ class Product extends Model
         'thumbnail' => 'required|mimes:jpg,jpeg,png|max:5240',
         'link_ar'   => 'required',
         'link_ar_ios' => 'required',
-        'link_skybox' => 'nullable'
+        'link_skybox' => 'nullable',
+        'position_ar' => 'required'
     ];
 
     const MESSAGE = [

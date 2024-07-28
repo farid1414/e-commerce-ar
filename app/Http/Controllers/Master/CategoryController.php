@@ -22,26 +22,26 @@ class CategoryController extends Controller
         view()->share('this_helper', self::ROUTE);
     }
 
-    public function index(string $slug)
+    public function index()
     {
-        $mcat = MCategory::firstWhere('slug', $slug);
-        $categories = Category::where('m_categories', $mcat->id)->get();
+        // $mcat = MCategory::firstWhere('slug', $slug);
+        $categories = Category::get();
         return view('Admin.index-category', [
             'categories' => $categories,
-            'mCat' => $mcat
+            // 'mCat' => $mcat
         ]);
     }
 
-    public function form(string $slug, int $id = null)
+    public function form(int $id = null)
     {
-        $cat = MCategory::firstWhere('slug', $slug);
+        // $cat = MCategory::firstWhere('slug', $slug);
         $edit = false;
         if ($id) {
             $categories = Category::findOrFail($id);
             $edit = true;
         }
         return view('Admin.tambahkategori', [
-            'm_cat' => $cat,
+            // 'm_cat' => $cat,
             'categories' => $categories ?? null,
             'edit' => $edit
         ]);
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
     public function data(Request $request)
     {
-        $query = Category::select('*')->where('m_categories', $request->categori)->where('is_active', $request->is_active);
+        $query = Category::select('*')->where('is_active', $request->is_active);
 
         return DataTables::of($query)
             ->addIndexColumn()
@@ -62,14 +62,14 @@ class CategoryController extends Controller
                 }
 
                 return '<button class="btn btn-link btn-active-cat"  data-active="' . $dataArchive . '" data-id="' . $q->id . '" style="text-decoration: none;" >' . $textArchive . '</button> <br />
-                        <a href="' . route(self::ROUTE . 'form', ['slug' => $q->masterCat->slug, 'id' => $q->id]) . ' " class="btn btn-link" style="text-decoration: none;">Ubah</a>
+                        <a href="' . route(self::ROUTE . 'form', ['id' => $q->id]) . ' " class="btn btn-link" style="text-decoration: none;">Ubah</a>
                         <br />
                         <div class="dropdown">
                             <button class="btn btn-link dropdown-toggle" style="text-decoration:none;"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false"> Lainnya </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item btn-delete" data-id="' . $q->id . '" data-slug="' . $q->masterCat->slug . '" href="javascript:void(0);">Hapus Kategori</a></li>
-                            <li><a class="dropdown-item" href="' . route(self::ROUTE . 'detail', ['slug' => $q->masterCat->slug, 'id' => $q->id]) . '">Lihat Detail Kategori</a>
+                            <li><a class="dropdown-item btn-delete" data-id="' . $q->id . '" href="javascript:void(0);">Hapus Kategori</a></li>
+                            <li><a class="dropdown-item" href="' . route(self::ROUTE . 'detail', ['id' => $q->id]) . '">Lihat Detail Kategori</a>
                              </li>
                         </ul>
             </div>';
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         $data = [
             'name' => ucfirst($request->name),
             'slug' => Str::slug($request->name),
-            'm_categories' => $request->m_categories,
+            // 'm_categories' => $request->m_categories,
             'image' => $request->image,
             'created_by' => Auth::user()->id ?? 1,
         ];
@@ -123,17 +123,17 @@ class CategoryController extends Controller
             $data['image'] = $url;
         }
 
-        $route = 'dataran';
-        if ($data['m_categories'] == 2) {
-            $route = 'dinding';
-        }
+        // $route = 'dataran';
+        // if ($data['m_categories'] == 2) {
+        //     $route = 'dinding';
+        // }
         try {
             DB::beginTransaction();
             $cat = Category::create($data);
             DB::commit();
             // return JSON_RESPONSE("Success.\nSave new category product {$cat->name}", $cat);
             return JSON_RESPONSE("Success.\nSave new category product {$cat->name}", null, [
-                'url' => route(self::ROUTE . 'index', $route),
+                'url' => route(self::ROUTE . 'index'),
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -149,7 +149,7 @@ class CategoryController extends Controller
         $data = [
             'name' => ucfirst($request->name),
             'slug' => Str::slug($request->name),
-            'm_categories' => $request->m_categories,
+            // 'm_categories' => $request->m_categories,
             'image' => $request->image,
             'created_by' => Auth::user()->id ?? 1,
         ];
@@ -169,17 +169,17 @@ class CategoryController extends Controller
             $data['image'] = $url;
         }
 
-        $route = 'dataran';
-        if ($data['m_categories'] == 2) {
-            $route = 'dinding';
-        }
+        // $route = 'dataran';
+        // if ($data['m_categories'] == 2) {
+        //     $route = 'dinding';
+        // }
 
         try {
             DB::beginTransaction();
             $cat->update($data);
             DB::commit();
             return JSON_RESPONSE("Success.\nUpdate category product {$cat->name}", null, [
-                'url' => route(self::ROUTE . 'index', $route),
+                'url' => route(self::ROUTE . 'index'),
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();

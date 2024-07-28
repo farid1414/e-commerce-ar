@@ -2,15 +2,15 @@
 @extends('layouts.admin.page')
 
 {{-- Tahap untuk judul  --}}
-@section('title', 'Form tambah ' . $mCat->name)
+@section('title', 'Form tambah ')
 
-@section('head_breadcumb', 'Product ' . $mCat->name)
+@section('head_breadcumb', 'Product ')
 @section('content_header')
     <li class="breadcrumb-item">
         <a href="/">Home</a>
     </li>
     <li class="breadcrumb-item">
-        Produk Furnitur Pada {{ $mCat->name }}
+        Produk Furnitur
     </li>
     <li class="breadcrumb-item active">Form</li>
 @stop
@@ -20,7 +20,7 @@
     <section class="section dashboard">
 
         <form action="" method="POST" id="form-tambah-produk">
-            <input type="hidden" readonly name="m_categories" value="{{ $mCat->id }}">
+            {{-- <input type="hidden" readonly name="m_categories" value="{{ $mCat->id }}"> --}}
             @if ($edit && $product->uuid)
                 <input type="hidden" readonly name="uuid" value="{{ $product->uuid }}" id="">
             @endif
@@ -184,7 +184,7 @@
                             </div>
                             <p id="androidErrorMessage" style="color: red;"></p>
                         </div>
-            <hr>
+                        <hr>
                         <div class="form-group" id="linkARiOS">
                             <label for="linkARIOS">Link AR iOS <b>(IOS-SRC)</b></label>
                             <div style="display: flex;">
@@ -196,14 +196,16 @@
                             </div>
                             <p id="iOSErrorMessage" style="color: red;"></p>
                         </div>
-<hr>
+                        <hr>
                         <div class="form-group w-100">
                             <label for="PosisiAR">Posisi Penempatan Objek AR</label>
                             <div class="input-group">
-                                <select class="form-select" name="kategori" id="PosisiAR" required>
+                                <select class="form-select" name="objek_ar" id="PosisiAR" required>
                                     <option value="" disabled selected>Pilih Posisi Penempatan Objek AR</option>
-                                    <option value="dataran">Dataran / Lantai</option>
-                                    <option value="dinding">Dinding</option>
+                                    <option @if ($edit && $product->position_ar == 'dataran') selected @endif value="dataran">Dataran /
+                                        Lantai</option>
+                                    <option @if ($edit && $product->position_ar == 'dinding') selected @endif value="dinding">Dinding
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -222,22 +224,23 @@
                         </div>
 
                         <div style="margin-top: -20px">
-                        <small>
-                            <b>Apa itu SkyBox ?</b>
-                          </small>
-                          <br />
-                          <small>
-                            <p class="text-justify">
-                              Pada dasarnya, skybox adalah cara untuk menciptakan
-                              lingkungan 3D yang tampak nyata. Skybox ini berfungsi
-                              untuk mensimulasikan lingkungan digital bagi pengguna VR
-                              "Head-mounted display" yang mengakses aplikasi web ini. Hal ini membuat pengguna VR dapat merasakan simulasi berada di dalam Skybox.
-                            </p>
-                          </small>
+                            <small>
+                                <b>Apa itu SkyBox ?</b>
+                            </small>
+                            <br />
+                            <small>
+                                <p class="text-justify">
+                                    Pada dasarnya, skybox adalah cara untuk menciptakan
+                                    lingkungan 3D yang tampak nyata. Skybox ini berfungsi
+                                    untuk mensimulasikan lingkungan digital bagi pengguna VR
+                                    "Head-mounted display" yang mengakses aplikasi web ini. Hal ini membuat pengguna VR
+                                    dapat merasakan simulasi berada di dalam Skybox.
+                                </p>
+                            </small>
                         </div>
 
 
-                        
+
                         <div class="d-flex justify-content-end mb-3">
                             <button id="livePreviewButton" type="button" class="btn btn-primary">Lihat Live Preview
                                 3D</button>
@@ -251,10 +254,10 @@
             <div id="contentLivePreviewARDataran" style="display: none;">
                 <model-viewer id="color" src="" ios-src=""
                     skybox-image="https://cdn.glitch.global/eeff5289-f8a2-4538-8a01-b356b23342ea/AdobeStock_190358116_Preview.jpeg?v=1673511925791"
-                    ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto"
-                    skybox-height="@if ($mCat->id == 2) 0 @else 1.8m @endif" shadow-intensity="1"
-                    camera-controls touch-action="pan-y"
-                    ar-placement="@if ($mCat->id == 1) floor @else wall @endif" tone-mapping="neutral"
+                    ar ar-modes="webxr scene-viewer quick-look" xr-environment ar-scale="auto" {{-- skybox-height="@if ($mCat->id == 2) 0 @else 1.8m @endif" --}}
+                    shadow-intensity="1" camera-controls touch-action="pan-y"
+                    @if ($edit) ar-placement ="{{ $product->position_ar }}" @endif
+                    {{-- ar-placement="@if ($mCat->id == 1) floor @else wall @endif"  --}} tone-mapping="neutral"
                     style="width: 100%; height: 500px; border-radius: 15px; position: relative;">
 
                     {{-- Dimensi --}}
@@ -473,7 +476,7 @@
                 id="dimensi_produk">
                 <div class="card-body">
                     <h5 class="card-title">Dimensi Produk</h5>
-                  
+
                     {{-- <footer class="blockquote-footer">
                         Anda saat ini sedang mengaktifkan dimensi yang mengambil data dimensi ukuran dari 3D bawaan,
                         kemungkinan
@@ -750,6 +753,19 @@
             }
         }
 
+        $('body').on('change', '#PosisiAR', function() {
+            let value = $(this).val()
+            let modelView = $("#contentLivePreviewARDataran model-viewer");
+            if (value == 'dataran') {
+                modelView.attr('ar-placement', 'floor')
+                modalView.attr('skybox-height', 0)
+            } else {
+                modelView.attr('ar-placement', 'wall')
+                modalView.attr('skybox-height', 0)
+            }
+            console.log("clear", $(this).val());
+        })
+
         function displayThumbnailPreview() {
             const previewDiv = document.getElementById("thumbnailPreview");
             previewDiv.innerHTML = "";
@@ -955,7 +971,7 @@
 
         // Function to handle Live Preview button click
         const handleLivePreviewClick = () => {
-            let mCat = "{{ $mCat->name }}";
+
             if (!$('#linkARAndroidInput').val()) {
                 Swal.fire({
                     title: 'Error',
@@ -974,14 +990,24 @@
                 })
                 return false
             }
+
+            if (!$('#PosisiAR').val()) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Posisi object Ar required',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+                return false
+            }
             let modelView = $("#contentLivePreviewARDataran model-viewer");
             modelView.attr('src', $("#linkARAndroidInput").val())
             modelView.attr('ios-src', $("#linkARIOSInput").val())
-            if (mCat == 'Dataran') {
-                modelView.attr('ar-placement', 'floor')
-            } else {
-                modelView.attr('ar-placement', 'wall')
-            }
+            // if (mCat == 'Dataran') {
+            //     modelView.attr('ar-placement', 'floor')
+            // } else {
+            //     modelView.attr('ar-placement', 'wall')
+            // }
 
             if ($('#linkSkyBoxInput').val()) {
                 modelView.attr('skybox-image', $('#linkSkyBoxInput').val())

@@ -24,13 +24,13 @@ class ProductController extends Controller
         view()->share('this_helper', self::ROUTE);
     }
 
-    public function index(string $slug)
+    public function index()
     {
-        $mcat = MCategory::firstWhere('slug', $slug);
-        $product = Product::where('m_categories', $mcat->id)->get();
+        // $mcat = MCategory::firstWhere('slug', $slug);
+        $product = Product::get();
 
         return view('Admin.index-product', [
-            'mCat' => $mcat,
+            // 'mCat' => $mcat,
             'products' => $product
         ]);
     }
@@ -73,7 +73,7 @@ class ProductController extends Controller
 
                 return '    <button class="btn btn-link update-stock" data-produk="' . $q->name . '" data-stock="' . $q->stock . '" data-uuid="' . $q->uuid . '" style="text-decoration:none;">Update Stok</button>
                                 <br />
-                            <a href="' . route(self::ROUTE . 'form', ['slug' => $q->masterCat->slug, 'uuid' => $q->uuid]) . '" style="text-decoration:none;" >Ubah </a>
+                            <a href="' . route(self::ROUTE . 'form', ['uuid' => $q->uuid]) . '" style="text-decoration:none;" >Ubah </a>
                                 <br />
                             <div class="dropdown">
                                     <button class="btn btn-link dropdown-toggle" style="text-decoration:none;" type="button"
@@ -119,11 +119,11 @@ class ProductController extends Controller
         ]);
     }
 
-    public function form(string $slug, string $uuid = null)
+    public function form(string $uuid = null)
     {
 
-        $mcat = MCategory::firstWhere('slug', $slug);
-        $cat = Category::where('m_categories', $mcat->id)->where('is_active', '=', 1)->get();
+        // $mcat = MCategory::firstWhere('slug', $slug);
+        $cat = Category::where('is_active', '=', 1)->get();
         $edit = false;
         if ($uuid) {
             $edit = true;
@@ -131,7 +131,7 @@ class ProductController extends Controller
             if (!$product) return redirect()->back()->with('error', 'Product Not Found');
         }
         return view('Admin.tambah-product', [
-            'mCat' => $mcat,
+            // 'mCat' => $mcat,
             'categories' => $cat,
             'product' => $product ?? null,
             'edit' => $edit
@@ -145,7 +145,7 @@ class ProductController extends Controller
         $data = [
             'uuid' => Str::uuid(),
             'name' => $request->name,
-            'm_categories' => $request->m_categories,
+            // 'm_categories' => $request->m_categories,
             'categori_id' => $request->kategori,
             'sub_name' => $request->sub_name,
             'stock' => $request->stock,
@@ -161,7 +161,8 @@ class ProductController extends Controller
             'status_diskon' => $request->check_diskon == 'on' ? true : false,
             'status_dimensi' => $request->check_dimensi == 'on' ? true : false,
             'diskon' => $request->diskon_product ?? null,
-            'stok_sekarang' => $request->stock
+            'stok_sekarang' => $request->stock,
+            'position_ar' => $request->objek_ar
         ];
 
         $validate = Validator::make($data, Product::RULES, Product::MESSAGE, Product::CUSTOM_NAME);
@@ -208,10 +209,10 @@ class ProductController extends Controller
             }
         }
 
-        $route = 'dataran';
-        if ($data['m_categories'] == 2) {
-            $route = 'dinding';
-        }
+        // $route = 'dataran';
+        // if ($data['m_categories'] == 2) {
+        //     $route = 'dinding';
+        // }
 
         try {
             DB::beginTransaction();
@@ -239,7 +240,7 @@ class ProductController extends Controller
             }
             DB::commit();
             return JSON_RESPONSE("Success.\nSave new category product {$request->name}", null, [
-                'url' => route(self::ROUTE . 'index', $route),
+                'url' => route(self::ROUTE . 'index'),
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -269,7 +270,8 @@ class ProductController extends Controller
             'status_diskon' => $request->check_diskon == 'on' ? true : false,
             'status_dimensi' => $request->check_dimensi == 'on' ? true : false,
             'diskon' => $request->diskon_product ?? null,
-            'stok_sekarang' => $request->stock
+            'stok_sekarang' => $request->stock,
+            'position_ar' => $request->objek_ar
         ];
         $rules = Product::RULES;
         $rules['thumbnail'] = 'nullable';

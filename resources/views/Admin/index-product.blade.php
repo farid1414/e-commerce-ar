@@ -2,15 +2,15 @@
 @extends('layouts.admin.page')
 
 {{-- Tahap untuk judul  --}}
-@section('title', 'Product ' . $mCat->name)
+@section('title', 'Product ')
 
-@section('head_breadcumb', 'Product ' . $mCat->name)
+@section('head_breadcumb', 'Product ')
 @section('content_header')
     <li class="breadcrumb-item">
         <a href="/">Home</a>
     </li>
     <li class="breadcrumb-item active">
-        Product Furniture Pada {{ $mCat->name }}
+        Product Furniture Pada
     </li>
 @stop
 
@@ -118,7 +118,7 @@
             </div>
         </div>
         <div class="d-grid gap-2">
-            <a href="{{ route($this_helper . 'form', $mCat->slug) }}" class="btn btn-primary btn-lg">Tambah Produk</a>
+            <a href="{{ route($this_helper . 'form') }}" class="btn btn-primary btn-lg">Tambah Produk</a>
         </div>
 
 
@@ -281,8 +281,8 @@
             $('#table_product_active').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route($this_helper . 'data', $mCat->slug) }}/" +
-                    "?categori={{ $mCat->id }}&is_active=" + 1,
+                ajax: "{{ route($this_helper . 'data') }}/" +
+                    "?is_active=" + 1,
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -335,8 +335,8 @@
             $('#table_produk_kurang').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route($this_helper . 'data', $mCat->slug) }}/" +
-                    "?categori={{ $mCat->id }}&is_active=" + 1 + "&akan_habis=" + 1,
+                ajax: "{{ route($this_helper . 'data') }}/" +
+                    "?is_active=" + 1 + "&akan_habis=" + 1,
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -389,8 +389,8 @@
             $('#table_produk_arsip').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route($this_helper . 'data', $mCat->slug) }}/" +
-                    "?categori={{ $mCat->id }}&is_active=" + 0 + "&habis=" + 1,
+                ajax: "{{ route($this_helper . 'data') }}/" +
+                    "?is_active=" + 0 + "&habis=" + 1,
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
@@ -445,7 +445,7 @@
             let uuid = $(this).attr('data-uuid')
 
             const onConfirm = () => {
-                const action = "{{ route($this_helper . 'delete', $mCat->slug) }}/" + uuid
+                const action = "{{ route($this_helper . 'delete') }}/" + uuid
                 const ajax = new AjaxRequest(action, "DELETE")
                 ajax.onBefore = () => {
                     $loaderEl.removeClass('d-none')
@@ -489,7 +489,7 @@
             }
 
             const onConfirm = () => {
-                const action = "{{ route($this_helper . 'status', $mCat->slug) }}/" + uuid
+                const action = "{{ route($this_helper . 'status') }}/" + uuid
                 const ajax = new AjaxRequest(action)
                 ajax.onBefore = () => {
                     $loaderEl.removeClass('d-none')

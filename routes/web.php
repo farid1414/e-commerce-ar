@@ -272,22 +272,22 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Routing admin
 Route::name('master.')->prefix('/admin')->middleware('auth')->group(function () {
     Route::prefix('/category')->name('category.')->group(function () {
-        Route::get('/{slug?}', [CategoryController::class, 'index'])->name('index');
-        Route::get('/form/{slug?}/{id?}', [CategoryController::class, 'form'])->name('form');
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/form/{id?}', [CategoryController::class, 'form'])->name('form');
         Route::post('/', [CategoryController::class, 'store'])->name('store');
-        Route::get('/{slug?}/data', [CategoryController::class, 'data'])->name('data');
+        Route::get('/data', [CategoryController::class, 'data'])->name('data');
         Route::post('/status/{id?}', [CategoryController::class, 'status'])->name('status');
-        Route::delete('{slug?}/delete/{id?}', [CategoryController::class, 'delete'])->name('delete');
-        Route::get('{slug?}/detail/{id?}', [CategoryController::class, 'detail'])->name('detail');
+        Route::delete('/delete/{id?}', [CategoryController::class, 'delete'])->name('delete');
+        Route::get('/detail/{id?}', [CategoryController::class, 'detail'])->name('detail');
     });
     Route::prefix('/product')->name('product.')->group(function () {
-        Route::get('/{slug?}', [ProductController::class, 'index'])->name('index');
-        Route::get('/form/{slug?}/{uuid?}', [ProductController::class, 'form'])->name('form');
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/form/{uuid?}', [ProductController::class, 'form'])->name('form');
         Route::post('/store', [ProductController::class, 'store'])->name('store');
-        Route::get('/{slug?}/data', [ProductController::class, 'data'])->name('data');
-        Route::post('/{slug?}/update-stock', [ProductController::class, 'updateStock'])->name('update-stock');
-        Route::delete('/{slug?}/delete/{product:uuid?}', [ProductController::class, 'delete'])->name('delete');
-        Route::post('/{slug?}/status/{uuid?}', [ProductController::class, 'status'])->name('status');
+        Route::get('/data', [ProductController::class, 'data'])->name('data');
+        Route::post('/update-stock', [ProductController::class, 'updateStock'])->name('update-stock');
+        Route::delete('/delete/{product:uuid?}', [ProductController::class, 'delete'])->name('delete');
+        Route::post('/status/{uuid?}', [ProductController::class, 'status'])->name('status');
         Route::get('{uuid?}/detail', [ProductController::class, 'detail'])->name('detail');
     });
     Route::prefix('/flash-sale')->name('flash-sale.')->group(function () {
