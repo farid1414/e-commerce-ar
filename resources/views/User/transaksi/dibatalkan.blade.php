@@ -80,7 +80,9 @@
                             <div class="col d-flex flex-column">
                                 <div>
                                     <p class="fw-bold" style="font-size: 1.2rem;">{{ $detail->product->name }}</p>
-                                    <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    @if ($detail->product_varian_id)
+                                        <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    @endif
                                     <span>Kuantitas : {{ $detail->quantity }}x</span>
                                 </div>
                             </div>

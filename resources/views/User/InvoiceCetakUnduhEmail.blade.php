@@ -166,7 +166,9 @@ File INVOICEPELANGGAN . blade . PHP iku gae UI ne tok --}}
                     <tr>
                         <td class="text-center">{{ $i + 1 }}</td>
                         <td class="text-center">{{ $detail->product->name }}</td>
-                        <td class="text-center">Varian {{ $detail->varian->name }}</td>
+                        @if ($$detail->product_varian_id)
+                            <td class="text-center">Varian {{ $detail->varian->name }}</td>
+                        @endif
                         <td class="text-center">Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
                         <td class="text-center">{{ $detail->quantity }}x</td>
                         <td class="text-center">Rp {{ number_format($detail->total, 0, ',', '.') }}</td>

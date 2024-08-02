@@ -171,7 +171,7 @@
                 <!-- ContentInformasiDetailProdukSegeraHabis -->
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Augmented Reality Dataran</h5>
+                        <h5 class="card-title">Augmented Reality {{ $product->position_ar }}</h5>
                         <table class="table table-bordered table-hover">
                             <tbody>
                                 <tr>

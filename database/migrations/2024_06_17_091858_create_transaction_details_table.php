@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("transaction_id")->index()->references("id")->on("transactions")->cascadeOnDelete();
             $table->foreignId("product_id")->index()->references("id")->on("products")->cascadeOnDelete();
-            $table->foreignId("product_varian_id")->index()->references("id")->on("product_varians")->cascadeOnDelete();
+            $table->foreignId("product_varian_id")->nullable()->index()->references("id")->on("product_varians")->cascadeOnDelete();
             $table->foreignId("flash_sale_id")->index()->nullable()->references("id")->on("flash_sales")->cascadeOnDelete();
             $table->integer('quantity')->default(0);
             $table->bigInteger('harga')->unsigned()->default(0);

@@ -429,7 +429,8 @@
                                     <th colspan="10" class="text-center" style="font-size: 20px;">AR-Furniture</th>
                                 </tr>
                                 <tr>
-                                    <th colspan="10" class="text-center">Laporan Penjualan {{ $start_date }} - {{ $end_date }}</th>
+                                    <th colspan="10" class="text-center">Laporan Penjualan {{ $start_date }} -
+                                        {{ $end_date }}</th>
                                 </tr>
                                 <tr>
                                     <th>No.</th>
@@ -455,7 +456,9 @@
                                                 @foreach ($tr->transactionDetail as $detail)
                                                     <li>
                                                         {{ $detail->product->name }}<br />
-                                                        <span><small>-{{ $detail->varian->name }}</small></span>
+                                                        @if ($detail->product_varian_id)
+                                                            <span><small>-{{ $detail->varian->name }}</small></span>
+                                                    @endif
                                                     </li>
                                                 @endforeach
                                             </ul>

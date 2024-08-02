@@ -82,7 +82,7 @@ class MainController extends Controller
     {
         $data = [
             'product_id' => $request->product_id,
-            'product_varian_id' => $request->varian,
+            'product_varian_id' => $request->varian ?? null,
             'user_id' => Auth::user()->id,
             'qty' => $request->quantity,
             'harga' => $request->harga,
@@ -330,7 +330,7 @@ class MainController extends Controller
                 TransactionDetail::create([
                     'transaction_id' => $transaction->id,
                     'product_id' => $cart->product_id,
-                    'product_varian_id' => $cart->product_varian_id,
+                    'product_varian_id' => $cart->product_varian_id ?? null,
                     'flash_sale_id' => $cart->flash_sale_id ?? null,
                     'quantity' => $cart->qty,
                     'harga' => $cart->harga,

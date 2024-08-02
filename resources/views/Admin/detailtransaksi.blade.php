@@ -100,7 +100,10 @@
                                     <td>
                                         <div class="text-dark fw-bold">
                                             {{ $detail->product->name }} <br>
-                                            <small style="font-size: 0.8rem;">Varian: {{ $detail->varian->name }}</small>
+                                            @if ($$detail->product_varian_id)
+                                                <small style="font-size: 0.8rem;">Varian:
+                                                    {{ $detail->varian->name }}</small>
+                                            @endif
                                         </div>
                                     </td>
                                     <td class="text-center">{{ $detail->product->category->name }}</td>

@@ -395,7 +395,7 @@ class ProductController extends Controller
         }
     }
 
-    public function delete(string $slug, Product $product)
+    public function delete(Product $product)
     {
         if (!$product) return ERROR_RESPONSE("Product Not Found");
 
@@ -413,7 +413,7 @@ class ProductController extends Controller
         }
     }
 
-    public function status(string $slug, string $uuid)
+    public function status(string $uuid)
     {
         $product = Product::firstWhere('uuid', $uuid);
         if (!$product) return ERROR_RESPONSE("Product not found");

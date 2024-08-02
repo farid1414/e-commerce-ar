@@ -81,9 +81,13 @@
                                                     width="100" height="100"
                                                     style="border-radius: 10px; object-fit: cover;">
                                             </td>
-                                            <td class="align-middle text-center">
-                                                {{ $cart->varian->name }}
-                                            </td>
+                                            @if ($cart->product_varian_id)
+                                                <td class="align-middle text-center">
+                                                    {{ $cart->varian->name }}
+                                                </td>
+                                            @else
+                                                <td class="text-center">-</td>
+                                            @endif
                                             <td class="align-middle">
                                                 <div class="d-flex align-items-center">
                                                     <button class="btn btn-light btn-sm decre-qty"
@@ -189,14 +193,16 @@
                                         <span>Stok Tersedia : </span>
                                         <span>{{ $cart->product->stok_sekarang }} Produk</span>
                                     </div>
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <span>Varian yang dipilih: </span>
-                                        <div>{{ $cart->varian->name }}</div>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <span>Stock varian yang tersisa: </span>
-                                        <span>{{ $cart->varian->stock }}</span>
-                                    </div>
+                                    @if ($cart->product_varian_id)
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <span>Varian yang dipilih: </span>
+                                            <div>{{ $cart->varian->name }}</div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span>Stock varian yang tersisa: </span>
+                                            <span>{{ $cart->varian->stock }}</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card mt-3">

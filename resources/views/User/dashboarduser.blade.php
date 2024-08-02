@@ -219,7 +219,7 @@
                                                 style="height: 150px; object-fit: cover;">
                                             <div class="card-body" style="height: 60px">
                                                 <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">
-                                                    Kursi.
+                                                    {{ $cat->name }}
                                                 </h5>
                                             </div>
                                         </div>
@@ -237,106 +237,22 @@
                             <div
                                 style="display: flex; overflow-x: auto; padding: 1rem 0; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #333 #f1f1f1;">
                                 <!-- Card 1 -->
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami5.jpg" alt="Kategori 1"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
+                                @foreach ($categories as $cat)
+                                    <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                        <div class="card"
+                                            style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
+                                            <img src="{{ url($cat->image) }}" alt="{{ $cat->name }}"
+                                                style="width: 100%; height: 150px; object-fit: cover;">
+                                            <div class="card-body" style="padding: 1rem;">
+                                                <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">
+                                                    {{ $cat->name }}</h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Card 2 -->
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 2"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Card 3 -->
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 3"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Card 4 -->
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="flex: 0 0 auto; margin-right: 1rem;">
-                                    <div class="card"
-                                        style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
-                                        <img src="../gambar/tentangkami2.jpg" alt="Kategori 4"
-                                            style="width: 100%; height: 150px; object-fit: cover;">
-                                        <div class="card-body" style="padding: 1rem;">
-                                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">Nama
-                                                Kategori.</h5>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-
-
-
 
                     {{-- Kategori
                     <div style="margin-bottom: 30px;">

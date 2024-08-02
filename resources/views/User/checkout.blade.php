@@ -99,7 +99,9 @@
                                     <div>
                                         <p class="fw-bold" style="font-size: 1.2rem;">{{ $cart->product->name }}
                                         </p>
-                                        <p class="text-muted">Varian : {{ $cart->varian->name }}</p>
+                                        @if ($cart->product_varian_id)
+                                            <p class="text-muted">Varian : {{ $cart->varian->name }}</p>
+                                        @endif
                                         <span>Kuantitas : {{ $cart->quantity }}x</span>
                                     </div>
                                 </div>

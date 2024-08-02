@@ -171,12 +171,13 @@
                                     <div class="product-list d-flex flex-column overflow-auto"
                                         style="max-height: 400px;">
                                         @foreach ($product->images as $img)
-                                            <img src="{{ url($img->image) }}" alt="Produk 1" style="margin-bottom: 10px; border-radius: 8px;">
+                                            <img src="{{ url($img->image) }}" alt="Produk 1"
+                                                style="margin-bottom: 10px; border-radius: 8px;">
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-md-9">
                                 <div id="carouselExampleDark" class="carousel carousel-dark slide">
@@ -237,7 +238,8 @@
                                     @foreach ($product->images as $index => $img)
                                         <div class="carousel-item @if ($index == 0) active @endif"
                                             data-bs-interval="{{ $incrementProduct += 1000 }}">
-                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="..." style="border-radius: 10px">
+                                            <img src="{{ url($img->image) }}" class="d-block w-100" alt="..."
+                                                style="border-radius: 10px">
                                         </div>
                                     @endforeach
                                 </div>
@@ -258,12 +260,13 @@
                                 <div class="row">
                                     @foreach ($product->images as $index => $img)
                                         <div class="col">
-                                            <img src="{{ url($img->image) }}" class="img-fluid" alt="Product 1" style="border-radius: 10px; max-width: 100%; height: auto;">
+                                            <img src="{{ url($img->image) }}" class="img-fluid" alt="Product 1"
+                                                style="border-radius: 10px; max-width: 100%; height: auto;">
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
-                            
+
                             {{-- <div class="container mt-4">
                                 <div class="row">
                                     @foreach ($product->images as $index => $img)
@@ -273,8 +276,8 @@
                                     @endforeach
                                 </div>
                             </div> --}}
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>
@@ -295,7 +298,8 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
                                         <b>Tentang Produk Ini</b>
                                     </button>
                                 </h2>
@@ -653,7 +657,7 @@
                         <div class="d-flex justify-content-between">
                             <label for="" class="form-label">Pilih Varian Produk</label>
                             <div>
-                                <select name="varian" required id="varian" class="form-select">
+                                <select name="varian" id="varian" class="form-select">
                                     <option value="" selected>Pilih Varian</option>
                                 </select>
                             </div>
@@ -917,7 +921,6 @@
         function decreaseQuantity() {
             if (quantity > 1) {
                 quantity--;
-                console.log("harga", $('#harga').val());
                 updateQuantityDisplay();
             }
         }
@@ -925,7 +928,6 @@
         function increaseQuantity() {
             if (quantity < quantityLimit) {
                 quantity++;
-                console.log("harga", $('#harga').val(), quantity);
                 updateQuantityDisplay();
             }
         }

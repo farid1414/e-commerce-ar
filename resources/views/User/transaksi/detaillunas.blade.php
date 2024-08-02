@@ -49,7 +49,8 @@
                 </div>
                 @if ($transaction->status == -1)
                     <p><b>Alasan : </b></p>
-                    <p>{{ $transaction->reason ? $reason[$transaction->reason] : 'Ingin merubah rincian & membuat pesanan baru.' }}</p>
+                    <p>{{ $transaction->reason ? $reason[$transaction->reason] : 'Ingin merubah rincian & membuat pesanan baru.' }}
+                    </p>
                 @endif
             </div>
         </div>
@@ -82,7 +83,9 @@
                             <div class="col d-flex flex-column">
                                 <div>
                                     <p class="fw-bold" style="font-size: 1.2rem;">{{ $detail->product->name }}</p>
-                                    <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    @if ($detail->product_varian_id)
+                                        <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    @endif
                                     <span>Kuantitas : {{ $detail->quantity }}x</span>
                                 </div>
                             </div>
@@ -137,7 +140,7 @@
                                 Tampilkan ulasan yang anda berikan.
                             </button>
                         </h2>
-                        @forelse ($transaction->rating->where('transaction_id', $transaction->id) as $rating)
+                        @forelse ($rating->whereIn('transaction_id', $transaction->transactionDetail->pluck('id'))->where('user_id', Auth()->user()->id) as $rating)
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
@@ -221,7 +224,7 @@
         @if ($transaction->status == 1)
             <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-success">Beri Penilaian</button>
-                <a href="/Invoicepesanan" class="btn btn-dark">
+                <a href="{{ route('invoice-pelanggan', $transaction->id) }}" class="btn btn-dark">
                     Tampilkan Invoice
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>

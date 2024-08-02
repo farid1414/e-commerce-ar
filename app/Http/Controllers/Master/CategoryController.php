@@ -209,7 +209,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function delete(string $slug, int $id)
+    public function delete(int $id)
     {
         $cat = Category::findOrFail($id);
         if (!$cat) return ERROR_RESPONSE("Category not found");

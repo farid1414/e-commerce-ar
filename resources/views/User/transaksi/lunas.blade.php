@@ -80,7 +80,9 @@
                             <div class="col d-flex flex-column">
                                 <div>
                                     <p class="fw-bold" style="font-size: 1.2rem;">{{ $detail->product->name }}</p>
-                                    <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    @if ($detail->product_varian_id)
+                                        <p class="text-muted">Varian : {{ $detail->varian->name }}</p>
+                                    @endif
                                     <span>Kuantitas : {{ $detail->quantity }}x</span>
                                 </div>
                             </div>
@@ -123,8 +125,9 @@
                         @if (!$tr->rating)
                             <button type="button" class="btn btn-success mr-2 btn-penilaian"
                                 data-product="{{ $detail->product_id }}" data-name="{{ $detail->product->name }}"
-                                data-image="{{ url($detail->product->thumbnail) }}" data-qty="{{ $detail->quantity }}"
-                                data-varian-name = "{{ $detail->varian->name }}"
+                                data-image="{{ url($detail->product->thumbnail) }}"
+                                data-qty="{{ $detail->quantity }}"'
+                                @if ($detail->product_varian_id) data-varian-name = "{{ $detail->varian->name }}" @endif'
                                 data-varian="{{ $detail->product_varian_id }}" data-id="{{ $detail->id }}">
                                 Beri Penilaian
                             </button>

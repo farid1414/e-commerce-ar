@@ -108,7 +108,11 @@
                                 <tr>
                                     <td class="text-center">{{ $i + 1 }}</td>
                                     <td class="text-center">{{ $detail->product->name }}</td>
-                                    <td class="text-center">Varian {{ $detail->varian->name }}</td>
+                                    @if ($detail->product_varian_id)
+                                        <td class="text-center">Varian {{ $detail->varian->name }}</td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
                                     <td class="text-center">{{ formatRupiah($detail->harga) }}</td>
                                     <td class="text-center">{{ $detail->quantity }}x</td>
                                     <td class="text-center">{{ formatRupiah($detail->total) }}</td>
@@ -236,7 +240,9 @@
                                             <p class="text-muted">x {{ $detail->quantity }}</p>
                                         </div>
                                         <div class="d-flex justify-content-between" style="margin-top: -15px;">
-                                            <p class="text-muted">varian : {{ $detail->varian->name }}</p>
+                                            @if ($detail->product_varian_id)
+                                                <p class="text-muted">varian : {{ $detail->varian->name }}</p>
+                                            @endif
                                             <p>{{ formatRupiah($detail->harga) }}</p>
                                         </div>
                                         <hr />

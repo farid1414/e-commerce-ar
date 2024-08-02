@@ -332,7 +332,9 @@
                                 @foreach ($tr->transactionDetail as $detail)
                                     <li>
                                         {{ $detail->product->name }}<br />
-                                        <span><small>-{{ $detail->varian->name }}</small></span>
+                                        @if ($detail->product_varian_id)
+                                            <span><small>-{{ $detail->varian->name }}</small></span>
+                                        @endif
                                     </li>
                                 @endforeach
                             </ul>
