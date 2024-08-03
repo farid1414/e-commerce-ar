@@ -209,26 +209,25 @@
                     <!-- Kategori yang hanya tampil di desktop -->
                     <div class="d-none d-md-block" style="margin-top: -50px">
                         <div class="container my-5">
-                            <div class="row justify-content-center">
+                            <div class="row">
                                 <!-- Card 1 -->
                                 @foreach ($categories as $cat)
                                     <div class="col-md-3 col-sm-6 mb-4">
                                         <div class="card"
                                             style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
-                                            <img src="{{ url($cat->image) }}" class="card-img-top" alt="Kategori 1"
-                                                style="height: 150px; object-fit: cover;">
-                                            <div class="card-body" style="height: 60px">
-                                                <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold;">
-                                                    Kursi.
+                                            <img src="{{ url($cat->image) }}" class="card-img-top" alt="Kategori 1" style="height: 150px; width: 100%; object-fit: cover;" loading="lazy">
+                                            <div class="card-body" style="height: 60px; text-align: left;">
+                                                <h5 class="card-title" style="font-size: 15px; font-weight: bold;">
+                                                    {{$cat->name}}.
                                                 </h5>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
+                    
 
                     <!-- Kategori yang hanya tampil di mobile -->
                     <div class="d-block d-md-none" style="margin-top: -40px">
