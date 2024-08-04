@@ -1,5 +1,5 @@
 @extends('layouts.admin.page')
-@section('title', 'Kategroi ')
+@section('title', 'Kategori')
 
 @section('head_breadcumb', 'Kategori ')
 @section('content_header')
