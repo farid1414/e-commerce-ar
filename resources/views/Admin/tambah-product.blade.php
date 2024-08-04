@@ -761,7 +761,7 @@
                 modalView.attr('skybox-height', 0)
             } else {
                 modelView.attr('ar-placement', 'wall')
-                modalView.attr('skybox-height', 0)
+                modalView.attr('skybox-height', '1.8m')
             }
             console.log("clear", $(this).val());
         })
