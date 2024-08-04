@@ -212,7 +212,7 @@
                             <div class="row justify-content-center">
                                 <!-- Card 1 -->
                                 @foreach ($categories as $cat)
-                                    <div class="col-md-3 col-sm-6 mb-4">
+                                    <a href="{{ route('product-category', $cat->id) }}" class="col-md-3 col-sm-6 mb-4">
                                         <div class="card"
                                             style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; max-width: 100%;">
                                             <img src="{{ url($cat->image) }}" class="card-img-top" alt="Kategori 1"
@@ -223,7 +223,7 @@
                                                 </h5>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 @endforeach
 
                             </div>
@@ -238,7 +238,8 @@
                                 style="display: flex; overflow-x: auto; padding: 1rem 0; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #333 #f1f1f1;">
                                 <!-- Card 1 -->
                                 @foreach ($categories as $cat)
-                                    <div style="flex: 0 0 auto; margin-right: 1rem;">
+                                    <a href="{{ route('product-category', $cat->id) }}"
+                                        style="flex: 0 0 auto; margin-right: 1rem;">
                                         <div class="card"
                                             style="border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: 200px; max-width: 100%;">
                                             <img src="{{ url($cat->image) }}" alt="{{ $cat->name }}"
@@ -248,7 +249,7 @@
                                                     {{ $cat->name }}</h5>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 @endforeach
                             </div>
                         </div>
