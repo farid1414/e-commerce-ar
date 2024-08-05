@@ -758,10 +758,10 @@
             let modelView = $("#contentLivePreviewARDataran model-viewer");
             if (value == 'dataran') {
                 modelView.attr('ar-placement', 'floor')
-                modalView.attr('skybox-height', 0)
+                modelView.attr('skybox-height', '1.8m')
             } else {
                 modelView.attr('ar-placement', 'wall')
-                modalView.attr('skybox-height', '1.8m')
+                modelView.attr('skybox-height', 0)
             }
             console.log("clear", $(this).val());
         })
