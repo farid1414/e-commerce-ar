@@ -90,10 +90,16 @@ class FlashSaleController extends Controller
                 foreach ($request->stok_varian[$id] as $key => $stok) {
                     $data = [
                         'product_id' => $id,
-                        'product_varian_id' => $request->id_varian[$id][$key],
+                        // 'product_varian_id' => $request->id_varian[$id][$key],
                         'custom_stock' => $stok,
                         'custom_harga' => $request->harga_varian[$id][$key]
                     ];
+                    if (isset($request->id_varian[$id][$key])) {
+                        $data['product_varian_id'] = $request->id_varian[$id][$key];
+                    } else {
+                        $data['product_varian_id'] = null;
+                    }
+
                     array_push($prod_flash, $data);
                 }
             } else {

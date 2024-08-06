@@ -69,7 +69,7 @@
                                                         </td>
                                                         <td class="text-center">{{ $prod->name }}</td>
                                                         <td class="text-center fw-bold">
-                                                            {{ $prod->category->name }}<br /><small>{{ $prod->masterCat->name }}</small>
+                                                            {{ $prod->category->name }}<br />
                                                         </td>
                                                         <th class="text-center">
                                                             @if ($prod->varians->count())
@@ -259,7 +259,10 @@
                     html += '</td>'
 
                 } else {
-                    html += '<td> - </td>'
+                    html +=
+                        `<td><input type="text" name="harga_varian[${prod.id}][]" required class="form-control mb-2" id="exampleInputEmail1" placeholder="Diskon harga ${prod.name}, contoh 20000"> </td>`
+                    html +=
+                        `<td> <input type="text" name="stok_varian[${prod.id}][]" required class="form-control mb-2" id="exampleInputEmail1" placeholder="Stok Varian ${prod.name}, contoh 20"> </td>`
                 }
                 html += '</tr>'
             })

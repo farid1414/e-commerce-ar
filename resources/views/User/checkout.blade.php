@@ -65,15 +65,15 @@
 
                     <input type="hidden" readonly name="product_id[]" value="{{ $cart->product->id }}">
                     @if ($cart->product->flashSale->count())
-                        @php
+                        {{-- @php
                             $flashSale = $cart->product->flashSale
                                 ->where('product_varian_id', $cart->varian->id)
                                 ->first()->flashSale;
                         @endphp
-                        @if ($flashSale)
-                            <input type="hidden" readonly name="flash_sale_id[{{ $i }}]"
-                                value="{{ $flashSale->id }}">
-                        @endif
+                        @if ($flashSale) --}}
+                        <input type="hidden" readonly name="flash_sale_id[{{ $i }}]"
+                            value="{{ $cart->flash_sale_id }}">
+                        {{-- @endif --}}
                     @endif
                     {{-- <input type="hidden" readonly name="varian_id[]" value="{{ $cart->varian->id }}">
                     <input type="hidden" readonly name="qty[]" value="{{ $cart->qty }}">

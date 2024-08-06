@@ -201,16 +201,16 @@
                                         $exp->id,
                                     )
                                         ->get()
-                                        ->groupBy('product_id');
-                                    foreach ($prodAct as $p => $pr) {
-                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
-                                        if ($product->m_categories == 1) {
-                                            $totalDataran++;
-                                        }
-                                        if ($product->m_categories == 2) {
-                                            $totalDinding++;
-                                        }
-                                    }
+                                        ->count();
+                                    // foreach ($prodAct as $p => $pr) {
+                                    //     $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                    //     if ($product->m_categories == 1) {
+                                    //         $totalDataran++;
+                                    //     }
+                                    //     if ($product->m_categories == 2) {
+                                    //         $totalDinding++;
+                                    //     }
+                                    // }
                                 @endphp
                                 <div class="card large-card">
                                     <div class="card-body">
@@ -230,17 +230,17 @@
                                                 <span style="font-size: 0.8rem;">{{ $exp->end_time }}</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
-                                            <div class="d-flex justify-content-between">
+                                            {{-- <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Daratan</p>
                                                 <span>{{ $totalDataran }} Produk</span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Dinding</p>
                                                 <span>{{ $totalDinding }} Produk</span>
-                                            </div>
+                                            </div> --}}
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">{{ $totalDataran + $totalDinding }}
+                                                <span class="text-end">{{ $prodAct }} Produk
                                                 </span>
                                                 {{-- <span class="text-end">{{ $exp->productFlashSale->count() }}
                                                     Produk dari 8 Kategori</span> --}}
@@ -285,22 +285,20 @@
                                     $totalDataran = 0;
                                     $totalDinding = 0;
                                     $produkTerjual = 0;
+                                    $totalProd = 0;
                                     $prodAct = \App\Models\Master\ProductFlashSale::where(
                                         'flash_sale_id',
                                         '=',
                                         $act->id,
                                     )
                                         ->get()
-                                        ->groupBy('product_id');
-                                    foreach ($prodAct as $p => $pr) {
-                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
-                                        if ($product->m_categories == 1) {
-                                            $totalDataran++;
-                                        }
-                                        if ($product->m_categories == 2) {
-                                            $totalDinding++;
-                                        }
-                                    }
+                                        ->count();
+                                    // foreach ($prodAct as $p => $pr) {
+                                    //     $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                    //     if ($product) {
+                                    //         $totalProd++;
+                                    //     }
+                                    // }
                                 @endphp
                                 <div class="card large-card">
                                     <div class="card-body">
@@ -321,24 +319,26 @@
                                                 <span style="font-size: 0.8rem;">{{ $act->end_time }}</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
-                                            <div class="d-flex justify-content-between">
+                                            {{-- <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Daratan</p>
-                                                <span>{{ $totalDataran }} Produk</span>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
+                                                <span>{{ $totalProd }} Produk</span>
+                                            </div> --}}
+                                            {{-- <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Dinding</p>
                                                 <span>{{ $totalDinding }} Produk</span>
-                                            </div>
+                                            </div> --}}
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">{{ $totalDataran + $totalDinding }} Produk dari
+                                                <span class="text-end">{{ $prodAct }} Produk dari
                                                     {{ $cat->count() }}
                                                     Kategori</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Terjual</p>
-                                                <span class="fw-bold"> Produk Terjual</span>
+                                                <span class="fw-bold">
+                                                    {{ \App\Models\TransactionDetail::where('flash_sale_id', $exp->id)->count() }}
+                                                    Produk Terjual</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
                                             <div class="d-flex justify-content-between">
@@ -394,16 +394,16 @@
                                         $exp->id,
                                     )
                                         ->get()
-                                        ->groupBy('product_id');
-                                    foreach ($prodAct as $p => $pr) {
-                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
-                                        if ($product->m_categories == 1) {
-                                            $totalDataran++;
-                                        }
-                                        if ($product->m_categories == 2) {
-                                            $totalDinding++;
-                                        }
-                                    }
+                                        ->count();
+                                    // foreach ($prodAct as $p => $pr) {
+                                    //     $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                    //     if ($product->m_categories == 1) {
+                                    //         $totalDataran++;
+                                    //     }
+                                    //     if ($product->m_categories == 2) {
+                                    //         $totalDinding++;
+                                    //     }
+                                    // }
                                 @endphp
                                 <div class="card large-card">
                                     <div class="card-body">
@@ -423,17 +423,17 @@
                                                 <span style="font-size: 0.8rem;">{{ $exp->end_time }}</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
-                                            <div class="d-flex justify-content-between">
+                                            {{-- <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Daratan</p>
                                                 <span>{{ $totalDataran }} Produk</span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Dinding</p>
                                                 <span>{{ $totalDinding }} Produk</span>
-                                            </div>
+                                            </div> --}}
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">{{ $totalDataran + $totalDinding }}
+                                                <span class="text-end">{{ $prodAct }} Produk
                                                 </span>
                                                 {{-- <span class="text-end">{{ $exp->productFlashSale->count() }}
                                                 Produk dari 8 Kategori</span> --}}
@@ -485,16 +485,17 @@
                                         $exp->id,
                                     )
                                         ->get()
-                                        ->groupBy('product_id');
-                                    foreach ($prodAct as $p => $pr) {
-                                        $product = \App\Models\Master\Product::firstWhere('id', $p);
-                                        if ($product->m_categories == 1) {
-                                            $totalDataran++;
-                                        }
-                                        if ($product->m_categories == 2) {
-                                            $totalDinding++;
-                                        }
-                                    }
+                                        ->groupBy('product_id')
+                                        ->count();
+                                    // foreach ($prodAct as $p => $pr) {
+                                    //     $product = \App\Models\Master\Product::firstWhere('id', $p);
+                                    //     if ($product->m_categories == 1) {
+                                    //         $totalDataran++;
+                                    //     }
+                                    //     if ($product->m_categories == 2) {
+                                    //         $totalDinding++;
+                                    //     }
+                                    // }
                                 @endphp
                                 <div class="card large-card">
                                     <div class="card-body">
@@ -514,17 +515,17 @@
                                                 <span style="font-size: 0.8rem;">{{ $exp->end_time }}</span>
                                             </div>
                                             <hr style="margin-top: -5px;">
-                                            <div class="d-flex justify-content-between">
+                                            {{-- <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Daratan</p>
                                                 <span>{{ $totalDataran }} Produk</span>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Dinding</p>
                                                 <span>{{ $totalDinding }} Produk</span>
-                                            </div>
+                                            </div> --}}
                                             <div class="d-flex justify-content-between">
                                                 <p class="fw-bold">Total Produk Keseluruhan</p>
-                                                <span class="text-end">{{ $exp->productFlashSale->count() }}
+                                                <span class="text-end">{{ $prodAct }} Produk
                                                 </span>
                                                 {{-- <span class="text-end">{{ $exp->productFlashSale->count() }}
                                                     Produk dari 8 Kategori</span> --}}
